@@ -1,0 +1,47 @@
+md Processing
+	cd Processing
+		md Image
+			cd Image
+				md ToBeProcessedQueue
+				md Temp
+				md ProblemProcessingQueue
+			cd ..
+		md Audio
+			cd Audio
+				md ToBeProcessedQueue
+				md Temp
+				md ProblemProcessingQueue
+			cd ..
+		md Video
+			cd Video
+				md ToBeProcessedQueue
+				md Temp
+				md ProblemProcessingQueue
+			cd ..
+		md File
+			cd File
+				md ToBeProcessedQueue
+				md Temp
+				md ProblemProcessingQueue
+			cd ..
+	cd ..
+md Original
+	cd Original
+		md Image
+		md Audio
+		md Video
+		md File
+	cd ..
+md Output
+	cd Output
+		md Image
+			cd Image
+				md Original
+				md Resized
+				md ImageThumbnail
+			cd ..
+		md Audio
+		md Video
+		md File
+	cd ..
+

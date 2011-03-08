@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0AACC6C-F046-4057-9CAA-A313512C4E05}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Talifun.Commander.Command.Video</RootNamespace>
+    <AssemblyName>Talifun.Commander.Command.Video</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspectRatio.cs" />
+    <Compile Include="ConfigurationTester\VideoConversionSettingsTester.cs" />
+    <Compile Include="Configuration\VideoConversionSettingConfiguration.cs" />
+    <Compile Include="Configuration\VideoConversionSettingElement.cs" />
+    <Compile Include="Configuration\VideoConversionSettingElementCollection.cs" />
+    <Compile Include="FLVCommand.cs" />
+    <Compile Include="FLVSettings.cs" />
+    <Compile Include="H264Command.cs" />
+    <Compile Include="H264Settings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoConversionType.cs" />
+    <Compile Include="VideoConverterSaga.cs" />
+    <Compile Include="VideoSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
+      <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
+      <Name>Talifun.Commander.Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Executor.CommandLine\Talifun.Commander.Executor.CommandLine.csproj">
+      <Project>{05B649B2-2CF7-4775-A77A-1C4B547915AE}</Project>
+      <Name>Talifun.Commander.Executor.CommandLine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Executor.FFMpeg\Talifun.Commander.Executor.FFMpeg.csproj">
+      <Project>{DBD72C26-152B-4ED1-8D11-683ABB21F864}</Project>
+      <Name>Talifun.Commander.Executor.FFMpeg</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
