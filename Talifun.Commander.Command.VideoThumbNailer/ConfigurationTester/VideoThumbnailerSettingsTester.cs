@@ -28,9 +28,9 @@ namespace Talifun.Commander.Command.VideoThumbNailer.ConfigurationTester
                 return;
             }
 
-            var FFMpegPath = SettingsHelper.FFMpegPath;
+            var ffMpegPath = VideoThumbnailerSettingConfiguration.FFMpegPath;
 
-            if (string.IsNullOrEmpty(FFMpegPath))
+            if (string.IsNullOrEmpty(ffMpegPath))
             {
                 throw new Exception("FFMpegPath appSetting Required");
             }

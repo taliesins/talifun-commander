@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video
@@ -32,7 +33,7 @@ namespace Talifun.Commander.Command.Video
             var secondPassSoundArgs = string.Format("-acodec libfaac -ar {0} -ab {1} -ac {2}", settings.AudioFrequency, settings.AudioBitRate, settings.AudioChannels);
             var secondPassCommandArguments = string.Format("-i \"{0}\" -passlogfile \"{1}\" -pass 2 -vcodec libx264 -s {2}x{3} -b {4} -maxrate {5} -bufsize {6} -r {7} -g {8} -keyint_min {9} {10} {11} {12} -title \"{13}\" \"{14}\"", inputFilePath.FullName, logFilePath.FullName, settings.Width, settings.Height, settings.VideoBitRate, settings.MaxVideoBitRate, settings.BufferSize, settings.FrameRate, settings.KeyframeInterval, settings.MinKeyframeInterval, AllFixedOptions, SecondPhaseFixedOptions, secondPassSoundArgs, outPutFilePath.FullName, outPutFilePath.FullName);
 
-            var fFMpegCommandPath = SettingsHelper.FFMpegPath;
+            var fFMpegCommandPath = VideoConversionSettingConfiguration.FFMpegPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var result = false;

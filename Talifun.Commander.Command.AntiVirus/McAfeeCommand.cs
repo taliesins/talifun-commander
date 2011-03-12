@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.AntiVirus
@@ -21,7 +22,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
             inputFilePath.CopyTo(outPutFilePath.FullName);
 
-            var commandPath = SettingsHelper.McAfeePath;
+            var commandPath = AntiVirusSettingConfiguration.McAfeePath;
             var workingDirectory = outputDirectoryPath.FullName;
             var commandArguments = @"/target """ + outPutFilePath.FullName + @""" " + AllFixedOptions;
 

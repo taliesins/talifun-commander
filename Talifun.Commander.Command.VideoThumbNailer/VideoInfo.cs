@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command
@@ -30,7 +31,7 @@ namespace Talifun.Commander.Command
             var args = string.Format(@"-i ""{0}""", videoFilePath.FullName);
             
             var workingDirectory = videoFilePath.DirectoryName;
-            var commandPath = SettingsHelper.FFMpegPath;
+            var commandPath = VideoThumbnailerSettingConfiguration.FFMpegPath;
    
             if (!helper.Execute(workingDirectory, commandPath, args, out output))
             {

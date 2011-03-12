@@ -133,7 +133,6 @@
     <Compile Include="ICommandSagaProperties.cs" />
     <Compile Include="IExectutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.FileWatcher\Talifun.Commander.FileWatcher.csproj">

@@ -28,9 +28,9 @@ namespace Talifun.Commander.Command.Audio.ConfigurationTester
                 return;
             }
 
-            var FFMpegPath = SettingsHelper.FFMpegPath;
+            var ffMpegPath = AudioConversionSettingConfiguration.FFMpegPath;
 
-            if (string.IsNullOrEmpty(FFMpegPath))
+            if (string.IsNullOrEmpty(ffMpegPath))
             {
                 throw new Exception("FFMpegPath appSetting Required");
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.VideoThumbnailer
@@ -58,7 +59,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
             var commandArguments = string.Format("-i \"{0}\" -s {1}x{2} {3} {4} \"{5}\"", inputFilePath.FullName, settings.Width, settings.Height, position, AllFixedOptions, outPutFilePath.FullName);
 
-            var commandPath = SettingsHelper.FFMpegPath;
+            var commandPath = VideoThumbnailerSettingConfiguration.FFMpegPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandOutput = string.Empty;

@@ -1,9 +1,19 @@
-﻿namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+﻿using System.Configuration;
+
+namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
     public static class VideoThumbnailerSettingConfiguration
     {
         public const string ConversionType = "VideoThumbnailer";
         public const string CollectionSettingName = "videoThumbnailerSettings";
         public const string ElementSettingName = "videoThumbnailerSetting";
+
+        public static string FFMpegPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["FFMpegPath"];
+            }
+        }
     }
 }

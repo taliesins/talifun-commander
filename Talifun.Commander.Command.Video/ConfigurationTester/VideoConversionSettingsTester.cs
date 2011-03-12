@@ -28,16 +28,16 @@ namespace Talifun.Commander.Command.Video.ConfigurationTester
                 return;
             }
 
-            var FFMpegPath = SettingsHelper.FFMpegPath;
+            var ffMpegPath = VideoConversionSettingConfiguration.FFMpegPath;
 
-            if (string.IsNullOrEmpty(FFMpegPath))
+            if (string.IsNullOrEmpty(ffMpegPath))
             {
                 throw new Exception("FFMpegPath appSetting Required");
             }
 
-            var FlvTool2Path = SettingsHelper.FlvTool2Path;
+            var flvTool2Path = VideoConversionSettingConfiguration.FlvTool2Path;
 
-            if (string.IsNullOrEmpty(FlvTool2Path))
+            if (string.IsNullOrEmpty(flvTool2Path))
             {
                 throw new Exception("FlvTool2Path appSetting Required");
             }

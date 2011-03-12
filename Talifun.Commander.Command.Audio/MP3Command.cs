@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Audio
@@ -17,7 +18,7 @@ namespace Talifun.Commander.Command.Audio
                 outPutFilePath.Delete();
             }
 
-            var commandPath = SettingsHelper.FFMpegPath;
+            var commandPath = AudioConversionSettingConfiguration.FFMpegPath;
             var workingDirectory = outputDirectoryPath.FullName;
             var commandArguments = String.Format("-i \"{0}\" -acodec libmp3lame -ab {1} -ar {2} -ac {3} \"{4}\"", inputFilePath.FullName, settings.AudioBitRate, settings.AudioFrequency, settings.AudioChannels, outPutFilePath.FullName);
 

@@ -80,9 +80,9 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
                 return;
             }
 
-            var ConvertPath = SettingsHelper.ConvertPath;
+            var convertPath = ImageConversionSettingConfiguration.ConvertPath;
 
-            if (string.IsNullOrEmpty(ConvertPath))
+            if (string.IsNullOrEmpty(convertPath))
             {
                 throw new Exception("ConvertPath appSetting Required");
             }
@@ -157,7 +157,5 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
                         project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
             }
         }
-
- 
     }
 }

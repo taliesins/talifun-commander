@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.AntiVirus
                 if (antiVirusSetting.VirusScannerType == Commander.Command.AntiVirus.VirusScannerType.NotSpecified
                     || antiVirusSetting.VirusScannerType == Commander.Command.AntiVirus.VirusScannerType.McAfee)
                 {
-                    var virusScannerPath = SettingsHelper.McAfeePath;
+                    var virusScannerPath = AntiVirusSettingConfiguration.McAfeePath;
 
                     if (string.IsNullOrEmpty(virusScannerPath))
                     {

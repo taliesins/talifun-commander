@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.Image.Configuration;
 using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.Image
@@ -130,7 +131,7 @@ namespace Talifun.Commander.Command.Image
                     }
             }
 
-            var commandPath = SettingsHelper.ConvertPath;
+            var commandPath = ImageConversionSettingConfiguration.ConvertPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandLineExecutor = new CommandLineExecutor();
