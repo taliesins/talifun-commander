@@ -26,8 +26,8 @@ namespace Talifun.Commander.Command.Video
             var flvTool2CommandArguments = string.Format("-U \"{0}\"", outPutFilePath.FullName);
 
             var workingDirectory = outputDirectoryPath.FullName;
-            var fFMpegCommandPath = VideoConversionSettingConfiguration.FFMpegPath;
-            var flvTool2CommandPath = VideoConversionSettingConfiguration.FlvTool2Path;
+            var fFMpegCommandPath = VideoConversionSettingConfiguration.Instance.FFMpegPath;
+            var flvTool2CommandPath = VideoConversionSettingConfiguration.Instance.FlvTool2Path;
  
             var result = false;
             var encodeOutput = string.Empty;

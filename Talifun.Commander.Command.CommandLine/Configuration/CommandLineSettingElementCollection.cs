@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.CommandLine
     {
         public CommandLineSettingElementCollection()
         {
-            CollectionSettingName = CommandLineSettingConfiguration.CollectionSettingName;
-            ElementSettingName = CommandLineSettingConfiguration.ElementSettingName;
+            CollectionSettingName = CommandLineSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = CommandLineSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

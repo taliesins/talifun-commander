@@ -1,25 +1,15 @@
-﻿using System.Configuration;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using System.IO;
 using Talifun.Commander.Command.Video.Configuration;
 
 namespace Talifun.Commander.Command.Video
 {
     public class VideoConverterSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return VideoConversionSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return VideoConversionSettingConfiguration.CollectionSettingName;
+                return VideoConversionSettingConfiguration.Instance;
             }
         }
 

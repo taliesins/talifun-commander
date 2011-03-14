@@ -1,9 +1,26 @@
 ﻿namespace Talifun.Commander.Command.CommandLine.Configuration
 {
-    public static class CommandLineSettingConfiguration
+    public class CommandLineSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "CommandLine";
-        public const string CollectionSettingName = "commandLineSettings";
-        public const string ElementSettingName = "commandLineSetting";
+        private CommandLineSettingConfiguration()
+        {
+        }
+
+        public static readonly CommandLineSettingConfiguration Instance = new CommandLineSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "CommandLine"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "commandLineSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "commandLineSetting"; }
+        }
     }
 }

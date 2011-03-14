@@ -222,7 +222,7 @@ namespace Talifun.Commander.Command
         protected ICommandSaga GetCommandSaga(string conversionType)
         {
             var commandRunner = Container.GetExportedValues<ICommandSaga>()
-                .Where(x => x.ConversionType == conversionType)
+                .Where(x => x.Settings.ConversionType == conversionType)
                 .First();
 
             return commandRunner;

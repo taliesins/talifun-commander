@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiVirusSaga.cs" />
-    <Compile Include="ConfigurationTester\AntiVirusSettingsTester.cs" />
+    <Compile Include="Configuration\AntiVirusSettingsTester.cs" />
     <Compile Include="Configuration\AntiVirusSettingElement.cs" />
     <Compile Include="Configuration\AntiVirusSettingElementCollection.cs" />
     <Compile Include="AntiVirusSettings.cs" />

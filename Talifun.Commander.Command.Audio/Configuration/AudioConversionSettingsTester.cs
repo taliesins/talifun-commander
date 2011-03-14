@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Audio.ConfigurationTester
+namespace Talifun.Commander.Command.Audio.Configuration
 {
     public class AudioConversionSettingsTester : CommandConfigurationTesterBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return AudioConversionSettingConfiguration.ConversionType;
+                return AudioConversionSettingConfiguration.Instance;
             }
         }
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<AudioConversionSettingElementCollection>(AudioConversionSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<AudioConversionSettingElementCollection>(Settings.CollectionSettingName, project);
             var audioConversionSettings = commandSettings.Settings;
 
             var audioConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -28,7 +27,7 @@ namespace Talifun.Commander.Command.Audio.ConfigurationTester
                 return;
             }
 
-            var ffMpegPath = AudioConversionSettingConfiguration.FFMpegPath;
+            var ffMpegPath = AudioConversionSettingConfiguration.Instance.FFMpegPath;
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {

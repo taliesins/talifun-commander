@@ -44,7 +44,7 @@
     <Compile Include="CommandLineCommand.cs" />
     <Compile Include="CommandLineSaga.cs" />
     <Compile Include="CommandLineParameters.cs" />
-    <Compile Include="ConfigurationTester\CommandLineSettingsTester.cs" />
+    <Compile Include="Configuration\CommandLineSettingsTester.cs" />
     <Compile Include="Configuration\CommandLineSettingConfiguration.cs" />
     <Compile Include="Configuration\CommandLineSettingElement.cs" />
     <Compile Include="Configuration\CommandLineSettingElementCollection.cs" />

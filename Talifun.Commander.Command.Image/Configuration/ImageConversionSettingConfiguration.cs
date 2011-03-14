@@ -2,13 +2,30 @@
 
 namespace Talifun.Commander.Command.Image.Configuration
 {
-    public static class ImageConversionSettingConfiguration
+    public class ImageConversionSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "ImageConversion";
-        public const string CollectionSettingName = "imageConversionSettings";
-        public const string ElementSettingName = "imageConversionSetting";
+        private ImageConversionSettingConfiguration()
+        {
+        }
 
-        public static string ConvertPath
+        public static readonly ImageConversionSettingConfiguration Instance = new ImageConversionSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "ImageConversion"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "imageConversionSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "imageConversionSetting"; }
+        }
+
+        public string ConvertPath
         {
             get
             {

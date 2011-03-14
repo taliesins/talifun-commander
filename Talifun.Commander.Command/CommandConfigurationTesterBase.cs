@@ -27,6 +27,6 @@ namespace Talifun.Commander.Command
 
         public abstract void CheckProjectConfiguration(Configuration.ProjectElement project);
 
-        public abstract string ConversionType { get; }
+        public abstract ISettingConfiguration Settings { get; }
     }
 }

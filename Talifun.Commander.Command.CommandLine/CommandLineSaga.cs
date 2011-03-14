@@ -1,25 +1,15 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using Talifun.Commander.Command.CommandLine.Configuration;
-using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.CommandLine
 {
     public class CommandLineSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return CommandLineSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return CommandLineSettingConfiguration.CollectionSettingName;
+                return CommandLineSettingConfiguration.Instance;
             }
         }
 

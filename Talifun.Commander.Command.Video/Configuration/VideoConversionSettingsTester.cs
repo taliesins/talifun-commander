@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Video.Configuration;
 
-namespace Talifun.Commander.Command.Video.ConfigurationTester
+namespace Talifun.Commander.Command.Video.Configuration
 {
     public class VideoConversionSettingsTester : CommandConfigurationTesterBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return VideoConversionSettingConfiguration.ConversionType;
+                return VideoConversionSettingConfiguration.Instance;
             }
         }
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoConversionSettingElementCollection>(VideoConversionSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<VideoConversionSettingElementCollection>(Settings.CollectionSettingName, project);
             var videoConversionSettings = commandSettings.Settings;
 
             var videoConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -28,14 +27,14 @@ namespace Talifun.Commander.Command.Video.ConfigurationTester
                 return;
             }
 
-            var ffMpegPath = VideoConversionSettingConfiguration.FFMpegPath;
+            var ffMpegPath = VideoConversionSettingConfiguration.Instance.FFMpegPath;
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {
                 throw new Exception("FFMpegPath appSetting Required");
             }
 
-            var flvTool2Path = VideoConversionSettingConfiguration.FlvTool2Path;
+            var flvTool2Path = VideoConversionSettingConfiguration.Instance.FlvTool2Path;
 
             if (string.IsNullOrEmpty(flvTool2Path))
             {

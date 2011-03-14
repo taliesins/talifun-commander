@@ -1,26 +1,15 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using System.IO;
 using Talifun.Commander.Command.Image.Configuration;
 
 namespace Talifun.Commander.Command.Image
 {
     public class ImageConverterSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return ImageConversionSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return ImageConversionSettingConfiguration.CollectionSettingName;
+                return ImageConversionSettingConfiguration.Instance;
             }
         }
 

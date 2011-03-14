@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioConverterSaga.cs" />
-    <Compile Include="ConfigurationTester\AudioConversionSettingsTester.cs" />
+    <Compile Include="Configuration\AudioConversionSettingsTester.cs" />
     <Compile Include="Configuration\AudioConversionSettingConfiguration.cs" />
     <Compile Include="Configuration\AudioConversionSettingElement.cs" />
     <Compile Include="Configuration\AudioConversionSettingElementCollection.cs" />

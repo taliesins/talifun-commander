@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using System.IO;
 using Talifun.Commander.Command.VideoThumbnailer;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 
@@ -8,19 +6,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 {
     public class VideoThumbnailerSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return VideoThumbnailerSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return VideoThumbnailerSettingConfiguration.CollectionSettingName;
+                return VideoThumbnailerSettingConfiguration.Instance;
             }
         }
 

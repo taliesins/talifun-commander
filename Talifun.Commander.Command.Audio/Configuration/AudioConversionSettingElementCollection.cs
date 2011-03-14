@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.Audio
     {
         public AudioConversionSettingElementCollection()
         {
-            CollectionSettingName = AudioConversionSettingConfiguration.CollectionSettingName;
-            ElementSettingName = AudioConversionSettingConfiguration.ElementSettingName;
+            CollectionSettingName = AudioConversionSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = AudioConversionSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Image.Configuration;
 
-namespace Talifun.Commander.Command.Image.ConfigurationTester
+namespace Talifun.Commander.Command.Image.Configuration
 {
     public class ImageSettingsTester : CommandConfigurationTesterBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return ImageConversionSettingConfiguration.ConversionType;
+                return ImageConversionSettingConfiguration.Instance;
             }
         }
 
@@ -20,10 +19,10 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
         {
             switch (imageSetting.ResizeMode)
             {
-                case Commander.Command.Image.ResizeMode.AreaToFit:
-                case Commander.Command.Image.ResizeMode.CutToFit:
-                case Commander.Command.Image.ResizeMode.Zoom:
-                case Commander.Command.Image.ResizeMode.Stretch:
+                case ResizeMode.AreaToFit:
+                case ResizeMode.CutToFit:
+                case ResizeMode.Zoom:
+                case ResizeMode.Stretch:
                     if (!imageSetting.Width.HasValue)
                     {
                         throw new Exception(
@@ -41,9 +40,9 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
                     }
                     break;
-                case Commander.Command.Image.ResizeMode.FitWidth:
-                case Commander.Command.Image.ResizeMode.FitMinimumWidth:
-                case Commander.Command.Image.ResizeMode.FitMaximumWidth:
+                case ResizeMode.FitWidth:
+                case ResizeMode.FitMinimumWidth:
+                case ResizeMode.FitMaximumWidth:
                     if (!imageSetting.Width.HasValue)
                     {
                         throw new Exception(
@@ -53,16 +52,16 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
                     }
                     break;
-                case Commander.Command.Image.ResizeMode.FitHeight:
-                case Commander.Command.Image.ResizeMode.FitMinimumHeight:
-                case Commander.Command.Image.ResizeMode.FitMaximumHeight:
+                case ResizeMode.FitHeight:
+                case ResizeMode.FitMinimumHeight:
+                case ResizeMode.FitMaximumHeight:
                     if (!imageSetting.Height.HasValue)
                     {
                         throw new Exception(
                             string.Format(
                                 "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> height is required when resize mode is - {2}",
                                 project.Name, imageSetting.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
+                                Enum.GetName(typeof(ResizeMode), imageSetting.ResizeMode)));
                     }
                     break;
             }
@@ -70,7 +69,7 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<ImageConversionSettingElementCollection>(ImageConversionSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<ImageConversionSettingElementCollection>(Settings.CollectionSettingName, project);
             var imageConversionSettings = commandSettings.Settings;
 
             var imageConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -80,7 +79,7 @@ namespace Talifun.Commander.Command.Image.ConfigurationTester
                 return;
             }
 
-            var convertPath = ImageConversionSettingConfiguration.ConvertPath;
+            var convertPath = ImageConversionSettingConfiguration.Instance.ConvertPath;
 
             if (string.IsNullOrEmpty(convertPath))
             {

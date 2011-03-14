@@ -2,13 +2,30 @@
 
 namespace Talifun.Commander.Command.Audio.Configuration
 {
-    public static class AudioConversionSettingConfiguration
+    public class AudioConversionSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "AudioConversion";
-        public const string CollectionSettingName = "audioConversionSettings";
-        public const string ElementSettingName = "audioConversionSetting";
+        private AudioConversionSettingConfiguration()
+        {
+        }
 
-        public static string FFMpegPath
+        public static readonly AudioConversionSettingConfiguration Instance = new AudioConversionSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "AudioConversion"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "audioConversionSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "audioConversionSetting"; }
+        }
+
+        public string FFMpegPath
         {
             get
             {

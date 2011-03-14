@@ -2,13 +2,30 @@
 
 namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
-    public static class VideoThumbnailerSettingConfiguration
+    public class VideoThumbnailerSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "VideoThumbnailer";
-        public const string CollectionSettingName = "videoThumbnailerSettings";
-        public const string ElementSettingName = "videoThumbnailerSetting";
+        private VideoThumbnailerSettingConfiguration()
+        {
+        }
 
-        public static string FFMpegPath
+        public static readonly VideoThumbnailerSettingConfiguration Instance = new VideoThumbnailerSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "VideoThumbnailer"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "videoThumbnailerSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "videoThumbnailerSetting"; }
+        }
+
+        public string FFMpegPath
         {
             get
             {

@@ -1,25 +1,15 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using Talifun.Commander.Command.AntiVirus.Configuration;
-using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
     public class AntiVirusSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return AntiVirusSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return AntiVirusSettingConfiguration.CollectionSettingName;
+                return AntiVirusSettingConfiguration.Instance;
             }
         }
 
