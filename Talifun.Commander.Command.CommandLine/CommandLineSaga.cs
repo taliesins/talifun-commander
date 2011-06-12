@@ -1,7 +1,5 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using Talifun.Commander.Command.CommandLine.Configuration;
-using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.CommandLine
 {

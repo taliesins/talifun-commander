@@ -38,14 +38,13 @@ namespace Talifun.Commander.Command
                 return null;
             }
 
-            var videoInfo = new VideoInfo();
-            videoInfo.FileName = videoFilePath.Name;
+            var videoInfo = new VideoInfo {FileName = videoFilePath.Name};
 
             //Truncate all the beginning filling
             output = output.Remove(0, output.LastIndexOf("Duration"));
 
-            var regexOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant |
-                               RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline;
+            const RegexOptions regexOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant |
+                                              RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline;
 
             //Get duration and video bitrate
             var durationRegex = new Regex(@"^.*Duration:\s([:.\d]*).*start\:\s([\d.]*).*bitrate\:\s([\d]*).*$", regexOptions);

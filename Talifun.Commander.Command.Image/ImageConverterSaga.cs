@@ -1,7 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using System.IO;
 using Talifun.Commander.Command.Image.Configuration;
 
 namespace Talifun.Commander.Command.Image

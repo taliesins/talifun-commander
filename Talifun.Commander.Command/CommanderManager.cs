@@ -87,20 +87,15 @@ namespace Talifun.Commander.Command
 
             var fileName = fileInfo.Name;
 
-            var regxOptions = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Singleline;
+            const RegexOptions regxOptions = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Singleline;
             var fileMatchSettings = folderSetting.FileMatches;
 
             var uniqueDirectoryName = "master." + fileName + "." + Guid.NewGuid();
 
             DirectoryInfo workingDirectoryPath = null;
-            if (!string.IsNullOrEmpty(folderSetting.WorkingPath))
-            {
-                workingDirectoryPath = new DirectoryInfo(Path.Combine(folderSetting.WorkingPath, uniqueDirectoryName));
-            }
-            else
-            {
-                workingDirectoryPath = new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
-            }
+            workingDirectoryPath = !string.IsNullOrEmpty(folderSetting.WorkingPath) ? 
+                new DirectoryInfo(Path.Combine(folderSetting.WorkingPath, uniqueDirectoryName)) 
+                : new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
 
             var workingFilePath = new FileInfo(Path.Combine(workingDirectoryPath.FullName, fileName));
             try
@@ -321,22 +316,18 @@ namespace Talifun.Commander.Command
 
         public void Start()
         {
-            if (!IsRunning && !StopSignalled)
-            {
-                IsRunning = true;
-                StartEnhancedFileSystemWatchers();
-            }
+            if (IsRunning || StopSignalled) return;
+            IsRunning = true;
+            StartEnhancedFileSystemWatchers();
         }
 
         public void Stop()
         {
-            if (IsRunning && !StopSignalled)
-            {
-                StopSignalled = true;
-                StopEnhancedFileSystemWatchers();
-                IsRunning = false;
-                StopSignalled = false;
-            }
+            if (!IsRunning || StopSignalled) return;
+            StopSignalled = true;
+            StopEnhancedFileSystemWatchers();
+            IsRunning = false;
+            StopSignalled = false;
         }
 
         public bool IsRunning { get; protected set; }
@@ -363,12 +354,12 @@ namespace Talifun.Commander.Command
         /// <summary>
         /// Where the actual event is stored.
         /// </summary>
-        private CommandErrorEventHandler m_CommandErrorEvent;
+        private CommandErrorEventHandler _commandErrorEvent;
 
         /// <summary>
         /// Lock for event delegate access.
         /// </summary>
-        private readonly object m_CommandErrorEventLock = new object();
+        private readonly object _commandErrorEventLock = new object();
 
         /// <summary>
         /// The event that is fired.
@@ -377,32 +368,32 @@ namespace Talifun.Commander.Command
         {
             add
             {
-                if (!Monitor.TryEnter(m_CommandErrorEventLock, LockTimeout))
+                if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
                 {
                     throw new ApplicationException("Timeout waiting for lock - CommandErrorEvent.add");
                 }
                 try
                 {
-                    m_CommandErrorEvent += value;
+                    _commandErrorEvent += value;
                 }
                 finally
                 {
-                    Monitor.Exit(m_CommandErrorEventLock);
+                    Monitor.Exit(_commandErrorEventLock);
                 }
             }
             remove
             {
-                if (!Monitor.TryEnter(m_CommandErrorEventLock, LockTimeout))
+                if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
                 {
                     throw new ApplicationException("Timeout waiting for lock - CommandErrorEvent.remove");
                 }
                 try
                 {
-                    m_CommandErrorEvent -= value;
+                    _commandErrorEvent -= value;
                 }
                 finally
                 {
-                    Monitor.Exit(m_CommandErrorEventLock);
+                    Monitor.Exit(_commandErrorEventLock);
                 }
             }
         }
@@ -417,7 +408,7 @@ namespace Talifun.Commander.Command
 
         private void AsynchronousOnCommandErrorEventRaised(object state)
         {
-            CommandErrorEventArgs e = state as CommandErrorEventArgs;
+            var e = state as CommandErrorEventArgs;
             RaiseOnCommandErrorEvent(e);
         }
 
@@ -455,17 +446,17 @@ namespace Talifun.Commander.Command
 
             CommandErrorEventHandler eventHandler;
 
-            if (!Monitor.TryEnter(m_CommandErrorEventLock, LockTimeout))
+            if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
             {
                 throw new ApplicationException("Timeout waiting for lock - RaiseOnCommandErrorEvent");
             }
             try
             {
-                eventHandler = m_CommandErrorEvent;
+                eventHandler = _commandErrorEvent;
             }
             finally
             {
-                Monitor.Exit(m_CommandErrorEventLock);
+                Monitor.Exit(_commandErrorEventLock);
             }
 
             OnCommandErrorEvent(e);
@@ -478,7 +469,7 @@ namespace Talifun.Commander.Command
         #endregion
 
         #region IDisposable Members
-        private int m_AlreadyDisposed = 0;
+        private int _alreadyDisposed = 0;
 
         ~CommanderManager()
         {
@@ -492,45 +483,41 @@ namespace Talifun.Commander.Command
 
         public void Dispose()
         {
-            if (m_AlreadyDisposed == 0)
-            {
-                // dispose of the managed and unmanaged resources
-                Dispose(true);
+            if (_alreadyDisposed != 0) return;
+            // dispose of the managed and unmanaged resources
+            Dispose(true);
 
-                // tell the GC that the Finalize process no longer needs
-                // to be run for this object.		
-                GC.SuppressFinalize(this);
-            }
+            // tell the GC that the Finalize process no longer needs
+            // to be run for this object.		
+            GC.SuppressFinalize(this);
         }
 
         private void Dispose(bool disposeManagedResources)
         {
-            if (disposeManagedResources)
+            if (!disposeManagedResources) return;
+            var disposedAlready = Interlocked.Exchange(ref _alreadyDisposed, 1);
+            if (disposedAlready != 0)
             {
-                var disposedAlready = Interlocked.Exchange(ref m_AlreadyDisposed, 1);
-                if (disposedAlready != 0)
-                {
-                    return;
-                }
-
-                // Dispose managed resources.
-
-                foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
-                {
-                    enhancedFileSystemWatcher.FileCreatedPreviouslyEvent -= FileCreatedPreviouslyEvent;
-                    enhancedFileSystemWatcher.FileFinishedChangingEvent -= FileFinishedChangingEvent;
-                }
-
-                foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
-                {
-                    enhancedFileSystemWatcher.Dispose();
-                }
-
-                FileCreatedPreviouslyEvent = null;
-                FileFinishedChangingEvent = null;
-
-                m_CommandErrorEvent = null;
+                return;
             }
+
+            // Dispose managed resources.
+
+            foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            {
+                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent -= FileCreatedPreviouslyEvent;
+                enhancedFileSystemWatcher.FileFinishedChangingEvent -= FileFinishedChangingEvent;
+            }
+
+            foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            {
+                enhancedFileSystemWatcher.Dispose();
+            }
+
+            FileCreatedPreviouslyEvent = null;
+            FileFinishedChangingEvent = null;
+
+            _commandErrorEvent = null;
             // Dispose unmanaged resources.
 
             // If it is available, make the call to the

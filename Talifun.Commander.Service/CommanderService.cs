@@ -9,43 +9,43 @@ namespace Talifun.Commander.Service
 {
     public partial class CommanderService : ServiceBase
     {
-        protected const string m_EventLog = "TalifunCommanderLog";
-        protected const string m_EventLogSource = "TalifunCommanderLogSource";
-        private ICommanderManager _mCommanderManager;
-        private UnhandledExceptionEventHandler m_UnhandledExceptionEventHandler;
-        private CommandErrorEventHandler m_CommandErrorEventHandler;
+        protected const string Log = "TalifunCommanderLog";
+        protected const string LogSource = "TalifunCommanderLogSource";
+        private readonly ICommanderManager _commanderManager;
+        private readonly UnhandledExceptionEventHandler _unhandledExceptionEventHandler;
+        private readonly CommandErrorEventHandler _commandErrorEventHandler;
         public CommanderService()
         {
-            m_UnhandledExceptionEventHandler = new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            AppDomain.CurrentDomain.UnhandledException += m_UnhandledExceptionEventHandler;
+            _unhandledExceptionEventHandler = new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += _unhandledExceptionEventHandler;
             InitializeComponent();
 
-            if (!EventLog.SourceExists(m_EventLogSource))
+            if (!EventLog.SourceExists(LogSource))
             {
-                EventLog.CreateEventSource(m_EventLogSource, m_EventLog);
+                EventLog.CreateEventSource(LogSource, Log);
             }
 
-            CommanderEventLog.Source = m_EventLogSource;
-            CommanderEventLog.Log = m_EventLog;
+            CommanderEventLog.Source = LogSource;
+            CommanderEventLog.Log = Log;
 
-            _mCommanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
-            m_CommandErrorEventHandler = new CommandErrorEventHandler(CommandManager_OnCommandErrorEvent);
-            _mCommanderManager.CommandErrorEvent += m_CommandErrorEventHandler;
+            _commanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
+            _commandErrorEventHandler = new CommandErrorEventHandler(CommandManager_OnCommandErrorEvent);
+            _commanderManager.CommandErrorEvent += _commandErrorEventHandler;
         }
 
         protected override void OnStart(string[] args)
         {
-            _mCommanderManager.Start();
+            _commanderManager.Start();
             CommanderEventLog.WriteEntry("Talifun Commander service started", EventLogEntryType.Information);
         }
 
         protected override void OnStop()
         {
-            _mCommanderManager.Stop();
+            _commanderManager.Stop();
             CommanderEventLog.WriteEntry("Talifun Commander service stopped", EventLogEntryType.Information);
         }
 
-        protected void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        protected void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var exception = (Exception)e.ExceptionObject;
             CommanderEventLog.WriteEntry(LogException(exception), EventLogEntryType.Error);

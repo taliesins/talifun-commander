@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using System.IO;
 using Talifun.Commander.Command.VideoThumbnailer;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 

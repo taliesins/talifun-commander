@@ -7,14 +7,13 @@ namespace Talifun.Commander.Executor.FFMpeg
     {
         protected override void OnErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(e.Data))
-            {
-                m_Output.Append(e.Data.Trim() + Environment.NewLine);
+            if (String.IsNullOrEmpty(e.Data)) return;
 
-                if (CheckConversionSuccess(e.Data) > 0)
-                {
-                    base.m_UnableToExecuteCommand = true;
-                }
+            Output.Append(e.Data.Trim() + Environment.NewLine);
+
+            if (CheckConversionSuccess(e.Data) > 0)
+            {
+                base.UnableToExecuteCommand = true;
             }
         }
 
