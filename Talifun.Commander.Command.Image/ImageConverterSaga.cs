@@ -5,19 +5,11 @@ namespace Talifun.Commander.Command.Image
 {
     public class ImageConverterSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return ImageConversionSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return ImageConversionSettingConfiguration.CollectionSettingName;
+                return ImageConversionSettingConfiguration.Instance;
             }
         }
 

@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
             inputFilePath.CopyTo(outPutFilePath.FullName);
 
-            var commandPath = AntiVirusSettingConfiguration.McAfeePath;
+            var commandPath = AntiVirusSettingConfiguration.Instance.McAfeePath;
             var workingDirectory = outputDirectoryPath.FullName;
             var commandArguments = @"/target """ + outPutFilePath.FullName + @""" " + AllFixedOptions;
 

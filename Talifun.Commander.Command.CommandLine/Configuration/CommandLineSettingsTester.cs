@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Talifun.Commander.Command.CommandLine.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.CommandLine.ConfigurationTester
+namespace Talifun.Commander.Command.CommandLine.Configuration
 {
     public class CommandLineSettingsTester : CommandConfigurationTesterBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return CommandLineSettingConfiguration.ConversionType;
+                return CommandLineSettingConfiguration.Instance;
             }
         }
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<CommandLineSettingElementCollection>(CommandLineSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<CommandLineSettingElementCollection>(Settings.CollectionSettingName, project);
             var commandLineSettings = commandSettings.Settings;
 
             var commandLineSettingsKeys = new Dictionary<string, FileMatchElement>();

@@ -2,13 +2,30 @@
 
 namespace Talifun.Commander.Command.AntiVirus.Configuration
 {
-    public static class AntiVirusSettingConfiguration
+    public class AntiVirusSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "AntiVirus";
-        public const string CollectionSettingName = "antiVirusSettings";
-        public const string ElementSettingName = "antiVirusSetting";
+        private AntiVirusSettingConfiguration()
+        {
+        }
 
-        public static string McAfeePath
+        public static readonly AntiVirusSettingConfiguration Instance = new AntiVirusSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "AntiVirus"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "antiVirusSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "antiVirusSetting"; }
+        }
+
+        public string McAfeePath
         {
             get
             {

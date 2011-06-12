@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.Image
     {
         public ImageConversionSettingElementCollection()
         {
-            CollectionSettingName = ImageConversionSettingConfiguration.CollectionSettingName;
-            ElementSettingName = ImageConversionSettingConfiguration.ElementSettingName;
+            CollectionSettingName = ImageConversionSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = ImageConversionSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

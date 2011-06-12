@@ -2,13 +2,30 @@
 
 namespace Talifun.Commander.Command.Video.Configuration
 {
-    public static class VideoConversionSettingConfiguration
+    public class VideoConversionSettingConfiguration : ISettingConfiguration
     {
-        public const string ConversionType = "VideoConversion";
-        public const string CollectionSettingName = "videoConversionSettings";
-        public const string ElementSettingName = "videoConversionSetting";
+        private VideoConversionSettingConfiguration()
+        {
+        }
 
-        public static string FFMpegPath
+        public static readonly VideoConversionSettingConfiguration Instance = new VideoConversionSettingConfiguration();
+
+        public string ConversionType
+        {
+            get { return "VideoConversion"; }
+        }
+
+        public string CollectionSettingName
+        {
+            get { return "videoConversionSettings"; }
+        }
+
+        public string ElementSettingName
+        {
+            get { return "videoConversionSetting"; }
+        }
+
+        public string FFMpegPath
         {
             get
             {
@@ -16,7 +33,7 @@ namespace Talifun.Commander.Command.Video.Configuration
             }
         }
 
-        public static string FlvTool2Path
+        public string FlvTool2Path
         {
             get
             {

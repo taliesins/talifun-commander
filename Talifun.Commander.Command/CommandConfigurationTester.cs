@@ -20,7 +20,7 @@ namespace Talifun.Commander.Command
         {
             var commandConfigurationTesters = Container.GetExportedValues<ICommandConfigurationTester>();
             var commandConfigurationTester = commandConfigurationTesters
-                .Where(x => x.ConversionType == conversionType)
+                .Where(x => x.Settings.ConversionType == conversionType)
                 .First();
 
             return commandConfigurationTester;
@@ -74,7 +74,7 @@ namespace Talifun.Commander.Command
             }
         }
 
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get { throw new NotImplementedException(); }
         }

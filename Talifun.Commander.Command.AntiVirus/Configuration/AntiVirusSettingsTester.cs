@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.AntiVirus
+namespace Talifun.Commander.Command.AntiVirus.Configuration
 {
     public class AntiVirusSettingsTester : CommandConfigurationTesterBase
     {
         #region ICommandConfigurationTester Members
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return AntiVirusSettingConfiguration.ConversionType;
+                return AntiVirusSettingConfiguration.Instance;
             }
         }
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<AntiVirusSettingElementCollection>(AntiVirusSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<AntiVirusSettingElementCollection>(Settings.CollectionSettingName, project);
             var antiVirusSettings = commandSettings.Settings;
 
             var antiVirusSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -48,10 +47,10 @@ namespace Talifun.Commander.Command.AntiVirus
                     }
                 }
 
-                if (antiVirusSetting.VirusScannerType == Commander.Command.AntiVirus.VirusScannerType.NotSpecified
-                    || antiVirusSetting.VirusScannerType == Commander.Command.AntiVirus.VirusScannerType.McAfee)
+                if (antiVirusSetting.VirusScannerType == VirusScannerType.NotSpecified
+                    || antiVirusSetting.VirusScannerType == VirusScannerType.McAfee)
                 {
-                    var virusScannerPath = AntiVirusSettingConfiguration.McAfeePath;
+                    var virusScannerPath = AntiVirusSettingConfiguration.Instance.McAfeePath;
 
                     if (string.IsNullOrEmpty(virusScannerPath))
                     {

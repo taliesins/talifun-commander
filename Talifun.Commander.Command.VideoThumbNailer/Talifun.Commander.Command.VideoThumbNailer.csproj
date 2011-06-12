@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationTester\VideoThumbnailerSettingsTester.cs" />
+    <Compile Include="Configuration\VideoThumbnailerSettingsTester.cs" />
     <Compile Include="Configuration\VideoThumbnailerSettingConfiguration.cs" />
     <Compile Include="Configuration\VideoThumbnailerSettingElement.cs" />
     <Compile Include="Configuration\VideoThumbnailerSettingElementCollection.cs" />

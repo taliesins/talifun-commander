@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.VideoThumbNailer
     {
         public VideoThumbnailerSettingElementCollection()
         {
-            CollectionSettingName = VideoThumbnailerSettingConfiguration.CollectionSettingName;
-            ElementSettingName = VideoThumbnailerSettingConfiguration.ElementSettingName;
+            CollectionSettingName = VideoThumbnailerSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = VideoThumbnailerSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

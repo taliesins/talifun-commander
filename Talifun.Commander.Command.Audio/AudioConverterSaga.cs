@@ -5,19 +5,11 @@ namespace Talifun.Commander.Command.Audio
 {
     public class AudioConverterSaga : CommandSagaBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return AudioConversionSettingConfiguration.ConversionType;
-            }
-        }
-
-        public override string CollectionSettingName
-        {
-            get
-            {
-                return AudioConversionSettingConfiguration.CollectionSettingName;
+                return AudioConversionSettingConfiguration.Instance;
             }
         }
 

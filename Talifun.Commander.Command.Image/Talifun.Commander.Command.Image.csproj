@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationTester\ImageSettingsTester.cs" />
+    <Compile Include="Configuration\ImageSettingsTester.cs" />
     <Compile Include="Configuration\ImageConversionSettingConfiguration.cs" />
     <Compile Include="Gravity.cs" />
     <Compile Include="Configuration\ImageConversionSettingElement.cs" />

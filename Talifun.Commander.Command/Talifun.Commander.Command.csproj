@@ -132,6 +132,7 @@
     <Compile Include="ICommandSaga.cs" />
     <Compile Include="ICommandSagaProperties.cs" />
     <Compile Include="IExectutor.cs" />
+    <Compile Include="ISettingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

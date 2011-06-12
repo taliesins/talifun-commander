@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.ConfigurationTester
+namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
     public class VideoThumbnailerSettingsTester : CommandConfigurationTesterBase
     {
-        public override string ConversionType
+        public override ISettingConfiguration Settings
         {
             get
             {
-                return VideoThumbnailerSettingConfiguration.ConversionType;
+                return VideoThumbnailerSettingConfiguration.Instance;
             }
         }
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoThumbnailerSettingElementCollection>(VideoThumbnailerSettingConfiguration.CollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<VideoThumbnailerSettingElementCollection>(Settings.CollectionSettingName, project);
             var videoThumbnailerSettings = commandSettings.Settings;
 
             var videoThumbnailerSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -28,7 +27,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.ConfigurationTester
                 return;
             }
 
-            var ffMpegPath = VideoThumbnailerSettingConfiguration.FFMpegPath;
+            var ffMpegPath = VideoThumbnailerSettingConfiguration.Instance.FFMpegPath;
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {

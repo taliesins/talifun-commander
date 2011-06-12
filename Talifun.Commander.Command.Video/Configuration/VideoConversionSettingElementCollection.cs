@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.Video
     {
         public VideoConversionSettingElementCollection()
         {
-            CollectionSettingName = VideoConversionSettingConfiguration.CollectionSettingName;
-            ElementSettingName = VideoConversionSettingConfiguration.ElementSettingName;
+            CollectionSettingName = VideoConversionSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = VideoConversionSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

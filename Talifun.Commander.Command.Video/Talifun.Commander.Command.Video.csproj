@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspectRatio.cs" />
-    <Compile Include="ConfigurationTester\VideoConversionSettingsTester.cs" />
+    <Compile Include="Configuration\VideoConversionSettingsTester.cs" />
     <Compile Include="Configuration\VideoConversionSettingConfiguration.cs" />
     <Compile Include="Configuration\VideoConversionSettingElement.cs" />
     <Compile Include="Configuration\VideoConversionSettingElementCollection.cs" />

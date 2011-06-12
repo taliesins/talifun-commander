@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command
     [InheritedExport]
     public interface ICommandConfigurationTester
     {
-        string ConversionType { get; }
+        ISettingConfiguration Settings { get; }
         void CheckProjectConfiguration(ProjectElement project);
     }
 }

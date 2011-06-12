@@ -5,7 +5,7 @@ namespace Talifun.Commander.Command
     [InheritedExport]
     public interface ICommandSaga
     {
-        string ConversionType { get; }
+        ISettingConfiguration Settings { get; }
         void Run(ICommandSagaProperties properties);
     }
 }

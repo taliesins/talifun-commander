@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.AntiVirus
     {
         public AntiVirusSettingElementCollection()
         {
-            CollectionSettingName = AntiVirusSettingConfiguration.CollectionSettingName;
-            ElementSettingName = AntiVirusSettingConfiguration.ElementSettingName;
+            CollectionSettingName = AntiVirusSettingConfiguration.Instance.CollectionSettingName;
+            ElementSettingName = AntiVirusSettingConfiguration.Instance.ElementSettingName;
             AddElementName = ElementSettingName;
         }
 

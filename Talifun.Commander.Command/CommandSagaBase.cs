@@ -8,8 +8,7 @@ namespace Talifun.Commander.Command
 {
     public abstract class CommandSagaBase : ICommandSaga
     {
-        public abstract string CollectionSettingName { get; }
-        public abstract string ConversionType { get; }
+        public abstract ISettingConfiguration Settings { get; }
         public abstract void Run(ICommandSagaProperties properties);
 
         public string UniqueIdentifier()
@@ -110,7 +109,7 @@ namespace Talifun.Commander.Command
 
         public DirectoryInfo GetWorkingDirectoryPath(ICommandSagaProperties properties, string workingPath, string uniqueProcessingNumber)
         {
-            var uniqueDirectoryName = ConversionType + "." + properties.InputFilePath.Name + "." + uniqueProcessingNumber;
+            var uniqueDirectoryName = Settings.ConversionType + "." + properties.InputFilePath.Name + "." + uniqueProcessingNumber;
 
             DirectoryInfo workingDirectoryPath = null;
             if (!string.IsNullOrEmpty(workingPath))
@@ -129,7 +128,7 @@ namespace Talifun.Commander.Command
             where C : CurrentConfigurationElementCollection<E> 
             where E : ConfigurationElement, new()
         {
-            var commandSettings = new ProjectElementCommand<C>(CollectionSettingName, properties.Project);
+            var commandSettings = new ProjectElementCommand<C>(Settings.CollectionSettingName, properties.Project);
             var settings = commandSettings.Settings;
 
             var commandSettingsKey = properties.FileMatch.CommandSettingsKey;
@@ -138,7 +137,7 @@ namespace Talifun.Commander.Command
             if (setting == null)
                 throw new ConfigurationErrorsException("fileMatch attribute conversionSettingsKey='" +
                                                        setting +
-                                                       "' does not match any key found in " + CollectionSettingName + " name attributes");
+                                                       "' does not match any key found in " + Settings.CollectionSettingName + " name attributes");
             return setting;
         }
     }
