@@ -40,7 +40,7 @@ namespace Talifun.Commander.Command.CommandLine
         }
 
         /// <summary>
-        /// Gets or sets if the command path should be validated
+        /// Gets or sets if the command path should be checked for its existance
         /// </summary>
         [ConfigurationProperty("checkCommandPathExists", DefaultValue = true, IsRequired = false)]
         public bool CheckCommandPathExists

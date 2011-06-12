@@ -37,7 +37,7 @@ namespace Talifun.Commander.Command
         }
 
         /// <summary>
-        /// Gets or sets the path where processed audio will be saved too.
+        /// Gets or sets the path where processed file will be saved too.
         /// </summary>
         [ConfigurationProperty("outPutPath", DefaultValue = null, IsRequired = true)]
         public string OutPutPath
@@ -47,9 +47,11 @@ namespace Talifun.Commander.Command
         }
 
         /// <summary>
-        /// Gets or sets the path where audio will be saved to, while being manipulated.
-        /// Basically the temp directory for processing
+        /// Gets or sets the path where files will be saved to, while being processed. 
         /// </summary>
+        /// <remarks>
+        /// Basically the temp directory for processing
+        /// </remarks>
         [ConfigurationProperty("workingPath", DefaultValue = "")]
         public string WorkingPath
         {
@@ -58,7 +60,7 @@ namespace Talifun.Commander.Command
         }
 
         /// <summary>
-        /// Gets or sets the path where files that could contain viruses will be moved too.
+        /// Gets or sets The path where files that could not be processed will be moved to.
         /// Not specifying this will result in the file being deleted on possible virus detection.
         /// </summary>
         [ConfigurationProperty("errorProcessingPath", DefaultValue = "")]
