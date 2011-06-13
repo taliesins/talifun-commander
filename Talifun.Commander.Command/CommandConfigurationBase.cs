@@ -37,7 +37,7 @@ namespace Talifun.Commander.Command
         }
 
         /// <summary>
-        /// Gets or sets the path where processed file will be saved too.
+        /// Gets or sets the path where processed file will be saved to.
         /// </summary>
         [ConfigurationProperty("outPutPath", DefaultValue = null, IsRequired = true)]
         public string OutPutPath
@@ -60,9 +60,8 @@ namespace Talifun.Commander.Command
         }
 
         /// <summary>
-        /// Gets or sets The path where files that could not be processed will be moved to.
-        /// Not specifying this will result in the file being deleted on possible virus detection.
-        /// </summary>
+        /// Gets or sets the path where files that could not be processed will be moved to.
+        /// </summary>       
         [ConfigurationProperty("errorProcessingPath", DefaultValue = "")]
         public string ErrorProcessingPath
         {
