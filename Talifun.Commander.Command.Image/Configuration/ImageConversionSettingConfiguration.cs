@@ -32,5 +32,16 @@ namespace Talifun.Commander.Command.Image.Configuration
                 return ConfigurationManager.AppSettings["ConvertPath"];
             }
         }
+
+        public System.Drawing.Image ElementImage
+        {
+            get { return Properties.Resource.imageconversionsetting; }
+        }
+
+
+        public System.Drawing.Image ElementCollectionImage
+        {
+            get { return Properties.Resource.imageconversionsettings; }
+        }
     }
 }

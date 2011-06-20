@@ -15,8 +15,7 @@ namespace Talifun.Commander.Command.Configuration
         [SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes", Justification = "Visibility is limted to derived classes which should close the generic type and treat the field as private")]
         protected static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
 
-        public string CollectionSettingName { get; protected set; }
-        public string ElementSettingName { get; protected set; }
+        public ISettingConfiguration Setting { get; protected set; }
 
         /// <summary>
         /// Gets the collection of configuration properties contained by this configuration element collection.
@@ -50,6 +49,50 @@ namespace Talifun.Commander.Command.Configuration
         }
 
         public abstract ConfigurationProperty CreateNewConfigurationProperty();
+
+        /// <summary>
+        /// Remove an element from the collection.
+        /// </summary>
+        /// <param name="index">The index of the element to remove from the collection.</param>
+        public void Remove(int index)
+        {
+            if (base.BaseGet(index) != null) base.BaseRemoveAt(index);
+        }
+
+        /// <summary>
+        /// Remove an element from the collection.
+        /// </summary>
+        /// <param name="name">The name of the element to remove from the collection.</param>
+        public void Remove(string name)
+        {
+            if (base.BaseGet(name) != null) base.BaseRemove(name);
+        }
+
+        /// <summary>
+        /// Gets or sets the configuration element at the specified index.
+        /// </summary>
+        public NamedConfigurationElement this[int index]
+        {
+            get { return base.BaseGet(index) as NamedConfigurationElement; }
+            set
+            {
+                Remove(index);
+                this.BaseAdd(index, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the configuration element with the specified name.
+        /// </summary>
+        new public NamedConfigurationElement this[string name]
+        {
+            get { return base.BaseGet(name) as NamedConfigurationElement; }
+            set
+            {
+                Remove(name);
+                this.BaseAdd(value);
+            }
+        }
     }
 
     /// <summary>
@@ -61,12 +104,12 @@ namespace Talifun.Commander.Command.Configuration
         /// <summary>
         /// Gets or sets the configuration element at the specified index.
         /// </summary>
-        public T this[int index]
+        new public T this[int index]
         {
             get { return base.BaseGet(index) as T; }
             set
             {
-                if (base.BaseGet(index) != null) base.BaseRemoveAt(index);
+                Remove(index);
                 this.BaseAdd(index, value);
             }
         }
@@ -79,7 +122,7 @@ namespace Talifun.Commander.Command.Configuration
             get { return base.BaseGet(name) as T; }
             set
             {
-                if (base.BaseGet(name) != null) base.BaseRemove(name);
+                Remove(name);
                 this.BaseAdd(value);
             }
         }

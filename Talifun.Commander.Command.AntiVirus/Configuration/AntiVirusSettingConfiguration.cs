@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Drawing;
 
 namespace Talifun.Commander.Command.AntiVirus.Configuration
 {
@@ -31,6 +32,17 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             {
                 return ConfigurationManager.AppSettings["McAfeePath"];
             }
+        }
+
+        public Image ElementImage
+        {
+            get { return Properties.Resource.antiVirusSetting; }
+        }
+
+
+        public Image ElementCollectionImage
+        {
+            get { return Properties.Resource.antivirussettings; }
         }
     }
 }

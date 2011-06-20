@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.Video
     {
         public VideoConversionSettingElementCollection()
         {
-            CollectionSettingName = VideoConversionSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = VideoConversionSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = VideoConversionSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(VideoConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(VideoConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Talifun.Commander.Command
+﻿using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.FileWatcher;
+
+namespace Talifun.Commander.Command
 {
     public sealed class CommanderManagerFactory : ICommanderManagerFactory
     {
@@ -11,7 +14,7 @@
         #region ICommanderManagerFactory Members
         public ICommanderManager CreateCommandManager()
         {
-            return new CommanderManager();
+            return new CommanderManager(CommandContainer.Instance.Container, CurrentConfiguration.Current, EnhancedFileSystemWatcherFactory.Instance);
         }
 
         #endregion

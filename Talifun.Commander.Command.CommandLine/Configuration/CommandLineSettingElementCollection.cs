@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.CommandLine
     {
         public CommandLineSettingElementCollection()
         {
-            CollectionSettingName = CommandLineSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = CommandLineSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = CommandLineSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(CommandLineSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(CommandLineSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

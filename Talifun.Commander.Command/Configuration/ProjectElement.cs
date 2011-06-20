@@ -1,7 +1,5 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -59,6 +57,11 @@ namespace Talifun.Commander.Command.Configuration
         public T GetCommandConfiguration<T>(ConfigurationProperty commandConfiguration) where T : class
         {
             return (T) base[commandConfiguration];
+        }
+
+        public ConfigurationProperty GetConfigurationProperty(string configurationPropertyName)
+        {
+            return properties[configurationPropertyName];
         }
 
         /// <summary>

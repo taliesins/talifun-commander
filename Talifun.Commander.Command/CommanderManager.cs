@@ -16,6 +16,8 @@ namespace Talifun.Commander.Command
 {
     internal class CommanderManager : ICommanderManager, IDisposable
     {
+        protected readonly IEnhancedFileSystemWatcherFactory EnhancedFileSystemWatcherFactory;
+
         protected CommandConfigurationTester CommandConfigurationTester;
         protected TimeSpan LockTimeout = TimeSpan.FromSeconds(10);
         protected AsyncOperation AsyncOperation = AsyncOperationManager.CreateOperation(null);
@@ -26,27 +28,31 @@ namespace Talifun.Commander.Command
 
         protected bool StopSignalled = false;
 
-        protected CompositionContainer Container;
+        public ExportProvider Container { get; private set; }
+        public CommanderSection Configuration { get; private set; }
 
-        public CommanderManager()
+        public CommanderManager(ExportProvider container, CommanderSection configuration, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
         {
+            Container = container;
+            Configuration = configuration;
+            EnhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
+
             IsRunning = false;
-            Container = CommandContainer.Instance.Container;
 
             CommandConfigurationTester = new CommandConfigurationTester(Container);
 
             CheckConfiguration();
 
-            var projects = CurrentConfiguration.Current.Projects;
+            var projects = Configuration.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
-                var folderSettings = CurrentConfiguration.Current.Projects[j].Folders;
+                var folderSettings = Configuration.Projects[j].Folders;
 
                 for (var i = 0; i < folderSettings.Count; i++)
                 {
                     var folderSetting = folderSettings[i];
                     var enhancedFileSystemWatcher =
-                        EnhancedFileSystemWatcherFactory.Instance.CreateEnhancedFileSystemWatcher(
+                        EnhancedFileSystemWatcherFactory.CreateEnhancedFileSystemWatcher(
                             folderSetting.FolderToWatch, folderSetting.Filter, folderSetting.PollTime,
                             folderSetting.IncludeSubdirectories, folderSetting);
                     EnhancedFileSystemWatchers.Add(enhancedFileSystemWatcher);
@@ -92,8 +98,7 @@ namespace Talifun.Commander.Command
 
             var uniqueDirectoryName = "master." + fileName + "." + Guid.NewGuid();
 
-            DirectoryInfo workingDirectoryPath = null;
-            workingDirectoryPath = !string.IsNullOrEmpty(folderSetting.WorkingPath) ? 
+            var workingDirectoryPath = !string.IsNullOrEmpty(folderSetting.WorkingPath) ? 
                 new DirectoryInfo(Path.Combine(folderSetting.WorkingPath, uniqueDirectoryName)) 
                 : new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
 
@@ -192,9 +197,9 @@ namespace Talifun.Commander.Command
             return result;
         }
 
-        protected static ProjectElement GetCurrentProject(FileMatchElement fileMatch)
+        protected ProjectElement GetCurrentProject(FileMatchElement fileMatch)
         {
-            var projects = CurrentConfiguration.Current.Projects;
+            var projects = Configuration.Projects;
 
             for (var i = 0; i < projects.Count; i++)
             {
@@ -303,7 +308,7 @@ namespace Talifun.Commander.Command
         #region Test Configuration
         public void CheckConfiguration()
         {
-            var projects = CurrentConfiguration.Current.Projects;
+            var projects = Configuration.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
                 CommandConfigurationTester.CheckProjectConfiguration(projects[j]);

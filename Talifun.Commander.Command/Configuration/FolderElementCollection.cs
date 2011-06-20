@@ -10,14 +10,13 @@ namespace Talifun.Commander.Command.Configuration
     {
         public FolderElementCollection()
         {
-            CollectionSettingName = "folders";
-            ElementSettingName = "folder";
-            AddElementName = ElementSettingName;
+            Setting = FolderConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(FolderElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(FolderElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

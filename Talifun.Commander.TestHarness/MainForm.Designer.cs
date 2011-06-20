@@ -30,6 +30,7 @@
         {
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
+            this.SettingsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StartButton
@@ -40,7 +41,7 @@
             this.StartButton.TabIndex = 0;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
-            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            this.StartButton.Click += new System.EventHandler(this.OnStartButtonClick);
             // 
             // StopButton
             // 
@@ -50,13 +51,24 @@
             this.StopButton.TabIndex = 1;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
-            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            this.StopButton.Click += new System.EventHandler(this.OnStopButtonClick);
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.Location = new System.Drawing.Point(12, 70);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(75, 23);
+            this.SettingsButton.TabIndex = 2;
+            this.SettingsButton.Text = "Settings";
+            this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.OnSettingsButtonClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.StartButton);
             this.Name = "MainForm";
@@ -69,6 +81,7 @@
 
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button StopButton;
+        private System.Windows.Forms.Button SettingsButton;
     }
 }
 

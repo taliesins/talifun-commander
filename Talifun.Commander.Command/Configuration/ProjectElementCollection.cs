@@ -10,14 +10,13 @@ namespace Talifun.Commander.Command.Configuration
     {
         public ProjectElementCollection()
         {
-            CollectionSettingName = "projects";
-            ElementSettingName = "project";
-            AddElementName = ElementSettingName;
+            Setting = ProjectConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(ProjectElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(ProjectElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

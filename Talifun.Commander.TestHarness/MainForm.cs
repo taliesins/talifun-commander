@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Windows.Forms;
 using Talifun.Commander.Command;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.TestHarness
 {
     public partial class MainForm : Form
     {
-        private ICommanderManager _mCommanderManager;
+        private readonly ICommanderManager _commanderManager;
+        private CommanderSectionForm _commanderSectionForm;
         public MainForm()
         {
             InitializeComponent();
-            _mCommanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
-            SetRunningState(_mCommanderManager.IsRunning);
+            _commanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
+            SetRunningState(_commanderManager.IsRunning);
         }
 
         private void SetRunningState(bool isRunning)
@@ -20,16 +22,26 @@ namespace Talifun.Commander.TestHarness
             StopButton.Enabled = isRunning;
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
+        private void OnStartButtonClick(object sender, EventArgs e)
         {
-            _mCommanderManager.Start();
+            _commanderManager.Start();
             SetRunningState(true);
         }
 
-        private void StopButton_Click(object sender, EventArgs e)
+        private void OnStopButtonClick(object sender, EventArgs e)
         {
-            _mCommanderManager.Stop();
+            _commanderManager.Stop();
             SetRunningState(false);
+        }
+
+        private void OnSettingsButtonClick(object sender, EventArgs e)
+        {
+            if (_commanderSectionForm == null)
+            {
+                _commanderSectionForm = new CommanderSectionForm(_commanderManager);
+            }
+
+            _commanderSectionForm.ShowDialog(this);
         }
     }
 }

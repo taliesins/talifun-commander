@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Drawing;
 
 namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
@@ -23,6 +24,16 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public string ElementSettingName
         {
             get { return "videoThumbnailerSetting"; }
+        }
+
+        public Image ElementImage
+        {
+            get { return Properties.Resource.videothumbnailersetting; }
+        }
+
+        public Image ElementCollectionImage
+        {
+            get { return Properties.Resource.videothumbnailersettings; }
         }
 
         public string FFMpegPath

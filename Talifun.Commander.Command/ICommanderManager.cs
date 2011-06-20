@@ -1,10 +1,15 @@
 ﻿using System;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command
 {
     public interface ICommanderManager
     {
+        ExportProvider Container { get; }
+        CommanderSection Configuration { get;  }
+        
         void Start();
         void Stop();
         bool IsRunning

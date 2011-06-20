@@ -1,4 +1,6 @@
-﻿namespace Talifun.Commander.Command.CommandLine.Configuration
+﻿using System.Drawing;
+
+namespace Talifun.Commander.Command.CommandLine.Configuration
 {
     public class CommandLineSettingConfiguration : ISettingConfiguration
     {
@@ -21,6 +23,18 @@
         public string ElementSettingName
         {
             get { return "commandLineSetting"; }
+        }
+
+
+        public Image ElementImage
+        {
+            get { return Properties.Resource.commandlinesetting; }
+        }
+
+
+        public Image ElementCollectionImage
+        {
+            get { return Properties.Resource.commandlinesettings; }
         }
     }
 }

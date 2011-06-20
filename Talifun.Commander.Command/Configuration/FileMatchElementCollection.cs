@@ -10,14 +10,13 @@ namespace Talifun.Commander.Command.Configuration
     {
         public FileMatchElementCollection()
         {
-            CollectionSettingName = "fileMatches";
-            ElementSettingName = "fileMatch";
-            AddElementName = ElementSettingName;
+            Setting = FileMatchConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(FileMatchElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(FileMatchElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

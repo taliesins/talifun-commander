@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.Image
 {

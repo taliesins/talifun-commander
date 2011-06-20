@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +53,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResizeImageType.cs" />
     <Compile Include="ResizeMode.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
@@ -62,6 +68,19 @@
       <Project>{05B649B2-2CF7-4775-A77A-1C4B547915AE}</Project>
       <Name>Talifun.Commander.Executor.CommandLine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imageconversionsetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imageconversionsettings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

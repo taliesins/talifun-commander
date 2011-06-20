@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.AntiVirus
     {
         public AntiVirusSettingElementCollection()
         {
-            CollectionSettingName = AntiVirusSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = AntiVirusSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = AntiVirusSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(AntiVirusSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(AntiVirusSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

@@ -39,5 +39,10 @@ namespace Talifun.Commander.Command.Configuration
                 return properties;
             }
         }
+
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
     }
 }

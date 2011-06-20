@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Drawing;
 
 namespace Talifun.Commander.Command.Video.Configuration
 {
@@ -39,6 +40,17 @@ namespace Talifun.Commander.Command.Video.Configuration
             {
                 return ConfigurationManager.AppSettings["FlvTool2Path"];
             }
+        }
+
+        public Image ElementImage
+        {
+            get { return Properties.Resource.videoconversionsetting; }
+        }
+
+
+        public Image ElementCollectionImage
+        {
+            get { return Properties.Resource.videoconversionsettings; }
         }
     }
 }

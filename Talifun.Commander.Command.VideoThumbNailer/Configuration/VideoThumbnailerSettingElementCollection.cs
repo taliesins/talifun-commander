@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.VideoThumbNailer
     {
         public VideoThumbnailerSettingElementCollection()
         {
-            CollectionSettingName = VideoThumbnailerSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = VideoThumbnailerSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = VideoThumbnailerSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(VideoThumbnailerSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(VideoThumbnailerSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Drawing;
 
 namespace Talifun.Commander.Command.Audio.Configuration
 {
@@ -31,6 +32,17 @@ namespace Talifun.Commander.Command.Audio.Configuration
             {
                 return ConfigurationManager.AppSettings["FFMpegPath"];
             }
+        }
+
+        public Image ElementImage
+        {
+            get { return Properties.Resource.audioconversionsetting; }
+        }
+
+
+        public Image ElementCollectionImage
+        {
+            get { return Properties.Resource.audioconversionsettings; }
         }
     }
 }

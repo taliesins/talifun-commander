@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.Image
     {
         public ImageConversionSettingElementCollection()
         {
-            CollectionSettingName = ImageConversionSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = ImageConversionSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = ImageConversionSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(ImageConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(ImageConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

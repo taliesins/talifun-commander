@@ -38,7 +38,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
         #endregion
 
-        private static Regex m_GetPropertiesExpression = new Regex(@"([^\r\n]*)\s+:\s+([^\r\n]*)", RegexOptions.Compiled);
+        private static readonly Regex GetPropertiesExpression = new Regex(@"([^\r\n]*)\s+:\s+([^\r\n]*)", RegexOptions.Compiled);
 
         /// <summary>
         /// Get a list of properties from the results of the McAfee scan.
@@ -47,7 +47,7 @@ namespace Talifun.Commander.Command.AntiVirus
         /// <returns>A list of properties of the result from the McAfee scan.</returns>
         internal static Dictionary<string, string> GetProperties(string output)
         {
-            var match = m_GetPropertiesExpression.Match(output);
+            var match = GetPropertiesExpression.Match(output);
             var properties = new Dictionary<string, string>();
 
             if (match.Success)

@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,11 @@
     <Compile Include="MP3Command.cs" />
     <Compile Include="MP3Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
@@ -65,6 +71,19 @@
       <Project>{DBD72C26-152B-4ED1-8D11-683ABB21F864}</Project>
       <Name>Talifun.Commander.Executor.FFMpeg</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\audioconversionsetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\audioconversionsettings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

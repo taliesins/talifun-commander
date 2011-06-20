@@ -12,14 +12,13 @@ namespace Talifun.Commander.Command.Audio
     {
         public AudioConversionSettingElementCollection()
         {
-            CollectionSettingName = AudioConversionSettingConfiguration.Instance.CollectionSettingName;
-            ElementSettingName = AudioConversionSettingConfiguration.Instance.ElementSettingName;
-            AddElementName = ElementSettingName;
+            Setting = AudioConversionSettingConfiguration.Instance;
+            AddElementName = Setting.ElementSettingName;
         }
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(CollectionSettingName, typeof(AudioConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.CollectionSettingName, typeof(AudioConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }
