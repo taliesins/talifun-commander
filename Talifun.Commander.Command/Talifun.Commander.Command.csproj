@@ -121,29 +121,24 @@
     <Compile Include="CommandProperties.cs" />
     <Compile Include="CommandSagaBase.cs" />
     <Compile Include="CommandSagaProperties.cs" />
-    <Compile Include="ConfigurationGui\OptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigurationGui\OptionsForm.Designer.cs">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ConfigurationGui\OptionsPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ConfigurationGui\OptionsPanel.Designer.cs">
-      <DependentUpon>OptionsPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ConfigurationGui\OptionsPanelEventArgs.cs" />
-    <Compile Include="ConfigurationGui\OptionsPanelEventHandler.cs" />
-    <Compile Include="ConfigurationGui\OptionsPanelList.cs" />
-    <Compile Include="ConfigurationGui\OptionsPanelListEditor.cs" />
-    <Compile Include="ConfigurationGui\Settings.cs" />
     <Compile Include="Configuration\CommanderSection.cs" />
     <Compile Include="Configuration\CommanderSectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Configuration\CommanderSectionForm.Designer.cs">
       <DependentUpon>CommanderSectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FileMatchConfigurationForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\FileMatchConfigurationForm.Designer.cs">
+      <DependentUpon>FileMatchConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FolderConfigurationForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\FolderConfigurationForm.Designer.cs">
+      <DependentUpon>FolderConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\CurrentConfiguration.cs" />
     <Compile Include="Configuration\CurrentConfigurationElementCollection.cs" />
@@ -156,6 +151,12 @@
     <Compile Include="Configuration\FolderElement.cs" />
     <Compile Include="Configuration\FolderElementCollection.cs" />
     <Compile Include="Configuration\ProjectConfiguration.cs" />
+    <Compile Include="Configuration\ProjectConfigurationForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\ProjectConfigurationForm.Designer.cs">
+      <DependentUpon>ProjectConfigurationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
@@ -182,11 +183,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigurationGui\OptionsForm.resx">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
+    <EmbeddedResource Include="Configuration\CommandConfigurationPanelBase.resx">
+      <DependentUpon>CommandConfigurationPanelBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\CommanderSectionForm.resx">
       <DependentUpon>CommanderSectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\FileMatchConfigurationForm.resx">
+      <DependentUpon>FileMatchConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\FolderConfigurationForm.resx">
+      <DependentUpon>FolderConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\ProjectConfigurationForm.resx">
+      <DependentUpon>ProjectConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
