@@ -14,6 +14,7 @@ namespace Talifun.Commander.TestHarness
         public MainWindow()
         {
             InitializeComponent();
+            this.Icon = Command.Properties.Resource.Commander.ToBitmap().ToBitmapSource();
             _commanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
             SetRunningState(_commanderManager.IsRunning);
         }

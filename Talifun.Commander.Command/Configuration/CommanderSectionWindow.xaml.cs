@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +26,8 @@ namespace Talifun.Commander.Command.Configuration
             _icons = GetConfigurationIcons();
 
             InitializeComponent();
+            this.Icon = Properties.Resource.Commander.ToBitmap().ToBitmapSource();
+
             BuildTree();
         }
 
@@ -48,28 +49,11 @@ namespace Talifun.Commander.Command.Configuration
 
             foreach (var currentConfigurationElementCollection in _commandManager.Container.GetExportedValues<CurrentConfigurationElementCollection>())
             {
-                images.Add(currentConfigurationElementCollection.Setting.ElementSettingName, GetImage(currentConfigurationElementCollection.Setting.ElementImage));
-                images.Add(currentConfigurationElementCollection.Setting.ElementCollectionSettingName, GetImage(currentConfigurationElementCollection.Setting.ElementCollectionImage));
+                images.Add(currentConfigurationElementCollection.Setting.ElementSettingName, currentConfigurationElementCollection.Setting.ElementImage.ToBitmapSource());
+                images.Add(currentConfigurationElementCollection.Setting.ElementCollectionSettingName, currentConfigurationElementCollection.Setting.ElementCollectionImage.ToBitmapSource());
             }
 
             return images;
-        }
-
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        private static extern bool DeleteObject(IntPtr hObject);
-
-        private BitmapSource GetImage(System.Drawing.Bitmap bitmap)
-        {
-            var hBitmap = bitmap.GetHbitmap();
-            var bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                hBitmap,
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromWidthAndHeight(24, 24));
-
-            DeleteObject(hBitmap);
-
-            return bitmapSource;
         }
 
         protected void BuildTree()

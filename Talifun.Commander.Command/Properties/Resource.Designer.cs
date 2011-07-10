@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource {
+    public class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Talifun.Commander.Command.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Talifun.Commander.Command.Properties.Resource", typeof(Resource).Assembly);
@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,42 +60,49 @@ namespace Talifun.Commander.Command.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap FileMatchElement {
+        public static System.Drawing.Icon Commander {
+            get {
+                object obj = ResourceManager.GetObject("Commander", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap FileMatchElement {
             get {
                 object obj = ResourceManager.GetObject("FileMatchElement", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap FileMatchElementCollection {
+        public static System.Drawing.Bitmap FileMatchElementCollection {
             get {
                 object obj = ResourceManager.GetObject("FileMatchElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap FolderElement {
+        public static System.Drawing.Bitmap FolderElement {
             get {
                 object obj = ResourceManager.GetObject("FolderElement", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap FolderElementCollection {
+        public static System.Drawing.Bitmap FolderElementCollection {
             get {
                 object obj = ResourceManager.GetObject("FolderElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ProjectElement {
+        public static System.Drawing.Bitmap ProjectElement {
             get {
                 object obj = ResourceManager.GetObject("ProjectElement", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ProjectElementCollection {
+        public static System.Drawing.Bitmap ProjectElementCollection {
             get {
                 object obj = ResourceManager.GetObject("ProjectElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
