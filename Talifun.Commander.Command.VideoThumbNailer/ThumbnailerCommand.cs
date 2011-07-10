@@ -59,7 +59,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
             var commandArguments = string.Format("-i \"{0}\" -s {1}x{2} {3} {4} \"{5}\"", inputFilePath.FullName, settings.Width, settings.Height, position, AllFixedOptions, outPutFilePath.FullName);
 
-            var commandPath = VideoThumbnailerSettingConfiguration.Instance.FFMpegPath;
+            var commandPath = VideoThumbnailerConfiguration.Instance.FFMpegPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandOutput = string.Empty;

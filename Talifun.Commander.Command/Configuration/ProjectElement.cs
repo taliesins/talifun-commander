@@ -34,7 +34,13 @@ namespace Talifun.Commander.Command.Configuration
         public override string Name
         {
             get { return ((string)base[name]); }
-            set { base[name] = value; }
+            set
+            {
+                if (value == Name) return;
+
+                base[name] = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         /// <summary>

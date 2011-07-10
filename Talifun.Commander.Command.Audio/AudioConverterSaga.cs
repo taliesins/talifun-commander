@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Audio
         {
             get
             {
-                return AudioConversionSettingConfiguration.Instance;
+                return AudioConversionConfiguration.Instance;
             }
         }
 

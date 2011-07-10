@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -15,7 +16,7 @@ namespace Talifun.Commander.Command.Configuration
             get { throw new NotImplementedException(); }
         }
 
-        public string CollectionSettingName
+        public string ElementCollectionSettingName
         {
             get { return "fileMatches"; }
         }
@@ -25,15 +26,24 @@ namespace Talifun.Commander.Command.Configuration
             get { return "fileMatch"; }
         }
 
-        public System.Drawing.Image ElementImage
+        public Bitmap ElementImage
         {
-            get { return Properties.Resource.fileMatch; }
+            get { return Properties.Resource.FileMatchElement; }
         }
 
-
-        public System.Drawing.Image ElementCollectionImage
+        public Bitmap ElementCollectionImage
         {
-            get { return Properties.Resource.fileMatches; }
+            get { return Properties.Resource.FileMatchElementCollection; }
+        }
+
+        public Type ElementCollectionType
+        {
+            get { return typeof (FileMatchElementCollection); }
+        }
+
+        public Type ElementType
+        {
+            get { return typeof (FileMatchElement); }
         }
     }
 }

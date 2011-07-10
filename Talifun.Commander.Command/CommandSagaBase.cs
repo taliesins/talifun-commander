@@ -128,7 +128,7 @@ namespace Talifun.Commander.Command
             where C : CurrentConfigurationElementCollection<E> 
             where E : ConfigurationElement, new()
         {
-            var commandSettings = new ProjectElementCommand<C>(Settings.CollectionSettingName, properties.Project);
+            var commandSettings = new ProjectElementCommand<C>(Settings.ElementCollectionSettingName, properties.Project);
             var settings = commandSettings.Settings;
 
             var commandSettingsKey = properties.FileMatch.CommandSettingsKey;
@@ -137,7 +137,7 @@ namespace Talifun.Commander.Command
             if (setting == null)
                 throw new ConfigurationErrorsException("fileMatch attribute conversionSettingsKey='" +
                                                        setting +
-                                                       "' does not match any key found in " + Settings.CollectionSettingName + " name attributes");
+                                                       "' does not match any key found in " + Settings.ElementCollectionSettingName + " name attributes");
             return setting;
         }
     }

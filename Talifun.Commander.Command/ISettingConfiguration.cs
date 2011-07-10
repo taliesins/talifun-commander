@@ -1,13 +1,16 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Talifun.Commander.Command
 {
     public interface ISettingConfiguration
     {
         string ConversionType { get; }
-        string CollectionSettingName { get; }
         string ElementSettingName { get; }
-        Image ElementImage { get; }
-        Image ElementCollectionImage { get; }
+        string ElementCollectionSettingName { get; }
+        Type ElementCollectionType { get; }
+        Type ElementType { get; }
+        Bitmap ElementImage { get; }
+        Bitmap ElementCollectionImage { get; }
     }
 }

@@ -31,24 +31,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineCommand.cs" />
     <Compile Include="CommandLineSaga.cs" />
     <Compile Include="CommandLineParameters.cs" />
-    <Compile Include="Configuration\CommandLineSettingsTester.cs" />
-    <Compile Include="Configuration\CommandLineSettingConfiguration.cs" />
-    <Compile Include="Configuration\CommandLineSettingElement.cs" />
-    <Compile Include="Configuration\CommandLineSettingElementCollection.cs" />
+    <Compile Include="Configuration\CommandLineElementPanel.xaml.cs">
+      <DependentUpon>CommandLineElementPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\CommandLineTester.cs" />
+    <Compile Include="Configuration\CommandLineConfiguration.cs" />
+    <Compile Include="Configuration\CommandLineElement.cs" />
+    <Compile Include="Configuration\CommandLineElementCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,10 +81,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\commandlinesetting.png" />
+    <None Include="Resources\CommandLineElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\commandlinesettings.png" />
+    <None Include="Resources\CommandLineElementCollection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Configuration\CommandLineElementPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

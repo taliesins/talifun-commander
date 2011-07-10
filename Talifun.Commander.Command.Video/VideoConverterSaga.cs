@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Video
         {
             get
             {
-                return VideoConversionSettingConfiguration.Instance;
+                return VideoConversionConfiguration.Instance;
             }
         }
 

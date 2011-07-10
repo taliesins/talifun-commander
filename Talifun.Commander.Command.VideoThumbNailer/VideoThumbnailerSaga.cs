@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
         {
             get
             {
-                return VideoThumbnailerSettingConfiguration.Instance;
+                return VideoThumbnailerConfiguration.Instance;
             }
         }
 

@@ -16,7 +16,7 @@ namespace Talifun.Commander.Command.Configuration
             get { throw new NotImplementedException(); }
         }
 
-        public string CollectionSettingName
+        public string ElementCollectionSettingName
         {
             get { return "folders"; }
         }
@@ -26,14 +26,24 @@ namespace Talifun.Commander.Command.Configuration
             get { return "folder"; }
         }
 
-        public Image ElementImage
+        public Bitmap ElementImage
         {
-            get { return Properties.Resource.folder; }
+            get { return Properties.Resource.FolderElement; }
         }
 
-        public Image ElementCollectionImage
+        public Bitmap ElementCollectionImage
         {
-            get { return Properties.Resource.folders; }
+            get { return Properties.Resource.FolderElementCollection; }
+        }
+
+        public Type ElementCollectionType
+        {
+            get { return typeof(FolderElementCollection); }
+        }
+
+        public Type ElementType
+        {
+            get { return typeof (FolderElement); }
         }
     }
 }

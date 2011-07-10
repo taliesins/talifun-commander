@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.AntiVirus
         {
             get
             {
-                return AntiVirusSettingConfiguration.Instance;
+                return AntiVirusConfiguration.Instance;
             }
         }
 

@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command
             var args = string.Format(@"-i ""{0}""", videoFilePath.FullName);
             
             var workingDirectory = videoFilePath.DirectoryName;
-            var commandPath = VideoThumbnailerSettingConfiguration.Instance.FFMpegPath;
+            var commandPath = VideoThumbnailerConfiguration.Instance.FFMpegPath;
    
             if (!helper.Execute(workingDirectory, commandPath, args, out output))
             {

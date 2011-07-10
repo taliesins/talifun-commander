@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Image
         {
             get
             {
-                return ImageConversionSettingConfiguration.Instance;
+                return ImageConversionConfiguration.Instance;
             }
         }
 

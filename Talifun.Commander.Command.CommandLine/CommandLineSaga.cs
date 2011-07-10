@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.CommandLine
         {
             get
             {
-                return CommandLineSettingConfiguration.Instance;
+                return CommandLineConfiguration.Instance;
             }
         }
 

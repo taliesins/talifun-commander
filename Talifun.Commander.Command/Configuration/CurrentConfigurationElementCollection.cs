@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Configuration;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Talifun.Commander.Command.Configuration
 {
     [InheritedExport]
-    public abstract class CurrentConfigurationElementCollection : ConfigurationElementCollection
+    public abstract class CurrentConfigurationElementCollection : ConfigurationElementCollection, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>
         /// The collection of instances of classes derived from <see cref="ConfigurationElement" />  that represent the configuration properties containing in this collection.
@@ -56,7 +59,12 @@ namespace Talifun.Commander.Command.Configuration
         /// <param name="index">The index of the element to remove from the collection.</param>
         public void Remove(int index)
         {
-            if (base.BaseGet(index) != null) base.BaseRemoveAt(index);
+            var configurationElement = base.BaseGet(index);
+            if (base.BaseGet(index) == null) return;
+            base.BaseRemoveAt(index);
+            this.OnPropertyChanged(CountString);
+            this.OnPropertyChanged(IndexerName);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement, index));
         }
 
         /// <summary>
@@ -65,7 +73,12 @@ namespace Talifun.Commander.Command.Configuration
         /// <param name="name">The name of the element to remove from the collection.</param>
         public void Remove(string name)
         {
-            if (base.BaseGet(name) != null) base.BaseRemove(name);
+            var configurationElement = base.BaseGet(name);
+            if (configurationElement == null) return;
+            base.BaseRemove(name);
+            this.OnPropertyChanged(CountString);
+            this.OnPropertyChanged(IndexerName);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement));
         }
 
         /// <summary>
@@ -76,8 +89,21 @@ namespace Talifun.Commander.Command.Configuration
             get { return base.BaseGet(index) as NamedConfigurationElement; }
             set
             {
-                Remove(index);
-                this.BaseAdd(index, value);
+                var configurationElement = base.BaseGet(index);
+                if (base.BaseGet(index) == null)
+                {
+                    this.BaseAdd(index, value);
+                    this.OnPropertyChanged(CountString);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, configurationElement)); 
+                }
+                else
+                {
+                    base.BaseRemoveAt(index);
+                    this.BaseAdd(index, value);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));                    
+                }
             }
         }
 
@@ -89,10 +115,91 @@ namespace Talifun.Commander.Command.Configuration
             get { return base.BaseGet(name) as NamedConfigurationElement; }
             set
             {
-                Remove(name);
-                this.BaseAdd(value);
+                var configurationElement = base.BaseGet(name);
+                if (configurationElement == null)
+                {
+                    this.BaseAdd(value);
+                    this.OnPropertyChanged(CountString);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));  
+                }
+                else
+                {
+                    base.BaseRemove(name);
+                    this.BaseAdd(value);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement));                    
+                }
             }
         }
+
+        #region INotifyCollectionChanged Members
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            if (CollectionChanged != null)
+            {
+                CollectionChanged(this, e);
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged Members
+
+        protected const string CountString = "Count";
+        protected const string IndexerName = "Item[]";
+
+        ///<summary>
+        ///Occurs when a property value changes.
+        ///</summary>
+        public virtual event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Raises the <see cref="PropertyChanged"/> event for
+        /// a given property.
+        /// </summary>
+        /// <param name="propertyName">The name of the changed property.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            //validate the property name in debug builds
+            VerifyProperty(propertyName);
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        /// <summary>
+        /// Verifies whether the current class provides a property with a given
+        /// name. This method is only invoked in debug builds, and results in
+        /// a runtime exception if the <see cref="OnPropertyChanged"/> method
+        /// is being invoked with an invalid property name. This may happen if
+        /// a property's name was changed but not the parameter of the property's
+        /// invocation of <see cref="OnPropertyChanged"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the changed property.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider",
+            MessageId = "System.String.Format(System.String,System.Object,System.Object)"), Conditional("DEBUG")]
+        [DebuggerNonUserCode]
+        private void VerifyProperty(string propertyName)
+        {
+            var type = GetType();
+
+            //look for a *public* property with the specified name
+            var pi = type.GetProperty(propertyName);
+            if (pi != null) return;
+            //there is no matching property - notify the developer
+            var msg = "OnPropertyChanged was invoked with invalid property name {0}: ";
+            msg += "{0} is not a public property of {1}.";
+            msg = String.Format(msg, propertyName, type.FullName);
+            Debug.Fail(msg);
+        }
+
+        #endregion
     }
 
     /// <summary>
@@ -109,8 +216,21 @@ namespace Talifun.Commander.Command.Configuration
             get { return base.BaseGet(index) as T; }
             set
             {
-                Remove(index);
-                this.BaseAdd(index, value);
+                var configurationElement = base.BaseGet(index);
+                if (base.BaseGet(index) == null)
+                {
+                    this.BaseAdd(index, value);
+                    this.OnPropertyChanged(CountString);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, configurationElement));                    
+                }
+                else
+                {
+                    base.BaseRemoveAt(index);
+                    this.BaseAdd(index, value);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));
+                }
             }
         }
 
@@ -122,8 +242,21 @@ namespace Talifun.Commander.Command.Configuration
             get { return base.BaseGet(name) as T; }
             set
             {
-                Remove(name);
-                this.BaseAdd(value);
+                var configurationElement = base.BaseGet(name);
+                if (configurationElement == null)
+                {
+                    this.BaseAdd(value);
+                    this.OnPropertyChanged(CountString);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));
+                }
+                else
+                {
+                    base.BaseRemove(name);
+                    this.BaseAdd(value);
+                    this.OnPropertyChanged(IndexerName);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement));
+                }
             }
         }
 

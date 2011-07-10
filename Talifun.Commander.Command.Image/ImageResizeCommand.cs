@@ -131,7 +131,7 @@ namespace Talifun.Commander.Command.Image
                     }
             }
 
-            var commandPath = ImageConversionSettingConfiguration.Instance.ConvertPath;
+            var commandPath = ImageConversionConfiguration.Instance.ConvertPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandLineExecutor = new CommandLineExecutor();

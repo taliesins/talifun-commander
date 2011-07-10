@@ -84,16 +84,18 @@
     <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -102,15 +104,22 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
-    <Compile Include="Configuration\CommandConfigurationPanelBase.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
+    <Compile Include="Configuration\ElementPanelBase.cs" />
+    <Compile Include="Configuration\FileMatchElementPanel.xaml.cs">
+      <DependentUpon>FileMatchElementPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\CommandConfigurationPanelBase.Designer.cs">
-      <DependentUpon>CommandConfigurationPanelBase.cs</DependentUpon>
+    <Compile Include="Configuration\FolderElementPanel.xaml.cs">
+      <DependentUpon>FolderElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\ProjectElementPanel.xaml.cs">
+      <DependentUpon>ProjectElementPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SettingPanelBase.cs" />
     <Compile Include="Configuration\CommandConfigurationTester.cs" />
     <Compile Include="Configuration\CommandConfigurationTesterBase.cs" />
     <Compile Include="CommandContainer.cs" />
@@ -122,23 +131,8 @@
     <Compile Include="CommandSagaBase.cs" />
     <Compile Include="CommandSagaProperties.cs" />
     <Compile Include="Configuration\CommanderSection.cs" />
-    <Compile Include="Configuration\CommanderSectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Configuration\CommanderSectionForm.Designer.cs">
-      <DependentUpon>CommanderSectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\FileMatchConfigurationForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configuration\FileMatchConfigurationForm.Designer.cs">
-      <DependentUpon>FileMatchConfigurationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\FolderConfigurationForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configuration\FolderConfigurationForm.Designer.cs">
-      <DependentUpon>FolderConfigurationForm.cs</DependentUpon>
+    <Compile Include="Configuration\CommanderSectionWindow.xaml.cs">
+      <DependentUpon>CommanderSectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration\CurrentConfiguration.cs" />
     <Compile Include="Configuration\CurrentConfigurationElementCollection.cs" />
@@ -151,15 +145,10 @@
     <Compile Include="Configuration\FolderElement.cs" />
     <Compile Include="Configuration\FolderElementCollection.cs" />
     <Compile Include="Configuration\ProjectConfiguration.cs" />
-    <Compile Include="Configuration\ProjectConfigurationForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Configuration\ProjectConfigurationForm.Designer.cs">
-      <DependentUpon>ProjectConfigurationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
+    <Compile Include="Configuration\TreeViewWithIcons.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />
     <Compile Include="ICommanderManager.cs" />
@@ -183,43 +172,47 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\CommandConfigurationPanelBase.resx">
-      <DependentUpon>CommandConfigurationPanelBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\CommanderSectionForm.resx">
-      <DependentUpon>CommanderSectionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\FileMatchConfigurationForm.resx">
-      <DependentUpon>FileMatchConfigurationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\FolderConfigurationForm.resx">
-      <DependentUpon>FolderConfigurationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\ProjectConfigurationForm.resx">
-      <DependentUpon>ProjectConfigurationForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fileMatch.png" />
+    <None Include="Resources\FileMatchElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder.png" />
+    <None Include="Resources\FolderElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folders.png" />
+    <None Include="Resources\FolderElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\project.png" />
+    <None Include="Resources\ProjectElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fileMatches.png" />
+    <None Include="Resources\FileMatchElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\projects.png" />
+    <None Include="Resources\ProjectElementCollection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Configuration\CommanderSectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configuration\FileMatchElementPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configuration\FolderElementPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configuration\ProjectElementPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
