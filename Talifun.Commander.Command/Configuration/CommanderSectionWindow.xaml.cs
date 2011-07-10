@@ -14,7 +14,8 @@ namespace Talifun.Commander.Command.Configuration
         private readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
         private readonly ICommanderManager _commandManager;
         private readonly IEnumerable<CurrentConfigurationElementCollection> _currentConfigurationElementCollections;
-        private readonly IEnumerable<ElementPanelBase> _elementSettingPanels;
+        private readonly IEnumerable<ElementPanelBase> _elementPanels;
+        private readonly IEnumerable<ElementCollectionPanelBase> _elementCollectionPanels;
         private readonly Dictionary<string, BitmapSource> _icons;
 
         public CommanderSectionWindow(ICommanderManager commandManager)
@@ -22,7 +23,8 @@ namespace Talifun.Commander.Command.Configuration
             _commandManager = commandManager;
 
             _currentConfigurationElementCollections = GetConfiguration();
-            _elementSettingPanels = GetElementSettingPanels();
+            _elementPanels = GetElementPanels();
+            _elementCollectionPanels = GetElementCollectionPanels();
             _icons = GetConfigurationIcons();
 
             InitializeComponent();
@@ -37,9 +39,15 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
         }
 
-        private IEnumerable<ElementPanelBase> GetElementSettingPanels()
+        private IEnumerable<ElementPanelBase> GetElementPanels()
         {
             return _commandManager.Container.GetExportedValues<ElementPanelBase>()
+                .Where(x => x.Settings != null);
+        }
+
+        private IEnumerable<ElementCollectionPanelBase> GetElementCollectionPanels()
+        {
+            return _commandManager.Container.GetExportedValues<ElementCollectionPanelBase>()
                 .Where(x => x.Settings != null);
         }
 
@@ -163,33 +171,6 @@ namespace Talifun.Commander.Command.Configuration
             }
         }
 
-        //private void CommandSectionTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        //{
-        //    var selectedNode = e.Node;
-        //    var elementSettingName = selectedNode.Name.Split('|').First();
-
-        //    var commandConfigurationPanel = _elementSettingPanels.Where(x => x.Settings.ElementSettingName == elementSettingName).FirstOrDefault();
-
-        //    if (CommandConfigurationContentControl.Controls.Count == 0 || !CommandConfigurationContentControl.Controls[0].Equals(commandConfigurationPanel))
-        //    {
-        //        CommandConfigurationContentControl.Controls.Clear();
-
-        //        if (commandConfigurationPanel != null)
-        //        {
-        //            CommandConfigurationContentControl.Controls.Add(commandConfigurationPanel);
-        //            commandConfigurationPanel.Visible = true;
-        //        }
-        //    }
-        //}
-
-        //private void CommandSectionTreeView_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    var treeView = sender as TreeView;
-        //    var selectedNode = treeView.GetNodeAt(e.X, e.Y);
-
-        //    //Show context menu
-        //}
-
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -208,12 +189,24 @@ namespace Talifun.Commander.Command.Configuration
             if (treeViewItem.Tag is CurrentConfigurationElementCollection)
             {
                 var elementSettingCollectionType = treeViewItem.Tag.GetType();
+
+                var elementCollectionPanel = _elementCollectionPanels.Where(x => x.Settings.ElementCollectionType == elementSettingCollectionType).FirstOrDefault();
+
+                if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementCollectionPanel))
+                {
+                    CommandConfigurationContentControl.Content = null;
+
+                    if (elementCollectionPanel != null)
+                    {
+                        CommandConfigurationContentControl.Content = elementCollectionPanel;
+                    }
+                }
             }
             else if (treeViewItem.Tag is NamedConfigurationElement)
             {
                 var elementSettingType = treeViewItem.Tag.GetType();
 
-                var elementSettingPanel = _elementSettingPanels.Where(x => x.Settings.ElementType == elementSettingType).FirstOrDefault();
+                var elementSettingPanel = _elementPanels.Where(x => x.Settings.ElementType == elementSettingType).FirstOrDefault();
 
                 if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementSettingPanel))
                 {
