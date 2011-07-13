@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Threading;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command
 {
@@ -49,7 +50,7 @@ namespace Talifun.Commander.Command
             }
 
             //We will never get here
-            throw new IOException("Unable to delete directory " + directory);
+            throw new IOException(string.Format(Resource.ErrorMessageUnableToDeleteDirectory, directory));
         }
 
         public void MoveCompletedFileToOutputFolder(FileInfo workingFilePath, string fileNameFormat, string outPutPath)
@@ -135,9 +136,7 @@ namespace Talifun.Commander.Command
 
             var setting = settings[commandSettingsKey];
             if (setting == null)
-                throw new ConfigurationErrorsException("fileMatch attribute conversionSettingsKey='" +
-                                                       setting +
-                                                       "' does not match any key found in " + Settings.ElementCollectionSettingName + " name attributes");
+                throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageFileMatchNoMatchingConversionSettingsKey, commandSettingsKey, Settings.ElementCollectionSettingName));
             return setting;
         }
     }

@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class FileMatchElement : NamedConfigurationElement
+    public sealed partial class FileMatchElement : NamedConfigurationElement
     {
         private static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
         private static readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);

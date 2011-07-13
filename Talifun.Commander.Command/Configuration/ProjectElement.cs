@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Talifun.Commander.Command.Configuration
 {
-    public class ProjectElement : NamedConfigurationElement
+    public partial class ProjectElement : NamedConfigurationElement
     {
         protected ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
         protected readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);

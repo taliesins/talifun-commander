@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -19,7 +20,7 @@ namespace Talifun.Commander.Command.Configuration
             {
                 var s = streamReader.ReadToEnd();
 
-                if (s != "Test") throw new Exception("Data read from test file (" + fileInfo.FullName + ") was incorrect");
+                if (s != "Test") throw new Exception(string.Format(Resource.ErrorMessageDataReadFromTestFileWasIncorrect, fileInfo.FullName));
             }
 
             fileInfo.Delete();

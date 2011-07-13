@@ -67,6 +67,141 @@ namespace Talifun.Commander.Command.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find &lt;project&gt; for &lt;fileMatch&gt; element.
+        /// </summary>
+        public static string ErrorMessageCannotFindProjectForFileElement {
+            get {
+                return ResourceManager.GetString("ErrorMessageCannotFindProjectForFileElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;folders&gt;&lt;folders name=\&quot;{1}\&quot;&gt; completedPath does not exist - {2}.
+        /// </summary>
+        public static string ErrorMessageCompletedPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCompletedPathDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data read from test file ({0}) was incorrect.
+        /// </summary>
+        public static string ErrorMessageDataReadFromTestFileWasIncorrect {
+            get {
+                return ResourceManager.GetString("ErrorMessageDataReadFromTestFileWasIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fileMatch attribute conversionSettingsKey=&apos;{0}&apos; does not match any key found in {1} name attributes.
+        /// </summary>
+        public static string ErrorMessageFileMatchNoMatchingConversionSettingsKey {
+            get {
+                return ResourceManager.GetString("ErrorMessageFileMatchNoMatchingConversionSettingsKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;folders&gt;&lt;folder name=\&quot;{1}\&quot;&gt; folderToWatch does not exist - {2}.
+        /// </summary>
+        public static string ErrorMessageFolderToWatchDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageFolderToWatchDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;folders&gt;&lt;folders name=\&quot;{1}\&quot;&gt; folderToWatch is a duplicate, only one watcher per folder branch - {2}.
+        /// </summary>
+        public static string ErrorMessageFolderToWatchIsADuplicate {
+            get {
+                return ResourceManager.GetString("ErrorMessageFolderToWatchIsADuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnPropertyChanged was invoked with invalid property name {0}: {0} is not a public property of {1}..
+        /// </summary>
+        public static string ErrorMessageOnPropertyChangedInvokedWithInvalidPropertyName {
+            get {
+                return ResourceManager.GetString("ErrorMessageOnPropertyChangedInvokedWithInvalidPropertyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout waiting for lock - RaiseOnCommandErrorEvent.
+        /// </summary>
+        public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock {
+            get {
+                return ResourceManager.GetString("ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout waiting for lock - CommandErrorEvent.add.
+        /// </summary>
+        public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd {
+            get {
+                return ResourceManager.GetString("ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout waiting for lock - CommandErrorEvent.remove.
+        /// </summary>
+        public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove {
+            get {
+                return ResourceManager.GetString("ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified member {0} was not found on the instance {1}.
+        /// </summary>
+        public static string ErrorMessageTheSpecifiedMemberWasNotFoundOnInstance {
+            get {
+                return ResourceManager.GetString("ErrorMessageTheSpecifiedMemberWasNotFoundOnInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to delete directory {0}.
+        /// </summary>
+        public static string ErrorMessageUnableToDeleteDirectory {
+            get {
+                return ResourceManager.GetString("ErrorMessageUnableToDeleteDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find configuration section - {0}.
+        /// </summary>
+        public static string ErrorMessageUnableToFindConfigurationSection {
+            get {
+                return ResourceManager.GetString("ErrorMessageUnableToFindConfigurationSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find configuration section group - {0}.
+        /// </summary>
+        public static string ErrorMessageUnableToFindConfigurationSectionGroup {
+            get {
+                return ResourceManager.GetString("ErrorMessageUnableToFindConfigurationSectionGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;folders&gt;&lt;folders name=\&quot;{1}\&quot;&gt; workingPath does not exist - {2}.
+        /// </summary>
+        public static string ErrorMessageWorkingPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageWorkingPathDoesNotExist", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap FileMatchElement {
             get {
                 object obj = ResourceManager.GetObject("FileMatchElement", resourceCulture);
@@ -106,6 +241,33 @@ namespace Talifun.Commander.Command.Properties {
             get {
                 object obj = ResourceManager.GetObject("ProjectElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        public static string ValidatorMessageFileMatchElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageFileMatchElementNameMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        public static string ValidatorMessageFolderElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageFolderElementNameMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        public static string ValidatorMessageProjectElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageProjectElementNameMandatory", resourceCulture);
             }
         }
     }

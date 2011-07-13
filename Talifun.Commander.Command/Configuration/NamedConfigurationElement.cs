@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -61,9 +62,7 @@ namespace Talifun.Commander.Command.Configuration
             var pi = type.GetProperty(propertyName);
             if (pi != null) return;
             //there is no matching property - notify the developer
-            var msg = "OnPropertyChanged was invoked with invalid property name {0}: ";
-            msg += "{0} is not a public property of {1}.";
-            msg = String.Format(msg, propertyName, type.FullName);
+            var msg = String.Format(Resource.ErrorMessageOnPropertyChangedInvokedWithInvalidPropertyName, propertyName, type.FullName);
             Debug.Fail(msg);
         }
     }

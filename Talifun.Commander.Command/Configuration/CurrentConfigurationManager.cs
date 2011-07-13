@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Configuration;
 using System.Web;
 using System.Web.Configuration;
+using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -39,7 +40,7 @@ namespace Talifun.Commander.Command.Configuration
                 if ((result = section as T) != null) return (result);
             }
             // If we've got this far, it means we didn't find any matching sections in the configuration file. so we raise an exception:
-            throw new ConfigurationErrorsException("Unable to find configuration section " + typeof(T).FullName);
+            throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSection, typeof(T).FullName));
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace Talifun.Commander.Command.Configuration
             }
             // If we've got this far, it means we didn't find any matching sections in the 
             // configuration file. so we raise an exception:
-            throw new ConfigurationErrorsException("Unable to find configuration section group " + typeof(T).FullName);
+            throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSectionGroup, typeof(T).FullName));
         }
 
         /// <summary>

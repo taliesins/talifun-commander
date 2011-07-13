@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Properties;
 using Talifun.Commander.FileWatcher;
 
 namespace Talifun.Commander.Command
@@ -216,7 +217,7 @@ namespace Talifun.Commander.Command
                 }
             }
 
-            throw new Exception("Cannot find <project> for <fileMatch> element");
+            throw new Exception(string.Format(Resource.ErrorMessageCannotFindProjectForFileElement));
         }
 
         protected ICommandSaga GetCommandSaga(string conversionType)
@@ -375,7 +376,7 @@ namespace Talifun.Commander.Command
             {
                 if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
                 {
-                    throw new ApplicationException("Timeout waiting for lock - CommandErrorEvent.add");
+                    throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd);
                 }
                 try
                 {
@@ -390,7 +391,7 @@ namespace Talifun.Commander.Command
             {
                 if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
                 {
-                    throw new ApplicationException("Timeout waiting for lock - CommandErrorEvent.remove");
+                    throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove);
                 }
                 try
                 {
@@ -453,7 +454,7 @@ namespace Talifun.Commander.Command
 
             if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
             {
-                throw new ApplicationException("Timeout waiting for lock - RaiseOnCommandErrorEvent");
+                throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock);
             }
             try
             {

@@ -84,6 +84,9 @@
     <Reference Include="envdte80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\References\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -108,18 +111,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="Configuration\BindToElementCollectionEventArgs.cs" />
+    <Compile Include="Configuration\BindToElementCollectionEventHandler.cs" />
+    <Compile Include="Configuration\BindToElementEventArgs.cs" />
+    <Compile Include="Configuration\BindToElementEventHandler.cs" />
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
     <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
     <Compile Include="Configuration\ElementPanelBase.cs" />
     <Compile Include="Configuration\FileMatchElementPanel.xaml.cs">
       <DependentUpon>FileMatchElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\FileMatchElement.Validation.cs">
+      <DependentUpon>FileMatchElement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FileMatchElementValidator.cs" />
+    <Compile Include="Configuration\FolderElement.Validation.cs">
+      <DependentUpon>FolderElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\FolderElementPanel.xaml.cs">
       <DependentUpon>FolderElementPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FolderElementValidator.cs" />
+    <Compile Include="Configuration\ProjectElement.Validation.cs" >
+      <DependentUpon>ProjectElement.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\ProjectElementPanel.xaml.cs">
       <DependentUpon>ProjectElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\ProjectElementValidator.cs" />
     <Compile Include="Configuration\SettingPanelBase.cs" />
     <Compile Include="Configuration\CommandConfigurationTester.cs" />
     <Compile Include="Configuration\CommandConfigurationTesterBase.cs" />
@@ -150,6 +169,7 @@
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
     <Compile Include="Configuration\TreeViewWithIcons.cs" />
+    <Compile Include="Configuration\ValidationHelper.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />
     <Compile Include="ICommanderManager.cs" />

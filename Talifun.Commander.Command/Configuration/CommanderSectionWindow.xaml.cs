@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -173,12 +174,18 @@ namespace Talifun.Commander.Command.Configuration
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Exit();
         }
 
         private void OkButtonClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Exit();
+        }
+
+        private void Exit()
+        {
+            CommandConfigurationContentControl.Content = null;
+            Close();
         }
 
         private void CommandSectionTreeViewSelected(object sender, RoutedEventArgs e)
@@ -188,36 +195,57 @@ namespace Talifun.Commander.Command.Configuration
 
             if (treeViewItem.Tag is CurrentConfigurationElementCollection)
             {
-                var elementSettingCollectionType = treeViewItem.Tag.GetType();
-
-                var elementCollectionPanel = _elementCollectionPanels.Where(x => x.Settings.ElementCollectionType == elementSettingCollectionType).FirstOrDefault();
-
-                if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementCollectionPanel))
-                {
-                    CommandConfigurationContentControl.Content = null;
-
-                    if (elementCollectionPanel != null)
-                    {
-                        CommandConfigurationContentControl.Content = elementCollectionPanel;
-                    }
-                }
+                var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
+                var elementCollectionType = treeViewItem.Tag.GetType();
+                DisplayElementCollectionPanel(elementCollection, elementCollectionType);
             }
             else if (treeViewItem.Tag is NamedConfigurationElement)
             {
-                var elementSettingType = treeViewItem.Tag.GetType();
+                var element = (NamedConfigurationElement)treeViewItem.Tag;
+                var elementType = treeViewItem.Tag.GetType();
+                DisplayElementPanel(element, elementType);
+            }
+        }
 
-                var elementSettingPanel = _elementPanels.Where(x => x.Settings.ElementType == elementSettingType).FirstOrDefault();
+        private void DisplayElementPanel(NamedConfigurationElement element, Type elementType)
+        {
+            var elementSettingPanel = _elementPanels.Where(x => x.Settings.ElementType == elementType).FirstOrDefault();
 
-                if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementSettingPanel))
+            if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementSettingPanel))
+            {
+                CommandConfigurationContentControl.Content = null;
+
+                if (elementSettingPanel != null)
                 {
-                    CommandConfigurationContentControl.Content = null;
-
-                    if (elementSettingPanel != null)
-                    {
-                        CommandConfigurationContentControl.Content = elementSettingPanel;
-                    }
+                    CommandConfigurationContentControl.Content = elementSettingPanel;
                 }
             }
+
+            if (elementSettingPanel != null && CommandConfigurationContentControl.Content != null)
+            {
+                elementSettingPanel.OnBindToElement(element);
+            }            
+        }
+
+        private void DisplayElementCollectionPanel(CurrentConfigurationElementCollection elementCollection, Type elementCollectionType)
+        {
+            var elementCollectionPanel = _elementCollectionPanels.Where(x => x.Settings.ElementCollectionType == elementCollectionType).FirstOrDefault();
+
+            if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementCollectionPanel))
+            {
+                CommandConfigurationContentControl.Content = null;
+
+                if (elementCollectionPanel != null)
+                {
+                    CommandConfigurationContentControl.Content = elementCollectionPanel;
+                    elementCollectionPanel.OnBindToElementCollection(elementCollection);
+                }
+            }
+
+            if (elementCollectionPanel != null && CommandConfigurationContentControl.Content != null)
+            {
+                elementCollectionPanel.OnBindToElementCollection(elementCollection);
+            }                        
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Talifun.Commander.Service
+﻿using Talifun.Commander.MediaConversionService.Properties;
+
+namespace Talifun.Commander.Service
 {
     partial class CommandServiceInstaller
     {
@@ -39,11 +41,9 @@
             // 
             // CommanderInstaller
             // 
-            this.CommanderInstaller.Description = "A windows service that executes command line tools, as specified in configuration" +
-                ", when files are placed into watched directories that match configuration criter" +
-                "ia.";
-            this.CommanderInstaller.DisplayName = "Talifun Commander";
-            this.CommanderInstaller.ServiceName = "TalifunCommander";
+            this.CommanderInstaller.Description = Resource.CommanderInstallerDescription;
+            this.CommanderInstaller.DisplayName = Resource.CommanderInstallerDisplayName;
+            this.CommanderInstaller.ServiceName = Resource.CommanderInstallerServiceName;
             this.CommanderInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // CommanderServiceInstaller
