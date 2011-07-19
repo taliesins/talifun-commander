@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
-using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.AntiVirus
+namespace Talifun.Commander.Command.AntiVirus.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="AntiVirusSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="AntiVirusElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(AntiVirusSettingElement))]
-    public class AntiVirusSettingElementCollection : CurrentConfigurationElementCollection<AntiVirusSettingElement>
+    [ConfigurationCollection(typeof(AntiVirusElement))]
+    public class AntiVirusElementCollection : CurrentConfigurationElementCollection<AntiVirusElement>
     {
-        public AntiVirusSettingElementCollection()
+        public AntiVirusElementCollection()
         {
             Setting = AntiVirusConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AntiVirusSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AntiVirusElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

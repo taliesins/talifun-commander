@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Video
+namespace Talifun.Commander.Command.Video.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class VideoConversionSettingElement : CommandConfigurationBase
+    public sealed class VideoConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty videoConversionType = new ConfigurationProperty("videoConversionType", typeof(VideoConversionType), VideoConversionType.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 64000, ConfigurationPropertyOptions.None);
@@ -27,10 +27,10 @@ namespace Talifun.Commander.Command.Video
         private static readonly ConfigurationProperty minKeyframeInterval = new ConfigurationProperty("minKeyframeInterval", typeof(int?), null, ConfigurationPropertyOptions.None);
 
         /// <summary>
-        /// Initializes the <see cref="VideoConversionSettingElement"/> class.
+        /// Initializes the <see cref="VideoConversionElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static VideoConversionSettingElement()
+        static VideoConversionElement()
         {
             properties.Add(videoConversionType);
             properties.Add(audioBitRate);

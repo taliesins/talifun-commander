@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Image
+namespace Talifun.Commander.Command.Image.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class ImageConversionSettingElement : CommandConfigurationBase
+    public sealed class ImageConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int?), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty height = new ConfigurationProperty("height", typeof(int?), null, ConfigurationPropertyOptions.None);
@@ -20,10 +20,10 @@ namespace Talifun.Commander.Command.Image
         private static readonly ConfigurationProperty resizeImageType = new ConfigurationProperty("resizeImageType", typeof(ResizeImageType), ResizeImageType.Orginal, ConfigurationPropertyOptions.None);
 
         /// <summary>
-        /// Initializes the <see cref="ImageConversionSettingElement"/> class.
+        /// Initializes the <see cref="ImageConversionElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static ImageConversionSettingElement()
+        static ImageConversionElement()
         {
             properties.Add(width);
             properties.Add(height);

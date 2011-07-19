@@ -13,14 +13,14 @@ namespace Talifun.Commander.Command.AntiVirus
             }
         }
 
-        public McAfeeSettings GetMcAfeeSettings(AntiVirusSettingElement antiVirusSetting)
+        public McAfeeSettings GetMcAfeeSettings(AntiVirusElement antiVirus)
         {
             return new McAfeeSettings();
         }
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var antiVirusSetting = GetSettings<AntiVirusSettingElementCollection, AntiVirusSettingElement>(properties);
+            var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.WorkingPath, uniqueProcessingNumber);
 

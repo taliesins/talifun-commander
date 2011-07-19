@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<AudioConversionSettingElementCollection>(Settings.ElementCollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<AudioConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var audioConversionSettings = commandSettings.Settings;
 
             var audioConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {
-                throw new Exception("FFMpegPath appSetting Required");
+                throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, AudioConversionConfiguration.Instance.FFMpegPathSettingName));
             }
 
             
@@ -41,10 +41,13 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
                 if (!Directory.Exists(audioSetting.OutPutPath))
                 {
-                    throw new Exception(
-                        string.Format(
-                            "<project name=\"{0}\"><audioConversionSettings><audioConversionSetting name=\"{1}\"> outPutPath does not exist - {2}",
-                            project.Name, audioSetting.Name, audioSetting.OutPutPath));
+                	throw new Exception(
+                		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
+                		              project.Name,
+                		              Settings.ElementCollectionSettingName,
+                		              Settings.ElementSettingName,
+                		              audioSetting.Name,
+                		              audioSetting.OutPutPath));
                 }
                 else
                 {
@@ -55,10 +58,13 @@ namespace Talifun.Commander.Command.Audio.Configuration
                 {
                     if (!Directory.Exists(audioSetting.WorkingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><audioConversionSettings><audioConversionSetting name=\"{1}\"> workingPath does not exist - {2}",
-                                project.Name, audioSetting.Name, audioSetting.WorkingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              audioSetting.Name,
+                    		              audioSetting.WorkingPath));
                     }
                     else
                     {
@@ -74,10 +80,13 @@ namespace Talifun.Commander.Command.Audio.Configuration
                 {
                     if (!Directory.Exists(audioSetting.ErrorProcessingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><audioConversionSettings><audioConversionSetting name=\"{1}\"> errorProcessingPath does not exist - {2}",
-                                project.Name, audioSetting.Name, audioSetting.ErrorProcessingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              audioSetting.Name,
+                    		              audioSetting.ErrorProcessingPath));
                     }
                     else
                     {
@@ -97,10 +106,10 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     break;
                 }
 
-                throw new Exception(
-                    string.Format(
-                        "<project name=\"{0}\"><folders><folder name=\"?\"><fileMatches><fileMatch name=\"{1}\"> conversionSettingsKey specified points to non-existant <audioConversionSetting> - {2}",
-                        project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
+            	throw new Exception(
+            		string.Format(
+            			Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+            			project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }
     }

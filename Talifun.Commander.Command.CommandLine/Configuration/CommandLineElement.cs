@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.CommandLine
+namespace Talifun.Commander.Command.CommandLine.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class CommandLineSettingElement : CommandConfigurationBase
+    public sealed class CommandLineElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty commandPath = new ConfigurationProperty("commandPath", typeof(string), "", ConfigurationPropertyOptions.IsRequired);
         private static readonly ConfigurationProperty checkCommandPathExists = new ConfigurationProperty("checkCommandPathExists", typeof(bool), true, ConfigurationPropertyOptions.None);
@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.CommandLine
         /// Initializes the <see cref="AudioConversionSettingElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static CommandLineSettingElement()
+        static CommandLineElement()
         {
             properties.Add(name);
             properties.Add(outPutPath);

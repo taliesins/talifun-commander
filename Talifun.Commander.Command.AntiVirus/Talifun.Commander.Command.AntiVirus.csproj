@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=3.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -47,9 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiVirusSaga.cs" />
+    <Compile Include="Configuration\AntiVirusElement.Validation.cs">
+      <DependentUpon>AntiVirusElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\AntiVirusElementPanel.xaml.cs">
       <DependentUpon>AntiVirusElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AntiVirusElementValidator.cs" />
     <Compile Include="Configuration\AntiVirusTester.cs" />
     <Compile Include="Configuration\AntiVirusElement.cs" />
     <Compile Include="Configuration\AntiVirusElementCollection.cs" />

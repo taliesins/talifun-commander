@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
-using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Audio
+namespace Talifun.Commander.Command.Audio.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="AudioConversionSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="AudioConversionElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(AudioConversionSettingElement))]
-    public class AudioConversionSettingElementCollection : CurrentConfigurationElementCollection<AudioConversionSettingElement>
+    [ConfigurationCollection(typeof(AudioConversionElement))]
+    public class AudioConversionElementCollection : CurrentConfigurationElementCollection<AudioConversionElement>
     {
-        public AudioConversionSettingElementCollection()
+        public AudioConversionElementCollection()
         {
             Setting = AudioConversionConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.Audio
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AudioConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AudioConversionElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

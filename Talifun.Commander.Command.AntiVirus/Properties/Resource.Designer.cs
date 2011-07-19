@@ -73,5 +73,14 @@ namespace Talifun.Commander.Command.AntiVirus.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageAntiVirusElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageAntiVirusElementNameMandatory", resourceCulture);
+            }
+        }
     }
 }

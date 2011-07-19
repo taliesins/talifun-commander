@@ -15,53 +15,53 @@ namespace Talifun.Commander.Command.Image.Configuration
             }
         }
 
-        protected void TestImageResizeModeSetting(ProjectElement project, ImageConversionSettingElement imageSetting)
+        protected void TestImageResizeModeSetting(ProjectElement project, ImageConversionElement image)
         {
-            switch (imageSetting.ResizeMode)
+            switch (image.ResizeMode)
             {
                 case ResizeMode.AreaToFit:
                 case ResizeMode.CutToFit:
                 case ResizeMode.Zoom:
                 case ResizeMode.Stretch:
-                    if (!imageSetting.Width.HasValue)
+                    if (!image.Width.HasValue)
                     {
                         throw new Exception(
                             string.Format(
                                 "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> width is required when resize mode is - {2}",
-                                project.Name, imageSetting.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
+                                project.Name, image.Name,
+                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
-                    if (!imageSetting.Height.HasValue)
+                    if (!image.Height.HasValue)
                     {
                         throw new Exception(
                             string.Format(
                                 "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> height is required when resize mode is - {2}",
-                                project.Name, imageSetting.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
+                                project.Name, image.Name,
+                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
                     break;
                 case ResizeMode.FitWidth:
                 case ResizeMode.FitMinimumWidth:
                 case ResizeMode.FitMaximumWidth:
-                    if (!imageSetting.Width.HasValue)
+                    if (!image.Width.HasValue)
                     {
                         throw new Exception(
                             string.Format(
                                 "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> width is required when resize mode is - {2}",
-                                project.Name, imageSetting.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), imageSetting.ResizeMode)));
+                                project.Name, image.Name,
+                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
                     break;
                 case ResizeMode.FitHeight:
                 case ResizeMode.FitMinimumHeight:
                 case ResizeMode.FitMaximumHeight:
-                    if (!imageSetting.Height.HasValue)
+                    if (!image.Height.HasValue)
                     {
                         throw new Exception(
                             string.Format(
                                 "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> height is required when resize mode is - {2}",
-                                project.Name, imageSetting.Name,
-                                Enum.GetName(typeof(ResizeMode), imageSetting.ResizeMode)));
+                                project.Name, image.Name,
+                                Enum.GetName(typeof(ResizeMode), image.ResizeMode)));
                     }
                     break;
             }
@@ -69,7 +69,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<ImageConversionSettingElementCollection>(Settings.ElementCollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<ImageConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var imageConversionSettings = commandSettings.Settings;
 
             var imageConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -83,7 +83,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 
             if (string.IsNullOrEmpty(convertPath))
             {
-                throw new Exception("ConvertPath appSetting Required");
+				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, ImageConversionConfiguration.Instance.ConvertPathSettingName));
             }
 
             for (var i = 0; i < imageConversionSettings.Count; i++)
@@ -92,10 +92,13 @@ namespace Talifun.Commander.Command.Image.Configuration
 
                 if (!Directory.Exists(imageSetting.OutPutPath))
                 {
-                    throw new Exception(
-                        string.Format(
-                            "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> outPutPath does not exist - {2}",
-                            project.Name, imageSetting.Name, imageSetting.OutPutPath));
+                	throw new Exception(
+                		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
+                		              project.Name,
+                		              Settings.ElementCollectionSettingName,
+                		              Settings.ElementSettingName,
+                		              imageSetting.Name,
+                		              imageSetting.OutPutPath));
                 }
                 else
                 {
@@ -106,10 +109,13 @@ namespace Talifun.Commander.Command.Image.Configuration
                 {
                     if (!Directory.Exists(imageSetting.WorkingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> workingPath does not exist - {2}",
-                                project.Name, imageSetting.Name, imageSetting.WorkingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              imageSetting.Name,
+                    		              imageSetting.WorkingPath));
                     }
                     else
                     {
@@ -125,10 +131,13 @@ namespace Talifun.Commander.Command.Image.Configuration
                 {
                     if (!Directory.Exists(imageSetting.ErrorProcessingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> errorProcessingPath does not exist - {2}",
-                                project.Name, imageSetting.Name, imageSetting.ErrorProcessingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              imageSetting.Name,
+                    		              imageSetting.ErrorProcessingPath));
                     }
                     else
                     {
@@ -150,10 +159,10 @@ namespace Talifun.Commander.Command.Image.Configuration
                     break;
                 }
 
-                throw new Exception(
-                    string.Format(
-                        "<project name=\"{0}\"><folders><folder name=\"?\"><fileMatches><fileMatch name=\"{1}\"> conversionSettingsKey specified points to non-existant <imageConversionSetting>- {2}",
-                        project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
+            	throw new Exception(
+            		string.Format(
+            			Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+            			project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }
     }

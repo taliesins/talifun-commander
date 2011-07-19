@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
-using Talifun.Commander.Command.CommandLine.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.CommandLine
+namespace Talifun.Commander.Command.CommandLine.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="CommandLineSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="CommandLineElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(CommandLineSettingElement))]
-    public class CommandLineSettingElementCollection : CurrentConfigurationElementCollection<CommandLineSettingElement>
+    [ConfigurationCollection(typeof(CommandLineElement))]
+    public class CommandLineElementCollection : CurrentConfigurationElementCollection<CommandLineElement>
     {
-        public CommandLineSettingElementCollection()
+        public CommandLineElementCollection()
         {
             Setting = CommandLineConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.CommandLine
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(CommandLineSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(CommandLineElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

@@ -27,11 +27,16 @@ namespace Talifun.Commander.Command.Image.Configuration
             get { return "imageConversionSetting"; }
         }
 
+    	public string ConvertPathSettingName
+    	{
+			get { return "ConvertPath"; }
+    	}
+
         public string ConvertPath
         {
             get
             {
-                return ConfigurationManager.AppSettings["ConvertPath"];
+				return ConfigurationManager.AppSettings[ConvertPathSettingName];
             }
         }
 
@@ -47,12 +52,12 @@ namespace Talifun.Commander.Command.Image.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof (ImageConversionSettingElementCollection); }
+            get { return typeof (ImageConversionElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof (ImageConversionSettingElement); }
+            get { return typeof (ImageConversionElement); }
         }
     }
 }

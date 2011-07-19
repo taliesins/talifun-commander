@@ -18,7 +18,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<AntiVirusSettingElementCollection>(Settings.ElementCollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName, project);
             var antiVirusSettings = commandSettings.Settings;
 
             var antiVirusSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -37,9 +37,12 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
                     if (!Directory.Exists(antiVirusSetting.ErrorProcessingPath))
                     {
                         throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><antiVirusSettings><antiVirusSetting name=\"{1}\"> errorProcessingPath does not exist - {2}",
-                                project.Name, antiVirusSetting.Name, antiVirusSetting.ErrorProcessingPath));
+                            string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+								project.Name,
+								Settings.ElementCollectionSettingName,
+								Settings.ElementSettingName, 
+								antiVirusSetting.Name, 
+								antiVirusSetting.ErrorProcessingPath));
                     }
                     else
                     {
@@ -54,7 +57,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 
                     if (string.IsNullOrEmpty(virusScannerPath))
                     {
-                        throw new Exception("McAfeePath appSetting Required");
+						throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, AntiVirusConfiguration.Instance.McAfeePathSettingName));
                     }
                 }
 
@@ -72,8 +75,8 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 
                 throw new Exception(
                     string.Format(
-                        "<project name=\"{0}\"><folders><folder name=\"?\"><fileMatches><fileMatch name=\"{1}\"> conversionSettingsKey specified points to non-existant <antiVirusSetting> - {2}",
-                        project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
+					Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+						project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }
 

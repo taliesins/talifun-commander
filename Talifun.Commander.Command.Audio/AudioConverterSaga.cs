@@ -13,20 +13,20 @@ namespace Talifun.Commander.Command.Audio
             }
         }
 
-        private MP3Settings GetMP3Settings(AudioConversionSettingElement audioConversionSetting)
+        private MP3Settings GetMP3Settings(AudioConversionElement audioConversion)
         {
             var mp3Settings = new MP3Settings
                                   {
-                                      AudioBitRate = audioConversionSetting.BitRate,
-                                      AudioChannels = audioConversionSetting.Channel,
-                                      AudioFrequency = audioConversionSetting.Frequency
+                                      AudioBitRate = audioConversion.BitRate,
+                                      AudioChannels = audioConversion.Channel,
+                                      AudioFrequency = audioConversion.Frequency
                                   };
             return mp3Settings;
         }
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var audioConversionSetting = GetSettings<AudioConversionSettingElementCollection, AudioConversionSettingElement>(properties);
+            var audioConversionSetting = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, audioConversionSetting.WorkingPath, uniqueProcessingNumber);
 

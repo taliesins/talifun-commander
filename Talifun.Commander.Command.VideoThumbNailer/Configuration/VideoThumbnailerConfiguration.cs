@@ -39,19 +39,24 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof (VideoThumbnailerSettingElementCollection); }
+            get { return typeof (VideoThumbnailerElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof (VideoThumbnailerSettingElement); }
+            get { return typeof (VideoThumbnailerElement); }
         }
+
+    	public string FFMpegPathSettingName
+    	{
+			get { return "FFMpegPath"; }
+    	}
 
         public string FFMpegPath
         {
             get
             {
-                return ConfigurationManager.AppSettings["FFMpegPath"];
+				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
             }
         }
     }

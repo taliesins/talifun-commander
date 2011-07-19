@@ -73,5 +73,14 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; commandPath does not exist - {4}.
+        /// </summary>
+        internal static string ErrorMessageCommandPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandPathDoesNotExist", resourceCulture);
+            }
+        }
     }
 }

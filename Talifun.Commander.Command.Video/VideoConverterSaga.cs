@@ -13,40 +13,40 @@ namespace Talifun.Commander.Command.Video
             }
         }
 
-        private H264Settings GetH264Settings(VideoConversionSettingElement videoConversionSetting)
+        private H264Settings GetH264Settings(VideoConversionElement videoConversion)
         {
-            var maxVideoBitRate = videoConversionSetting.VideoBitRate;
-            if (videoConversionSetting.MaxVideoBitRate.HasValue)
+            var maxVideoBitRate = videoConversion.VideoBitRate;
+            if (videoConversion.MaxVideoBitRate.HasValue)
             {
-                maxVideoBitRate = videoConversionSetting.MaxVideoBitRate.Value;
+                maxVideoBitRate = videoConversion.MaxVideoBitRate.Value;
             }
-            var bufferSize = videoConversionSetting.VideoBitRate * 10;
-            if (videoConversionSetting.BufferSize.HasValue)
+            var bufferSize = videoConversion.VideoBitRate * 10;
+            if (videoConversion.BufferSize.HasValue)
             {
-                bufferSize = videoConversionSetting.BufferSize.Value;
+                bufferSize = videoConversion.BufferSize.Value;
             }
-            var keyframeInterval = videoConversionSetting.FrameRate * 10;
-            if (videoConversionSetting.MaxVideoBitRate.HasValue)
+            var keyframeInterval = videoConversion.FrameRate * 10;
+            if (videoConversion.MaxVideoBitRate.HasValue)
             {
-                keyframeInterval = videoConversionSetting.MaxVideoBitRate.Value;
+                keyframeInterval = videoConversion.MaxVideoBitRate.Value;
             }
-            var minKeyframeInterval = videoConversionSetting.FrameRate;
-            if (videoConversionSetting.MinKeyframeInterval.HasValue)
+            var minKeyframeInterval = videoConversion.FrameRate;
+            if (videoConversion.MinKeyframeInterval.HasValue)
             {
-                minKeyframeInterval = videoConversionSetting.MinKeyframeInterval.Value;
+                minKeyframeInterval = videoConversion.MinKeyframeInterval.Value;
             }
 
             var h264Settings = new H264Settings
                                    {
-                                       AudioBitRate = videoConversionSetting.BitRate,
-                                       AudioChannels = videoConversionSetting.Channel,
-                                       AudioFrequency = videoConversionSetting.Frequency,
-                                       Deinterlace = videoConversionSetting.Deinterlace,
-                                       Width = videoConversionSetting.Width,
-                                       Height = videoConversionSetting.Height,
-                                       AspectRatio = videoConversionSetting.AspectRatio,
-                                       VideoBitRate = videoConversionSetting.VideoBitRate,
-                                       FrameRate = videoConversionSetting.FrameRate,
+                                       AudioBitRate = videoConversion.BitRate,
+                                       AudioChannels = videoConversion.Channel,
+                                       AudioFrequency = videoConversion.Frequency,
+                                       Deinterlace = videoConversion.Deinterlace,
+                                       Width = videoConversion.Width,
+                                       Height = videoConversion.Height,
+                                       AspectRatio = videoConversion.AspectRatio,
+                                       VideoBitRate = videoConversion.VideoBitRate,
+                                       FrameRate = videoConversion.FrameRate,
                                        MaxVideoBitRate = maxVideoBitRate,
                                        BufferSize = bufferSize,
                                        KeyframeInterval = keyframeInterval,
@@ -55,40 +55,40 @@ namespace Talifun.Commander.Command.Video
             return h264Settings;
         }
 
-        private FlvSettings GetFLVSettings(VideoConversionSettingElement videoConversionSetting)
+        private FlvSettings GetFLVSettings(VideoConversionElement videoConversion)
         {
-            var maxVideoBitRate = videoConversionSetting.VideoBitRate;
-            if (videoConversionSetting.MaxVideoBitRate.HasValue)
+            var maxVideoBitRate = videoConversion.VideoBitRate;
+            if (videoConversion.MaxVideoBitRate.HasValue)
             {
-                maxVideoBitRate = videoConversionSetting.MaxVideoBitRate.Value;
+                maxVideoBitRate = videoConversion.MaxVideoBitRate.Value;
             }
-            var bufferSize = videoConversionSetting.VideoBitRate * 10;
-            if (videoConversionSetting.BufferSize.HasValue)
+            var bufferSize = videoConversion.VideoBitRate * 10;
+            if (videoConversion.BufferSize.HasValue)
             {
-                bufferSize = videoConversionSetting.BufferSize.Value;
+                bufferSize = videoConversion.BufferSize.Value;
             }
-            var keyframeInterval = videoConversionSetting.FrameRate * 10;
-            if (videoConversionSetting.MaxVideoBitRate.HasValue)
+            var keyframeInterval = videoConversion.FrameRate * 10;
+            if (videoConversion.MaxVideoBitRate.HasValue)
             {
-                keyframeInterval = videoConversionSetting.MaxVideoBitRate.Value;
+                keyframeInterval = videoConversion.MaxVideoBitRate.Value;
             }
-            var minKeyframeInterval = videoConversionSetting.FrameRate;
-            if (videoConversionSetting.MinKeyframeInterval.HasValue)
+            var minKeyframeInterval = videoConversion.FrameRate;
+            if (videoConversion.MinKeyframeInterval.HasValue)
             {
-                minKeyframeInterval = videoConversionSetting.MinKeyframeInterval.Value;
+                minKeyframeInterval = videoConversion.MinKeyframeInterval.Value;
             }
 
             var flvSettings = new FlvSettings
                                   {
-                                      AudioBitRate = videoConversionSetting.BitRate,
-                                      AudioChannels = videoConversionSetting.Channel,
-                                      AudioFrequency = videoConversionSetting.Frequency,
-                                      Deinterlace = videoConversionSetting.Deinterlace,
-                                      Width = videoConversionSetting.Width,
-                                      Height = videoConversionSetting.Height,
-                                      AspectRatio = videoConversionSetting.AspectRatio,
-                                      VideoBitRate = videoConversionSetting.VideoBitRate,
-                                      FrameRate = videoConversionSetting.FrameRate,
+                                      AudioBitRate = videoConversion.BitRate,
+                                      AudioChannels = videoConversion.Channel,
+                                      AudioFrequency = videoConversion.Frequency,
+                                      Deinterlace = videoConversion.Deinterlace,
+                                      Width = videoConversion.Width,
+                                      Height = videoConversion.Height,
+                                      AspectRatio = videoConversion.AspectRatio,
+                                      VideoBitRate = videoConversion.VideoBitRate,
+                                      FrameRate = videoConversion.FrameRate,
                                       MaxVideoBitRate = maxVideoBitRate,
                                       BufferSize = bufferSize,
                                       KeyframeInterval = keyframeInterval,
@@ -99,7 +99,7 @@ namespace Talifun.Commander.Command.Video
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var videoConversionSetting = GetSettings<VideoConversionSettingElementCollection, VideoConversionSettingElement>(properties);
+            var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoConversionSetting.WorkingPath, uniqueProcessingNumber);
 

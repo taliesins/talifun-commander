@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Audio
+namespace Talifun.Commander.Command.Audio.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class AudioConversionSettingElement : CommandConfigurationBase
+    public sealed class AudioConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 128000, ConfigurationPropertyOptions.None);
@@ -15,10 +15,10 @@ namespace Talifun.Commander.Command.Audio
         private static readonly ConfigurationProperty audioChannels = new ConfigurationProperty("audioChannels", typeof(int), 2, ConfigurationPropertyOptions.None);
 
         /// <summary>
-        /// Initializes the <see cref="AudioConversionSettingElement"/> class.
+        /// Initializes the <see cref="AudioConversionElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static AudioConversionSettingElement()
+        static AudioConversionElement()
         {
             properties.Add(audioConversionType);
             properties.Add(audioBitRate);

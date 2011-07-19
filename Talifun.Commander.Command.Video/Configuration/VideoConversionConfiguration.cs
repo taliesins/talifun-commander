@@ -27,19 +27,29 @@ namespace Talifun.Commander.Command.Video.Configuration
             get { return "videoConversionSetting"; }
         }
 
+    	public string FFMpegPathSettingName
+    	{
+			get { return "FFMpegPath"; }
+    	}
+
         public string FFMpegPath
         {
             get
             {
-                return ConfigurationManager.AppSettings["FFMpegPath"];
+				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
             }
         }
+
+    	public string FlvTool2PathSettingName
+    	{
+			get { return "FlvTool2Path"; }
+    	}
 
         public string FlvTool2Path
         {
             get
             {
-                return ConfigurationManager.AppSettings["FlvTool2Path"];
+				return ConfigurationManager.AppSettings[FlvTool2PathSettingName];
             }
         }
 
@@ -55,12 +65,12 @@ namespace Talifun.Commander.Command.Video.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof(VideoConversionSettingElementCollection); }
+            get { return typeof(VideoConversionElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof(VideoConversionSettingElement); }
+            get { return typeof(VideoConversionElement); }
         }
     }
 }

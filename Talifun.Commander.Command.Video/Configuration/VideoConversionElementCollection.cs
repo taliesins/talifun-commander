@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Video.Configuration;
 
-namespace Talifun.Commander.Command.Video
+namespace Talifun.Commander.Command.Video.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="VideoConversionSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="VideoConversionElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(VideoConversionSettingElement))]
-    public class VideoConversionSettingElementCollection : CurrentConfigurationElementCollection<VideoConversionSettingElement>
+    [ConfigurationCollection(typeof(VideoConversionElement))]
+    public class VideoConversionElementCollection : CurrentConfigurationElementCollection<VideoConversionElement>
     {
-        public VideoConversionSettingElementCollection()
+        public VideoConversionElementCollection()
         {
             Setting = VideoConversionConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.Video
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoConversionElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

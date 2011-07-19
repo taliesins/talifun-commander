@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoThumbnailerSettingElementCollection>(Settings.ElementCollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<VideoThumbnailerElementCollection>(Settings.ElementCollectionSettingName, project);
             var videoThumbnailerSettings = commandSettings.Settings;
 
             var videoThumbnailerSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {
-                throw new Exception("FFMpegPath appSetting Required");
+				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, VideoThumbnailerConfiguration.Instance.FFMpegPathSettingName));
             }
 
             for (var i = 0; i < videoThumbnailerSettings.Count; i++)
@@ -40,10 +40,13 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
                 if (!Directory.Exists(videoThumbnailerSetting.OutPutPath))
                 {
-                    throw new Exception(
-                        string.Format(
-                            "<project name=\"{0}\"><videoThumbnailerSettings><videoThumbnailerSetting name=\"{1}\"> outPutPath does not exist - {2}",
-                            project.Name, videoThumbnailerSetting.Name, videoThumbnailerSetting.OutPutPath));
+                	throw new Exception(
+                		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
+                		              project.Name,
+                		              Settings.ElementCollectionSettingName,
+                		              Settings.ElementSettingName,
+                		              videoThumbnailerSetting.Name,
+                		              videoThumbnailerSetting.OutPutPath));
                 }
                 else
                 {
@@ -54,10 +57,13 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                 {
                     if (!Directory.Exists(videoThumbnailerSetting.WorkingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><videoThumbnailerSettings><videoThumbnailerSetting name=\"{1}\"> workingPath does not exist - {2}",
-                                project.Name, videoThumbnailerSetting.Name, videoThumbnailerSetting.WorkingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              videoThumbnailerSetting.Name,
+                    		              videoThumbnailerSetting.WorkingPath));
                     }
                     else
                     {
@@ -73,11 +79,13 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                 {
                     if (!Directory.Exists(videoThumbnailerSetting.ErrorProcessingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><videoThumbnailerSettings><videoThumbnailerSetting name=\"{1}\"> errorProcessingPath does not exist - {2}",
-                                project.Name, videoThumbnailerSetting.Name,
-                                videoThumbnailerSetting.ErrorProcessingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              videoThumbnailerSetting.Name,
+                    		              videoThumbnailerSetting.ErrorProcessingPath));
                     }
                     else
                     {
@@ -97,10 +105,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                     break;
                 }
 
-                throw new Exception(
-                    string.Format(
-                        "<project name=\"{0}\"><folders><folder name=\"?\"><fileMatches><fileMatch name=\"{1}\"> conversionSettingsKey specified points to non-existant <videoThumbnailerSetting> - {2}",
-                        project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
+            	throw new Exception(
+            		string.Format(
+            			Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+            			project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }
     }

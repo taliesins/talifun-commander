@@ -14,21 +14,21 @@ namespace Talifun.Commander.Command.VideoThumbNailer
             }
         }
 
-        private ThumbnailerSettings GetThumbnailerSettings(VideoThumbnailerSettingElement videoThumbnailerSetting)
+        private ThumbnailerSettings GetThumbnailerSettings(VideoThumbnailerElement videoThumbnailer)
         {
             return new ThumbnailerSettings()
                        {
-                           ImageType = videoThumbnailerSetting.ImageType,
-                           Width = videoThumbnailerSetting.Width,
-                           Height = videoThumbnailerSetting.Height,
-                           Time = videoThumbnailerSetting.Time,
-                           TimePercentage = videoThumbnailerSetting.TimePercentage
+                           ImageType = videoThumbnailer.ImageType,
+                           Width = videoThumbnailer.Width,
+                           Height = videoThumbnailer.Height,
+                           Time = videoThumbnailer.Time,
+                           TimePercentage = videoThumbnailer.TimePercentage
                        };
         }
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var videoThumbnailerSetting = GetSettings<VideoThumbnailerSettingElementCollection, VideoThumbnailerSettingElement>(properties);
+            var videoThumbnailerSetting = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoThumbnailerSetting.WorkingPath, uniqueProcessingNumber);
 

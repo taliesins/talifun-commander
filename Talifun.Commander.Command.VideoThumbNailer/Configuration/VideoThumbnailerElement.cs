@@ -4,12 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.VideoThumbnailer;
 
-namespace Talifun.Commander.Command.VideoThumbNailer
+namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public class VideoThumbnailerSettingElement : CommandConfigurationBase
+    public class VideoThumbnailerElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty imageType = new ConfigurationProperty("imageType", typeof(ImageType), ImageType.JPG, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
@@ -19,10 +19,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer
         private static readonly ConfigurationProperty timePercentage = new ConfigurationProperty("timePercentage", typeof(int), int.MinValue, ConfigurationPropertyOptions.None);
 
         /// <summary>
-        /// Initializes the <see cref="VideoThumbnailerSettingElement"/> class.
+        /// Initializes the <see cref="VideoThumbnailerElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static VideoThumbnailerSettingElement()
+        static VideoThumbnailerElement()
         {
             properties.Add(imageType);
             properties.Add(width);

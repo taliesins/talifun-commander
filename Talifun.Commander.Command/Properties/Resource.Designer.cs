@@ -68,11 +68,56 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App settings {0} required .
+        /// </summary>
+        public static string ErrorMessageAppSettingRequired {
+            get {
+                return ResourceManager.GetString("ErrorMessageAppSettingRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot find &lt;project&gt; for &lt;fileMatch&gt; element.
         /// </summary>
         public static string ErrorMessageCannotFindProjectForFileElement {
             get {
                 return ResourceManager.GetString("ErrorMessageCannotFindProjectForFileElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;folders&gt;&lt;folder name=\&quot;?\&quot;&gt;&lt;fileMatches&gt;&lt;fileMatch name=\&quot;{1}\&quot;&gt; conversionSettingsKey specified points to non-existant &lt;{2}&gt; - {3}.
+        /// </summary>
+        public static string ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; errorProcessingPath does not exist - {4}.
+        /// </summary>
+        public static string ErrorMessageCommandErrorProcessingPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandErrorProcessingPathDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; outPutPath does not exist - {4}.
+        /// </summary>
+        public static string ErrorMessageCommandOutPutPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandOutPutPathDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; workingPath does not exist - {4}.
+        /// </summary>
+        public static string ErrorMessageCommandWorkingPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandWorkingPathDoesNotExist", resourceCulture);
             }
         }
         

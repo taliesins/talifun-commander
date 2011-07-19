@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer
+namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="VideoThumbnailerSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="VideoThumbnailerElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(VideoThumbnailerSettingElement))]
-    public class VideoThumbnailerSettingElementCollection : CurrentConfigurationElementCollection<VideoThumbnailerSettingElement>
+    [ConfigurationCollection(typeof(VideoThumbnailerElement))]
+    public class VideoThumbnailerElementCollection : CurrentConfigurationElementCollection<VideoThumbnailerElement>
     {
-        public VideoThumbnailerSettingElementCollection()
+        public VideoThumbnailerElementCollection()
         {
             Setting = VideoThumbnailerConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoThumbnailerSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoThumbnailerElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

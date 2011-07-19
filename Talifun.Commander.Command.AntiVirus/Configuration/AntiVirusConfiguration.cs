@@ -27,11 +27,16 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             get { return "antiVirusSetting"; }
         }
 
+    	public string McAfeePathSettingName
+    	{
+			get { return "McAfeePath"; }
+    	}
+
         public string McAfeePath
         {
             get
             {
-                return ConfigurationManager.AppSettings["McAfeePath"];
+				return ConfigurationManager.AppSettings[McAfeePathSettingName];
             }
         }
 
@@ -48,12 +53,12 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof(AntiVirusSettingElementCollection); }
+            get { return typeof(AntiVirusElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof (AntiVirusSettingElement); }
+            get { return typeof (AntiVirusElement); }
         }
     }
 }

@@ -27,11 +27,16 @@ namespace Talifun.Commander.Command.Audio.Configuration
             get { return "audioConversionSetting"; }
         }
 
+    	public string FFMpegPathSettingName
+    	{
+			get { return "FFMpegPath"; }
+    	}
+
         public string FFMpegPath
         {
             get
             {
-                return ConfigurationManager.AppSettings["FFMpegPath"];
+				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
             }
         }
 
@@ -47,12 +52,12 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof(AudioConversionSettingElementCollection); }
+            get { return typeof(AudioConversionElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof (AudioConversionSettingElement); }
+            get { return typeof (AudioConversionElement); }
         }
     }
 }

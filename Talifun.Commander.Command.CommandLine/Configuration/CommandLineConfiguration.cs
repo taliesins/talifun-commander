@@ -38,12 +38,12 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 
         public Type ElementCollectionType
         {
-            get { return typeof (CommandLineSettingElementCollection); }
+            get { return typeof (CommandLineElementCollection); }
         }
 
         public Type ElementType
         {
-            get { return typeof (CommandLineSettingElement); }
+            get { return typeof (CommandLineElement); }
         }
     }
 }

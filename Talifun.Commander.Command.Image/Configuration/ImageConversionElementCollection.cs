@@ -1,16 +1,15 @@
 ﻿using System.Configuration;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Image.Configuration;
 
-namespace Talifun.Commander.Command.Image
+namespace Talifun.Commander.Command.Image.Configuration
 {
     /// <summary>
-    /// Represents a configuration element containing a collection of <see cref="ImageConversionSettingElement" /> configuration elements.
+    /// Represents a configuration element containing a collection of <see cref="ImageConversionElement" /> configuration elements.
     /// </summary>
-    [ConfigurationCollection(typeof(ImageConversionSettingElement))]
-    public class ImageConversionSettingElementCollection : CurrentConfigurationElementCollection<ImageConversionSettingElement>
+    [ConfigurationCollection(typeof(ImageConversionElement))]
+    public class ImageConversionElementCollection : CurrentConfigurationElementCollection<ImageConversionElement>
     {
-        public ImageConversionSettingElementCollection()
+        public ImageConversionElementCollection()
         {
             Setting = ImageConversionConfiguration.Instance;
             AddElementName = Setting.ElementSettingName;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.Image
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(ImageConversionSettingElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(ImageConversionElementCollection), null, ConfigurationPropertyOptions.None);
         }
     }
 }

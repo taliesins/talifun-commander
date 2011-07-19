@@ -13,27 +13,27 @@ namespace Talifun.Commander.Command.CommandLine
             }
         }
 
-        private CommandLineParameters GetCommandLineParameters(CommandLineSettingElement commandLineSetting)
+        private CommandLineParameters GetCommandLineParameters(CommandLineElement commandLine)
         {
-            var args = commandLineSetting.Args
-                .Replace("{%Name%}", commandLineSetting.Name)
-                .Replace("{%OutPutPath%}", commandLineSetting.OutPutPath)
-                .Replace("{%WorkingPath%}", commandLineSetting.WorkingPath)
-                .Replace("{%ErrorProcessingPath%}", commandLineSetting.ErrorProcessingPath)
-                .Replace("{%FileNameFormat%}", commandLineSetting.FileNameFormat)
-                .Replace("{%CommandPath%}", commandLineSetting.CommandPath);
+            var args = commandLine.Args
+                .Replace("{%Name%}", commandLine.Name)
+                .Replace("{%OutPutPath%}", commandLine.OutPutPath)
+                .Replace("{%WorkingPath%}", commandLine.WorkingPath)
+                .Replace("{%ErrorProcessingPath%}", commandLine.ErrorProcessingPath)
+                .Replace("{%FileNameFormat%}", commandLine.FileNameFormat)
+                .Replace("{%CommandPath%}", commandLine.CommandPath);
 
             var commandLineSettings = new CommandLineParameters
             {
                 CommandArguments = args,
-                CommandPath = commandLineSetting.CommandPath
+                CommandPath = commandLine.CommandPath
             };
             return commandLineSettings;
         }
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var commandLineSetting = GetSettings<CommandLineSettingElementCollection, CommandLineSettingElement>(properties);
+            var commandLineSetting = GetSettings<CommandLineElementCollection, CommandLineElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, commandLineSetting.WorkingPath, uniqueProcessingNumber);
 

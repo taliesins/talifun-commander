@@ -13,25 +13,25 @@ namespace Talifun.Commander.Command.Image
             }
         }
 
-        private ImageResizeSettings GetImageResizeSettings(ImageConversionSettingElement imageConversionSetting)
+        private ImageResizeSettings GetImageResizeSettings(ImageConversionElement imageConversion)
         {
             var imageResizeSettings = new ImageResizeSettings
                                           {
-                                              BackgroundColour = imageConversionSetting.BackgroundColor,
-                                              Gravity = imageConversionSetting.Gravity,
-                                              ResizeMode = imageConversionSetting.ResizeMode,
-                                              ResizeImageType = imageConversionSetting.ResizeImageType,
-                                              Quality = imageConversionSetting.Quality
+                                              BackgroundColour = imageConversion.BackgroundColor,
+                                              Gravity = imageConversion.Gravity,
+                                              ResizeMode = imageConversion.ResizeMode,
+                                              ResizeImageType = imageConversion.ResizeImageType,
+                                              Quality = imageConversion.Quality
                                           };
 
-            if (imageConversionSetting.Height.HasValue)
+            if (imageConversion.Height.HasValue)
             {
-                imageResizeSettings.Height = imageConversionSetting.Height.Value;
+                imageResizeSettings.Height = imageConversion.Height.Value;
             }
 
-            if (imageConversionSetting.Width.HasValue)
+            if (imageConversion.Width.HasValue)
             {
-                imageResizeSettings.Width = imageConversionSetting.Width.Value;
+                imageResizeSettings.Width = imageConversion.Width.Value;
             }
 
 
@@ -40,7 +40,7 @@ namespace Talifun.Commander.Command.Image
 
         public override void Run(ICommandSagaProperties properties)
         {
-            var imageConversionSetting = GetSettings<ImageConversionSettingElementCollection, ImageConversionSettingElement>(properties);
+            var imageConversionSetting = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, imageConversionSetting.WorkingPath, uniqueProcessingNumber);
 

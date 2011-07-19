@@ -121,8 +121,23 @@
   <data name="Commander" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\commander.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ErrorMessageAppSettingRequired" xml:space="preserve">
+    <value>App settings {0} required </value>
+  </data>
   <data name="ErrorMessageCannotFindProjectForFileElement" xml:space="preserve">
     <value>Cannot find &lt;project&gt; for &lt;fileMatch&gt; element</value>
+  </data>
+  <data name="ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;folders&gt;&lt;folder name=\"?\"&gt;&lt;fileMatches&gt;&lt;fileMatch name=\"{1}\"&gt; conversionSettingsKey specified points to non-existant &lt;{2}&gt; - {3}</value>
+  </data>
+  <data name="ErrorMessageCommandErrorProcessingPathDoesNotExist" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; errorProcessingPath does not exist - {4}</value>
+  </data>
+  <data name="ErrorMessageCommandOutPutPathDoesNotExist" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; outPutPath does not exist - {4}</value>
+  </data>
+  <data name="ErrorMessageCommandWorkingPathDoesNotExist" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; workingPath does not exist - {4}</value>
   </data>
   <data name="ErrorMessageCompletedPathDoesNotExist" xml:space="preserve">
     <value>&lt;project name=\"{0}\"&gt;&lt;folders&gt;&lt;folders name=\"{1}\"&gt; completedPath does not exist - {2}</value>

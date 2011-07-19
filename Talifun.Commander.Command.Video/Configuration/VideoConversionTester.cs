@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 
         public override void CheckProjectConfiguration(ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoConversionSettingElementCollection>(Settings.ElementCollectionSettingName, project);
+            var commandSettings = new ProjectElementCommand<VideoConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var videoConversionSettings = commandSettings.Settings;
 
             var videoConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
@@ -31,14 +31,14 @@ namespace Talifun.Commander.Command.Video.Configuration
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {
-                throw new Exception("FFMpegPath appSetting Required");
+				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, VideoConversionConfiguration.Instance.FFMpegPathSettingName));
             }
 
             var flvTool2Path = VideoConversionConfiguration.Instance.FlvTool2Path;
 
             if (string.IsNullOrEmpty(flvTool2Path))
-            {
-                throw new Exception("FlvTool2Path appSetting Required");
+			{
+				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, VideoConversionConfiguration.Instance.FlvTool2PathSettingName));
             }
 
             for (var i = 0; i < videoConversionSettings.Count; i++)
@@ -47,10 +47,13 @@ namespace Talifun.Commander.Command.Video.Configuration
 
                 if (!Directory.Exists(videoSetting.OutPutPath))
                 {
-                    throw new Exception(
-                        string.Format(
-                            "<project name=\"{0}\"><videoConversionSettings><videoConversionSetting name=\"{1}\"> outPutPath does not exist - {2}",
-                            project.Name, videoSetting.Name, videoSetting.OutPutPath));
+                	throw new Exception(
+                		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
+                		              project.Name,
+                		              Settings.ElementCollectionSettingName,
+                		              Settings.ElementSettingName,
+                		              videoSetting.Name,
+                		              videoSetting.OutPutPath));
                 }
                 else
                 {
@@ -61,10 +64,13 @@ namespace Talifun.Commander.Command.Video.Configuration
                 {
                     if (!Directory.Exists(videoSetting.WorkingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><videoConversionSettings><videoConversionSetting name=\"{1}\"> workingPath does not exist - {2}",
-                                project.Name, videoSetting.Name, videoSetting.WorkingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              videoSetting.Name,
+                    		              videoSetting.WorkingPath));
                     }
                     else
                     {
@@ -80,10 +86,13 @@ namespace Talifun.Commander.Command.Video.Configuration
                 {
                     if (!Directory.Exists(videoSetting.ErrorProcessingPath))
                     {
-                        throw new Exception(
-                            string.Format(
-                                "<project name=\"{0}\"><videoConversionSettings><videoConversionSetting name=\"{1}\"> errorProcessingPath does not exist - {2}",
-                                project.Name, videoSetting.Name, videoSetting.ErrorProcessingPath));
+                    	throw new Exception(
+                    		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+                    		              project.Name,
+                    		              Settings.ElementCollectionSettingName,
+                    		              Settings.ElementSettingName,
+                    		              videoSetting.Name,
+                    		              videoSetting.ErrorProcessingPath));
                     }
                     else
                     {
@@ -103,10 +112,10 @@ namespace Talifun.Commander.Command.Video.Configuration
                     break;
                 }
 
-                throw new Exception(
-                    string.Format(
-                        "<project name=\"{0}\"><folders><folder name=\"?\"><fileMatches><fileMatch name=\"{1}\"> conversionSettingsKey specified points to non-existant <videoConversionSetting> - {2}",
-                        project.Name, fileMatch.Name, fileMatch.CommandSettingsKey));
+            	throw new Exception(
+            		string.Format(
+            			Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+            			project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }
     }
