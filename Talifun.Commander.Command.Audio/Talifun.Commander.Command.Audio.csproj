@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioConverterSaga.cs" />
-    <Compile Include="Configuration\AudioConversionElement.Validation.cs" >
+    <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\AudioConversionElementPanel.xaml.cs">
@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

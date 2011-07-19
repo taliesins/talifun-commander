@@ -53,7 +53,7 @@
     <Compile Include="CommandLineCommand.cs" />
     <Compile Include="CommandLineSaga.cs" />
     <Compile Include="CommandLineParameters.cs" />
-    <Compile Include="Configuration\CommandLineElement.Validation.cs" >
+    <Compile Include="Configuration\CommandLineElement.Validation.cs">
       <DependentUpon>CommandLineElement.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\CommandLineElementPanel.xaml.cs">
@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

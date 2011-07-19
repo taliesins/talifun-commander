@@ -234,10 +234,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Configuration\ErrorStyles.xaml">
+    <Resource Include="Configuration\ErrorStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Commander.ico" />

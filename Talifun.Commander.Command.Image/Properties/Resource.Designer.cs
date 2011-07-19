@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.Image.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource {
+    public class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Talifun.Commander.Command.Image.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Talifun.Commander.Command.Image.Properties.Resource", typeof(Resource).Assembly);
@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.Image.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Talifun.Commander.Command.Image.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; height is required when resize mode is - {4}.
         /// </summary>
-        internal static string ErrorMessageHeightIsRequiredForResizeMode {
+        public static string ErrorMessageHeightIsRequiredForResizeMode {
             get {
                 return ResourceManager.GetString("ErrorMessageHeightIsRequiredForResizeMode", resourceCulture);
             }
@@ -72,20 +72,20 @@ namespace Talifun.Commander.Command.Image.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; width is required when resize mode is - {4}.
         /// </summary>
-        internal static string ErrorMessageWidthIsRequiredForResizeMode {
+        public static string ErrorMessageWidthIsRequiredForResizeMode {
             get {
                 return ResourceManager.GetString("ErrorMessageWidthIsRequiredForResizeMode", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap ImageConversionElement {
+        public static System.Drawing.Bitmap ImageConversionElement {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElement", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap ImageConversionElementCollection {
+        public static System.Drawing.Bitmap ImageConversionElementCollection {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -95,7 +95,7 @@ namespace Talifun.Commander.Command.Image.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
-        internal static string ValidatorMessageImageConversionElementNameMandatory {
+        public static string ValidatorMessageImageConversionElementNameMandatory {
             get {
                 return ResourceManager.GetString("ValidatorMessageImageConversionElementNameMandatory", resourceCulture);
             }

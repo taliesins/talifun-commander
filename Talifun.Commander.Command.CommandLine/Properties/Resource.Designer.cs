@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource {
+    public class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Talifun.Commander.Command.CommandLine.Properties.Resource", typeof(Resource).Assembly);
@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,14 +60,14 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap CommandLineElement {
+        public static System.Drawing.Bitmap CommandLineElement {
             get {
                 object obj = ResourceManager.GetObject("CommandLineElement", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap CommandLineElementCollection {
+        public static System.Drawing.Bitmap CommandLineElementCollection {
             get {
                 object obj = ResourceManager.GetObject("CommandLineElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -77,7 +77,7 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; commandPath does not exist - {4}.
         /// </summary>
-        internal static string ErrorMessageCommandPathDoesNotExist {
+        public static string ErrorMessageCommandPathDoesNotExist {
             get {
                 return ResourceManager.GetString("ErrorMessageCommandPathDoesNotExist", resourceCulture);
             }
@@ -86,7 +86,7 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
-        internal static string ValidatorMessageCommandLineElementNameMandatory {
+        public static string ValidatorMessageCommandLineElementNameMandatory {
             get {
                 return ResourceManager.GetString("ValidatorMessageCommandLineElementNameMandatory", resourceCulture);
             }
