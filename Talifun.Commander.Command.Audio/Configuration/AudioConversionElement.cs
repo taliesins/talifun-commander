@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class AudioConversionElement : CommandConfigurationBase
+    public sealed partial class AudioConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 128000, ConfigurationPropertyOptions.None);

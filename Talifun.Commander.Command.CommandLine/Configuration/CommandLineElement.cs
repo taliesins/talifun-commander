@@ -7,14 +7,14 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class CommandLineElement : CommandConfigurationBase
+    public sealed partial class CommandLineElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty commandPath = new ConfigurationProperty("commandPath", typeof(string), "", ConfigurationPropertyOptions.IsRequired);
         private static readonly ConfigurationProperty checkCommandPathExists = new ConfigurationProperty("checkCommandPathExists", typeof(bool), true, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty args = new ConfigurationProperty("args", typeof(string), "", ConfigurationPropertyOptions.None);
 
         /// <summary>
-        /// Initializes the <see cref="AudioConversionSettingElement"/> class.
+		/// Initializes the <see cref="CommandLineElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static CommandLineElement()

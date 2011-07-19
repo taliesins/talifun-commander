@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public class VideoThumbnailerElement : CommandConfigurationBase
+    public sealed partial class VideoThumbnailerElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty imageType = new ConfigurationProperty("imageType", typeof(ImageType), ImageType.JPG, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int), null, ConfigurationPropertyOptions.IsRequired);

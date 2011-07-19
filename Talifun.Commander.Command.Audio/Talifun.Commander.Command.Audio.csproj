@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioConverterSaga.cs" />
+    <Compile Include="Configuration\AudioConversionElement.Validation.cs" >
+      <DependentUpon>AudioConversionElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\AudioConversionElementPanel.xaml.cs">
       <DependentUpon>AudioConversionElementPanel.xaml</DependentUpon>
     </Compile>

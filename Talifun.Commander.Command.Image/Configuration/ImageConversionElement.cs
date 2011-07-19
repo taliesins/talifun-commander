@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command.Image.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class ImageConversionElement : CommandConfigurationBase
+    public sealed partial class ImageConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int?), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty height = new ConfigurationProperty("height", typeof(int?), null, ConfigurationPropertyOptions.None);

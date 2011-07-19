@@ -3,7 +3,7 @@ using Talifun.Commander.Command.Audio.Properties;
 
 namespace Talifun.Commander.Command.Audio.Configuration
 {
-	class AudioConversionElementValidator : AbstractValidator<AudioConversionElement>
+	public class AudioConversionElementValidator : AbstractValidator<AudioConversionElement>
 	{
 		public AudioConversionElementValidator()
         {

@@ -53,9 +53,13 @@
     <Compile Include="CommandLineCommand.cs" />
     <Compile Include="CommandLineSaga.cs" />
     <Compile Include="CommandLineParameters.cs" />
+    <Compile Include="Configuration\CommandLineElement.Validation.cs" >
+      <DependentUpon>CommandLineElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\CommandLineElementPanel.xaml.cs">
       <DependentUpon>CommandLineElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\CommandLineElementValidator.cs" />
     <Compile Include="Configuration\CommandLineTester.cs" />
     <Compile Include="Configuration\CommandLineConfiguration.cs" />
     <Compile Include="Configuration\CommandLineElement.cs" />

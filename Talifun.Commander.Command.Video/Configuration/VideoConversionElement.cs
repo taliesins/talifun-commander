@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command.Video.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed class VideoConversionElement : CommandConfigurationBase
+    public sealed partial class VideoConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty videoConversionType = new ConfigurationProperty("videoConversionType", typeof(VideoConversionType), VideoConversionType.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 64000, ConfigurationPropertyOptions.None);
