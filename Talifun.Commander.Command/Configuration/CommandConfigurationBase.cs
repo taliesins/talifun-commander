@@ -32,7 +32,7 @@ namespace Talifun.Commander.Command.Configuration
         public override string Name
         {
             get { return ((string)base[name]); }
-            set { base[name] = value; }
+			set { SetPropertyValue(value, name, "Name"); }
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Talifun.Commander.Command.Configuration
         public string OutPutPath
         {
             get { return ((string)base[outPutPath]); }
-            set { base[outPutPath] = value; }
+			set { SetPropertyValue(value, outPutPath, "OutPutPath"); }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Talifun.Commander.Command.Configuration
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
-            set { base[workingPath] = value; }
+			set { SetPropertyValue(value, workingPath, "WorkingPath"); }
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Talifun.Commander.Command.Configuration
         public string ErrorProcessingPath
         {
             get { return ((string)base[errorProcessingPath]); }
-            set { base[errorProcessingPath] = value; }
+			set { SetPropertyValue(value, errorProcessingPath, "ErrorProcessingPath"); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Talifun.Commander.Command.Configuration
         public string FileNameFormat
         {
             get { return ((string)base[fileNameFormat]); }
-            set { base[fileNameFormat] = value; }
+			set { SetPropertyValue(value, fileNameFormat, "FileNameFormat"); }
         }
 
         /// <summary>

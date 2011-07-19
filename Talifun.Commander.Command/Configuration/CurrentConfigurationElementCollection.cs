@@ -62,6 +62,8 @@ namespace Talifun.Commander.Command.Configuration
         {
             var configurationElement = base.BaseGet(index);
             if (base.BaseGet(index) == null) return;
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
             base.BaseRemoveAt(index);
             this.OnPropertyChanged(CountString);
             this.OnPropertyChanged(IndexerName);
@@ -76,6 +78,8 @@ namespace Talifun.Commander.Command.Configuration
         {
             var configurationElement = base.BaseGet(name);
             if (configurationElement == null) return;
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
             base.BaseRemove(name);
             this.OnPropertyChanged(CountString);
             this.OnPropertyChanged(IndexerName);
@@ -93,6 +97,8 @@ namespace Talifun.Commander.Command.Configuration
                 var configurationElement = base.BaseGet(index);
                 if (base.BaseGet(index) == null)
                 {
+					this.OnPropertyChanging(IndexerName);
+					this.OnPropertyChanging(CountString);
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
@@ -100,6 +106,7 @@ namespace Talifun.Commander.Command.Configuration
                 }
                 else
                 {
+					this.OnPropertyChanging(IndexerName);
                     base.BaseRemoveAt(index);
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(IndexerName);
@@ -119,6 +126,8 @@ namespace Talifun.Commander.Command.Configuration
                 var configurationElement = base.BaseGet(name);
                 if (configurationElement == null)
                 {
+					this.OnPropertyChanging(IndexerName);
+					this.OnPropertyChanging(CountString);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
@@ -126,6 +135,7 @@ namespace Talifun.Commander.Command.Configuration
                 }
                 else
                 {
+					this.OnPropertyChanging(IndexerName);
                     base.BaseRemove(name);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(IndexerName);
@@ -153,26 +163,47 @@ namespace Talifun.Commander.Command.Configuration
         protected const string CountString = "Count";
         protected const string IndexerName = "Item[]";
 
-        ///<summary>
-        ///Occurs when a property value changes.
-        ///</summary>
-        public virtual event PropertyChangedEventHandler PropertyChanged;
+		///<summary>
+		///Occurs when a property value has been changed.
+		///</summary>
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Raises the <see cref="PropertyChanged"/> event for
-        /// a given property.
-        /// </summary>
-        /// <param name="propertyName">The name of the changed property.</param>
-        protected void OnPropertyChanged(string propertyName)
-        {
-            //validate the property name in debug builds
-            VerifyProperty(propertyName);
+		/// <summary>
+		/// Occurs when a property value is about to be changed.
+		/// </summary>
+		public event PropertyChangingEventHandler PropertyChanging;
 
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+		/// <summary>
+		/// Raises the <see cref="PropertyChanged"/> event for
+		/// a given property.
+		/// </summary>
+		/// <param name="propertyName">The name of the changed property.</param>
+		protected void OnPropertyChanged(string propertyName)
+		{
+			//validate the property name in debug builds
+			VerifyProperty(propertyName);
+
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+
+		/// <summary>
+		/// Raises the <see cref="PropertyChanged"/> event for
+		/// a given property.
+		/// </summary>
+		/// <param name="propertyName">The name of the changed property.</param>
+		protected void OnPropertyChanging(string propertyName)
+		{
+			//validate the property name in debug builds
+			VerifyProperty(propertyName);
+
+			if (PropertyChanging != null)
+			{
+				PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+			}
+		}
 
         /// <summary>
         /// Verifies whether the current class provides a property with a given
@@ -218,6 +249,8 @@ namespace Talifun.Commander.Command.Configuration
                 var configurationElement = base.BaseGet(index);
                 if (base.BaseGet(index) == null)
                 {
+					this.OnPropertyChanging(IndexerName);
+					this.OnPropertyChanging(CountString);
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
@@ -225,6 +258,7 @@ namespace Talifun.Commander.Command.Configuration
                 }
                 else
                 {
+					this.OnPropertyChanging(IndexerName);
                     base.BaseRemoveAt(index);
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(IndexerName);
@@ -244,6 +278,8 @@ namespace Talifun.Commander.Command.Configuration
                 var configurationElement = base.BaseGet(name);
                 if (configurationElement == null)
                 {
+					this.OnPropertyChanging(IndexerName);
+					this.OnPropertyChanging(CountString);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
@@ -251,6 +287,7 @@ namespace Talifun.Commander.Command.Configuration
                 }
                 else
                 {
+					this.OnPropertyChanging(IndexerName);
                     base.BaseRemove(name);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(IndexerName);

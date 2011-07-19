@@ -56,13 +56,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public VideoConversionType VideoConversionType
         {
             get { return ((VideoConversionType)base[videoConversionType]); }
-            set
-            {
-                if (value == VideoConversionType) return;
-
-                base[videoConversionType] = value;
-                OnPropertyChanged("VideoConversionType");
-            }
+			set { SetPropertyValue(value, videoConversionType, "VideoConversionType"); }
         }
 
         /// <summary>
@@ -78,13 +72,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int BitRate
         {
             get { return ((int)base[audioBitRate]); }
-            set
-            {
-                if (value == BitRate) return;
-
-                base[audioBitRate] = value;
-                OnPropertyChanged("BitRate");
-            }
+			set { SetPropertyValue(value, audioBitRate, "BitRate"); }
         }
 
         /// <summary>
@@ -99,13 +87,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int Frequency
         {
             get { return ((int)base[audioFrequency]); }
-            set
-            {
-                if (value == Frequency) return;
-
-                base[audioFrequency] = value;
-                OnPropertyChanged("Frequency");
-            }
+			set { SetPropertyValue(value, audioFrequency, "Frequency"); }
         }
 
         /// <summary>
@@ -118,13 +100,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int Channel
         {
             get { return ((int)base[audioChannels]); }
-            set
-            {
-                if (value == Channel) return;
-
-                base[audioChannels] = value;
-                OnPropertyChanged("Channel");
-            }
+			set { SetPropertyValue(value, audioChannels, "Channel"); }
         }
 
         /// <summary>
@@ -134,13 +110,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public bool Deinterlace
         {
             get { return ((bool)base[deinterlace]); }
-            set
-            {
-                if (value == Deinterlace) return;
-
-                base[deinterlace] = value;
-                OnPropertyChanged("Deinterlace");
-            }
+			set { SetPropertyValue(value, deinterlace, "Deinterlace"); }
         }
 
         /// <summary>
@@ -150,13 +120,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int Width
         {
             get { return ((int)base[width]); }
-            set
-            {
-                if (value == Width) return;
-
-                base[width] = value;
-                OnPropertyChanged("Width");
-            }
+			set { SetPropertyValue(value, width, "Width"); }
         }
 
         /// <summary>
@@ -166,13 +130,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int Height
         {
             get { return ((int)base[height]); }
-            set
-            {
-                if (value == Height) return;
-
-                base[height] = value;
-                OnPropertyChanged("Height");
-            }
+			set { SetPropertyValue(value, height, "Height"); }
         }
 
         /// <summary>
@@ -182,13 +140,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int VideoBitRate
         {
             get { return ((int)base[videoBitRate]); }
-            set
-            {
-                if (value == VideoBitRate) return;
-
-                base[videoBitRate] = value;
-                OnPropertyChanged("VideoBitRate");
-            }
+			set { SetPropertyValue(value, videoBitRate, "VideoBitRate"); }
         }
 
         /// <summary>
@@ -198,13 +150,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int FrameRate
         {
             get { return ((int)base[frameRate]); }
-            set
-            {
-                if (value == FrameRate) return;
-
-                base[frameRate] = value;
-                OnPropertyChanged("FrameRate");
-            }
+			set { SetPropertyValue(value, frameRate, "FrameRate"); }
         }
 
         /// <summary>
@@ -214,13 +160,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public AspectRatio AspectRatio
         {
             get { return ((AspectRatio)base[aspectRatio]); }
-            set
-            {
-                if (value == AspectRatio) return;
-
-                base[aspectRatio] = value;
-                OnPropertyChanged("AspectRatio");
-            }
+			set { SetPropertyValue(value, aspectRatio, "AspectRatio"); }
         }
 
         /// <summary>
@@ -231,13 +171,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int? MaxVideoBitRate
         {
             get { return ((int?)base[maxVideoBitRate]); }
-            set
-            {
-                if (value == MaxVideoBitRate) return;
-
-                base[maxVideoBitRate] = value;
-                OnPropertyChanged("MaxVideoBitRate");
-            }
+			set { SetPropertyValue(value, maxVideoBitRate, "MaxVideoBitRate"); }
         }
 
         /// <summary>
@@ -248,13 +182,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int? BufferSize
         {
             get { return ((int?)base[bufferSize]); }
-            set
-            {
-                if (value == BufferSize) return;
-
-                base[bufferSize] = value;
-                OnPropertyChanged("BufferSize");
-            }
+			set { SetPropertyValue(value, bufferSize, "BufferSize"); }
         }
 
         /// <summary>
@@ -265,13 +193,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int? KeyframeInterval
         {
             get { return ((int?)base[keyframeInterval]); }
-            set
-            {
-                if (value == KeyframeInterval) return;
-
-                base[keyframeInterval] = value;
-                OnPropertyChanged("KeyframeInterval");
-            }
+			set { SetPropertyValue(value, keyframeInterval, "KeyframeInterval"); }
         }
 
         /// <summary>
@@ -282,13 +204,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         public int? MinKeyframeInterval
         {
             get { return ((int?)base[minKeyframeInterval]); }
-            set
-            {
-                if (value == MinKeyframeInterval) return;
-
-                base[minKeyframeInterval] = value;
-                OnPropertyChanged("MinKeyframeInterval");
-            }
+			set { SetPropertyValue(value, minKeyframeInterval, "MinKeyframeInterval"); }
         }
     }
 }

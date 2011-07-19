@@ -315,6 +315,15 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name has already been used.
+        /// </summary>
+        public static string ValidatorMessageProjectElementNameHasAlreadyBeenUses {
+            get {
+                return ResourceManager.GetString("ValidatorMessageProjectElementNameHasAlreadyBeenUses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
         public static string ValidatorMessageProjectElementNameMandatory {

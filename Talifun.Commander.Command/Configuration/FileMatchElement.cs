@@ -35,12 +35,7 @@ namespace Talifun.Commander.Command.Configuration
         public override string Name
         {
             get { return ((string)base[name]); }
-            set { 
-                if (value == Name) return;
-
-                base[name] = value;
-                OnPropertyChanged("Name");
-            }
+			set { SetPropertyValue(value, name, "Name"); }
         }
 
         /// <summary>
@@ -53,13 +48,7 @@ namespace Talifun.Commander.Command.Configuration
         public string Expression
         {
             get { return ((string)base[expression]); }
-            set
-            {
-                if (value == Expression) return;
-
-                base[expression] = value;
-                OnPropertyChanged("Expression");
-            }
+			set { SetPropertyValue(value, expression, "Expression"); }
         }
 
         /// <summary>
@@ -69,13 +58,7 @@ namespace Talifun.Commander.Command.Configuration
         public string ConversionType
         {
             get { return ((string)base[conversionType]); }
-            set
-            {
-                if (value == ConversionType) return;
-
-                base[conversionType] = value;
-                OnPropertyChanged("ConversionType");
-            }
+			set { SetPropertyValue(value, conversionType, "ConversionType"); }
         }
 
         /// <summary>
@@ -85,13 +68,7 @@ namespace Talifun.Commander.Command.Configuration
         public string CommandSettingsKey
         {
             get { return ((string)base[commandSettingsKey]); }
-            set
-            {
-                if (value == CommandSettingsKey) return;
-
-                base[commandSettingsKey] = value;
-                OnPropertyChanged("CommandSettingsKey");
-            }
+			set { SetPropertyValue(value, commandSettingsKey, "CommandSettingsKey"); }
         }
 
         /// <summary>
@@ -102,13 +79,7 @@ namespace Talifun.Commander.Command.Configuration
         public bool StopProcessing
         {
             get { return ((bool)base[stopProcessing]); }
-            set
-            {
-                if (value == StopProcessing) return;
-
-                base[stopProcessing] = value;
-                OnPropertyChanged("StopProcessing");
-            }
+			set { SetPropertyValue(value, stopProcessing, "StopProcessing"); }
         }
 
         /// <summary>

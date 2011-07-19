@@ -208,6 +208,9 @@
   <data name="ValidatorMessageFolderElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
+  <data name="ValidatorMessageProjectElementNameHasAlreadyBeenUses" xml:space="preserve">
+    <value>Name has already been used</value>
+  </data>
   <data name="ValidatorMessageProjectElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>

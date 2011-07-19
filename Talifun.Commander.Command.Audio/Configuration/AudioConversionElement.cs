@@ -33,13 +33,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         public AudioConversionType AudioConversionType
         {
             get { return ((AudioConversionType)base[audioConversionType]); }
-            set
-            {
-                if (value == AudioConversionType) return;
-
-                base[audioConversionType] = value;
-                OnPropertyChanged("AudioConversionType");
-            }
+			set { SetPropertyValue(value, audioConversionType, "AudioConversionType"); }
         }
 
         /// <summary>
@@ -55,13 +49,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         public int BitRate
         {
             get { return ((int)base[audioBitRate]); }
-            set
-            {
-                if (value == BitRate) return;
-
-                base[audioBitRate] = value;
-                OnPropertyChanged("BitRate");
-            }
+			set { SetPropertyValue(value, audioBitRate, "BitRate"); }
         }
 
         /// <summary>
@@ -76,13 +64,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         public int Frequency
         {
             get { return ((int)base[audioFrequency]); }
-            set
-            {
-                if (value == Frequency) return;
-
-                base[audioFrequency] = value;
-                OnPropertyChanged("Frequency");
-            }
+			set { SetPropertyValue(value, audioFrequency, "Frequency"); }
         }
 
         /// <summary>
@@ -95,13 +77,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         public int Channel
         {
             get { return ((int)base[audioChannels]); }
-            set
-            {
-                if (value == Channel) return;
-
-                base[audioChannels] = value;
-                OnPropertyChanged("Channel");
-            }
+			set { SetPropertyValue(value, audioChannels, "Channel"); }
         }
     }
 }

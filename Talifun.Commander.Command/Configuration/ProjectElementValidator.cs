@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
@@ -7,7 +8,10 @@ namespace Talifun.Commander.Command.Configuration
     {
         public ProjectElementValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameMandatory);
+        	RuleFor(x => x.Name)
+        		.NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameMandatory)
+				.Must((name) => CurrentConfiguration.Current.Projects.Cast<ProjectElement>().Where(x=>x.Name == name).Count() < 2).WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUses);
+
         }
     }
 }

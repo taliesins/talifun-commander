@@ -27,13 +27,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
         public VirusScannerType VirusScannerType
         {
             get { return ((VirusScannerType)base[virusScannerType]); }
-            set
-            {
-                if (value == VirusScannerType) return;
-
-                base[virusScannerType] = value;
-                OnPropertyChanged("VirusScannerType");
-            }
+			set { SetPropertyValue(value, virusScannerType, "VirusScannerType"); }
         }
     }
 }

@@ -42,13 +42,7 @@ namespace Talifun.Commander.Command.Configuration
         public override string Name
         {
             get { return ((string)base[name]); }
-            set
-            {
-                if (value == Name) return;
-
-                base[name] = value;
-                OnPropertyChanged("Name");
-            }
+			set { SetPropertyValue(value, name, "Name"); }
         }
 
         /// <summary>
@@ -61,13 +55,7 @@ namespace Talifun.Commander.Command.Configuration
         public string FolderToWatch
         {
             get { return ((string)base[folderToWatch]); }
-            set
-            {
-                if (value == FolderToWatch) return;
-
-                base[folderToWatch] = value;
-                OnPropertyChanged("FolderToWatch");
-            }
+			set { SetPropertyValue(value, folderToWatch, "FolderToWatch"); }
         }
 
         /// <summary>
@@ -77,13 +65,7 @@ namespace Talifun.Commander.Command.Configuration
         public string Filter
         {
             get { return ((string)base[fileNameFilter]); }
-            set
-            {
-                if (value == Filter) return;
-
-                base[fileNameFilter] = value;
-                OnPropertyChanged("Filter");
-            }
+			set { SetPropertyValue(value, fileNameFilter, "Filter"); }
         }
 
         /// <summary>
@@ -93,13 +75,7 @@ namespace Talifun.Commander.Command.Configuration
         public int PollTime
         {
             get { return ((int)base[pollTime]); }
-            set
-            {
-                if (value == PollTime) return;
-
-                base[pollTime] = value;
-                OnPropertyChanged("PollTime");
-            }
+			set { SetPropertyValue(value, pollTime, "PollTime"); }
         }
 
         /// <summary>
@@ -113,13 +89,7 @@ namespace Talifun.Commander.Command.Configuration
         public bool IncludeSubdirectories
         {
             get { return ((bool)base[includeSubdirectories]); }
-            set
-            {
-                if (value == IncludeSubdirectories) return;
-
-                base[includeSubdirectories] = value;
-                OnPropertyChanged("IncludeSubdirectories");
-            }
+			set { SetPropertyValue(value, includeSubdirectories, "IncludeSubdirectories"); }
         }
 
         /// <summary>
@@ -135,13 +105,7 @@ namespace Talifun.Commander.Command.Configuration
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
-            set
-            {
-                if (value == WorkingPath) return;
-
-                base[workingPath] = value;
-                OnPropertyChanged("WorkingPath");
-            }
+			set { SetPropertyValue(value, workingPath, "WorkingPath"); }
         }
 
         /// <summary>
@@ -155,13 +119,7 @@ namespace Talifun.Commander.Command.Configuration
         public string CompletedPath
         {
             get { return ((string)base[completedPath]); }
-            set
-            {
-                if (value == CompletedPath) return;
-
-                base[completedPath] = value;
-                OnPropertyChanged("CompletedPath");
-            }
+			set { SetPropertyValue(value, completedPath, "CompletedPath"); }
         }
 
         /// <summary>

@@ -37,13 +37,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         public string CommandPath
         {
             get { return ((string)base[commandPath]); }
-            set
-            {
-                if (value == CommandPath) return;
-
-                base[commandPath] = value;
-                OnPropertyChanged("CommandPath");
-            }
+			set { SetPropertyValue(value, commandPath, "CommandPath"); }
         }
 
         /// <summary>
@@ -53,13 +47,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         public bool CheckCommandPathExists
         {
             get { return ((bool)base[checkCommandPathExists]); }
-            set
-            {
-                if (value == CheckCommandPathExists) return;
-
-                base[checkCommandPathExists] = value;
-                OnPropertyChanged("CheckCommandPathExists");
-            }
+			set { SetPropertyValue(value, checkCommandPathExists, "CheckCommandPathExists"); }
         }
         
         /// <summary>
@@ -80,13 +68,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         public string Args
         {
             get { return ((string)base[args]); }
-            set
-            {
-                if (value == Args) return;
-
-                base[args] = value;
-                OnPropertyChanged("Args");
-            }
+			set { SetPropertyValue(value, args, "Args"); }
         }
     }
 }

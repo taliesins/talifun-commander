@@ -27,8 +27,8 @@ namespace Talifun.Commander.Command.Configuration
             }
 
             if (e.Element == null || !(e.Element is ProjectElement)) return;
-            Element = e.Element as ProjectElement;
-
+			Element = e.Element as ProjectElement;
+        	
             SaveButton.IsEnabled = false;
 
             this.DataContext = Element;

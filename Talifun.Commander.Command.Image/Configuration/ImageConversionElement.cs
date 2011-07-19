@@ -44,13 +44,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public int? Width
         {
             get { return ((int?)base[width]); }
-            set
-            {
-                if (value == Width) return;
-
-                base[width] = value;
-                OnPropertyChanged("Width");
-            }
+			set { SetPropertyValue(value, width, "Width"); }
         }
 
         /// <summary>
@@ -60,13 +54,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public int? Height
         {
             get { return ((int?)base[height]); }
-            set
-            {
-                if (value == Height) return;
-
-                base[height] = value;
-                OnPropertyChanged("Height");
-            }
+			set { SetPropertyValue(value, height, "Height"); }
         }
 
         /// <summary>
@@ -77,13 +65,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public ResizeMode ResizeMode
         {
             get { return ((ResizeMode)base[resizeMode]); }
-            set
-            {
-                if (value == ResizeMode) return;
-
-                base[resizeMode] = value;
-                OnPropertyChanged("ResizeMode");
-            }
+			set { SetPropertyValue(value, resizeMode, "ResizeMode"); }
         }
 
         /// <summary>
@@ -93,13 +75,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public Gravity Gravity
         {
             get { return ((Gravity)base[gravity]); }
-            set
-            {
-                if (value == Gravity) return;
-
-                base[gravity] = value;
-                OnPropertyChanged("Gravity");
-            }
+			set { SetPropertyValue(value, gravity, "Gravity"); }
         }
 
         /// <summary>
@@ -111,13 +87,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public string BackgroundColor
         {
             get { return ((string)base[backgroundColor]); }
-            set
-            {
-                if (value == BackgroundColor) return;
-
-                base[backgroundColor] = value;
-                OnPropertyChanged("BackgroundColor");
-            }
+			set { SetPropertyValue(value, backgroundColor, "BackgroundColor"); }
         }
 
         /// <summary>
@@ -128,13 +98,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public int? Quality
         {
             get { return ((int?)base[quality]); }
-            set
-            {
-                if (value == Quality) return;
-
-                base[quality] = value;
-                OnPropertyChanged("Quality");
-            }
+			set { SetPropertyValue(value, quality, "Quality"); }
         }
 
         /// <summary>
@@ -147,13 +111,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         public ResizeImageType ResizeImageType
         {
             get { return ((ResizeImageType)base[resizeImageType]); }
-            set
-            {
-                if (value == ResizeImageType) return;
-
-                base[resizeImageType] = value;
-                OnPropertyChanged("ResizeImageType");
-            }
+			set { SetPropertyValue(value, resizeImageType, "ResizeImageType"); }
         }
     }
 }

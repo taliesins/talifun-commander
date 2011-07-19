@@ -39,13 +39,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public ImageType ImageType
         {
             get { return ((ImageType)base[imageType]); }
-            set
-            {
-                if (value == ImageType) return;
-
-                base[imageType] = value;
-                OnPropertyChanged("ImageType");
-            }
+			set { SetPropertyValue(value, imageType, "ImageType"); }
         }
 
         /// <summary>
@@ -55,13 +49,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public int Width
         {
             get { return ((int)base[width]); }
-            set
-            {
-                if (value == Width) return;
-
-                base[width] = value;
-                OnPropertyChanged("Width");
-            }
+			set { SetPropertyValue(value, width, "Width"); }
         }
 
         /// <summary>
@@ -71,13 +59,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public int Height
         {
             get { return ((int)base[height]); }
-            set
-            {
-                if (value == Height) return;
-
-                base[height] = value;
-                OnPropertyChanged("Height");
-            }
+			set { SetPropertyValue(value, height, "Height"); }
         }
 
         /// <summary>
@@ -88,13 +70,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public TimeSpan Time
         {
             get { return ((TimeSpan)base[time]); }
-            set
-            {
-                if (value == Time) return;
-
-                base[time] = value;
-                OnPropertyChanged("Time");
-            }
+			set { SetPropertyValue(value, time, "TimeSpan"); }
         }
 
         /// <summary>
@@ -104,13 +80,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         public int TimePercentage
         {
             get { return ((int)base[timePercentage]); }
-            set
-            {
-                if (value == TimePercentage) return;
-
-                base[timePercentage] = value;
-                OnPropertyChanged("TimePercentage");
-            }
+			set { SetPropertyValue(value, timePercentage, "TimePercentage"); }
         }
     }
 }
