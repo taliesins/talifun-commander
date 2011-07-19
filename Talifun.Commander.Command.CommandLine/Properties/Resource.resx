@@ -127,4 +127,7 @@
   <data name="ErrorMessageCommandPathDoesNotExist" xml:space="preserve">
     <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; commandPath does not exist - {4}</value>
   </data>
+  <data name="ValidatorMessageCommandLineElementNameMandatory" xml:space="preserve">
+    <value>Must provide a name</value>
+  </data>
 </root>

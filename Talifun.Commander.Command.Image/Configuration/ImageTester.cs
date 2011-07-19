@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Image.Properties;
 
 namespace Talifun.Commander.Command.Image.Configuration
 {
@@ -27,16 +28,22 @@ namespace Talifun.Commander.Command.Image.Configuration
                     {
                         throw new Exception(
                             string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> width is required when resize mode is - {2}",
-                                project.Name, image.Name,
+								Resource.ErrorMessageWidthIsRequiredForResizeMode,
+                                project.Name, 
+								Settings.ElementCollectionSettingName,
+								Settings.ElementSettingName,
+								image.Name,
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
                     if (!image.Height.HasValue)
                     {
                         throw new Exception(
                             string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> height is required when resize mode is - {2}",
-                                project.Name, image.Name,
+								Resource.ErrorMessageHeightIsRequiredForResizeMode,
+                                project.Name,
+								Settings.ElementCollectionSettingName,
+								Settings.ElementSettingName,
+								image.Name,
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
                     break;
@@ -47,8 +54,11 @@ namespace Talifun.Commander.Command.Image.Configuration
                     {
                         throw new Exception(
                             string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> width is required when resize mode is - {2}",
-                                project.Name, image.Name,
+								Resource.ErrorMessageWidthIsRequiredForResizeMode,
+                                project.Name,
+								Settings.ElementCollectionSettingName,
+								Settings.ElementSettingName,
+								image.Name,
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
                     break;
@@ -59,8 +69,11 @@ namespace Talifun.Commander.Command.Image.Configuration
                     {
                         throw new Exception(
                             string.Format(
-                                "<project name=\"{0}\"><imageConversionSettings><imageConversionSetting name=\"{1}\"> height is required when resize mode is - {2}",
-                                project.Name, image.Name,
+								Resource.ErrorMessageHeightIsRequiredForResizeMode,
+                                project.Name,
+								Settings.ElementCollectionSettingName,
+								Settings.ElementSettingName,
+								image.Name,
                                 Enum.GetName(typeof(ResizeMode), image.ResizeMode)));
                     }
                     break;

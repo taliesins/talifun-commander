@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorMessageHeightIsRequiredForResizeMode" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; height is required when resize mode is - {4}</value>
+  </data>
+  <data name="ErrorMessageWidthIsRequiredForResizeMode" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; width is required when resize mode is - {4}</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ImageConversionElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ImageConversionElement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageConversionElementCollection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ImageConversionElementCollection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ValidatorMessageImageConversionElementNameMandatory" xml:space="preserve">
+    <value>Must provide a name</value>
   </data>
 </root>

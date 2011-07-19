@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=3.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -50,6 +54,7 @@
     <Compile Include="Configuration\AudioConversionElementPanel.xaml.cs">
       <DependentUpon>AudioConversionElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AudioConversionElementValidator.cs" />
     <Compile Include="Configuration\AudioConversionTester.cs" />
     <Compile Include="Configuration\AudioConversionConfiguration.cs" />
     <Compile Include="Configuration\AudioConversionElement.cs" />

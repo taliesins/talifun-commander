@@ -73,5 +73,14 @@ namespace Talifun.Commander.Command.Audio.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageAudioConversionElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageAudioConversionElementNameMandatory", resourceCulture);
+            }
+        }
     }
 }

@@ -60,6 +60,15 @@ namespace Talifun.Commander.Command.Video.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageVideoConversionElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageVideoConversionElementNameMandatory", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap VideoConversionElement {
             get {
                 object obj = ResourceManager.GetObject("VideoConversionElement", resourceCulture);

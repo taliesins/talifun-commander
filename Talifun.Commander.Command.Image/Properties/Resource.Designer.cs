@@ -60,6 +60,24 @@ namespace Talifun.Commander.Command.Image.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; height is required when resize mode is - {4}.
+        /// </summary>
+        internal static string ErrorMessageHeightIsRequiredForResizeMode {
+            get {
+                return ResourceManager.GetString("ErrorMessageHeightIsRequiredForResizeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; width is required when resize mode is - {4}.
+        /// </summary>
+        internal static string ErrorMessageWidthIsRequiredForResizeMode {
+            get {
+                return ResourceManager.GetString("ErrorMessageWidthIsRequiredForResizeMode", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap ImageConversionElement {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElement", resourceCulture);
@@ -71,6 +89,15 @@ namespace Talifun.Commander.Command.Image.Properties {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageImageConversionElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageImageConversionElementNameMandatory", resourceCulture);
             }
         }
     }

@@ -60,6 +60,15 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageVideoThumbNailerElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageVideoThumbNailerElementNameMandatory", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap VideoThumbnailerElement {
             get {
                 object obj = ResourceManager.GetObject("VideoThumbnailerElement", resourceCulture);

@@ -82,5 +82,14 @@ namespace Talifun.Commander.Command.CommandLine.Properties {
                 return ResourceManager.GetString("ErrorMessageCommandPathDoesNotExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must provide a name.
+        /// </summary>
+        internal static string ValidatorMessageCommandLineElementNameMandatory {
+            get {
+                return ResourceManager.GetString("ValidatorMessageCommandLineElementNameMandatory", resourceCulture);
+            }
+        }
     }
 }
