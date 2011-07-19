@@ -87,10 +87,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VideoThumbnailerElement.png" />
+    <Resource Include="Resources\VideoThumbnailerElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VideoThumbnailerElementCollection.png" />
+    <Resource Include="Resources\VideoThumbnailerElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\VideoThumbnailerElementPanel.xaml">

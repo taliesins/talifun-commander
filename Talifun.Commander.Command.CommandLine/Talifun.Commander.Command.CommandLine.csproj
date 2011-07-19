@@ -81,10 +81,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CommandLineElement.png" />
+    <Resource Include="Resources\CommandLineElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CommandLineElementCollection.png" />
+    <Resource Include="Resources\CommandLineElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\CommandLineElementPanel.xaml">

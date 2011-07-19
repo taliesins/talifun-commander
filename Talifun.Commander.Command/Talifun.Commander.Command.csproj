@@ -132,7 +132,7 @@
       <DependentUpon>FolderElementPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration\FolderElementValidator.cs" />
-    <Compile Include="Configuration\ProjectElement.Validation.cs" >
+    <Compile Include="Configuration\ProjectElement.Validation.cs">
       <DependentUpon>ProjectElement.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\ProjectElementPanel.xaml.cs">
@@ -200,22 +200,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FileMatchElement.png" />
+    <Resource Include="Resources\FileMatchElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FolderElement.png" />
+    <Resource Include="Resources\FolderElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FolderElementCollection.png" />
+    <Resource Include="Resources\FolderElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ProjectElement.png" />
+    <Resource Include="Resources\ProjectElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FileMatchElementCollection.png" />
+    <Resource Include="Resources\FileMatchElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ProjectElementCollection.png" />
+    <Resource Include="Resources\ProjectElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\CommanderSectionWindow.xaml">
@@ -234,9 +234,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Configuration\ErrorStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Commander.ico" />
+    <Resource Include="Resources\Commander.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ValidationError.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

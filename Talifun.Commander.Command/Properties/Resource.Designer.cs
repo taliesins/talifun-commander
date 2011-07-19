@@ -244,6 +244,13 @@ namespace Talifun.Commander.Command.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap ValidationError {
+            get {
+                object obj = ResourceManager.GetObject("ValidationError", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>

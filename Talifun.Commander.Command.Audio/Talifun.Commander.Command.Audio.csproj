@@ -87,10 +87,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AudioConversionElement.png" />
+    <Resource Include="Resources\AudioConversionElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AudioConversionElementCollection.png" />
+    <Resource Include="Resources\AudioConversionElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\AudioConversionElementPanel.xaml">

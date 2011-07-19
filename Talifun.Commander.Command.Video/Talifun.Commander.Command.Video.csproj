@@ -90,10 +90,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VideoConversionElement.png" />
+    <Resource Include="Resources\VideoConversionElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VideoConversionElementCollection.png" />
+    <Resource Include="Resources\VideoConversionElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\VideoConversionElementPanel.xaml">

@@ -84,10 +84,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ImageConversionElement.png" />
+    <Resource Include="Resources\ImageConversionElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ImageConversionElementCollection.png" />
+    <Resource Include="Resources\ImageConversionElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\ImageConversionElementPanel.xaml">

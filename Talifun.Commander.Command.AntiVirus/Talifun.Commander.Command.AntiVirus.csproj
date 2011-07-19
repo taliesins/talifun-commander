@@ -83,10 +83,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AntiVirusElement.png" />
+    <Resource Include="Resources\AntiVirusElement.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AntiVirusElementCollection.png" />
+    <Resource Include="Resources\AntiVirusElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Configuration\AntiVirusElementPanel.xaml">
