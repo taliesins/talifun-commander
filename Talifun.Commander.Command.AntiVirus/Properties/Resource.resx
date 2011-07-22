@@ -127,4 +127,10 @@
   <data name="ValidatorMessageAntiVirusElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
+  <data name="VirusScannerType_McAfee" xml:space="preserve">
+    <value>McAfee</value>
+  </data>
+  <data name="VirusScannerType_NotSpecified" xml:space="preserve">
+    <value>Not Specified</value>
+  </data>
 </root>

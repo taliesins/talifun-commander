@@ -82,5 +82,23 @@ namespace Talifun.Commander.Command.AntiVirus.Properties {
                 return ResourceManager.GetString("ValidatorMessageAntiVirusElementNameMandatory", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to McAfee.
+        /// </summary>
+        public static string VirusScannerType_McAfee {
+            get {
+                return ResourceManager.GetString("VirusScannerType_McAfee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Specified.
+        /// </summary>
+        public static string VirusScannerType_NotSpecified {
+            get {
+                return ResourceManager.GetString("VirusScannerType_NotSpecified", resourceCulture);
+            }
+        }
     }
 }

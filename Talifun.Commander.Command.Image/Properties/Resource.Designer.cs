@@ -78,6 +78,87 @@ namespace Talifun.Commander.Command.Image.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        public static string Gravity_Center {
+            get {
+                return ResourceManager.GetString("Gravity_Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to East.
+        /// </summary>
+        public static string Gravity_East {
+            get {
+                return ResourceManager.GetString("Gravity_East", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to North.
+        /// </summary>
+        public static string Gravity_North {
+            get {
+                return ResourceManager.GetString("Gravity_North", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to North East.
+        /// </summary>
+        public static string Gravity_NorthEast {
+            get {
+                return ResourceManager.GetString("Gravity_NorthEast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to North West.
+        /// </summary>
+        public static string Gravity_NorthWest {
+            get {
+                return ResourceManager.GetString("Gravity_NorthWest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South.
+        /// </summary>
+        public static string Gravity_South {
+            get {
+                return ResourceManager.GetString("Gravity_South", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South East.
+        /// </summary>
+        public static string Gravity_SouthEast {
+            get {
+                return ResourceManager.GetString("Gravity_SouthEast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South West.
+        /// </summary>
+        public static string Gravity_SouthWest {
+            get {
+                return ResourceManager.GetString("Gravity_SouthWest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to West.
+        /// </summary>
+        public static string Gravity_West {
+            get {
+                return ResourceManager.GetString("Gravity_West", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap ImageConversionElement {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElement", resourceCulture);
@@ -89,6 +170,141 @@ namespace Talifun.Commander.Command.Image.Properties {
             get {
                 object obj = ResourceManager.GetObject("ImageConversionElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GIF.
+        /// </summary>
+        public static string ResizeImageType_GIF {
+            get {
+                return ResourceManager.GetString("ResizeImageType_GIF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JPG.
+        /// </summary>
+        public static string ResizeImageType_JPG {
+            get {
+                return ResourceManager.GetString("ResizeImageType_JPG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use orginal format.
+        /// </summary>
+        public static string ResizeImageType_Orginal {
+            get {
+                return ResourceManager.GetString("ResizeImageType_Orginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PNG.
+        /// </summary>
+        public static string ResizeImageType_PNG {
+            get {
+                return ResourceManager.GetString("ResizeImageType_PNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area To Fit.
+        /// </summary>
+        public static string ResizeMode_AreaToFit {
+            get {
+                return ResourceManager.GetString("ResizeMode_AreaToFit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut To Fit.
+        /// </summary>
+        public static string ResizeMode_CutToFit {
+            get {
+                return ResourceManager.GetString("ResizeMode_CutToFit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Height.
+        /// </summary>
+        public static string ResizeMode_FitHeight {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Maximum Height.
+        /// </summary>
+        public static string ResizeMode_FitMaximumHeight {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitMaximumHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Maximum Width.
+        /// </summary>
+        public static string ResizeMode_FitMaximumWidth {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitMaximumWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Minimum Height.
+        /// </summary>
+        public static string ResizeMode_FitMinimumHeight {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitMinimumHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Minimum Width.
+        /// </summary>
+        public static string ResizeMode_FitMinimumWidth {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitMinimumWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Width.
+        /// </summary>
+        public static string ResizeMode_FitWidth {
+            get {
+                return ResourceManager.GetString("ResizeMode_FitWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not resize.
+        /// </summary>
+        public static string ResizeMode_None {
+            get {
+                return ResourceManager.GetString("ResizeMode_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stretch.
+        /// </summary>
+        public static string ResizeMode_Stretch {
+            get {
+                return ResourceManager.GetString("ResizeMode_Stretch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom.
+        /// </summary>
+        public static string ResizeMode_Zoom {
+            get {
+                return ResourceManager.GetString("ResizeMode_Zoom", resourceCulture);
             }
         }
         

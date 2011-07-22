@@ -75,6 +75,24 @@ namespace Talifun.Commander.Command.Audio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MP3.
+        /// </summary>
+        public static string AudioConversionType_MP3 {
+            get {
+                return ResourceManager.GetString("AudioConversionType_MP3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not specified.
+        /// </summary>
+        public static string AudioConversionType_NotSpecified {
+            get {
+                return ResourceManager.GetString("AudioConversionType_NotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
         public static string ValidatorMessageAudioConversionElementNameMandatory {

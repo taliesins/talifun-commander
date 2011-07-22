@@ -24,17 +24,36 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
             
             <Label Content="Folder to watch:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="folderToWatchTextBox" Text="{Binding Path=FolderToWatch, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="folderToWatchTextBox" Text="{Binding Path=FolderToWatch, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <Button Content="..." Grid.Row="1" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="folderToWatchButton"  Width="25" />
 
             <Label Content="Filter:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="filterTextBox" Text="{Binding Path=Filter, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
-            <Button Content="..." Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="button1"  Width="25" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="filterTextBox" Text="{Binding Path=Filter, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+
+            <Label Content="Poll Time:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="pollTimeTextBox" Text="{Binding Path=PollTime, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            
+            <Label Content="Subdirectories:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <CheckBox Content="Watch Subdirectories" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="includeSubdirectoriesCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=IncludeSubdirectories, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Content="Working Path:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="workingPathTextBox" Text="{Binding Path=WorkingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <Button Content="..." Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="workingPathButton"  Width="25" />
+
+
+            <Label Content="Complete Path:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="completedPathTextBox" Text="{Binding Path=CompletedPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <Button Content="..." Grid.Row="6" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="completedPathButton"  Width="25" />
             
         </Grid>
         <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />

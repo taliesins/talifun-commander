@@ -61,6 +61,24 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jpg.
+        /// </summary>
+        public static string ImageType_JPG {
+            get {
+                return ResourceManager.GetString("ImageType_JPG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Png.
+        /// </summary>
+        public static string ImageType_PNG {
+            get {
+                return ResourceManager.GetString("ImageType_PNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
         public static string ValidatorMessageVideoThumbNailerElementNameMandatory {

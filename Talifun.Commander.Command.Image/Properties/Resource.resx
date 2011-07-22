@@ -123,12 +123,84 @@
   <data name="ErrorMessageWidthIsRequiredForResizeMode" xml:space="preserve">
     <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; width is required when resize mode is - {4}</value>
   </data>
+  <data name="Gravity_Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Gravity_East" xml:space="preserve">
+    <value>East</value>
+  </data>
+  <data name="Gravity_North" xml:space="preserve">
+    <value>North</value>
+  </data>
+  <data name="Gravity_NorthEast" xml:space="preserve">
+    <value>North East</value>
+  </data>
+  <data name="Gravity_NorthWest" xml:space="preserve">
+    <value>North West</value>
+  </data>
+  <data name="Gravity_South" xml:space="preserve">
+    <value>South</value>
+  </data>
+  <data name="Gravity_SouthEast" xml:space="preserve">
+    <value>South East</value>
+  </data>
+  <data name="Gravity_SouthWest" xml:space="preserve">
+    <value>South West</value>
+  </data>
+  <data name="Gravity_West" xml:space="preserve">
+    <value>West</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ImageConversionElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ImageConversionElement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageConversionElementCollection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ImageConversionElementCollection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResizeImageType_GIF" xml:space="preserve">
+    <value>GIF</value>
+  </data>
+  <data name="ResizeImageType_JPG" xml:space="preserve">
+    <value>JPG</value>
+  </data>
+  <data name="ResizeImageType_Orginal" xml:space="preserve">
+    <value>Use orginal format</value>
+  </data>
+  <data name="ResizeImageType_PNG" xml:space="preserve">
+    <value>PNG</value>
+  </data>
+  <data name="ResizeMode_AreaToFit" xml:space="preserve">
+    <value>Area To Fit</value>
+  </data>
+  <data name="ResizeMode_CutToFit" xml:space="preserve">
+    <value>Cut To Fit</value>
+  </data>
+  <data name="ResizeMode_FitHeight" xml:space="preserve">
+    <value>Fit Height</value>
+  </data>
+  <data name="ResizeMode_FitMaximumHeight" xml:space="preserve">
+    <value>Fit Maximum Height</value>
+  </data>
+  <data name="ResizeMode_FitMaximumWidth" xml:space="preserve">
+    <value>Fit Maximum Width</value>
+  </data>
+  <data name="ResizeMode_FitMinimumHeight" xml:space="preserve">
+    <value>Fit Minimum Height</value>
+  </data>
+  <data name="ResizeMode_FitMinimumWidth" xml:space="preserve">
+    <value>Fit Minimum Width</value>
+  </data>
+  <data name="ResizeMode_FitWidth" xml:space="preserve">
+    <value>Fit Width</value>
+  </data>
+  <data name="ResizeMode_None" xml:space="preserve">
+    <value>Do not resize</value>
+  </data>
+  <data name="ResizeMode_Stretch" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="ResizeMode_Zoom" xml:space="preserve">
+    <value>Zoom</value>
   </data>
   <data name="ValidatorMessageImageConversionElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>

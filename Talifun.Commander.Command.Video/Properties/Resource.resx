@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AspectRatio_NotSpecified" xml:space="preserve">
+    <value>Not Specified</value>
+  </data>
+  <data name="AspectRatio_RatioOf16by10" xml:space="preserve">
+    <value>16:10</value>
+  </data>
+  <data name="AspectRatio_RatioOf16By9" xml:space="preserve">
+    <value>16:9</value>
+  </data>
+  <data name="AspectRatio_RatioOf4By3" xml:space="preserve">
+    <value>4:3</value>
+  </data>
   <data name="ValidatorMessageVideoConversionElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
@@ -126,5 +138,14 @@
   </data>
   <data name="VideoConversionElementCollection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\VideoConversionElementCollection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VideoConversionType_FLV" xml:space="preserve">
+    <value>Flv</value>
+  </data>
+  <data name="VideoConversionType_H264" xml:space="preserve">
+    <value>H. 264</value>
+  </data>
+  <data name="VideoConversionType_NotSpecified" xml:space="preserve">
+    <value>Not Specified</value>
   </data>
 </root>

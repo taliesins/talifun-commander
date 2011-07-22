@@ -61,6 +61,42 @@ namespace Talifun.Commander.Command.Video.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Specified.
+        /// </summary>
+        public static string AspectRatio_NotSpecified {
+            get {
+                return ResourceManager.GetString("AspectRatio_NotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 16:10.
+        /// </summary>
+        public static string AspectRatio_RatioOf16by10 {
+            get {
+                return ResourceManager.GetString("AspectRatio_RatioOf16by10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 16:9.
+        /// </summary>
+        public static string AspectRatio_RatioOf16By9 {
+            get {
+                return ResourceManager.GetString("AspectRatio_RatioOf16By9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4:3.
+        /// </summary>
+        public static string AspectRatio_RatioOf4By3 {
+            get {
+                return ResourceManager.GetString("AspectRatio_RatioOf4By3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must provide a name.
         /// </summary>
         public static string ValidatorMessageVideoConversionElementNameMandatory {
@@ -80,6 +116,33 @@ namespace Talifun.Commander.Command.Video.Properties {
             get {
                 object obj = ResourceManager.GetObject("VideoConversionElementCollection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flv.
+        /// </summary>
+        public static string VideoConversionType_FLV {
+            get {
+                return ResourceManager.GetString("VideoConversionType_FLV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H. 264.
+        /// </summary>
+        public static string VideoConversionType_H264 {
+            get {
+                return ResourceManager.GetString("VideoConversionType_H264", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Specified.
+        /// </summary>
+        public static string VideoConversionType_NotSpecified {
+            get {
+                return ResourceManager.GetString("VideoConversionType_NotSpecified", resourceCulture);
             }
         }
     }

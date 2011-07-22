@@ -116,6 +116,7 @@
     <Compile Include="Configuration\BindToElementEventArgs.cs" />
     <Compile Include="Configuration\BindToElementEventHandler.cs" />
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
+    <Compile Include="Configuration\DisplayStringAttribute.cs" />
     <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
     <Compile Include="Configuration\ElementPanelBase.cs" />
     <Compile Include="Configuration\FileMatchElementPanel.xaml.cs">
