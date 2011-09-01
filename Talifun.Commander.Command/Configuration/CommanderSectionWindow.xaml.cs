@@ -52,6 +52,14 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => x.Settings != null);
         }
 
+		private IEnumerable<string> GetConversionTypes()
+		{
+			var conversionTypes = _commandManager.Container.GetExportedValues<ICommandSaga>()
+				.Select(x=>x.Settings.ConversionType);
+
+			return conversionTypes;
+		}
+
         private Dictionary<string, BitmapSource> GetConfigurationIcons()
         {
             var images = new Dictionary<string, BitmapSource>();
@@ -223,6 +231,10 @@ namespace Talifun.Commander.Command.Configuration
 
             if (elementSettingPanel != null && CommandConfigurationContentControl.Content != null)
             {
+				if (elementSettingPanel is FileMatchElementPanel)
+				{
+					((FileMatchElementPanel) elementSettingPanel).OnBindConversionTypes(GetConversionTypes());
+				}
                 elementSettingPanel.OnBindToElement(element);
             }            
         }

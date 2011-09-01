@@ -39,7 +39,7 @@
             <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" />
 
             <Label Content="Command Setting Key:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandSettingKeyTextBox" Text="{Binding Path=CommandSettingKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandSettingKeyTextBox" Text="{Binding Path=CommandSettingsKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Label Content="Stop Processing:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <CheckBox Content="Stop on this match" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="stopProcessingCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=StopProcessing, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>

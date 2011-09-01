@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -46,5 +47,47 @@ namespace Talifun.Commander.Command.Configuration
             SaveButton.IsEnabled = false;
             Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
         }
+
+		private void folderToWatchButton_Click(object sender, RoutedEventArgs e)
+		{
+			var folderBrowserDialog = new FolderBrowserDialog
+			                          	{
+			                          		SelectedPath = folderToWatchTextBox.Text
+			                          	};
+
+			var result = folderBrowserDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = folderBrowserDialog.SelectedPath;
+			folderToWatchTextBox.Text = foldername;
+		}
+
+		private void workingPathButton_Click(object sender, RoutedEventArgs e)
+		{
+			var folderBrowserDialog = new FolderBrowserDialog
+			{
+				SelectedPath = workingPathTextBox.Text
+			};
+
+			var result = folderBrowserDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = folderBrowserDialog.SelectedPath;
+			workingPathTextBox.Text = foldername;
+		}
+
+		private void completedPathButton_Click(object sender, RoutedEventArgs e)
+		{
+			var folderBrowserDialog = new FolderBrowserDialog
+			{
+				SelectedPath = completedPathTextBox.Text
+			};
+
+			var result = folderBrowserDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = folderBrowserDialog.SelectedPath;
+			completedPathTextBox.Text = foldername;
+		}
     }
 }

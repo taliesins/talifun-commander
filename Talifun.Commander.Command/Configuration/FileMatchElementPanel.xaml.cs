@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Windows;
 
@@ -35,6 +36,11 @@ namespace Talifun.Commander.Command.Configuration
 
             Element.PropertyChanged += OnElementPropertyChanged;
         }
+
+		public void OnBindConversionTypes(IEnumerable<string> conversionTypes)
+		{
+			conversionTypeComboBox.ItemsSource = conversionTypes;
+		}
 
         void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -98,6 +98,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -171,6 +172,7 @@
     <Compile Include="Configuration\ProjectElementCommand.cs" />
     <Compile Include="Configuration\TreeViewWithIcons.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
+    <Compile Include="DialogExtensions.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />
     <Compile Include="ICommanderManager.cs" />
