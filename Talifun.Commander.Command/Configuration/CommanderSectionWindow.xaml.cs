@@ -52,15 +52,55 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => x.Settings != null);
         }
 
-		private IEnumerable<string> GetConversionTypes()
+		private ProjectElement GetProjectElementForFileMatchElement(FileMatchElement fileMatchElement)
 		{
-			var conversionTypes = _commandManager.Container.GetExportedValues<ICommandSaga>()
-				.Select(x=>x.Settings.ConversionType);
+			var projects = _commandManager.Configuration.Projects;
+			for (var i = 0; i < projects.Count; i++)
+            {
+                var project = projects[i];
+            	var folders = project.Folders;
+				for (var j = 0; j < folders.Count; j++)
+				{
+					var folder = folders[j];
+					var fileMatches = folder.FileMatches;
+					for (var k = 0; k < fileMatches.Count; k++)
+					{
+						var fileMatch = fileMatches[k];
 
-			return conversionTypes;
+						if (fileMatch == fileMatchElement)
+						{
+							return project;
+						}
+					}
+				}
+            }
+
+			return null;
 		}
 
-        private Dictionary<string, BitmapSource> GetConfigurationIcons()
+		private Dictionary<string, List<string>> GetCommandSettings(FileMatchElement fileMatchElement)
+		{
+			var project = GetProjectElementForFileMatchElement(fileMatchElement);
+			var commandSettings = new Dictionary<string, List<string>>();
+			foreach (var configurationElementCollection in _currentConfigurationElementCollections)
+			{
+				var collectionSettingName = configurationElementCollection.Setting.ElementCollectionSettingName;
+				var configurationProperty = project.GetConfigurationProperty(collectionSettingName);
+				var commandElementCollection = project.GetCommandConfiguration<CurrentConfigurationElementCollection>(configurationProperty);
+				var conversionType = commandElementCollection.Setting.ConversionType;
+				var commandSettingKeys = new List<string>();
+				for (var i = 0; i < commandElementCollection.Count; i++)
+				{
+					var commandElement = commandElementCollection[i];
+					commandSettingKeys.Add(commandElement.Name);
+				}
+				commandSettings.Add(conversionType, commandSettingKeys);
+			}
+
+			return commandSettings;
+		}
+
+    	private Dictionary<string, BitmapSource> GetConfigurationIcons()
         {
             var images = new Dictionary<string, BitmapSource>();
 
@@ -233,7 +273,10 @@ namespace Talifun.Commander.Command.Configuration
             {
 				if (elementSettingPanel is FileMatchElementPanel)
 				{
-					((FileMatchElementPanel) elementSettingPanel).OnBindConversionTypes(GetConversionTypes());
+					var fileMatchElementPanel = ((FileMatchElementPanel)elementSettingPanel);
+					var fileMatchElement = (FileMatchElement) element;
+					var commandSettings = GetCommandSettings(fileMatchElement);
+					fileMatchElementPanel.OnBindCommandSettings(commandSettings);
 				}
                 elementSettingPanel.OnBindToElement(element);
             }            

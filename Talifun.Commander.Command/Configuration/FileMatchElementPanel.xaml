@@ -36,11 +36,11 @@
             <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="expressionTextBox" Text="{Binding Path=Expression, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Label Content="Conversion Type:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" />
+            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" SelectedValue="{Binding Path=ConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ConversionTypeComboBoxSelectionChanged" />
 
             <Label Content="Command Setting Key:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandSettingKeyTextBox" Text="{Binding Path=CommandSettingsKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
-
+            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandSettingKeyComboBox" VerticalAlignment="Top" SelectedValue="{Binding Path=CommandSettingsKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+            
             <Label Content="Stop Processing:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <CheckBox Content="Stop on this match" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="stopProcessingCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=StopProcessing, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
             
