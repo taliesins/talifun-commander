@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using FluentValidation;
 using Talifun.Commander.Command.Properties;
 
@@ -16,6 +17,26 @@ namespace Talifun.Commander.Command.Configuration
 			                   	            	.Count() > 1)
 			                   	.Any())
 				.WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUses);
+
+			RuleFor(x => x.Expression).Must(x =>
+			                                	{
+													if (string.IsNullOrEmpty(x))
+													{
+														return true;
+													}
+
+													try
+													{
+														var regex = new Regex(x);
+														var result = regex.IsMatch("test.txt");
+														return true;
+													}
+													catch
+													{
+														return false;
+													}
+			                                	})
+			.WithLocalizedMessage(() => Resource.ValidatorMessageFolderElementExpressionNotAValidRegularExpression);
         }
     }
 }

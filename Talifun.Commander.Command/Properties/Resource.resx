@@ -205,6 +205,9 @@
   <data name="ValidatorMessageFileMatchElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
+  <data name="ValidatorMessageFolderElementExpressionNotAValidRegularExpression" xml:space="preserve">
+    <value>Not a valid regular expression</value>
+  </data>
   <data name="ValidatorMessageFolderElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
