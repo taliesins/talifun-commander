@@ -1,12 +1,12 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.VideoThumbnailer
 {
     public enum ImageType
     {
-		[DisplayString(ResourceKey = "ImageType_JPG")]
+		[LocalizableDescription("ImageType_JPG", typeof(Properties.Resource))]
         JPG,
-		[DisplayString(ResourceKey = "ImageType_PNG")]
+		[LocalizableDescription("ImageType_PNG", typeof(Properties.Resource))]
         PNG
     }
 }

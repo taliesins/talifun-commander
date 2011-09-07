@@ -15,6 +15,10 @@ namespace Talifun.Commander.Command.Image
             var backgroundColour = settings.BackgroundColour;
             if (!string.IsNullOrEmpty(backgroundColour))
             {
+				if (backgroundColour == "#00FFFFFF")
+				{
+					backgroundColour = "#00000000"; //This is imagemagiks transparent color
+				}
                 backgroundColour = "-background " + backgroundColour;
             }
 

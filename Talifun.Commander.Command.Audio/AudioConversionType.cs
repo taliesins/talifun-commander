@@ -1,12 +1,12 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Audio
 {
     public enum AudioConversionType
     {
-		[DisplayString(ResourceKey = "AudioConversionType_NotSpecified")]
+		[LocalizableDescription("AudioConversionType_NotSpecified", typeof(Properties.Resource))]
         NotSpecified,
-		[DisplayString(ResourceKey = "AudioConversionType_MP3")]
+		[LocalizableDescription("AudioConversionType_MP3", typeof(Properties.Resource))]
         MP3
     }
 }

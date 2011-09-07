@@ -109,15 +109,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\References\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapExtensions.cs" />
     <Compile Include="Configuration\BindToElementCollectionEventArgs.cs" />
     <Compile Include="Configuration\BindToElementCollectionEventHandler.cs" />
     <Compile Include="Configuration\BindToElementEventArgs.cs" />
     <Compile Include="Configuration\BindToElementEventHandler.cs" />
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
-    <Compile Include="Configuration\DisplayStringAttribute.cs" />
     <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
     <Compile Include="Configuration\ElementPanelBase.cs" />
     <Compile Include="Configuration\FileMatchElementPanel.xaml.cs">
@@ -172,7 +173,6 @@
     <Compile Include="Configuration\ProjectElementCommand.cs" />
     <Compile Include="Configuration\TreeViewWithIcons.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
-    <Compile Include="DialogExtensions.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />
     <Compile Include="ICommanderManager.cs" />
@@ -193,6 +193,10 @@
     <ProjectReference Include="..\Talifun.Commander.FileWatcher\Talifun.Commander.FileWatcher.csproj">
       <Project>{1060395D-23C8-4B09-8D37-F1097A3BBFAF}</Project>
       <Name>Talifun.Commander.FileWatcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
+      <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
+      <Name>Talifun.Commander.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

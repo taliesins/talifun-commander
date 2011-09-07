@@ -1,16 +1,16 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Image
 {
     public enum ResizeImageType
     {
-		[DisplayString(ResourceKey = "ResizeImageType_JPG")]
+		[LocalizableDescription("ResizeImageType_JPG", typeof(Properties.Resource))]
         JPG,
-		[DisplayString(ResourceKey = "ResizeImageType_PNG")]
+		[LocalizableDescription("ResizeImageType_PNG", typeof(Properties.Resource))]
         PNG,
-		[DisplayString(ResourceKey = "ResizeImageType_GIF")]
+		[LocalizableDescription("ResizeImageType_GIF", typeof(Properties.Resource))]
         GIF,
-		[DisplayString(ResourceKey = "ResizeImageType_Orginal")]
+		[LocalizableDescription("ResizeImageType_Orginal", typeof(Properties.Resource))]
         Orginal
     }
 }

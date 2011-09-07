@@ -1,14 +1,14 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Video
 {
     public enum VideoConversionType
     {
-		[DisplayString(ResourceKey = "VideoConversionType_NotSpecified")]
+		[LocalizableDescription("VideoConversionType_NotSpecified", typeof(Properties.Resource))]
         NotSpecified,
-		[DisplayString(ResourceKey = "VideoConversionType_FLV")]
+		[LocalizableDescription("VideoConversionType_FLV", typeof(Properties.Resource))]
         FLV,
-		[DisplayString(ResourceKey = "VideoConversionType_H264")]
+		[LocalizableDescription("VideoConversionType_H264", typeof(Properties.Resource))]
         H264
     }
 }

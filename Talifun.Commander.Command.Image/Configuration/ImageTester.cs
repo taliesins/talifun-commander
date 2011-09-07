@@ -24,7 +24,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                 case ResizeMode.CutToFit:
                 case ResizeMode.Zoom:
                 case ResizeMode.Stretch:
-                    if (!image.Width.HasValue)
+                    if (image.Width == 0)
                     {
                         throw new Exception(
                             string.Format(
@@ -35,7 +35,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 								image.Name,
                                 Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
                     }
-                    if (!image.Height.HasValue)
+                    if (image.Height == 0)
                     {
                         throw new Exception(
                             string.Format(
@@ -50,7 +50,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                 case ResizeMode.FitWidth:
                 case ResizeMode.FitMinimumWidth:
                 case ResizeMode.FitMaximumWidth:
-                    if (!image.Width.HasValue)
+                    if (image.Width == 0)
                     {
                         throw new Exception(
                             string.Format(
@@ -65,7 +65,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                 case ResizeMode.FitHeight:
                 case ResizeMode.FitMinimumHeight:
                 case ResizeMode.FitMaximumHeight:
-                    if (!image.Height.HasValue)
+                    if (image.Height == 0)
                     {
                         throw new Exception(
                             string.Format(

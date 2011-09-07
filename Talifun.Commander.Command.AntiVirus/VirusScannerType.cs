@@ -1,12 +1,12 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
     public enum VirusScannerType
     {
-		[DisplayString(ResourceKey = "VirusScannerType_McAfee")]
+		[LocalizableDescription("VirusScannerType_McAfee", typeof(Properties.Resource))]
         NotSpecified,
-		[DisplayString(ResourceKey = "VirusScannerType_NotSpecified")]
+		[LocalizableDescription("VirusScannerType_NotSpecified", typeof(Properties.Resource))]
         McAfee
     }
 }

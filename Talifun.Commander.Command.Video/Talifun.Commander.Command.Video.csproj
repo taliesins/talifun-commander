@@ -89,6 +89,10 @@
       <Project>{DBD72C26-152B-4ED1-8D11-683ABB21F864}</Project>
       <Name>Talifun.Commander.Executor.FFMpeg</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
+      <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
+      <Name>Talifun.Commander.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">

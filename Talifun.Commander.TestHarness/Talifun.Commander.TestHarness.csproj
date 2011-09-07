@@ -216,6 +216,10 @@
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
       <Name>Talifun.Commander.Command</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
+      <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
+      <Name>Talifun.Commander.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

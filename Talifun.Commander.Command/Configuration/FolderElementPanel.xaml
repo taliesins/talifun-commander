@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
                              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="350" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary x:Key="Resources">
             <ResourceDictionary.MergedDictionaries>

@@ -80,6 +80,10 @@
       <Project>{05B649B2-2CF7-4775-A77A-1C4B547915AE}</Project>
       <Name>Talifun.Commander.Executor.CommandLine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
+      <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
+      <Name>Talifun.Commander.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">

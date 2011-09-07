@@ -24,16 +24,15 @@ namespace Talifun.Commander.Command.Image
                                               Quality = imageConversion.Quality
                                           };
 
-            if (imageConversion.Height.HasValue)
+            if (imageConversion.Height != 0)
             {
-                imageResizeSettings.Height = imageConversion.Height.Value;
+                imageResizeSettings.Height = imageConversion.Height;
             }
 
-            if (imageConversion.Width.HasValue)
+            if (imageConversion.Width != 0)
             {
-                imageResizeSettings.Width = imageConversion.Width.Value;
+                imageResizeSettings.Width = imageConversion.Width;
             }
-
 
             return imageResizeSettings;
         }

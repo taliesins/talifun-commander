@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Windows;
 using System.Windows.Forms;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Configuration
 {

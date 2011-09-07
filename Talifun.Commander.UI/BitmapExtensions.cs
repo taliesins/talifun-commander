@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace Talifun.Commander.Command
+namespace Talifun.Commander.UI
 {
     public static class BitmapExtensions
     {
