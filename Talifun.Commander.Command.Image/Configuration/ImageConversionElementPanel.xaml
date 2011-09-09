@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
-                  mc:Ignorable="d" d:DesignHeight="350" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+                  mc:Ignorable="d" d:DesignHeight="520" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
                                 xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
                                 xmlns:System="clr-namespace:System;assembly=mscorlib"
                                 xmlns:Image="clr-namespace:Talifun.Commander.Command.Image">
