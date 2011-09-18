@@ -6,16 +6,18 @@
                   xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
                                 xmlns:System="clr-namespace:System;assembly=mscorlib"
                                 xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
-                                xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
+                                xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended">
     <Configuration:ElementPanelBase.Resources>
         <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-        <ObjectDataProvider x:Key="videoConversionType"
+
+        <ObjectDataProvider x:Key="audioConversionType"
                     MethodName="GetValues" 
                     ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="Video:VideoConversionType" />
+                <x:Type TypeName="Video:AudioConversionType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
         <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
             <x:XData>
                 <audioBitRates xmlns="">
@@ -45,17 +47,38 @@
                 </audioChannels>
             </x:XData>
         </XmlDataProvider>
-        <XmlDataProvider x:Key="videoFormats" XPath="/videoFormats">
+        <ObjectDataProvider x:Key="videoConversionType"
+                    MethodName="GetValues" 
+                    ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Video:VideoConversionType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <XmlDataProvider x:Key="frameRates" XPath="/frameRates">
             <x:XData>
-                <videoFormats xmlns="">
-                    <videoFormat name="Custom" width="0" height="0" aspectRatio="NotSpecified"/>
-                    <videoFormat name="240p" width="400" height="226" aspectRatio="RatioOf16By9"/>
-                    <videoFormat name="360p" width="640" height="360" aspectRatio="RatioOf16By9"/>
-                    <videoFormat name="SD 4:3" width="640" height="480" aspectRatio="RatioOf4By3"/>
-                    <videoFormat name="480p" width="854" height="480" aspectRatio="RatioOf16By9"/>
-                    <videoFormat name="720p / HD 16:9" width="1280" height="720" aspectRatio="RatioOf16By9"/>
-                    <videoFormat name="1080p" width="1920" height="1080" aspectRatio="RatioOf16By9"/>
-                </videoFormats>
+                <frameRates xmlns="">
+                    <frameRate name="11.988"/>
+                    <frameRate name="12.5"/>
+                    <frameRate name="14.985"/>
+                    <frameRate name="15"/>
+                    <frameRate name="23.98"/>
+                    <frameRate name="25"/>
+                    <frameRate name="29.97"/>
+                    <frameRate name="30"/>
+                </frameRates>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="commonSettings" XPath="/commonSettings">
+            <x:XData>
+                <commonSettings xmlns="">
+                    <commonSetting name="Custom" width="0" height="0" videoConversionType="H264" minimumVideoBitRate="0" maxVideoBitRate="0" aspectRatio="NotSpecified"/>
+                    <commonSetting name="240p" width="400" height="226" videoConversionType="H264" minimumVideoBitRate="324" maxVideoBitRate="384" aspectRatio="RatioOf16By9"/>
+                    <commonSetting name="360p" width="640" height="360" videoConversionType="H264" minimumVideoBitRate="672" maxVideoBitRate="768" aspectRatio="RatioOf16By9"/>
+                    <commonSetting name="SD 4:3" width="640" height="480" videoConversionType="H264" minimumVideoBitRate="672" maxVideoBitRate="768" aspectRatio="RatioOf4By3"/>
+                    <commonSetting name="480p" width="854" height="480" videoConversionType="H264" minimumVideoBitRate="1154" maxVideoBitRate="1250" aspectRatio="RatioOf16By9"/>
+                    <commonSetting name="720p / HD 16:9" width="1280" height="720" videoConversionType="H264" minimumVideoBitRate="2122" maxVideoBitRate="2900" aspectRatio="RatioOf16By9"/>
+                    <commonSetting name="1080p" width="1920" height="1080" videoConversionType="H264" minimumVideoBitRate="3622" maxVideoBitRate="5000" aspectRatio="RatioOf16By9"/>
+                </commonSettings>
             </x:XData>
         </XmlDataProvider>
         <ObjectDataProvider x:Key="aspectRatio"
@@ -95,55 +118,58 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Left" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="120" />
 
-            <Label Content="Conversion Type:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=VideoConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Common Settings:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commonSettingsComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource commonSettings}, XPath=commonSetting, Mode=OneTime}" DisplayMemberPath="@name" SelectionChanged="CommonSettingsComboBoxSelectionChanged" />
 
-            <Label Content="Bit Rate:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=BitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Audio Conversion Type:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="audioConversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AudioConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Frequency:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Frequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Bit Rate:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=BitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
 
-            <Label Content="Channel:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Frequency:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Frequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
 
-            <Label Content="Deinterlace:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <CheckBox Content="" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="3" Name="deinterlaceCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Deinterlace, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Channel:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
 
-            <Label Content="Format:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="videoFormatComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoFormats}, XPath=videoFormat, Mode=OneTime}" DisplayMemberPath="@name" SelectionChanged="VideoFormatComboBoxSelectionChanged" />
+            <Label Content="Video Conversion Type:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=VideoConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Width:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="7" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="widthTextBox" Text="{Binding Path=Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextChanged="WidthTextBoxTextChanged" />
+            <Label Content="Deinterlace:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <CheckBox Content="" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="3" Name="deinterlaceCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Deinterlace, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Height:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="8" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="heightTextBox" Text="{Binding Path=Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextChanged="HeightTextBoxTextChanged" />
+            <Label Content="Width:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" ValueChanged="WidthIntegerUpDownValueChanged" />
 
-            <Label Content="Video Bit Rate:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="9" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="videoBitRateTextBox" Text="{Binding Path=VideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Height:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" ValueChanged="HeightIntegerUpDownValueChanged" />
 
-            <Label Content="Frame Rate:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="10" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frameRateTextBox" Text="{Binding Path=FrameRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Video Bit Rate:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="10" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="videoBitRateTextBox" Text="{Binding Path=VideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Aspect Ratio:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="11" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="aspectRatioComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource aspectRatio}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AspectRatio, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"  SelectionChanged="AspectRatioComboBoxSelectionChanged" />
+            <Label Content="Frame Rate:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="11" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frameRateTextBox" Text="{Binding Path=FrameRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="MaxVideoBitRate:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="12" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="maxVideoBitRateTextBox" Text="{Binding Path=MaxVideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Aspect Ratio:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="12" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="aspectRatioComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource aspectRatio}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AspectRatio, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"  SelectionChanged="AspectRatioComboBoxSelectionChanged" />
 
-            <Label Content="BufferSize:" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="13" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bufferSizeTextBox" Text="{Binding Path=BufferSize, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="MaxVideoBitRate:" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="13" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="maxVideoBitRateTextBox" Text="{Binding Path=MaxVideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="KeyframeInterval:" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="14" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="keyframeIntervalTextBox" Text="{Binding Path=KeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="BufferSize:" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="14" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bufferSizeTextBox" Text="{Binding Path=BufferSize, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="MinKeyframeInterval:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="15" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyframeIntervalTextBox" Text="{Binding Path=MinKeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="KeyframeInterval:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="15" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="keyframeIntervalTextBox" Text="{Binding Path=KeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
+            <Label Content="MinKeyframeInterval:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="16" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyframeIntervalTextBox" Text="{Binding Path=MinKeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
         </Grid>
         <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>

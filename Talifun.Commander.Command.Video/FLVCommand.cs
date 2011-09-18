@@ -1,28 +1,29 @@
 ﻿using System;
 using System.IO;
 using Talifun.Commander.Command.Video.Configuration;
+using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Executor.CommandLine;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video
 {
-    public class FlvCommand : ICommand<FlvSettings>
+	public class FlvCommand : ICommand<IContainerSettings>
     {
-        const string AllFixedOptions = @"-async 4 -f flv -deinterlace -y -qcomp 0.7 -refs 7 -cmp +chroma -coder 1 -me_range 16 -sc_threshold 40 -i_qfactor 0.71 -level 30 -qmin 10 -qmax 51 -qdiff 4";
-
         #region ICommand<FLVCommand,FLVSettings> Members
 
-        public bool Run(FlvSettings settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IContainerSettings settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
-            var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + ".flv";
+            var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
             if (outPutFilePath.Exists)
             {
                 outPutFilePath.Delete();
             }
 
-            var soundArgs = string.Format("-acodec libmp3lame -ar {0} -ab {1} -ac {2}", settings.AudioFrequency, settings.AudioBitRate, settings.AudioChannels);
-            var fFMpegCommandArguments = string.Format("-i \"{0}\" -vcodec flv -s {1}x{2} -b {3} -maxrate {4} -bufsize {5} -r {6} -g {7} -keyint_min {8} {9} {10} \"{11}\"", inputFilePath.FullName, settings.Width, settings.Height, settings.VideoBitRate, settings.MaxVideoBitRate, settings.BufferSize, settings.FrameRate, settings.KeyframeInterval, settings.MinKeyframeInterval, AllFixedOptions, soundArgs, outPutFilePath.FullName);
+			var audioArgs = string.Format("-acodec {0} -ab {1} -ar {2} -ac {3}", settings.Audio.CodecName, settings.Audio.BitRate, settings.Audio.Frequency, settings.Audio.Channels);
+			var videoArgs = string.Format("-vcodec {0} -s {1}x{2} -b {3} -maxrate {4} -bufsize {5} -r {6} -g {7} -keyint_min {8}", settings.Video.CodecName, settings.Video.Width, settings.Video.Height, settings.Video.BitRate, settings.Video.MaxBitRate, settings.Video.BufferSize, settings.Video.FrameRate, settings.Video.KeyframeInterval, settings.Video.MinKeyframeInterval);
+
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, videoArgs, settings.Video.FirstPhaseOptions, audioArgs, outPutFilePath.FullName);
             var flvTool2CommandArguments = string.Format("-U \"{0}\"", outPutFilePath.FullName);
 
             var workingDirectory = outputDirectoryPath.FullName;

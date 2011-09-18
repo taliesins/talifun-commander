@@ -1,5 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Talifun.Commander.Command.Video.AudioFormats;
 using Talifun.Commander.Command.Video.Configuration;
+using Talifun.Commander.Command.Video.Containers;
+using Talifun.Commander.Command.Video.Properties;
+using Talifun.Commander.Command.Video.VideoFormats;
 
 namespace Talifun.Commander.Command.Video
 {
@@ -13,89 +18,110 @@ namespace Talifun.Commander.Command.Video
             }
         }
 
-        private H264Settings GetH264Settings(VideoConversionElement videoConversion)
-        {
-            var maxVideoBitRate = videoConversion.VideoBitRate;
-            if (videoConversion.MaxVideoBitRate.HasValue)
-            {
-                maxVideoBitRate = videoConversion.MaxVideoBitRate.Value;
-            }
-            var bufferSize = videoConversion.VideoBitRate * 10;
-            if (videoConversion.BufferSize.HasValue)
-            {
-                bufferSize = videoConversion.BufferSize.Value;
-            }
-            var keyframeInterval = videoConversion.FrameRate * 10;
-            if (videoConversion.MaxVideoBitRate.HasValue)
-            {
-                keyframeInterval = videoConversion.MaxVideoBitRate.Value;
-            }
-            var minKeyframeInterval = videoConversion.FrameRate;
-            if (videoConversion.MinKeyframeInterval.HasValue)
-            {
-                minKeyframeInterval = videoConversion.MinKeyframeInterval.Value;
-            }
+		private IAudioSettings GetAudioSettings(VideoConversionElement videoConversionSetting)
+		{
+			switch (videoConversionSetting.AudioConversionType)
+			{
+				case AudioConversionType.Aac:
+					return new AacSettings(videoConversionSetting);
+				case AudioConversionType.Mp3:
+					return new Mp3Settings(videoConversionSetting);
+				case AudioConversionType.Ac3:
+					return new Ac3Settings(videoConversionSetting);
+				case AudioConversionType.Vorbis:
+					return new VorbisSettings(videoConversionSetting);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
+			}
+		}
 
-            var h264Settings = new H264Settings
-                                   {
-                                       AudioBitRate = videoConversion.BitRate,
-                                       AudioChannels = videoConversion.Channel,
-                                       AudioFrequency = videoConversion.Frequency,
-                                       Deinterlace = videoConversion.Deinterlace,
-                                       Width = videoConversion.Width,
-                                       Height = videoConversion.Height,
-                                       AspectRatio = videoConversion.AspectRatio,
-                                       VideoBitRate = videoConversion.VideoBitRate,
-                                       FrameRate = videoConversion.FrameRate,
-                                       MaxVideoBitRate = maxVideoBitRate,
-                                       BufferSize = bufferSize,
-                                       KeyframeInterval = keyframeInterval,
-                                       MinKeyframeInterval = minKeyframeInterval
-                                   };
-            return h264Settings;
-        }
+		private IVideoSettings GetVideoSettings(VideoConversionElement videoConversionSetting)
+		{
+			switch (videoConversionSetting.VideoConversionType)
+			{
+				case VideoConversionType.Flv:
+					return new FlvSettings(videoConversionSetting);
+				case VideoConversionType.H264:
+					return new H264Settings(videoConversionSetting);
+				case VideoConversionType.Theora:
+					return new TheoraSettings(videoConversionSetting);
+				case VideoConversionType.Vpx:
+					return new VpxSettings(videoConversionSetting);
+				case VideoConversionType.Xvid:
+					return new XvidSettings(videoConversionSetting);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+			}
+		}
 
-        private FlvSettings GetFLVSettings(VideoConversionElement videoConversion)
-        {
-            var maxVideoBitRate = videoConversion.VideoBitRate;
-            if (videoConversion.MaxVideoBitRate.HasValue)
-            {
-                maxVideoBitRate = videoConversion.MaxVideoBitRate.Value;
-            }
-            var bufferSize = videoConversion.VideoBitRate * 10;
-            if (videoConversion.BufferSize.HasValue)
-            {
-                bufferSize = videoConversion.BufferSize.Value;
-            }
-            var keyframeInterval = videoConversion.FrameRate * 10;
-            if (videoConversion.MaxVideoBitRate.HasValue)
-            {
-                keyframeInterval = videoConversion.MaxVideoBitRate.Value;
-            }
-            var minKeyframeInterval = videoConversion.FrameRate;
-            if (videoConversion.MinKeyframeInterval.HasValue)
-            {
-                minKeyframeInterval = videoConversion.MinKeyframeInterval.Value;
-            }
+		private IContainerSettings GetContainerSettings(VideoConversionElement videoConversionSetting)
+		{
+			if (videoConversionSetting.VideoConversionType == VideoConversionType.NotSpecified)
+			{
+				videoConversionSetting.VideoConversionType = VideoConversionType.H264;
+			}
 
-            var flvSettings = new FlvSettings
-                                  {
-                                      AudioBitRate = videoConversion.BitRate,
-                                      AudioChannels = videoConversion.Channel,
-                                      AudioFrequency = videoConversion.Frequency,
-                                      Deinterlace = videoConversion.Deinterlace,
-                                      Width = videoConversion.Width,
-                                      Height = videoConversion.Height,
-                                      AspectRatio = videoConversion.AspectRatio,
-                                      VideoBitRate = videoConversion.VideoBitRate,
-                                      FrameRate = videoConversion.FrameRate,
-                                      MaxVideoBitRate = maxVideoBitRate,
-                                      BufferSize = bufferSize,
-                                      KeyframeInterval = keyframeInterval,
-                                      MinKeyframeInterval = minKeyframeInterval
-                                  };
-            return flvSettings;
-        }
+			if (videoConversionSetting.AudioConversionType == AudioConversionType.NotSpecified)
+			{
+				switch (videoConversionSetting.VideoConversionType)
+				{
+					case VideoConversionType.Flv:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Mp3;
+						break;
+					case VideoConversionType.H264:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Aac;
+						break;
+					case VideoConversionType.Theora:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
+						break;
+					case VideoConversionType.Vpx:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
+						break;
+					case VideoConversionType.Xvid:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Ac3;
+						break;
+					default:
+						throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+				}
+			}
+
+			var videoSettings = GetVideoSettings(videoConversionSetting);
+			var audioSettings = GetAudioSettings(videoConversionSetting);
+
+			switch (videoConversionSetting.VideoConversionType)
+			{
+				case VideoConversionType.NotSpecified:
+				case VideoConversionType.Flv:
+					return new FlvContainerSettings(audioSettings, videoSettings);
+				case VideoConversionType.H264:
+					return new Mp4ContainerSettings(audioSettings, videoSettings);
+				case VideoConversionType.Theora:
+					return new OggContainerSettings(audioSettings, videoSettings);
+				case VideoConversionType.Vpx:
+					return new WebmContainerSettings(audioSettings, videoSettings);
+				case VideoConversionType.Xvid:
+					return new AviContainerSettings(audioSettings, videoSettings);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+			}
+		}
+
+		private ICommand<IContainerSettings> GetCommand(IContainerSettings containerSettings)
+		{
+			if (containerSettings.Video.CodecName == "flv")
+			{
+				return new FlvCommand();
+			}
+
+			if (string.IsNullOrEmpty(containerSettings.Video.SecondPhaseOptions))
+			{
+				return new OnePassCommand();
+			}
+			else
+			{
+				return new TwoPassCommand();
+			}
+		}
 
         public override void Run(ICommandSagaProperties properties)
         {
@@ -110,22 +136,11 @@ namespace Talifun.Commander.Command.Video
                 var output = string.Empty;
                 FileInfo workingFilePath = null;
 
-                bool encodeSucessful = false;
 
-                switch (videoConversionSetting.VideoConversionType)
-                {
-                    case VideoConversionType.NotSpecified:
-                    case VideoConversionType.FLV:
-                        var flvSettings = GetFLVSettings(videoConversionSetting);
-                        var flvCommand = new FlvCommand();
-                        encodeSucessful = flvCommand.Run(flvSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
-                        break;
-                    case VideoConversionType.H264:
-                        var h264Settings = GetH264Settings(videoConversionSetting);
-                        var h264Command = new H264Command();
-                        encodeSucessful = h264Command.Run(h264Settings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
-                        break;
-                }
+				var containerSettings = GetContainerSettings(videoConversionSetting);
+
+				var videoCommand = GetCommand(containerSettings);
+				var encodeSucessful = videoCommand.Run(containerSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (encodeSucessful)
                 {

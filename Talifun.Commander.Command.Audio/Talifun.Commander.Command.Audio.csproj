@@ -50,7 +50,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioCommand.cs" />
+    <Compile Include="AudioFormats\Ac3Settings.cs" />
     <Compile Include="AudioConverterSaga.cs" />
+    <Compile Include="AudioFormats\AacSettings.cs" />
+    <Compile Include="AudioFormats\IAudioSettings.cs" />
+    <Compile Include="AudioFormats\VorbisSettings.cs" />
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>
@@ -63,9 +68,7 @@
     <Compile Include="Configuration\AudioConversionElement.cs" />
     <Compile Include="Configuration\AudioConversionElementCollection.cs" />
     <Compile Include="AudioConversionType.cs" />
-    <Compile Include="AudioSettings.cs" />
-    <Compile Include="MP3Command.cs" />
-    <Compile Include="MP3Settings.cs" />
+    <Compile Include="AudioFormats\Mp3Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>

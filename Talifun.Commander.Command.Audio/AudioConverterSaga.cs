@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Talifun.Commander.Command.Audio.AudioFormats;
 using Talifun.Commander.Command.Audio.Configuration;
+using Talifun.Commander.Command.Audio.Properties;
 
 namespace Talifun.Commander.Command.Audio
 {
@@ -13,18 +16,25 @@ namespace Talifun.Commander.Command.Audio
             }
         }
 
-        private MP3Settings GetMP3Settings(AudioConversionElement audioConversion)
-        {
-            var mp3Settings = new MP3Settings
-                                  {
-                                      AudioBitRate = audioConversion.BitRate,
-                                      AudioChannels = audioConversion.Channel,
-                                      AudioFrequency = audioConversion.Frequency
-                                  };
-            return mp3Settings;
-        }
+		private IAudioSettings GetAudioSettings(AudioConversionElement audioConversionSetting)
+		{
+			switch (audioConversionSetting.AudioConversionType)
+			{
+				case AudioConversionType.NotSpecified:
+				case AudioConversionType.Mp3:
+					return new Mp3Settings(audioConversionSetting);
+				case AudioConversionType.Ac3:
+					return new Ac3Settings(audioConversionSetting);
+				case AudioConversionType.Aac:
+					return new AacSettings(audioConversionSetting);
+				case AudioConversionType.Vorbis:
+					return new VorbisSettings(audioConversionSetting);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
+			}
+		}
 
-        public override void Run(ICommandSagaProperties properties)
+    	public override void Run(ICommandSagaProperties properties)
         {
             var audioConversionSetting = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
@@ -37,17 +47,10 @@ namespace Talifun.Commander.Command.Audio
                 var output = string.Empty;
                 FileInfo workingFilePath = null;
 
-                var encodeSucessful = false;
+            	var audioSettings = GetAudioSettings(audioConversionSetting);
 
-                switch (audioConversionSetting.AudioConversionType)
-                {
-                    case AudioConversionType.NotSpecified:
-                    case AudioConversionType.MP3:
-                        var mp3Settings = GetMP3Settings(audioConversionSetting);
-                        var mp3Command = new MP3Command();
-                        encodeSucessful = mp3Command.Run(mp3Settings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
-                        break;
-                }
+            	var audioCommand = new AudioCommand();
+				var encodeSucessful = audioCommand.Run(audioSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (encodeSucessful)
                 {

@@ -124,11 +124,23 @@
   <data name="AudioConversionElementCollection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\AudioConversionElementCollection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AudioConversionType_MP3" xml:space="preserve">
+  <data name="AudioConversionType_Aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="AudioConversionType_Ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioConversionType_Mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
   <data name="AudioConversionType_NotSpecified" xml:space="preserve">
     <value>Not specified</value>
+  </data>
+  <data name="AudioConversionType_Vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="ErrorMessageUnknownAudioConversionType" xml:space="preserve">
+    <value>Unknown audio conversion type</value>
   </data>
   <data name="ValidatorMessageAudioConversionElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>

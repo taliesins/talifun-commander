@@ -139,7 +139,7 @@
   <data name="VideoConversionElementCollection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\VideoConversionElementCollection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="VideoConversionType_FLV" xml:space="preserve">
+  <data name="VideoConversionType_Flv" xml:space="preserve">
     <value>Flv</value>
   </data>
   <data name="VideoConversionType_H264" xml:space="preserve">
@@ -147,5 +147,35 @@
   </data>
   <data name="VideoConversionType_NotSpecified" xml:space="preserve">
     <value>Not Specified</value>
+  </data>
+  <data name="AudioConversionType_Mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioConversionType_NotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="AudioConversionType_Ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioConversionType_Aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="AudioConversionType_Vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="ErrorMessageUnknownAudioConversionType" xml:space="preserve">
+    <value>Unknown audio conversion type</value>
+  </data>
+  <data name="ErrorMessageUnknownVideoConversionType" xml:space="preserve">
+    <value>Unknown video conversion type</value>
+  </data>
+  <data name="VideoConversionType_Theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="VideoConversionType_Vpx" xml:space="preserve">
+    <value>VPX</value>
+  </data>
+  <data name="VideoConversionType_Xvid" xml:space="preserve">
+    <value>XVid</value>
   </data>
 </root>

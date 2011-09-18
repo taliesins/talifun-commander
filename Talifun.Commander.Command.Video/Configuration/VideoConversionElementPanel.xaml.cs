@@ -52,12 +52,12 @@ namespace Talifun.Commander.Command.Video.Configuration
 			Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
-		private void WidthTextBoxTextChanged(object sender, TextChangedEventArgs e)
+		private void WidthIntegerUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
 		{
 			SetSelectedVideoFormat();
 		}
 
-		private void HeightTextBoxTextChanged(object sender, TextChangedEventArgs e)
+		private void HeightIntegerUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
 		{
 			SetSelectedVideoFormat();
 		}
@@ -71,27 +71,16 @@ namespace Talifun.Commander.Command.Video.Configuration
 		{
 			if (_selectionBoxChanged) return;
 
-			var textWidth = widthTextBox.Text;
-			int width;
-			if (!int.TryParse(textWidth, out width))
-			{
-				width = 0;
-			}
-
-			var textHeight = heightTextBox.Text;
-			int height;
-			if (!int.TryParse(textHeight, out height))
-			{
-				height = 0;
-			}
+			var width = widthIntegerUpDown.Value;
+			var height = heightIntegerUpDown.Value;
 
 			var aspectRatio = AspectRatio.NotSpecified;
 			if (aspectRatioComboBox.SelectedItem is AspectRatio)
 			{
 				aspectRatio = (AspectRatio)aspectRatioComboBox.SelectedItem;
 			}
-			
-			var xmlElements = (ReadOnlyObservableCollection<XmlNode>)videoFormatComboBox.ItemsSource;
+
+			var xmlElements = (ReadOnlyObservableCollection<XmlNode>)commonSettingsComboBox.ItemsSource;
 			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
 			var selectedXmlElement =
 				xmlElements.Where(x => 
@@ -105,26 +94,26 @@ namespace Talifun.Commander.Command.Video.Configuration
 					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == AspectRatio.NotSpecified)
 				.First();
 
-			if (videoFormatComboBox.SelectionBoxItem != selectedXmlElement)
+			if (commonSettingsComboBox.SelectionBoxItem != selectedXmlElement)
 			{
-				videoFormatComboBox.SelectedItem = selectedXmlElement;
+				commonSettingsComboBox.SelectedItem = selectedXmlElement;
 			}
 		}
 
 
     	private bool _selectionBoxChanged = false;
-    	private void VideoFormatComboBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		private void CommonSettingsComboBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
     		if (e.AddedItems.Count <= 0) return;
 
     		_selectionBoxChanged = true;
-    		var selectedVideoFormat = e.AddedItems[0] as XmlNode;
-    		var width = int.Parse(selectedVideoFormat.Attributes["width"].Value);
-    		var height = int.Parse(selectedVideoFormat.Attributes["height"].Value);
+    		var selectedCommonSetting = e.AddedItems[0] as XmlNode;
+    		var width = int.Parse(selectedCommonSetting.Attributes["width"].Value);
+    		var height = int.Parse(selectedCommonSetting.Attributes["height"].Value);
 
 			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
 
-    		var aspectRatio = (AspectRatio) aspectRatioConverter.ConvertFromString(selectedVideoFormat.Attributes["aspectRatio"].Value);
+    		var aspectRatio = (AspectRatio) aspectRatioConverter.ConvertFromString(selectedCommonSetting.Attributes["aspectRatio"].Value);
 
     		if (width > 0 && Element.Width != width)
     		{
@@ -142,7 +131,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			}
     		_selectionBoxChanged = false;
 		}
-
 
     }
 }

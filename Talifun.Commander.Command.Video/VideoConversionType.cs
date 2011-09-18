@@ -6,9 +6,15 @@ namespace Talifun.Commander.Command.Video
     {
 		[LocalizableDescription("VideoConversionType_NotSpecified", typeof(Properties.Resource))]
         NotSpecified,
-		[LocalizableDescription("VideoConversionType_FLV", typeof(Properties.Resource))]
-        FLV,
+		[LocalizableDescription("VideoConversionType_Flv", typeof(Properties.Resource))]
+        Flv,
 		[LocalizableDescription("VideoConversionType_H264", typeof(Properties.Resource))]
-        H264
+        H264,
+		[LocalizableDescription("VideoConversionType_Vpx", typeof(Properties.Resource))]
+        Vpx,
+		[LocalizableDescription("VideoConversionType_Theora", typeof(Properties.Resource))]
+        Theora,
+		[LocalizableDescription("VideoConversionType_Xvid", typeof(Properties.Resource))]
+        Xvid,
     }
 }

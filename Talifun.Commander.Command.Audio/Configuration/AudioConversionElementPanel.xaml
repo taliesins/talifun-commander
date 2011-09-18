@@ -16,6 +16,35 @@
                 <x:Type TypeName="Audio:AudioConversionType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
+            <x:XData>
+                <audioBitRates xmlns="">
+                    <audioBitRate name="32000"/>
+                    <audioBitRate name="64000"/>
+                    <audioBitRate name="96000"/>
+                    <audioBitRate name="128000"/>
+                    <audioBitRate name="192000"/>
+                </audioBitRates>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="audioFrequencies" XPath="/audioFrequencies">
+            <x:XData>
+                <audioFrequencies xmlns="">
+                    <audioFrequency name="22050"/>
+                    <audioFrequency name="44100"/>
+                    <audioFrequency name="48000"/>
+                    <audioFrequency name="96000"/>
+                </audioFrequencies>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="audioChannels" XPath="/audioChannels">
+            <x:XData>
+                <audioChannels xmlns="">
+                    <audioChannel name="1"/>
+                    <audioChannel name="2"/>
+                </audioChannels>
+            </x:XData>
+        </XmlDataProvider>
         <ResourceDictionary x:Key="Resources">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
@@ -31,9 +60,25 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Audio Conversion Type:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="audioConversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AudioConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="Bit Rate:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=BitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+
+            <Label Content="Frequency:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Frequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+
+            <Label Content="Channel:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
         </Grid>
         <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>

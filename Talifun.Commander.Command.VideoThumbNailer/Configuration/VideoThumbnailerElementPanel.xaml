@@ -7,7 +7,7 @@
                                 xmlns:System="clr-namespace:System;assembly=mscorlib"
                                 xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
                                 xmlns:VideoThumbnailer="clr-namespace:Talifun.Commander.Command.VideoThumbnailer"
-                                mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
+                                mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended">
     <Configuration:ElementPanelBase.Resources>
         <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
         <ObjectDataProvider x:Key="imageType"
@@ -32,9 +32,31 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Image Type:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="imageTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource imageType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=ImageType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Content="Width:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown"  VerticalAlignment="Top" />
+
+            <Label Content="Height:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" />
+
+            <Label Content="Time:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="timeIntegerUpDown" VerticalAlignment="Top" />
+            
+            <Label Content="Time Percentage:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Slider Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="timePercentageSlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Right" Name="timePercentageUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+            
         </Grid>
         <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
