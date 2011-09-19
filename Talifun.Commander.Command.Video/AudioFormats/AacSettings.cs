@@ -7,9 +7,9 @@ namespace Talifun.Commander.Command.Video.AudioFormats
 		public AacSettings(VideoConversionElement audioConversion)
 		{
 			CodecName = "aac";
-			BitRate = audioConversion.BitRate;
-			Channels = audioConversion.Channel;
-			Frequency = audioConversion.Frequency;
+			BitRate = audioConversion.AudioBitRate;
+			Channels = audioConversion.AudioChannel;
+			Frequency = audioConversion.AudioFrequency;
 		}
 
 		public string CodecName { get; set; }

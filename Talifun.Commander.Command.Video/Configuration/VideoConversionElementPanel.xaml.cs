@@ -80,19 +80,37 @@ namespace Talifun.Commander.Command.Video.Configuration
 				aspectRatio = (AspectRatio)aspectRatioComboBox.SelectedItem;
 			}
 
+			var audioBitRate = bitRateComboBox.SelectedValue == null
+			                   	? string.Empty
+			                   	: bitRateComboBox.SelectedValue.ToString();
+			var audioFrequency = frequencyComboBox.SelectedValue == null
+			                     	? string.Empty
+			                     	: frequencyComboBox.SelectedValue.ToString();
+			var audioChannel = channelComboBox.SelectedValue == null
+			                   	? string.Empty
+			                   	: channelComboBox.SelectedValue.ToString();
+
+			var audioConversionType = AudioConversionType.NotSpecified;
+			if (audioConversionTypeComboBox.SelectedItem is AspectRatio)
+			{
+				audioConversionType = (AudioConversionType)audioConversionTypeComboBox.SelectedItem;
+			}
+
 			var xmlElements = (ReadOnlyObservableCollection<XmlNode>)commonSettingsComboBox.ItemsSource;
 			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
+			var audioConversionTypeConverter = new EnumConverter(typeof(AudioConversionType));
 			var selectedXmlElement =
-				xmlElements.Where(x => 
-					int.Parse(x.Attributes["width"].Value) == width 
+				xmlElements.Where(x =>
+					(AudioConversionType)audioConversionTypeConverter.ConvertFromString(x.Attributes["audioConversionType"].Value) == audioConversionType
+					&& x.Attributes["audioBitRate"].Value == audioBitRate
+					&& x.Attributes["audioFrequency"].Value == audioFrequency
+					&& x.Attributes["audioChannel"].Value == audioChannel
+					&& int.Parse(x.Attributes["width"].Value) == width 
 					&& int.Parse(x.Attributes["height"].Value) == height
-					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == aspectRatio)
+					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == aspectRatio
+					)
 				.FirstOrDefault() 
-				?? xmlElements.Where(x => 
-					int.Parse(x.Attributes["width"].Value) == 0 
-					&& int.Parse(x.Attributes["height"].Value) == 0
-					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == AspectRatio.NotSpecified)
-				.First();
+				?? xmlElements.Where(x => x.Attributes["name"].Value == "Custom").First();
 
 			if (commonSettingsComboBox.SelectionBoxItem != selectedXmlElement)
 			{
@@ -102,18 +120,59 @@ namespace Talifun.Commander.Command.Video.Configuration
 
 
     	private bool _selectionBoxChanged = false;
-		private void CommonSettingsComboBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		private void CommonSettingsComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
     		if (e.AddedItems.Count <= 0) return;
 
     		_selectionBoxChanged = true;
     		var selectedCommonSetting = e.AddedItems[0] as XmlNode;
-    		var width = int.Parse(selectedCommonSetting.Attributes["width"].Value);
+
+			var audioConversionTypeConverter = new EnumConverter(typeof(AudioConversionType));	
+			var audioConversionType = (AudioConversionType)audioConversionTypeConverter.ConvertFromString(selectedCommonSetting.Attributes["audioConversionType"].Value);
+			
+			var audioBitRateString = selectedCommonSetting.Attributes["audioBitRate"].Value;
+			var audioBitRate = 0;
+			if (int.TryParse(audioBitRateString, out audioBitRate))
+			{
+				audioBitRate = 0;
+			}
+			var audioFrequencyString = selectedCommonSetting.Attributes["audioFrequency"].Value;
+			var audioFrequency = 0;
+			if (int.TryParse(audioFrequencyString, out audioFrequency))
+			{
+				audioFrequency = 0;
+			}
+			var audioChannelString = selectedCommonSetting.Attributes["audioChannel"].Value;
+			var audioChannel = 0;
+			if (int.TryParse(audioChannelString, out audioChannel))
+			{
+				audioChannel = 0;
+			}
+    	
+			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
+			var aspectRatio = (AspectRatio) aspectRatioConverter.ConvertFromString(selectedCommonSetting.Attributes["aspectRatio"].Value);
+			var width = int.Parse(selectedCommonSetting.Attributes["width"].Value);
     		var height = int.Parse(selectedCommonSetting.Attributes["height"].Value);
 
-			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
+			if (Element.AudioConversionType != audioConversionType)
+			{
+				Element.AudioConversionType = audioConversionType;
+			}
 
-    		var aspectRatio = (AspectRatio) aspectRatioConverter.ConvertFromString(selectedCommonSetting.Attributes["aspectRatio"].Value);
+			if (Element.AudioBitRate != audioBitRate)
+			{
+				Element.AudioBitRate = audioBitRate;
+			}
+
+			if (Element.AudioFrequency != audioFrequency)
+			{
+				Element.AudioFrequency = audioFrequency;
+			}
+
+			if (Element.AudioChannel != audioChannel)
+			{
+				Element.AudioChannel = audioChannel;
+			}
 
     		if (width > 0 && Element.Width != width)
     		{
@@ -129,6 +188,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 			{
 				Element.AspectRatio = aspectRatio;
 			}
+
     		_selectionBoxChanged = false;
 		}
 

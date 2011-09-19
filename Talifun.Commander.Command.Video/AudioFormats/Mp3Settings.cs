@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command.Video.AudioFormats
     {
 		public Mp3Settings(VideoConversionElement audioConversion)
 		{
-			var channels = audioConversion.Channel;
+			var channels = audioConversion.AudioChannel;
 
 			if (channels > 2)
 			{
@@ -14,9 +14,9 @@ namespace Talifun.Commander.Command.Video.AudioFormats
 			}
 
 			CodecName = "libmp3lame";
-			BitRate = audioConversion.BitRate;
+			BitRate = audioConversion.AudioBitRate;
 			Channels = channels;
-			Frequency = audioConversion.Frequency;
+			Frequency = audioConversion.AudioFrequency;
 		}
 
 		public string CodecName { get; set; }

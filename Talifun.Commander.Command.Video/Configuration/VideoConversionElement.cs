@@ -71,10 +71,10 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 32000
         /// </summary>
         [ConfigurationProperty("audioBitRate", DefaultValue = 64000, IsRequired = false)]
-        public int BitRate
+        public int AudioBitRate
         {
             get { return ((int)base[audioBitRate]); }
-			set { SetPropertyValue(value, audioBitRate, "BitRate"); }
+			set { SetPropertyValue(value, audioBitRate, "AudioBitRate"); }
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 22050
         /// </summary>
         [ConfigurationProperty("audioFrequency", DefaultValue = 44100, IsRequired = false)]
-        public int Frequency
+        public int AudioFrequency
         {
             get { return ((int)base[audioFrequency]); }
-			set { SetPropertyValue(value, audioFrequency, "Frequency"); }
+			set { SetPropertyValue(value, audioFrequency, "AudioFrequency"); }
         }
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 2 (Stero)
         /// </summary>
         [ConfigurationProperty("audioChannels", DefaultValue = 2, IsRequired = false)]
-        public int Channel
+        public int AudioChannel
         {
             get { return ((int)base[audioChannels]); }
-			set { SetPropertyValue(value, audioChannels, "Channel"); }
+			set { SetPropertyValue(value, audioChannels, "AudioChannel"); }
         }
 
 		/// <summary>
