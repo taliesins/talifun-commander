@@ -39,6 +39,8 @@ namespace Talifun.Commander.Command.Video.Configuration
 			Element.PropertyChanged += OnElementPropertyChanged;
 
 			this.DataContext = Element;
+
+			StartingValues();
 		}
 
 		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -123,6 +125,8 @@ namespace Talifun.Commander.Command.Video.Configuration
 			{
 				commonSettingsComboBox.SelectedItem = selectedXmlElement;
 			}
+
+    		
 		}
 
 		private T GetEnumFromAttribute<T>(XmlNode xmlNode, string attributeName)
@@ -187,6 +191,60 @@ namespace Talifun.Commander.Command.Video.Configuration
 			Element.MinKeyFrameInterval = minKeyFrameIntervals;
 			
     		_selectionBoxChanged = false;
+		}
+
+		public void StartingValues()
+		{
+
+			if (string.IsNullOrEmpty(commonSettingsComboBox.Text))
+			{
+				commonSettingsComboBox.Text = "Custom";
+			}
+
+			if (string.IsNullOrEmpty(bitRateComboBox.Text))
+			{
+				bitRateComboBox.Text = Element.AudioBitRate.ToString();
+			}
+
+			if (string.IsNullOrEmpty(frequencyComboBox.Text))
+			{
+				frequencyComboBox.Text = Element.AudioFrequency.ToString();
+			}
+
+			if (string.IsNullOrEmpty(channelComboBox.Text))
+			{
+				channelComboBox.Text = Element.AudioChannel.ToString();
+			}
+
+			if (string.IsNullOrEmpty(frameRateComboBox.Text))
+			{
+				frameRateComboBox.Text = Element.FrameRate.ToString();
+			}
+			
+			if (string.IsNullOrEmpty(videoBitRateComboBox.Text))
+			{
+				videoBitRateComboBox.Text = Element.VideoBitRate.ToString();
+			}
+
+			if (string.IsNullOrEmpty(maxVideoBitRateComboBox.Text))
+			{
+				maxVideoBitRateComboBox.Text = Element.MaxVideoBitRate.ToString();
+			}
+
+			if (string.IsNullOrEmpty(bufferSizeComboBox.Text))
+			{
+				bufferSizeComboBox.Text = Element.BufferSize.ToString();
+			}
+
+			if (string.IsNullOrEmpty(keyFrameIntervalComboBox.Text))
+			{
+				keyFrameIntervalComboBox.Text = Element.KeyFrameInterval.ToString();
+			}
+
+			if (string.IsNullOrEmpty(minKeyFrameIntervalComboBox.Text))
+			{
+				minKeyFrameIntervalComboBox.Text = Element.MinKeyFrameInterval.ToString();
+			}
 		}
     }
 }
