@@ -9,10 +9,10 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 		AspectRatio AspectRatio { get; set; }
 		int FrameRate { get; set; }
 		int BitRate { get; set; }
-		int? MaxBitRate { get; set; }
-		int? BufferSize { get; set; }
-		int? KeyframeInterval { get; set; }
-		int? MinKeyframeInterval { get; set; }
+		int MaxBitRate { get; set; }
+		int BufferSize { get; set; }
+		int KeyframeInterval { get; set; }
+		int MinKeyframeInterval { get; set; }
 
 		string FirstPhaseOptions { get; set; }
 		string SecondPhaseOptions { get; set; }

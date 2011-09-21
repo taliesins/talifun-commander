@@ -22,10 +22,10 @@ namespace Talifun.Commander.Command.Video.Configuration
         private static readonly ConfigurationProperty frameRate = new ConfigurationProperty("frameRate", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
 
         private static readonly ConfigurationProperty aspectRatio = new ConfigurationProperty("aspectRatio", typeof(AspectRatio), AspectRatio.NotSpecified, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty maxVideoBitRate = new ConfigurationProperty("maxVideoBitRate", typeof(int?), null, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty bufferSize = new ConfigurationProperty("bufferSize", typeof(int?), null, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty keyframeInterval = new ConfigurationProperty("keyframeInterval", typeof(int?), null, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty minKeyframeInterval = new ConfigurationProperty("minKeyframeInterval", typeof(int?), null, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty maxVideoBitRate = new ConfigurationProperty("maxVideoBitRate", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty bufferSize = new ConfigurationProperty("bufferSize", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty keyFrameInterval = new ConfigurationProperty("keyFrameInterval", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty minKeyFrameInterval = new ConfigurationProperty("minKeyFrameInterval", typeof(int), 0, ConfigurationPropertyOptions.None);
 
         /// <summary>
         /// Initializes the <see cref="VideoConversionElement"/> class.
@@ -47,8 +47,8 @@ namespace Talifun.Commander.Command.Video.Configuration
             properties.Add(aspectRatio);
             properties.Add(maxVideoBitRate);
             properties.Add(bufferSize);
-            properties.Add(keyframeInterval);
-            properties.Add(minKeyframeInterval);
+            properties.Add(keyFrameInterval);
+            properties.Add(minKeyFrameInterval);
         }
 
 		/// <summary>
@@ -180,9 +180,9 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting MaxVideoBitRate > VideoBitRate
         /// </summary>
         [ConfigurationProperty("maxVideoBitRate", DefaultValue = null, IsRequired = false)]
-        public int? MaxVideoBitRate
+        public int MaxVideoBitRate
         {
-            get { return ((int?)base[maxVideoBitRate]); }
+            get { return ((int)base[maxVideoBitRate]); }
 			set { SetPropertyValue(value, maxVideoBitRate, "MaxVideoBitRate"); }
         }
 
@@ -191,32 +191,32 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting BufferSize > MaxVideoBitRate > VideoBitRate
         /// </summary>
         [ConfigurationProperty("bufferSize", DefaultValue = null, IsRequired = false)]
-        public int? BufferSize
+        public int BufferSize
         {
-            get { return ((int?)base[bufferSize]); }
+            get { return ((int)base[bufferSize]); }
 			set { SetPropertyValue(value, bufferSize, "BufferSize"); }
         }
 
         /// <summary>
         /// Gets or sets the buffer size of the video output.
-        /// Recommend setting KeyframeInterval = 10 * FrameRate
+        /// Recommend setting KeyFrameInterval = 10 * FrameRate
         /// </summary>
-        [ConfigurationProperty("keyframeInterval", DefaultValue = null, IsRequired = false)]
-        public int? KeyframeInterval
+        [ConfigurationProperty("keyFrameInterval", DefaultValue = null, IsRequired = false)]
+        public int KeyFrameInterval
         {
-            get { return ((int?)base[keyframeInterval]); }
-			set { SetPropertyValue(value, keyframeInterval, "KeyframeInterval"); }
+            get { return ((int)base[keyFrameInterval]); }
+			set { SetPropertyValue(value, keyFrameInterval, "KeyFrameInterval"); }
         }
 
         /// <summary>
         /// Gets or sets the buffer size of the video output.
-        /// Recommend setting MinKeyframeInterval = FrameRate
+        /// Recommend setting MinKeyFrameInterval = FrameRate
         /// </summary>
         [ConfigurationProperty("minKeyframeInterval", DefaultValue = null, IsRequired = false)]
-        public int? MinKeyframeInterval
+        public int MinKeyFrameInterval
         {
-            get { return ((int?)base[minKeyframeInterval]); }
-			set { SetPropertyValue(value, minKeyframeInterval, "MinKeyframeInterval"); }
+            get { return ((int)base[minKeyFrameInterval]); }
+			set { SetPropertyValue(value, minKeyFrameInterval, "MinKeyFrameInterval"); }
         }
     }
 }

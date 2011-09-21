@@ -36,13 +36,14 @@ namespace Talifun.Commander.Command.Video.Configuration
 
 			SaveButton.IsEnabled = false;
 
-			this.DataContext = Element;
-
 			Element.PropertyChanged += OnElementPropertyChanged;
+
+			this.DataContext = Element;
 		}
 
 		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			SetSelectedVideoFormat();
 			SaveButton.IsEnabled = true;
 		}
 
@@ -52,62 +53,68 @@ namespace Talifun.Commander.Command.Video.Configuration
 			Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
-		private void WidthIntegerUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		private string GetSelectedValueFromComboBox(ComboBox comboBox)
 		{
-			SetSelectedVideoFormat();
+			var value = comboBox.SelectedValue == null
+					? string.Empty
+					: comboBox.SelectedValue.ToString();
+
+			return value;
 		}
 
-		private void HeightIntegerUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		private T GetSelectedEnumFromComboBox<T>(ComboBox comboBox, T defaultValue)
 		{
-			SetSelectedVideoFormat();
+			var value = defaultValue;
+			if (comboBox.SelectedItem is T)
+			{
+				value = (T)comboBox.SelectedItem;
+			}
+
+			return value;
 		}
 
-		private void AspectRatioComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			SetSelectedVideoFormat();
-		}
-
-		private void SetSelectedVideoFormat()
+    	private void SetSelectedVideoFormat()
 		{
 			if (_selectionBoxChanged) return;
 
+			var audioConversionType = GetSelectedEnumFromComboBox(audioConversionTypeComboBox, AudioConversionType.NotSpecified);
+			var audioBitRate = GetSelectedValueFromComboBox(bitRateComboBox);
+			var audioFrequency = GetSelectedValueFromComboBox(frequencyComboBox);
+			var audioChannel = GetSelectedValueFromComboBox(channelComboBox);
+			var videoConversionType = GetSelectedEnumFromComboBox(conversionTypeComboBox, VideoConversionType.NotSpecified);
+    		var deinterlace = deinterlaceCheckBox.IsChecked;
 			var width = widthIntegerUpDown.Value;
 			var height = heightIntegerUpDown.Value;
+			var aspectRatio = GetSelectedEnumFromComboBox(aspectRatioComboBox, AspectRatio.NotSpecified);
+			var frameRate = GetSelectedValueFromComboBox(frameRateComboBox);
+			var videoBitRate = GetSelectedValueFromComboBox(videoBitRateComboBox);
+			var maxVideoBitRate = GetSelectedValueFromComboBox(maxVideoBitRateComboBox);
+			var bufferSize = GetSelectedValueFromComboBox(bufferSizeComboBox);
+			var keyFrameInterval = GetSelectedValueFromComboBox(keyFrameIntervalComboBox);
+			var minKeyFrameInterval = GetSelectedValueFromComboBox(minKeyFrameIntervalComboBox);
 
-			var aspectRatio = AspectRatio.NotSpecified;
-			if (aspectRatioComboBox.SelectedItem is AspectRatio)
-			{
-				aspectRatio = (AspectRatio)aspectRatioComboBox.SelectedItem;
-			}
-
-			var audioBitRate = bitRateComboBox.SelectedValue == null
-			                   	? string.Empty
-			                   	: bitRateComboBox.SelectedValue.ToString();
-			var audioFrequency = frequencyComboBox.SelectedValue == null
-			                     	? string.Empty
-			                     	: frequencyComboBox.SelectedValue.ToString();
-			var audioChannel = channelComboBox.SelectedValue == null
-			                   	? string.Empty
-			                   	: channelComboBox.SelectedValue.ToString();
-
-			var audioConversionType = AudioConversionType.NotSpecified;
-			if (audioConversionTypeComboBox.SelectedItem is AspectRatio)
-			{
-				audioConversionType = (AudioConversionType)audioConversionTypeComboBox.SelectedItem;
-			}
-
-			var xmlElements = (ReadOnlyObservableCollection<XmlNode>)commonSettingsComboBox.ItemsSource;
-			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
 			var audioConversionTypeConverter = new EnumConverter(typeof(AudioConversionType));
+			var videoConversionTypeConverter = new EnumConverter(typeof(VideoConversionType));
+			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
+			
+			var xmlElements = (ReadOnlyObservableCollection<XmlNode>)commonSettingsComboBox.ItemsSource;
 			var selectedXmlElement =
 				xmlElements.Where(x =>
 					(AudioConversionType)audioConversionTypeConverter.ConvertFromString(x.Attributes["audioConversionType"].Value) == audioConversionType
 					&& x.Attributes["audioBitRate"].Value == audioBitRate
 					&& x.Attributes["audioFrequency"].Value == audioFrequency
 					&& x.Attributes["audioChannel"].Value == audioChannel
+					&& (VideoConversionType)videoConversionTypeConverter.ConvertFromString(x.Attributes["videoConversionType"].Value) == videoConversionType
+					&& bool.Parse(x.Attributes["deinterlace"].Value) == deinterlace
 					&& int.Parse(x.Attributes["width"].Value) == width 
 					&& int.Parse(x.Attributes["height"].Value) == height
 					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == aspectRatio
+					&& x.Attributes["frameRate"].Value == frameRate
+					&& x.Attributes["videoBitRate"].Value == videoBitRate
+					&& x.Attributes["maxVideoBitRate"].Value == maxVideoBitRate
+					&& x.Attributes["bufferSize"].Value == bufferSize
+					&& x.Attributes["keyFrameInterval"].Value == keyFrameInterval
+					&& x.Attributes["minKeyFrameInterval"].Value == minKeyFrameInterval
 					)
 				.FirstOrDefault() 
 				?? xmlElements.Where(x => x.Attributes["name"].Value == "Custom").First();
@@ -116,6 +123,26 @@ namespace Talifun.Commander.Command.Video.Configuration
 			{
 				commonSettingsComboBox.SelectedItem = selectedXmlElement;
 			}
+		}
+
+		private T GetEnumFromAttribute<T>(XmlNode xmlNode, string attributeName)
+		{
+			var attributeEnumTypeConverter = new EnumConverter(typeof(T));
+			var attributeValue = (T)attributeEnumTypeConverter.ConvertFromString(xmlNode.Attributes[attributeName].Value);
+
+			return attributeValue;
+		}
+
+		private int GetIntFromAttribute(XmlNode xmlNode, string attributeName)
+		{
+			var attributeString = xmlNode.Attributes[attributeName].Value;
+			var attributeValue = 0;
+			if (!int.TryParse(attributeString, out attributeValue))
+			{
+				attributeValue = 0;
+			}
+
+			return attributeValue;
 		}
 
 
@@ -127,70 +154,39 @@ namespace Talifun.Commander.Command.Video.Configuration
     		_selectionBoxChanged = true;
     		var selectedCommonSetting = e.AddedItems[0] as XmlNode;
 
-			var audioConversionTypeConverter = new EnumConverter(typeof(AudioConversionType));	
-			var audioConversionType = (AudioConversionType)audioConversionTypeConverter.ConvertFromString(selectedCommonSetting.Attributes["audioConversionType"].Value);
+			var audioConversionType = GetEnumFromAttribute<AudioConversionType>(selectedCommonSetting, "audioConversionType");
+			var audioBitRate = GetIntFromAttribute(selectedCommonSetting, "audioBitRate");			
+			var audioFrequency = GetIntFromAttribute(selectedCommonSetting, "audioFrequency");
+			var audioChannel = GetIntFromAttribute(selectedCommonSetting, "audioChannel");
+			var videoConversionType = GetEnumFromAttribute<VideoConversionType>(selectedCommonSetting, "videoConversionType");
+			var deinterlace = selectedCommonSetting.Attributes["deinterlace"].Value == "true";
+			var width = GetIntFromAttribute(selectedCommonSetting, "width");
+			var height = GetIntFromAttribute(selectedCommonSetting, "height");
+			var aspectRatio = GetEnumFromAttribute<AspectRatio>(selectedCommonSetting, "aspectRatio");
+			var frameRate = GetIntFromAttribute(selectedCommonSetting, "frameRate");
+			var videoBitRate = GetIntFromAttribute(selectedCommonSetting, "videoBitRate");
+			var maxVideoBitRate = GetIntFromAttribute(selectedCommonSetting, "maxVideoBitRate");
+			var bufferSize = GetIntFromAttribute(selectedCommonSetting, "bufferSize");
+			var keyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "keyFrameInterval");
+			var minKeyFrameIntervals = GetIntFromAttribute(selectedCommonSetting, "minKeyFrameIntervals");
+
+			Element.AudioConversionType = audioConversionType;
+			Element.AudioBitRate = audioBitRate;
+			Element.AudioFrequency = audioFrequency;
+			Element.AudioChannel = audioChannel;
+			Element.Deinterlace = deinterlace;
+			Element.VideoConversionType = videoConversionType;
+    		Element.Width = width;
+			Element.Height = height;
+			Element.AspectRatio = aspectRatio;
+			Element.FrameRate = frameRate;
+			Element.VideoBitRate = videoBitRate;
+			Element.MaxVideoBitRate = maxVideoBitRate;
+			Element.BufferSize = bufferSize;
+			Element.KeyFrameInterval = keyFrameInterval;
+			Element.MinKeyFrameInterval = minKeyFrameIntervals;
 			
-			var audioBitRateString = selectedCommonSetting.Attributes["audioBitRate"].Value;
-			var audioBitRate = 0;
-			if (int.TryParse(audioBitRateString, out audioBitRate))
-			{
-				audioBitRate = 0;
-			}
-			var audioFrequencyString = selectedCommonSetting.Attributes["audioFrequency"].Value;
-			var audioFrequency = 0;
-			if (int.TryParse(audioFrequencyString, out audioFrequency))
-			{
-				audioFrequency = 0;
-			}
-			var audioChannelString = selectedCommonSetting.Attributes["audioChannel"].Value;
-			var audioChannel = 0;
-			if (int.TryParse(audioChannelString, out audioChannel))
-			{
-				audioChannel = 0;
-			}
-    	
-			var aspectRatioConverter = new EnumConverter(typeof(AspectRatio));
-			var aspectRatio = (AspectRatio) aspectRatioConverter.ConvertFromString(selectedCommonSetting.Attributes["aspectRatio"].Value);
-			var width = int.Parse(selectedCommonSetting.Attributes["width"].Value);
-    		var height = int.Parse(selectedCommonSetting.Attributes["height"].Value);
-
-			if (Element.AudioConversionType != audioConversionType)
-			{
-				Element.AudioConversionType = audioConversionType;
-			}
-
-			if (Element.AudioBitRate != audioBitRate)
-			{
-				Element.AudioBitRate = audioBitRate;
-			}
-
-			if (Element.AudioFrequency != audioFrequency)
-			{
-				Element.AudioFrequency = audioFrequency;
-			}
-
-			if (Element.AudioChannel != audioChannel)
-			{
-				Element.AudioChannel = audioChannel;
-			}
-
-    		if (width > 0 && Element.Width != width)
-    		{
-    			Element.Width = width;
-    		}
-
-    		if (height > 0 && Element.Height != height)
-    		{
-    			Element.Height = height;
-    		}
-
-			if (Element.AspectRatio != aspectRatio)
-			{
-				Element.AspectRatio = aspectRatio;
-			}
-
     		_selectionBoxChanged = false;
 		}
-
     }
 }

@@ -6,7 +6,7 @@
                   xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
                                 xmlns:System="clr-namespace:System;assembly=mscorlib"
                                 xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
-                                xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended">
+                                xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended">
     <Configuration:ElementPanelBase.Resources>
         <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
 
@@ -21,30 +21,31 @@
         <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
             <x:XData>
                 <audioBitRates xmlns="">
-                    <audioBitRate name="32000"/>
-                    <audioBitRate name="64000"/>
-                    <audioBitRate name="96000"/>
-                    <audioBitRate name="128000"/>
-                    <audioBitRate name="152000"/>
-                    <audioBitRate name="192000"/>
+                    <audioBitRate name="32 kbit/s" value="32000"/>
+                    <audioBitRate name="64 kbit/s" value="64000"/>
+                    <audioBitRate name="96 kbit/s" value="96000"/>
+                    <audioBitRate name="128 kbit/s" value="128000"/>
+                    <audioBitRate name="152 kbit/s" value="152000"/>
+                    <audioBitRate name="192 kbit/s" value="192000"/>
                 </audioBitRates>
             </x:XData>
         </XmlDataProvider>
         <XmlDataProvider x:Key="audioFrequencies" XPath="/audioFrequencies">
             <x:XData>
                 <audioFrequencies xmlns="">
-                    <audioFrequency name="22050"/>
-                    <audioFrequency name="44100"/>
-                    <audioFrequency name="48000"/>
-                    <audioFrequency name="96000"/>
+                    <audioFrequency name="22050 Hz" value="22050"/>
+                    <audioFrequency name="44100 Hz" value="44100"/>
+                    <audioFrequency name="48000 Hz" value="48000"/>
+                    <audioFrequency name="96000 Hz" value="96000"/>
                 </audioFrequencies>
             </x:XData>
         </XmlDataProvider>
         <XmlDataProvider x:Key="audioChannels" XPath="/audioChannels">
             <x:XData>
                 <audioChannels xmlns="">
-                    <audioChannel name="1"/>
-                    <audioChannel name="2"/>
+                    <audioChannel name="Mono" value="1"/>
+                    <audioChannel name="Stereo" value="2"/>
+                    <audioChannel name="5.1" value="6"/>
                 </audioChannels>
             </x:XData>
         </XmlDataProvider>
@@ -58,27 +59,88 @@
         <XmlDataProvider x:Key="frameRates" XPath="/frameRates">
             <x:XData>
                 <frameRates xmlns="">
-                    <frameRate name="11.988"/>
-                    <frameRate name="12.5"/>
-                    <frameRate name="14.985"/>
-                    <frameRate name="15"/>
-                    <frameRate name="23.98"/>
-                    <frameRate name="25"/>
-                    <frameRate name="29.97"/>
-                    <frameRate name="30"/>
+                    <frameRate name="Auto" value="0"/>
+                    <frameRate name="11.988" value="11.988"/>
+                    <frameRate name="12.5" value="12.5"/>
+                    <frameRate name="14.985" value="14.985"/>
+                    <frameRate name="15" value="15"/>
+                    <frameRate name="23.98" value="23.98"/>
+                    <frameRate name="25" value="25"/>
+                    <frameRate name="29.97" value="29.97"/>
+                    <frameRate name="30" value="30"/>
                 </frameRates>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="videoBitRates" XPath="/videoBitRates">
+            <x:XData>
+                <videoBitRates xmlns="">
+                    <videoBitRate name="324000" value="324000"/>
+                    <videoBitRate name="672000" value="672000"/>
+                    <videoBitRate name="1154000" value="1154000"/>
+                    <videoBitRate name="2122000" value="2122000"/>
+                    <videoBitRate name="3622000" value="3622000"/>
+                </videoBitRates>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="maxVideoBitRates" XPath="/maxVideoBitRates">
+            <x:XData>
+                <maxVideoBitRates xmlns="">
+                    <maxVideoBitRate name="384000" value="384000"/>
+                    <maxVideoBitRate name="768000" value="768000"/>
+                    <maxVideoBitRate name="1250000" value="1250000"/>
+                    <maxVideoBitRate name="2900000" value="2900000"/>
+                    <maxVideoBitRate name="5000000" value="5000000"/>
+                </maxVideoBitRates>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="bufferSizes" XPath="/bufferSizes">
+            <x:XData>
+                <bufferSizes xmlns="">
+                    <bufferSize name="Auto" value="0"/>
+                    <bufferSize name="3840000" value="3840000"/>
+                    <bufferSize name="7680000" value="7680000"/>
+                    <bufferSize name="12500000" value="12500000"/>
+                    <bufferSize name="29000000" value="29000000"/>
+                    <bufferSize name="50000000" value="50000000"/>
+                </bufferSizes>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="keyFrameIntervals" XPath="/keyFrameIntervals">
+            <x:XData>
+                <keyFrameIntervals xmlns="">
+                    <keyFrameInterval name="Auto" value="0"/>
+                    <keyFrameInterval name="36" value="36"/>
+                    <keyFrameInterval name="39" value="39"/>
+                    <keyFrameInterval name="45" value="45"/>
+                    <keyFrameInterval name="72" value="72"/>
+                    <keyFrameInterval name="75" value="75"/>
+                    <keyFrameInterval name="90" value="90"/>
+                </keyFrameIntervals>
+            </x:XData>
+        </XmlDataProvider>
+        <XmlDataProvider x:Key="minKeyFrameIntervals" XPath="/minKeyFrameIntervals">
+            <x:XData>
+                <minKeyFrameIntervals xmlns="">
+                    <minKeyFrameInterval name="Auto" value="0"/>
+                    <minKeyFrameInterval name="12" value="12"/>
+                    <minKeyFrameInterval name="13" value="13"/>
+                    <minKeyFrameInterval name="15" value="15"/>
+                    <minKeyFrameInterval name="24" value="24"/>
+                    <minKeyFrameInterval name="25" value="25"/>
+                    <minKeyFrameInterval name="30" value="30"/>
+                </minKeyFrameIntervals>
             </x:XData>
         </XmlDataProvider>
         <XmlDataProvider x:Key="commonSettings" XPath="/commonSettings">
             <x:XData>
                 <commonSettings xmlns="">
-                    <commonSetting name="Custom" audioConversionType="NotSpecified" audioBitRate="" audioFrequency="" audioChannel="2" videoConversionType="NotSpecified" width="0" height="0" aspectRatio="NotSpecified" minimumVideoBitRate="0" maxVideoBitRate="0" />
-                    <commonSetting name="Youtube - 240p" audioConversionType="Mp3" audioBitRate="64000" audioFrequency="22050" audioChannel="2" videoConversionType="H264" width="400" height="226" aspectRatio="RatioOf16By9" minimumVideoBitRate="324" maxVideoBitRate="384" />
-                    <commonSetting name="Youtube - 360p" audioConversionType="Aac" audioBitRate="96000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" width="640" height="360" aspectRatio="RatioOf16By9" minimumVideoBitRate="672" maxVideoBitRate="768" />
-                    <commonSetting name="Youtube - SD 4:3" audioConversionType="Aac" audioBitRate="128000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" width="640" height="480" aspectRatio="RatioOf4By3" minimumVideoBitRate="672" maxVideoBitRate="768" />
-                    <commonSetting name="Youtube - 480p" audioConversionType="Aac" audioBitRate="128000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" width="854" height="480" aspectRatio="RatioOf16By9" minimumVideoBitRate="1154" maxVideoBitRate="1250" />
-                    <commonSetting name="Youtube - 720p / HD 16:9" audioConversionType="Aac" audioBitRate="152000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" width="1280" height="720" aspectRatio="RatioOf16By9" minimumVideoBitRate="2122" maxVideoBitRate="2900" />
-                    <commonSetting name="Youtube - 1080p" audioConversionType="Aac" audioBitRate="152000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" width="1920" height="1080" aspectRatio="RatioOf16By9" minimumVideoBitRate="3622" maxVideoBitRate="5000" />
+                    <commonSetting name="Custom" audioConversionType="NotSpecified" audioBitRate="" audioFrequency="" audioChannel="2" videoConversionType="NotSpecified" deinterlace="false" width="0" height="0" aspectRatio="NotSpecified" frameRate="0" videoBitRate="0" maxVideoBitRate="0" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - 240p" audioConversionType="Mp3" audioBitRate="64000" audioFrequency="22050" audioChannel="2" videoConversionType="H264" deinterlace="false" width="400" height="226" aspectRatio="RatioOf16By9" frameRate="0" videoBitRate="324000" maxVideoBitRate="384000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - 360p" audioConversionType="Aac" audioBitRate="96000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="640" height="360" aspectRatio="RatioOf16By9" frameRate="0" videoBitRate="672000" maxVideoBitRate="768000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - SD 4:3" audioConversionType="Aac" audioBitRate="128000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="640" height="480" aspectRatio="RatioOf4By3" frameRate="0" videoBitRate="672000" maxVideoBitRate="768000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - 480p" audioConversionType="Aac" audioBitRate="128000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="854" height="480" aspectRatio="RatioOf16By9" frameRate="0" videoBitRate="1154000" maxVideoBitRate="1250000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - 720p / HD 16:9" audioConversionType="Aac" audioBitRate="152000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="1280" height="720" aspectRatio="RatioOf16By9" frameRate="0" videoBitRate="2122000" maxVideoBitRate="2900000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0" />
+                    <commonSetting name="Youtube - 1080p" audioConversionType="Aac" audioBitRate="152000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="1920" height="1080" aspectRatio="RatioOf16By9" frameRate="0" videoBitRate="3622000" maxVideoBitRate="5000000" bufferSize="0" keyFrameInterval="0" minKeyFrameIntervals="0"/>
                 </commonSettings>
             </x:XData>
         </XmlDataProvider>
@@ -130,47 +192,47 @@
             <Label Content="Audio Conversion Type:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="audioConversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AudioConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Bit Rate:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=AudioBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Audio Bit Rate:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate[@name], Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=AudioBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
-            <Label Content="Frequency:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=AudioFrequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Audio Frequency:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency[@name], Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=AudioFrequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
-            <Label Content="Channel:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=AudioChannel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <Label Content="Audio Channel:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel[@name], Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=AudioChannel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
             <Label Content="Video Conversion Type:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=VideoConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="conversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=VideoConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Deinterlace:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <CheckBox Content="" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="3" Name="deinterlaceCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Deinterlace, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Content="" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="3" Name="deinterlaceCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Deinterlace, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Width:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" ValueChanged="WidthIntegerUpDownValueChanged" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="8" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Height:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" ValueChanged="HeightIntegerUpDownValueChanged" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Aspect Ratio:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="10" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="aspectRatioComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource aspectRatio}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AspectRatio, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"  SelectionChanged="AspectRatioComboBoxSelectionChanged" />
+            <ComboBox Grid.Column="1" Grid.Row="10" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="aspectRatioComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource aspectRatio}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AspectRatio, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="Frame Rate:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="11" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frameRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource frameRates}, XPath=frameRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValue="{Binding Path=FrameRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <ComboBox Grid.Column="1" Grid.Row="11" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frameRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource frameRates}, XPath=frameRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=FrameRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
             <Label Content="Video Bit Rate:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="12" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="videoBitRateTextBox" Text="{Binding Path=VideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="12" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="videoBitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource videoBitRates}, XPath=videoBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=VideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
             <Label Content="Max Video Bit Rate:" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="13" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="maxVideoBitRateTextBox" Text="{Binding Path=MaxVideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="13" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="maxVideoBitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource maxVideoBitRates}, XPath=maxVideoBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=MaxVideoBitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
             <Label Content="BufferSize:" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="14" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bufferSizeTextBox" Text="{Binding Path=BufferSize, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="14" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bufferSizeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource bufferSizes}, XPath=bufferSize, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=BufferSize, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
-            <Label Content="KeyframeInterval:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="15" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="keyframeIntervalTextBox" Text="{Binding Path=KeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="KeyFrameInterval:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="15" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="keyFrameIntervalComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource keyFrameIntervals}, XPath=keyFrameInterval, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=KeyFrameInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
 
-            <Label Content="MinKeyframeInterval:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="16" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyframeIntervalTextBox" Text="{Binding Path=MinKeyframeInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="MinKeyFrameInterval:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="16" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyFrameIntervalComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource minKeyFrameIntervals}, XPath=minKeyFrameInterval, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=MinKeyFrameInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
         </Grid>
         <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>

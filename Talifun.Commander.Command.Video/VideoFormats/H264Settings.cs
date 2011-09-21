@@ -12,24 +12,24 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 		{
 			CodecName = "libx264";
 			var maxVideoBitRate = videoConversion.VideoBitRate;
-			if (videoConversion.MaxVideoBitRate.HasValue)
+			if (videoConversion.MaxVideoBitRate > 0)
 			{
-				maxVideoBitRate = videoConversion.MaxVideoBitRate.Value;
+				maxVideoBitRate = videoConversion.MaxVideoBitRate;
 			}
 			var bufferSize = videoConversion.VideoBitRate * 10;
-			if (videoConversion.BufferSize.HasValue)
+			if (videoConversion.BufferSize > 0)
 			{
-				bufferSize = videoConversion.BufferSize.Value;
+				bufferSize = videoConversion.BufferSize;
 			}
-			var keyframeInterval = videoConversion.FrameRate * 10;
-			if (videoConversion.MaxVideoBitRate.HasValue)
+			var keyframeInterval = videoConversion.FrameRate * 3;
+			if (videoConversion.MaxVideoBitRate > 0)
 			{
-				keyframeInterval = videoConversion.MaxVideoBitRate.Value;
+				keyframeInterval = videoConversion.MaxVideoBitRate;
 			}
 			var minKeyframeInterval = videoConversion.FrameRate;
-			if (videoConversion.MinKeyframeInterval.HasValue)
+			if (videoConversion.MinKeyFrameInterval > 0)
 			{
-				minKeyframeInterval = videoConversion.MinKeyframeInterval.Value;
+				minKeyframeInterval = videoConversion.MinKeyFrameInterval;
 			}
 
 			Deinterlace = videoConversion.Deinterlace;
@@ -55,10 +55,10 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 		public int FrameRate { get; set; } //-r {framerate}
 		public int BitRate { get; set; } //-b {VideoBitRate}
 
-		public int? MaxBitRate { get; set; } //-maxrate {MaxVideoBitRate}
-		public int? BufferSize { get; set; } //-bufsize {BufferSize}
-		public int? KeyframeInterval { get; set; }//-g {KeyframeInterval}
-		public int? MinKeyframeInterval { get; set; }//-keyint_min {KeyframeInterval}
+		public int MaxBitRate { get; set; } //-maxrate {MaxVideoBitRate}
+		public int BufferSize { get; set; } //-bufsize {BufferSize}
+		public int KeyframeInterval { get; set; }//-g {KeyFrameInterval}
+		public int MinKeyframeInterval { get; set; }//-keyint_min {KeyFrameInterval}
 
 		public string FirstPhaseOptions { get; set; }
 		public string SecondPhaseOptions { get; set; }
