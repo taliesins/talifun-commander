@@ -4,8 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
-                             mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
+                                xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
+                                xmlns:System="clr-namespace:System;assembly=mscorlib"
+                                xmlns:AntiVirus="clr-namespace:Talifun.Commander.Command.AntiVirus" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
+        <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
+        <ObjectDataProvider x:Key="virusScannerType"
+                    MethodName="GetValues" 
+                    ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="AntiVirus:VirusScannerType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <ResourceDictionary x:Key="Resources">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
@@ -21,9 +31,13 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Virus Scanner Type:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="virusScannerTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource virusScannerType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=VirusScannerType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>

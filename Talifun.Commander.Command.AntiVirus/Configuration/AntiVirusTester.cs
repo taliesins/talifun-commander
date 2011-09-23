@@ -50,15 +50,19 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
                     }
                 }
 
-                if (antiVirusSetting.VirusScannerType == VirusScannerType.NotSpecified
-                    || antiVirusSetting.VirusScannerType == VirusScannerType.McAfee)
+                switch (antiVirusSetting.VirusScannerType)
                 {
-                    var virusScannerPath = AntiVirusConfiguration.Instance.McAfeePath;
+                	case VirusScannerType.McAfee:
+                	case VirusScannerType.NotSpecified:
+                		{
+                			var virusScannerPath = AntiVirusConfiguration.Instance.McAfeePath;
 
-                    if (string.IsNullOrEmpty(virusScannerPath))
-                    {
-						throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, AntiVirusConfiguration.Instance.McAfeePathSettingName));
-                    }
+                			if (string.IsNullOrEmpty(virusScannerPath))
+                			{
+                				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, AntiVirusConfiguration.Instance.McAfeePathSettingName));
+                			}
+                		}
+                		break;
                 }
 
                 antiVirusSettingsKeys.Remove(antiVirusSetting.Name);

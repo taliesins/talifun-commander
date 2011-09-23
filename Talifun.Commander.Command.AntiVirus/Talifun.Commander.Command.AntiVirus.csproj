@@ -61,10 +61,10 @@
     <Compile Include="Configuration\AntiVirusTester.cs" />
     <Compile Include="Configuration\AntiVirusElement.cs" />
     <Compile Include="Configuration\AntiVirusElementCollection.cs" />
-    <Compile Include="AntiVirusSettings.cs" />
+    <Compile Include="Scanners\AntiVirusSettings.cs" />
     <Compile Include="Configuration\AntiVirusConfiguration.cs" />
     <Compile Include="McAfeeCommand.cs" />
-    <Compile Include="McAfeeSettings.cs" />
+    <Compile Include="Scanners\McAfeeSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
