@@ -50,12 +50,9 @@
             <TextBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="workingPathTextBox" Text="{Binding Path=WorkingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
             <Button Content="..." Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="workingPathButton"  Width="25" Click="workingPathButton_Click" />
 
-
             <Label Content="Complete Path:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="completedPathTextBox" Text="{Binding Path=CompletedPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
             <Button Content="..." Grid.Row="6" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="completedPathButton"  Width="25" Click="completedPathButton_Click" />
-            
         </Grid>
-        <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
 </Configuration:ElementPanelBase>

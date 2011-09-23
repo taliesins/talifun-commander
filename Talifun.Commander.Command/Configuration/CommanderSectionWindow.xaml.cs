@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -262,6 +263,11 @@ namespace Talifun.Commander.Command.Configuration
 
             if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementSettingPanel))
             {
+				if (CommandConfigurationContentControl.Content != null)
+				{
+					((NamedConfigurationElement) ((ElementPanelBase) CommandConfigurationContentControl.Content).DataContext).PropertyChanged -= OnElementPropertyChanged;
+				}
+
                 CommandConfigurationContentControl.Content = null;
 
                 if (elementSettingPanel != null)
@@ -280,6 +286,7 @@ namespace Talifun.Commander.Command.Configuration
 					fileMatchElementPanel.OnBindCommandSettings(commandSettings);
 				}
                 elementSettingPanel.OnBindToElement(element);
+				((NamedConfigurationElement)elementSettingPanel.DataContext).PropertyChanged += OnElementPropertyChanged;
             }            
         }
 
@@ -303,5 +310,16 @@ namespace Talifun.Commander.Command.Configuration
                 elementCollectionPanel.OnBindToElementCollection(elementCollection);
             }                        
         }
+
+		void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			SaveButton.IsEnabled = true;
+		}
+
+		private void SaveButtonClick(object sender, RoutedEventArgs e)
+		{
+			SaveButton.IsEnabled = false;
+			_commandManager.Configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
+		}
     }
 }

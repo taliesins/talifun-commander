@@ -44,6 +44,5 @@
             <CheckBox Content="Stop on this match" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="stopProcessingCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=StopProcessing, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
             
         </Grid>
-        <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
 </Configuration:ElementPanelBase>

@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using Talifun.Commander.Command.Configuration;
@@ -34,8 +32,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			if (e.Element == null || !(e.Element is VideoConversionElement)) return;
 			Element = e.Element as VideoConversionElement;
 
-			SaveButton.IsEnabled = false;
-
 			Element.PropertyChanged += OnElementPropertyChanged;
 
 			this.DataContext = Element;
@@ -46,13 +42,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			SetSelectedVideoFormat();
-			SaveButton.IsEnabled = true;
-		}
-
-		private void SaveButtonClick(object sender, RoutedEventArgs e)
-		{
-			SaveButton.IsEnabled = false;
-			Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
 		private string GetSelectedValueFromComboBox(ComboBox comboBox)
@@ -125,8 +114,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			{
 				commonSettingsComboBox.SelectedItem = selectedXmlElement;
 			}
-
-    		
 		}
 
 		private T GetEnumFromAttribute<T>(XmlNode xmlNode, string attributeName)
@@ -193,9 +180,8 @@ namespace Talifun.Commander.Command.Video.Configuration
     		_selectionBoxChanged = false;
 		}
 
-		public void StartingValues()
+    	private void StartingValues()
 		{
-
 			if (string.IsNullOrEmpty(commonSettingsComboBox.Text))
 			{
 				commonSettingsComboBox.Text = "Custom";

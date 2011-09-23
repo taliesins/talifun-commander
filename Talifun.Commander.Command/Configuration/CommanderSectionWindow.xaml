@@ -33,6 +33,7 @@
         <Grid>
             <Button Content="Ok" Height="23" HorizontalAlignment="Right" Margin="0,0,12,9" Name="OkButton" VerticalAlignment="Bottom" Width="75" Click="OkButtonClick" />
             <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,0,93,9" Name="CancelButton" VerticalAlignment="Bottom" Width="75" Click="CancelButtonClick" VerticalContentAlignment="Center" />
+            <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,174,9" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" IsEnabled="False" />
         </Grid>
     </Grid>
 </Window>

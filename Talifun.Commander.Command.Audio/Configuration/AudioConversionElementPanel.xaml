@@ -81,6 +81,5 @@
             <Label Content="Channel:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
         </Grid>
-        <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
 </Configuration:ElementPanelBase>

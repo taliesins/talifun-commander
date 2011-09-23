@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
-using System.Windows;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -24,15 +21,8 @@ namespace Talifun.Commander.Command.Configuration
 
         private void OnBindToElement(object sender, BindToElementEventArgs e)
         {
-            if (Element != null)
-            {
-                Element.PropertyChanged -= OnElementPropertyChanged;
-            }
-
             if (e.Element == null || !(e.Element is FileMatchElement)) return;
             Element = e.Element as FileMatchElement;
-
-            SaveButton.IsEnabled = false;
 
         	var conversionType = Element.ConversionType ?? string.Empty;
         	var commandSettingKey = Element.CommandSettingsKey ?? string.Empty;
@@ -40,8 +30,6 @@ namespace Talifun.Commander.Command.Configuration
 			BindConversionTypes(conversionType);
 			BindCommandSettingKeys(conversionType, commandSettingKey);
             this.DataContext = Element;
-
-            Element.PropertyChanged += OnElementPropertyChanged;
         }
 
 		public void OnBindCommandSettings(Dictionary<string, List<string>> commandSettings)
@@ -88,17 +76,6 @@ namespace Talifun.Commander.Command.Configuration
 
 			commandSettingKeyComboBox.ItemsSource = selectableCommandSettingKeys;
 		}
-
-        void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            SaveButton.IsEnabled = true;
-        }
-
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            SaveButton.IsEnabled = false;
-            Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
-        }
 
 		private void ConversionTypeComboBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{

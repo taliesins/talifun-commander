@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Configuration;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Forms;
 using Talifun.Commander.UI;
 
@@ -23,30 +21,10 @@ namespace Talifun.Commander.Command.Configuration
 
         private void OnBindToElement(object sender, BindToElementEventArgs e)
         {
-            if (Element != null)
-            {
-                Element.PropertyChanged -= OnElementPropertyChanged;
-            }
-
             if (e.Element == null || !(e.Element is FolderElement)) return;
             Element = e.Element as FolderElement;
 
-            SaveButton.IsEnabled = false;
-
             this.DataContext = Element;
-
-            Element.PropertyChanged += OnElementPropertyChanged;
-        }
-
-        void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            SaveButton.IsEnabled = true;
-        }
-
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            SaveButton.IsEnabled = false;
-            Element.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
         }
 
 		private void folderToWatchButton_Click(object sender, RoutedEventArgs e)

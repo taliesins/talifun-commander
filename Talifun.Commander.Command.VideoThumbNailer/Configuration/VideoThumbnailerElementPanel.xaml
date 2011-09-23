@@ -56,8 +56,6 @@
             <Label Content="Time Percentage:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <Slider Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="timePercentageSlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
             <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Right" Name="timePercentageUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
-            
         </Grid>
-        <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
 </Configuration:ElementPanelBase>

@@ -184,7 +184,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Left" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="120" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Label Content="Common Settings:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commonSettingsComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource commonSettings}, XPath=commonSetting, Mode=OneTime}" DisplayMemberPath="@name" SelectionChanged="CommonSettingsComboBoxSelectionChanged" />
@@ -234,6 +234,5 @@
             <Label Content="MinKeyFrameInterval:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <ComboBox Grid.Column="1" Grid.Row="16" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyFrameIntervalComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource minKeyFrameIntervals}, XPath=minKeyFrameInterval, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=MinKeyFrameInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
         </Grid>
-        <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="SaveButton" VerticalAlignment="Bottom" Width="75" Click="SaveButtonClick" />
     </Grid>
 </Configuration:ElementPanelBase>
