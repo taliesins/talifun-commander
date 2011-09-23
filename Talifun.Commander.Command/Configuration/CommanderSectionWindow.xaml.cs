@@ -343,6 +343,14 @@ namespace Talifun.Commander.Command.Configuration
 			{
 				CommandSectionTreeView.ContextMenu = Resources["ProjectContextMenu"] as ContextMenu;
 			}
+			else if (treeViewItem.Tag is FolderElementCollection)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
+			}
+			else if (treeViewItem.Tag is FolderElement)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["FolderContextMenu"] as ContextMenu;
+			}
 			else if (treeViewItem.Tag is CurrentConfigurationElementCollection)
 			{
 				var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
@@ -354,8 +362,7 @@ namespace Talifun.Commander.Command.Configuration
 				var element = (NamedConfigurationElement)treeViewItem.Tag;
 				var elementType = treeViewItem.Tag.GetType();
 				DisplayElementContextMenu(element, elementType);
-			}
-			
+			}	
 		}
 
 		static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
@@ -391,6 +398,46 @@ namespace Talifun.Commander.Command.Configuration
 				CommandSectionTreeView.ContextMenu = Resources["DefaultContextMenu"] as ContextMenu;
 			}
 			_changingContextMenu = false; 
+		}
+
+		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteFolderMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void AddFileMatchMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteFileMatchMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void AddElementMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteElementMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
 		}
     }
 }

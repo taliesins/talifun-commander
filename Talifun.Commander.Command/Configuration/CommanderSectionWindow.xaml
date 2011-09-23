@@ -4,16 +4,26 @@
     
     <Window.Resources>
         <ContextMenu x:Key="DefaultContextMenu" Closed="ContextMenuClosed">
-            <MenuItem Header="Add Project"/>
+            <MenuItem Header="Add Project" Click="AddProjectMenuItemClick"/>
         </ContextMenu>
         <ContextMenu x:Key="ProjectContextMenu" Closed="ContextMenuClosed">
-            <MenuItem Header="Delete Project"/>
+            <MenuItem Header="Delete Project" Click="DeleteProjectMenuItemClick"/>
+        </ContextMenu>
+        <ContextMenu x:Key="FolderCollectionContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Add Folder" Click="AddFolderMenuItemClick"/>
+        </ContextMenu>        
+        <ContextMenu x:Key="FolderContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Delete Folder" Click="DeleteFolderMenuItemClick"/>
+            <MenuItem Header="Add File Match" Click="AddFileMatchMenuItemClick"/>
+        </ContextMenu>
+        <ContextMenu x:Key="FileMatchContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Delete File Match" Click="DeleteFileMatchMenuItemClick"/>
         </ContextMenu>
         <ContextMenu x:Key="ElementContextMenu" Closed="ContextMenuClosed" >
-            <MenuItem Header="Delete"/>
+            <MenuItem Header="Delete" Click="DeleteElementMenuItemClick"/>
         </ContextMenu>
         <ContextMenu x:Key="ElementCollectionContextMenu" Closed="ContextMenuClosed">
-            <MenuItem Header="Add"/>
+            <MenuItem Header="Add" Click="AddElementMenuItemClick"/>
         </ContextMenu>
     </Window.Resources>
     
