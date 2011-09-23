@@ -1,4 +1,7 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using System.Windows;
+using System.Windows.Forms;
+using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.CommandLine.Configuration
 {
@@ -23,6 +26,21 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 			Element = e.Element as CommandLineElement;
 
 			this.DataContext = Element;
+		}
+
+		private void commandPathButton_Click(object sender, RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				FileName = commandPathTextBox.Text,
+				Multiselect = false
+			};
+
+			var result = openFileDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = openFileDialog.FileName;
+			commandPathTextBox.Text = foldername;
 		}
     }
 }
