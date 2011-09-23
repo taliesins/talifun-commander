@@ -325,7 +325,7 @@ namespace Talifun.Commander.Command.Configuration
 			_commandManager.Configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
-
+    	private bool _changingContextMenu;
 		private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			var treeViewItem = VisualUpwardSearch<TreeViewItemWithIcons>(e.OriginalSource as DependencyObject) as TreeViewItemWithIcons;
@@ -334,8 +334,16 @@ namespace Talifun.Commander.Command.Configuration
 			{
 				return;
 			}
+			_changingContextMenu = true;
 
-			if (treeViewItem.Tag is CurrentConfigurationElementCollection)
+			//treeViewItem.Focus();
+			//e.Handled = true;
+
+			if (treeViewItem.Tag is ProjectElement)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["ProjectContextMenu"] as ContextMenu;
+			}
+			else if (treeViewItem.Tag is CurrentConfigurationElementCollection)
 			{
 				var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
 				var elementCollectionType = treeViewItem.Tag.GetType();
@@ -347,6 +355,7 @@ namespace Talifun.Commander.Command.Configuration
 				var elementType = treeViewItem.Tag.GetType();
 				DisplayElementContextMenu(element, elementType);
 			}
+			
 		}
 
 		static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
@@ -367,17 +376,21 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void DisplayElementContextMenu(NamedConfigurationElement element, Type elementType)
 		{
-			CommandSectionTreeView.ContextMenu = CommandSectionTreeView.Resources["ElementCollectionContextMenu"] as ContextMenu;
+			CommandSectionTreeView.ContextMenu = Resources["ElementContextMenu"] as ContextMenu;
 		}
 
 		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection, Type elementCollectionType)
 		{
-			CommandSectionTreeView.ContextMenu = CommandSectionTreeView.Resources["ElementContextMenu"] as ContextMenu;
+			CommandSectionTreeView.ContextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
 		}
 
 		private void ContextMenuClosed(object sender, RoutedEventArgs e)
 		{
-			CommandSectionTreeView.ContextMenu = null;
+			if (!_changingContextMenu)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["DefaultContextMenu"] as ContextMenu;
+			}
+			_changingContextMenu = false; 
 		}
     }
 }

@@ -3,7 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="CommanderSectionWindow" Height="645" Width="621">
     
     <Window.Resources>
-
+        <ContextMenu x:Key="DefaultContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Add Project"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ProjectContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Delete Project"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ElementContextMenu" Closed="ContextMenuClosed" >
+            <MenuItem Header="Delete"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ElementCollectionContextMenu" Closed="ContextMenuClosed">
+            <MenuItem Header="Add"/>
+        </ContextMenu>
     </Window.Resources>
     
     <Grid>
@@ -20,15 +31,7 @@
             <TreeView Name="CommandSectionTreeView" 
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" 
-                      TreeViewItem.Selected="CommandSectionTreeViewSelected" Grid.Column="0">
-                <TreeView.Resources>
-                    <ContextMenu x:Key="ElementContextMenu" Closed="ContextMenuClosed" >
-                        <MenuItem Header="Delete"/>
-                    </ContextMenu>
-                    <ContextMenu x:Key="ElementCollectionContextMenu" Closed="ContextMenuClosed">
-                        <MenuItem Header="Add"/>
-                    </ContextMenu>                    
-                </TreeView.Resources>
+                      TreeViewItem.Selected="CommandSectionTreeViewSelected" Grid.Column="0" ContextMenu="{StaticResource DefaultContextMenu}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="OnPreviewMouseRightButtonDown"/>
