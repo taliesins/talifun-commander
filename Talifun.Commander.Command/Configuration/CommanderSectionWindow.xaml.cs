@@ -354,14 +354,12 @@ namespace Talifun.Commander.Command.Configuration
 			else if (treeViewItem.Tag is CurrentConfigurationElementCollection)
 			{
 				var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
-				var elementCollectionType = treeViewItem.Tag.GetType();
-				DisplayElementCollectionContextMenu(elementCollection, elementCollectionType);
+				DisplayElementCollectionContextMenu(elementCollection);
 			}
 			else if (treeViewItem.Tag is NamedConfigurationElement)
 			{
 				var element = (NamedConfigurationElement)treeViewItem.Tag;
-				var elementType = treeViewItem.Tag.GetType();
-				DisplayElementContextMenu(element, elementType);
+				DisplayElementContextMenu(element);
 			}	
 		}
 
@@ -381,14 +379,20 @@ namespace Talifun.Commander.Command.Configuration
 			return source;
 		}
 
-		private void DisplayElementContextMenu(NamedConfigurationElement element, Type elementType)
+		private void DisplayElementContextMenu(NamedConfigurationElement element)
 		{
-			CommandSectionTreeView.ContextMenu = Resources["ElementContextMenu"] as ContextMenu;
+			var contextMenu = Resources["ElementContextMenu"] as ContextMenu;
+			var menuItem = (MenuItem)contextMenu.Items[0];
+			menuItem.Header = "Delete " + element.GetType().Name;
+			CommandSectionTreeView.ContextMenu = contextMenu;
 		}
 
-		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection, Type elementCollectionType)
+		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection)
 		{
-			CommandSectionTreeView.ContextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
+			var contextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
+			var menuItem = (MenuItem)contextMenu.Items[0];
+			menuItem.Header = "Add " + elementCollection.Setting.ElementType.Name;
+			CommandSectionTreeView.ContextMenu = contextMenu;
 		}
 
 		private void ContextMenuClosed(object sender, RoutedEventArgs e)
