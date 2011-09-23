@@ -20,7 +20,21 @@
             <TreeView Name="CommandSectionTreeView" 
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" 
-                      TreeViewItem.Selected="CommandSectionTreeViewSelected" Grid.Column="0"/>
+                      TreeViewItem.Selected="CommandSectionTreeViewSelected" Grid.Column="0">
+                <TreeView.Resources>
+                    <ContextMenu x:Key="ElementContextMenu" Closed="ContextMenuClosed" >
+                        <MenuItem Header="Delete"/>
+                    </ContextMenu>
+                    <ContextMenu x:Key="ElementCollectionContextMenu" Closed="ContextMenuClosed">
+                        <MenuItem Header="Add"/>
+                    </ContextMenu>                    
+                </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="OnPreviewMouseRightButtonDown"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
             <GridSplitter Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Stretch"

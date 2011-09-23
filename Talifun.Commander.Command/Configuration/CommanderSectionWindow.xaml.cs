@@ -4,7 +4,10 @@ using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Configuration
@@ -121,19 +124,19 @@ namespace Talifun.Commander.Command.Configuration
             CommandSectionTreeView.ItemsSource = GetTreeViewItems();
         }
 
-        protected IEnumerable<TreeViewWithIcons> GetTreeViewItems()
+        protected IEnumerable<TreeViewItemWithIcons> GetTreeViewItems()
         {
             return AddProjects(_commandManager.Configuration.Projects);
         }
 
-        protected IEnumerable<TreeViewWithIcons> AddProjects(ProjectElementCollection projects)
+        protected IEnumerable<TreeViewItemWithIcons> AddProjects(ProjectElementCollection projects)
         {
-            var projectsTreeViewItems = new List<TreeViewWithIcons>();
+            var projectsTreeViewItems = new List<TreeViewItemWithIcons>();
 
             for (var i = 0; i < projects.Count; i++)
             {
                 var project = projects[i];
-                var projectTreeViewItem = new TreeViewWithIcons
+                var projectTreeViewItem = new TreeViewItemWithIcons
                                               {
                                                   Tag = project, 
                                                   HeaderText = project.Name,
@@ -157,9 +160,9 @@ namespace Talifun.Commander.Command.Configuration
             return projectsTreeViewItems;
         }
 
-        protected void AddFolders(TreeViewWithIcons projectTreeViewItem, FolderElementCollection folders)
+        protected void AddFolders(TreeViewItemWithIcons projectTreeViewItem, FolderElementCollection folders)
         {
-            var foldersTreeViewItem = new TreeViewWithIcons
+            var foldersTreeViewItem = new TreeViewItemWithIcons
             {
                 Tag = folders,
                 HeaderText = folders.Setting.ElementCollectionSettingName,
@@ -171,7 +174,7 @@ namespace Talifun.Commander.Command.Configuration
             for (var i = 0; i < folders.Count; i++)
             {
                 var folder = folders[i];
-                var folderTreeViewItem = new TreeViewWithIcons
+                var folderTreeViewItem = new TreeViewItemWithIcons
                 {
                     Tag = folder,
                     HeaderText = folder.Name,
@@ -183,12 +186,12 @@ namespace Talifun.Commander.Command.Configuration
             }
         }
 
-        protected void AddFileMatches(TreeViewWithIcons folderTreeViewItem, FileMatchElementCollection fileMatches)
+        protected void AddFileMatches(TreeViewItemWithIcons folderTreeViewItem, FileMatchElementCollection fileMatches)
         {
             for (var i = 0; i < fileMatches.Count; i++)
             {
                 var fileMatch = fileMatches[i];
-                var fileMatchTreeViewItem = new TreeViewWithIcons
+                var fileMatchTreeViewItem = new TreeViewItemWithIcons
                 {
                     Tag = fileMatch,
                     HeaderText = fileMatch.Name,
@@ -198,9 +201,9 @@ namespace Talifun.Commander.Command.Configuration
             }
         }
 
-        protected void AddCommandConfigurationBase(TreeViewWithIcons projectTreeViewItem, CurrentConfigurationElementCollection elementSettingCollection)
+        protected void AddCommandConfigurationBase(TreeViewItemWithIcons projectTreeViewItem, CurrentConfigurationElementCollection elementSettingCollection)
         {
-            var collectionSettingTreeViewItem = new TreeViewWithIcons
+            var collectionSettingTreeViewItem = new TreeViewItemWithIcons
             {
                 Tag = elementSettingCollection,
                 HeaderText = elementSettingCollection.Setting.ElementCollectionSettingName,
@@ -212,7 +215,7 @@ namespace Talifun.Commander.Command.Configuration
             for (var i = 0; i < elementSettingCollection.Count; i++)
             {
                 var elementSetting = elementSettingCollection[i];
-                var elementSettingTreeViewItem = new TreeViewWithIcons
+                var elementSettingTreeViewItem = new TreeViewItemWithIcons
                 {
                     Tag = elementSetting,
                     HeaderText = elementSetting.Name,
@@ -241,7 +244,7 @@ namespace Talifun.Commander.Command.Configuration
         private void CommandSectionTreeViewSelected(object sender, RoutedEventArgs e)
         {
             var treeView = sender as TreeView;
-            var treeViewItem = (TreeViewWithIcons)treeView.SelectedItem;
+            var treeViewItem = (TreeViewItemWithIcons)treeView.SelectedItem;
 
             if (treeViewItem.Tag is CurrentConfigurationElementCollection)
             {
@@ -311,7 +314,7 @@ namespace Talifun.Commander.Command.Configuration
             }                        
         }
 
-		void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			SaveButton.IsEnabled = true;
 		}
@@ -320,6 +323,61 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			SaveButton.IsEnabled = false;
 			_commandManager.Configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
+		}
+
+
+		private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			var treeViewItem = VisualUpwardSearch<TreeViewItemWithIcons>(e.OriginalSource as DependencyObject) as TreeViewItemWithIcons;
+
+			if (treeViewItem == null)
+			{
+				return;
+			}
+
+			if (treeViewItem.Tag is CurrentConfigurationElementCollection)
+			{
+				var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
+				var elementCollectionType = treeViewItem.Tag.GetType();
+				DisplayElementCollectionContextMenu(elementCollection, elementCollectionType);
+			}
+			else if (treeViewItem.Tag is NamedConfigurationElement)
+			{
+				var element = (NamedConfigurationElement)treeViewItem.Tag;
+				var elementType = treeViewItem.Tag.GetType();
+				DisplayElementContextMenu(element, elementType);
+			}
+		}
+
+		static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
+		{
+			while (source != null && source.GetType() != typeof(T))
+			{
+				if (source is Visual || source is Visual3D)
+				{
+					source = VisualTreeHelper.GetParent(source);
+				}
+				else
+				{
+					source = LogicalTreeHelper.GetParent(source);
+				}
+			}
+			return source;
+		}
+
+		private void DisplayElementContextMenu(NamedConfigurationElement element, Type elementType)
+		{
+			CommandSectionTreeView.ContextMenu = CommandSectionTreeView.Resources["ElementCollectionContextMenu"] as ContextMenu;
+		}
+
+		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection, Type elementCollectionType)
+		{
+			CommandSectionTreeView.ContextMenu = CommandSectionTreeView.Resources["ElementContextMenu"] as ContextMenu;
+		}
+
+		private void ContextMenuClosed(object sender, RoutedEventArgs e)
+		{
+			CommandSectionTreeView.ContextMenu = null;
 		}
     }
 }

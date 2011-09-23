@@ -171,7 +171,7 @@
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
-    <Compile Include="Configuration\TreeViewWithIcons.cs" />
+    <Compile Include="Configuration\TreeViewItemWithIcons.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />
