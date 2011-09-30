@@ -28,6 +28,11 @@ namespace Talifun.Commander.Command.Configuration
             properties.Add(stopProcessing);
         }
 
+		public FileMatchElement()
+		{
+			Setting = FileMatchConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
@@ -93,5 +98,5 @@ namespace Talifun.Commander.Command.Configuration
                 return properties;
             }
         }
-    }
+	}
 }

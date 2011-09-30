@@ -12,6 +12,8 @@ namespace Talifun.Commander.Command.Configuration
     /// </summary>
 	public abstract class NamedConfigurationElement : ConfigurationElement, INotifyPropertyChanged, INotifyPropertyChanging 
     {
+		public ISettingConfiguration Setting { get; protected set; }
+
         /// <summary>
         /// Gets or sets a string containing the name of this configuration element.
         /// </summary>

@@ -127,7 +127,7 @@ namespace Talifun.Commander.Command
 
         public E GetSettings<C, E>(ICommandSagaProperties properties)
             where C : CurrentConfigurationElementCollection<E> 
-            where E : ConfigurationElement, new()
+            where E : NamedConfigurationElement, new()
         {
             var commandSettings = new ProjectElementCommand<C>(Settings.ElementCollectionSettingName, properties.Project);
             var settings = commandSettings.Settings;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
@@ -22,7 +23,6 @@ namespace Talifun.Commander.Command.Configuration
         private readonly IEnumerable<CurrentConfigurationElementCollection> _currentConfigurationElementCollections;
         private readonly IEnumerable<ElementPanelBase> _elementPanels;
         private readonly IEnumerable<ElementCollectionPanelBase> _elementCollectionPanels;
-        private readonly Dictionary<string, BitmapSource> _icons;
 
         public CommanderSectionWindow(ICommanderManager commandManager)
         {
@@ -31,11 +31,10 @@ namespace Talifun.Commander.Command.Configuration
             _currentConfigurationElementCollections = GetConfiguration();
             _elementPanels = GetElementPanels();
             _elementCollectionPanels = GetElementCollectionPanels();
-            _icons = GetConfigurationIcons();
 
             InitializeComponent();
             this.Icon = Properties.Resource.Commander.ToBitmap().ToBitmapSource();
-
+        	this.DataContext = new CommanderSectionWindowViewModel();
             BuildTree();
         }
 
@@ -105,124 +104,18 @@ namespace Talifun.Commander.Command.Configuration
 			return commandSettings;
 		}
 
-    	private Dictionary<string, BitmapSource> GetConfigurationIcons()
+ 
+
+    	private void BuildTree()
         {
-            var images = new Dictionary<string, BitmapSource>();
+        	var viewModel = ((CommanderSectionWindowViewModel) this.DataContext);
 
-            foreach (var currentConfigurationElementCollection in _commandManager.Container.GetExportedValues<CurrentConfigurationElementCollection>())
-            {
-                images.Add(currentConfigurationElementCollection.Setting.ElementSettingName, currentConfigurationElementCollection.Setting.ElementImage.ToBitmapSource());
-                images.Add(currentConfigurationElementCollection.Setting.ElementCollectionSettingName, currentConfigurationElementCollection.Setting.ElementCollectionImage.ToBitmapSource());
-            }
+			//var commandTreeViewModel = new CommandTreeViewModel(_currentConfigurationElementCollections, _icons);
+			//var commandTreeViewItemViewModels = commandTreeViewModel.AddProjects(_commandManager.Configuration.Projects);
 
-            return images;
-        }
+			//viewModel.CommandTreeViewItemViewModels = commandTreeViewItemViewModels;
 
-        protected void BuildTree()
-        {
-            CommandSectionTreeView.Items.Clear();
-            CommandSectionTreeView.ItemsSource = GetTreeViewItems();
-        }
-
-        protected IEnumerable<TreeViewItemWithIcons> GetTreeViewItems()
-        {
-            return AddProjects(_commandManager.Configuration.Projects);
-        }
-
-        protected IEnumerable<TreeViewItemWithIcons> AddProjects(ProjectElementCollection projects)
-        {
-            var projectsTreeViewItems = new List<TreeViewItemWithIcons>();
-
-            for (var i = 0; i < projects.Count; i++)
-            {
-                var project = projects[i];
-                var projectTreeViewItem = new TreeViewItemWithIcons
-                                              {
-                                                  Tag = project, 
-                                                  HeaderText = project.Name,
-                                                  Icon = _icons[projects.Setting.ElementSettingName]
-                                              };
-
-                projectsTreeViewItems.Add(projectTreeViewItem);
-
-                AddFolders(projectTreeViewItem, project.Folders);
-
-                foreach (var configurationElementCollection in _currentConfigurationElementCollections)
-                {
-                    var collectionSettingName = configurationElementCollection.Setting.ElementCollectionSettingName;
-                    var configurationProperty = project.GetConfigurationProperty(collectionSettingName);
-                    var commandElementCollection = project.GetCommandConfiguration<CurrentConfigurationElementCollection>(configurationProperty);
-
-                    AddCommandConfigurationBase(projectTreeViewItem, commandElementCollection);
-                }
-            }
-
-            return projectsTreeViewItems;
-        }
-
-        protected void AddFolders(TreeViewItemWithIcons projectTreeViewItem, FolderElementCollection folders)
-        {
-            var foldersTreeViewItem = new TreeViewItemWithIcons
-            {
-                Tag = folders,
-                HeaderText = folders.Setting.ElementCollectionSettingName,
-                Icon = _icons[folders.Setting.ElementCollectionSettingName]
-            };
-
-            projectTreeViewItem.Items.Add(foldersTreeViewItem);
-
-            for (var i = 0; i < folders.Count; i++)
-            {
-                var folder = folders[i];
-                var folderTreeViewItem = new TreeViewItemWithIcons
-                {
-                    Tag = folder,
-                    HeaderText = folder.Name,
-                    Icon = _icons[folders.Setting.ElementSettingName]
-                };
-                foldersTreeViewItem.Items.Add(folderTreeViewItem);
-
-                AddFileMatches(folderTreeViewItem, folder.FileMatches);
-            }
-        }
-
-        protected void AddFileMatches(TreeViewItemWithIcons folderTreeViewItem, FileMatchElementCollection fileMatches)
-        {
-            for (var i = 0; i < fileMatches.Count; i++)
-            {
-                var fileMatch = fileMatches[i];
-                var fileMatchTreeViewItem = new TreeViewItemWithIcons
-                {
-                    Tag = fileMatch,
-                    HeaderText = fileMatch.Name,
-                    Icon = _icons[fileMatches.Setting.ElementSettingName]
-                };
-                folderTreeViewItem.Items.Add(fileMatchTreeViewItem);
-            }
-        }
-
-        protected void AddCommandConfigurationBase(TreeViewItemWithIcons projectTreeViewItem, CurrentConfigurationElementCollection elementSettingCollection)
-        {
-            var collectionSettingTreeViewItem = new TreeViewItemWithIcons
-            {
-                Tag = elementSettingCollection,
-                HeaderText = elementSettingCollection.Setting.ElementCollectionSettingName,
-                Icon = _icons[elementSettingCollection.Setting.ElementCollectionSettingName]
-            };
-
-            projectTreeViewItem.Items.Add(collectionSettingTreeViewItem);
-
-            for (var i = 0; i < elementSettingCollection.Count; i++)
-            {
-                var elementSetting = elementSettingCollection[i];
-                var elementSettingTreeViewItem = new TreeViewItemWithIcons
-                {
-                    Tag = elementSetting,
-                    HeaderText = elementSetting.Name,
-                    Icon = _icons[elementSettingCollection.Setting.ElementSettingName]
-                };
-                collectionSettingTreeViewItem.Items.Add(elementSettingTreeViewItem);
-            }
+			viewModel.CommandTreeViewItemViewModels = _commandManager.Configuration.Projects;
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
@@ -244,18 +137,18 @@ namespace Talifun.Commander.Command.Configuration
         private void CommandSectionTreeViewSelected(object sender, RoutedEventArgs e)
         {
             var treeView = sender as TreeView;
-            var treeViewItem = (TreeViewItemWithIcons)treeView.SelectedItem;
+            var selectedItem = treeView.SelectedItem;
 
-            if (treeViewItem.Tag is CurrentConfigurationElementCollection)
+            if (selectedItem is CurrentConfigurationElementCollection)
             {
-                var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
-                var elementCollectionType = treeViewItem.Tag.GetType();
+                var elementCollection = (CurrentConfigurationElementCollection)selectedItem;
+                var elementCollectionType = selectedItem.GetType();
                 DisplayElementCollectionPanel(elementCollection, elementCollectionType);
             }
-            else if (treeViewItem.Tag is NamedConfigurationElement)
+            else if (selectedItem is NamedConfigurationElement)
             {
-                var element = (NamedConfigurationElement)treeViewItem.Tag;
-                var elementType = treeViewItem.Tag.GetType();
+                var element = (NamedConfigurationElement)selectedItem;
+                var elementType = selectedItem.GetType();
                 DisplayElementPanel(element, elementType);
             }
         }
@@ -328,9 +221,9 @@ namespace Talifun.Commander.Command.Configuration
     	private bool _changingContextMenu;
 		private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			var treeViewItem = VisualUpwardSearch<TreeViewItemWithIcons>(e.OriginalSource as DependencyObject) as TreeViewItemWithIcons;
+			var contentPresenter = e.Source as ContentPresenter;
 
-			if (treeViewItem == null)
+			if (contentPresenter == null)
 			{
 				return;
 			}
@@ -339,26 +232,28 @@ namespace Talifun.Commander.Command.Configuration
 			//treeViewItem.Focus();
 			//e.Handled = true;
 
-			if (treeViewItem.Tag is ProjectElement)
+			var selectedItem = contentPresenter.DataContext;
+
+			if (selectedItem is ProjectElement)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["ProjectContextMenu"] as ContextMenu;
 			}
-			else if (treeViewItem.Tag is FolderElementCollection)
+			else if (selectedItem is FolderElementCollection)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
 			}
-			else if (treeViewItem.Tag is FolderElement)
+			else if (selectedItem is FolderElement)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["FolderContextMenu"] as ContextMenu;
 			}
-			else if (treeViewItem.Tag is CurrentConfigurationElementCollection)
+			else if (selectedItem is CurrentConfigurationElementCollection)
 			{
-				var elementCollection = (CurrentConfigurationElementCollection)treeViewItem.Tag;
+				var elementCollection = (CurrentConfigurationElementCollection)selectedItem;
 				DisplayElementCollectionContextMenu(elementCollection);
 			}
-			else if (treeViewItem.Tag is NamedConfigurationElement)
+			else if (selectedItem is NamedConfigurationElement)
 			{
-				var element = (NamedConfigurationElement)treeViewItem.Tag;
+				var element = (NamedConfigurationElement)selectedItem;
 				DisplayElementContextMenu(element);
 			}	
 		}
@@ -406,7 +301,10 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
-
+			var projects = _commandManager.Configuration.Projects;
+			var project = projects.CreateNew();
+			project.Name = "New Project " + projects.Count;
+			projects[project.Name] = project;
 		}
 
 		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)

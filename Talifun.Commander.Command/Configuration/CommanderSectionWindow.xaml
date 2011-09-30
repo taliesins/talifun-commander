@@ -1,8 +1,14 @@
 ﻿<Window x:Class="Talifun.Commander.Command.Configuration.CommanderSectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="CommanderSectionWindow" Height="645" Width="621">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
+        xmlns:complex="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI" 
+        Title="CommanderSectionWindow" Height="645" Width="621">
     
     <Window.Resources>
+        <complex:ComplexGroupDataTemplateSelector x:Key="complex-group-data-template-selector"/>
+        <complex:ComplexGroupConverter x:Key="complex-group-converter"/>
+        
         <ContextMenu x:Key="DefaultContextMenu" Closed="ContextMenuClosed">
             <MenuItem Header="Add Project" Click="AddProjectMenuItemClick"/>
         </ContextMenu>
@@ -26,7 +32,6 @@
             <MenuItem Header="Add" Click="AddElementMenuItemClick"/>
         </ContextMenu>
     </Window.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -41,12 +46,67 @@
             <TreeView Name="CommandSectionTreeView" 
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" 
-                      TreeViewItem.Selected="CommandSectionTreeViewSelected" Grid.Column="0" ContextMenu="{StaticResource DefaultContextMenu}">
+                      TreeViewItem.Selected="CommandSectionTreeViewSelected" 
+                      Grid.Column="0" 
+                      ItemsSource="{Binding CommandTreeViewItemViewModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ContextMenu="{StaticResource DefaultContextMenu}"
+                      ItemTemplateSelector="{StaticResource complex-group-data-template-selector}"
+                      >
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="OnPreviewMouseRightButtonDown"/>
                     </Style>
                 </TreeView.ItemContainerStyle>
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type Configuration:ProjectElement}">
+                        <HierarchicalDataTemplate.ItemsSource>
+                            <MultiBinding Converter="{StaticResource complex-group-converter}" ConverterParameter="FolderElementCollection-Template,CommandConfigurations-Template">
+                                <Binding Path="Folders"/>
+                                <Binding Path="CommandConfigurations"/>
+                            </MultiBinding>
+                        </HierarchicalDataTemplate.ItemsSource>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate x:Key="FolderElementCollection-Template" ItemsSource="{Binding Path=.}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementCollectionImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="Folders to watch" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate x:Key="CommandConfigurations-Template" ItemsSource="{Binding Path=.}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Plugins Settings" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>                    
+                    <HierarchicalDataTemplate DataType="{x:Type Configuration:FolderElement }" ItemsSource="{Binding FileMatches}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type Configuration:FileMatchElement}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type Configuration:CurrentConfigurationElementCollection }" ItemsSource="{Binding .}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementCollectionImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Setting.ElementCollectionSettingName}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type Configuration:NamedConfigurationElement}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+
+                </TreeView.Resources>
             </TreeView>
             <GridSplitter Grid.Column="1"
                     HorizontalAlignment="Center"

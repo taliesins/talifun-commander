@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
@@ -27,14 +28,14 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
             get { return "videoThumbnailerSetting"; }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.VideoThumbnailerElement; }
+			get { return Properties.Resource.VideoThumbnailerElement.ToBitmapSource(); }
         }
 
-        public Bitmap ElementCollectionImage
+        public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.VideoThumbnailerElementCollection; }
+			get { return Properties.Resource.VideoThumbnailerElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -26,14 +27,14 @@ namespace Talifun.Commander.Command.Configuration
             get { return "project"; }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.ProjectElement; }
+			get { return Properties.Resource.ProjectElement.ToBitmapSource(); }
         }
 
-        public Bitmap ElementCollectionImage
+        public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.ProjectElementCollection; }
+			get { return Properties.Resource.ProjectElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace Talifun.Commander.Command
 {
@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command
         string ElementCollectionSettingName { get; }
         Type ElementCollectionType { get; }
         Type ElementType { get; }
-        Bitmap ElementImage { get; }
-        Bitmap ElementCollectionImage { get; }
+        BitmapSource ElementImage { get; }
+        BitmapSource ElementCollectionImage { get; }
     }
 }

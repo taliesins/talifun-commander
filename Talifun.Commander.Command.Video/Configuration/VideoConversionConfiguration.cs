@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Video.Configuration
 {
@@ -53,14 +54,14 @@ namespace Talifun.Commander.Command.Video.Configuration
             }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.VideoConversionElement; }
+			get { return Properties.Resource.VideoConversionElement.ToBitmapSource(); }
         }
 
-        public Bitmap ElementCollectionImage
+        public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.VideoConversionElementCollection; }
+			get { return Properties.Resource.VideoConversionElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

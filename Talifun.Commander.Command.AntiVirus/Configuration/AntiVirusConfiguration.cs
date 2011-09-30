@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.AntiVirus.Configuration
 {
@@ -40,15 +42,15 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.AntiVirusElement; }
+			get { return Properties.Resource.AntiVirusElement.ToBitmapSource(); }
         }
 
 
-        public Bitmap ElementCollectionImage
+		public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.AntiVirusElementCollection; }
+			get { return Properties.Resource.AntiVirusElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

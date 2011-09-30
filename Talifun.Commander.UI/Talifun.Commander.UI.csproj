@@ -48,10 +48,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingGroup.cs" />
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="ComplexGroupConverter.cs" />
+    <Compile Include="ComplexGroupDataTemplateSelector.cs" />
     <Compile Include="DialogExtensions.cs" />
     <Compile Include="EnumToFriendlyNameConverter.cs" />
+    <Compile Include="IBindingGroup.cs" />
+    <Compile Include="IEnumerableKeyExtension.cs" />
+    <Compile Include="IEnumerableTypeExtension.cs" />
     <Compile Include="LocalizableDescriptionAttribute.cs" />
+    <Compile Include="ObservableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

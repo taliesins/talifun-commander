@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.CommandLine.Configuration
 {
@@ -26,14 +27,14 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
             get { return "commandLineSetting"; }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.CommandLineElement; }
+			get { return Properties.Resource.CommandLineElement.ToBitmapSource(); }
         }
 
-        public Bitmap ElementCollectionImage
+        public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.CommandLineElementCollection; }
+			get { return Properties.Resource.CommandLineElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

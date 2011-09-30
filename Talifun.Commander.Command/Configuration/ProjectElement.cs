@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -15,6 +17,8 @@ namespace Talifun.Commander.Command.Configuration
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         public ProjectElement()
         {
+			Setting = ProjectConfiguration.Instance;	
+
             var container = CommandContainer.Instance.Container;
             var pluginProperties = container.GetExportedValues<CurrentConfigurationElementCollection>();
 
@@ -47,6 +51,25 @@ namespace Talifun.Commander.Command.Configuration
         {
             get { return ((FolderElementCollection)base[folders]); }
         }
+
+		public List<CurrentConfigurationElementCollection> CommandConfigurations
+		{
+			get
+			{
+				var commandConfigurations = properties.Cast<ConfigurationProperty>()
+					.Where(x =>
+					       x != name
+					       && x != folders
+						   && x.Type != typeof(ProjectElementCollection)
+						   && x.Type != typeof(FileMatchElementCollection)
+						   )
+					.Select(x => base[x])
+					.Cast<CurrentConfigurationElementCollection>()
+					.ToList();
+
+				return commandConfigurations;
+			}
+		}
 
         public void AddCommandConfiguration(ConfigurationProperty commandConfiguration)
         {

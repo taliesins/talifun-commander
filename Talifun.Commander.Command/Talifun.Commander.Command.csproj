@@ -119,6 +119,7 @@
     <Compile Include="Configuration\BindToElementEventArgs.cs" />
     <Compile Include="Configuration\BindToElementEventHandler.cs" />
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
+    <Compile Include="Configuration\CommanderSectionWindowViewModel.cs" />
     <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
     <Compile Include="Configuration\ElementPanelBase.cs" />
     <Compile Include="Configuration\FileMatchElementPanel.xaml.cs">
@@ -171,7 +172,8 @@
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
-    <Compile Include="Configuration\TreeViewItemWithIcons.cs" />
+    <Compile Include="Configuration\CommandTreeViewItemViewModel.cs" />
+    <Compile Include="Configuration\CommandTreeViewModel.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
     <Compile Include="ICommandConfiguration.cs" />
     <Compile Include="ICommandConfigurationTester.cs" />

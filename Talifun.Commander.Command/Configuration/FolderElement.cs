@@ -35,6 +35,11 @@ namespace Talifun.Commander.Command.Configuration
             properties.Add(fileMatches);
         }
 
+		public FolderElement()
+		{
+			Setting = FolderConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>

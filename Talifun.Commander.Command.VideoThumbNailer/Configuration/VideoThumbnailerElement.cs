@@ -32,6 +32,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
             properties.Add(timePercentage);
         }
 
+		public VideoThumbnailerElement()
+		{
+			Setting = VideoThumbnailerConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the image output type to use for the thumbnail.
         /// </summary>

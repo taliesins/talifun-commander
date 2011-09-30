@@ -180,8 +180,11 @@ namespace Talifun.Commander.Command.Configuration
 		/// <param name="propertyName">The name of the changed property.</param>
 		protected void OnPropertyChanged(string propertyName)
 		{
-			//validate the property name in debug builds
-			VerifyProperty(propertyName);
+			if (propertyName != IndexerName)
+			{
+				//validate the property name in debug builds
+				VerifyProperty(propertyName);
+			}
 
 			if (PropertyChanged != null)
 			{
@@ -196,8 +199,11 @@ namespace Talifun.Commander.Command.Configuration
 		/// <param name="propertyName">The name of the changed property.</param>
 		protected void OnPropertyChanging(string propertyName)
 		{
-			//validate the property name in debug builds
-			VerifyProperty(propertyName);
+			if (propertyName != IndexerName)
+			{
+				//validate the property name in debug builds
+				VerifyProperty(propertyName);
+			}
 
 			if (PropertyChanging != null)
 			{
@@ -236,7 +242,7 @@ namespace Talifun.Commander.Command.Configuration
     /// Defines a generic collection class for strongly-typed configuration elements, where <typeparamref name="T"/> is a type derived from <see cref="System.Configuration.ConfigurationElement" />.
     /// </summary>
     /// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationElement" />.</typeparam>
-    public abstract class CurrentConfigurationElementCollection<T> : CurrentConfigurationElementCollection where T : ConfigurationElement, new()
+	public abstract class CurrentConfigurationElementCollection<T> : CurrentConfigurationElementCollection where T : NamedConfigurationElement, new()
     {
         /// <summary>
         /// Gets or sets the configuration element at the specified index.
@@ -306,5 +312,16 @@ namespace Talifun.Commander.Command.Configuration
         {
             return new T();
         }
-    }
+
+		/// <summary>
+		/// Creates a new instance of <typeparamref name="T"/>.
+		/// </summary>
+		/// <returns>
+		/// A new <typeparamref name="T" />.
+		/// </returns>
+		public T CreateNew()
+		{
+			return new T();
+		}
+	}
 }

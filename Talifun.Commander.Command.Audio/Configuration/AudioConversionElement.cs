@@ -26,6 +26,11 @@ namespace Talifun.Commander.Command.Audio.Configuration
             properties.Add(audioChannels);
         }
 
+		public AudioConversionElement()
+		{
+			Setting = AudioConversionConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the conversion type to use.
         /// </summary>

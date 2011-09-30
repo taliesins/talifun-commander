@@ -36,6 +36,11 @@ namespace Talifun.Commander.Command.Image.Configuration
             properties.Add(resizeImageType);
         }
 
+		public ImageConversionElement()
+		{
+			Setting = ImageConversionConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the image width, in pixels, to generate when using this photo style.
         /// Images 

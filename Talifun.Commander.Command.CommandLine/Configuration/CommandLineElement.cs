@@ -30,6 +30,11 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
             properties.Add(args);
         }
 
+		public CommandLineElement()
+		{
+			Setting = CommandLineConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the command path to use. e.g. c:\bin\test.exe
         /// </summary>

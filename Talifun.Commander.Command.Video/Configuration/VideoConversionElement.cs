@@ -51,6 +51,11 @@ namespace Talifun.Commander.Command.Video.Configuration
             properties.Add(minKeyFrameInterval);
         }
 
+		public VideoConversionElement()
+		{
+			Setting = VideoConversionConfiguration.Instance;	
+		}
+
 		/// <summary>
 		/// Gets or sets the audio conversion type to use.
 		/// </summary>

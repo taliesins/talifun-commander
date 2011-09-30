@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Drawing;
+using System.Windows.Media.Imaging;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Audio.Configuration
 {
@@ -40,14 +41,14 @@ namespace Talifun.Commander.Command.Audio.Configuration
             }
         }
 
-        public Bitmap ElementImage
+        public BitmapSource ElementImage
         {
-            get { return Properties.Resource.AudioConversionElement; }
+			get { return Properties.Resource.AudioConversionElement.ToBitmapSource(); }
         }
 
-        public Bitmap ElementCollectionImage
+        public BitmapSource ElementCollectionImage
         {
-            get { return Properties.Resource.AudioConversionElementCollection; }
+			get { return Properties.Resource.AudioConversionElementCollection.ToBitmapSource(); }
         }
 
         public Type ElementCollectionType

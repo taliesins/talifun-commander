@@ -20,6 +20,11 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             properties.Add(virusScannerType);
         }
 
+		public AntiVirusElement()
+		{
+			Setting = AntiVirusConfiguration.Instance;	
+		}
+
         /// <summary>
         /// Gets or sets the virus scanner to use.
         /// </summary>
