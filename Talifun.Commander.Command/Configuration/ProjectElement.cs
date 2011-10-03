@@ -52,7 +52,7 @@ namespace Talifun.Commander.Command.Configuration
             get { return ((FolderElementCollection)base[folders]); }
         }
 
-		public List<CurrentConfigurationElementCollection> CommandConfigurations
+		public List<CurrentConfigurationElementCollection> CommandPlugins
 		{
 			get
 			{

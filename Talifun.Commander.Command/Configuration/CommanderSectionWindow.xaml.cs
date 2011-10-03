@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using Talifun.Commander.UI;
 
@@ -56,35 +54,9 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => x.Settings != null);
         }
 
-		private ProjectElement GetProjectElementForFileMatchElement(FileMatchElement fileMatchElement)
-		{
-			var projects = _commandManager.Configuration.Projects;
-			for (var i = 0; i < projects.Count; i++)
-            {
-                var project = projects[i];
-            	var folders = project.Folders;
-				for (var j = 0; j < folders.Count; j++)
-				{
-					var folder = folders[j];
-					var fileMatches = folder.FileMatches;
-					for (var k = 0; k < fileMatches.Count; k++)
-					{
-						var fileMatch = fileMatches[k];
-
-						if (fileMatch == fileMatchElement)
-						{
-							return project;
-						}
-					}
-				}
-            }
-
-			return null;
-		}
-
 		private Dictionary<string, List<string>> GetCommandSettings(FileMatchElement fileMatchElement)
 		{
-			var project = GetProjectElementForFileMatchElement(fileMatchElement);
+			var project = GetProjectElement(fileMatchElement);
 			var commandSettings = new Dictionary<string, List<string>>();
 			foreach (var configurationElementCollection in _currentConfigurationElementCollections)
 			{
@@ -104,17 +76,9 @@ namespace Talifun.Commander.Command.Configuration
 			return commandSettings;
 		}
 
- 
-
     	private void BuildTree()
         {
         	var viewModel = ((CommanderSectionWindowViewModel) this.DataContext);
-
-			//var commandTreeViewModel = new CommandTreeViewModel(_currentConfigurationElementCollections, _icons);
-			//var commandTreeViewItemViewModels = commandTreeViewModel.AddProjects(_commandManager.Configuration.Projects);
-
-			//viewModel.CommandTreeViewItemViewModels = commandTreeViewItemViewModels;
-
 			viewModel.CommandTreeViewItemViewModels = _commandManager.Configuration.Projects;
         }
 
@@ -229,22 +193,51 @@ namespace Talifun.Commander.Command.Configuration
 			}
 			_changingContextMenu = true;
 
-			//treeViewItem.Focus();
-			//e.Handled = true;
+			object selectedItem = null;
+			if (contentPresenter.DataContext is BindingGroup)
+			{
+				var bindingGroup = (BindingGroup)contentPresenter.DataContext;
 
-			var selectedItem = contentPresenter.DataContext;
+				var bindingGroupTreeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
+				var projectTreeViewItem = VisualUpwardSearch<TreeViewItem>(VisualTreeHelper.GetParent(bindingGroupTreeViewItem)) as HeaderedItemsControl;
+				var projectElement = projectTreeViewItem.Header as ProjectElement;
+
+				if (bindingGroup.ElementType == typeof(FolderElement) )
+				{
+					if (projectElement != null)
+					{
+						CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
+						CommandSectionTreeView.ContextMenu.Tag = projectElement;
+					}
+				}
+				else if (bindingGroup.ElementType == typeof(CurrentConfigurationElementCollection))
+				{
+					CommandSectionTreeView.ContextMenu = null;
+				}
+				else
+				{
+					throw new Exception("Unknown binding group type");
+				}
+			}
+			else
+			{
+				selectedItem = contentPresenter.DataContext;
+			}
 
 			if (selectedItem is ProjectElement)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["ProjectContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is FolderElementCollection)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is FolderElement)
 			{
 				CommandSectionTreeView.ContextMenu = Resources["FolderContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is CurrentConfigurationElementCollection)
 			{
@@ -256,6 +249,181 @@ namespace Talifun.Commander.Command.Configuration
 				var element = (NamedConfigurationElement)selectedItem;
 				DisplayElementContextMenu(element);
 			}	
+		}
+
+    	private void DisplayElementContextMenu(NamedConfigurationElement element)
+		{
+			var contextMenu = Resources["ElementContextMenu"] as ContextMenu;
+			var menuItem = (MenuItem)contextMenu.Items[0];
+			menuItem.Header = "Delete " + element.GetType().Name;
+			CommandSectionTreeView.ContextMenu = contextMenu;
+			CommandSectionTreeView.ContextMenu.Tag = element;
+		}
+
+		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection)
+		{
+			var contextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
+			var menuItem = (MenuItem)contextMenu.Items[0];
+			menuItem.Header = "Add " + elementCollection.Setting.ElementType.Name;
+			CommandSectionTreeView.ContextMenu = contextMenu;
+			CommandSectionTreeView.ContextMenu.Tag = elementCollection;
+		}
+
+		private void ContextMenuClosed(object sender, RoutedEventArgs e)
+		{
+			if (!_changingContextMenu)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["DefaultContextMenu"] as ContextMenu;
+			}
+			_changingContextMenu = false; 
+		}
+
+		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var projects = _commandManager.Configuration.Projects;
+			var project = projects.CreateNew();
+
+			var counter = 0;
+			do
+			{
+				counter++;
+				project.Name = "New Project " + counter;
+			} while (projects.Cast<NamedConfigurationElement>().Where(x => x.Name == project.Name).Any());
+
+			projects[project.Name] = project;
+		}
+
+		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var projectElement = CommandSectionTreeView.ContextMenu.Tag as ProjectElement;
+
+			if (projectElement == null)
+			{
+				return;
+			}
+
+			_commandManager.Configuration.Projects.Remove(projectElement.Name);
+		}
+
+		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var folderElementCollection = CommandSectionTreeView.ContextMenu.Tag as FolderElementCollection;
+
+			if (folderElementCollection == null)
+			{
+				return;
+			}
+		}
+
+		private void DeleteFolderMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var folderElement = CommandSectionTreeView.ContextMenu.Tag as FolderElement;
+
+			if (folderElement == null)
+			{
+				return;
+			}
+
+			var folderElementCollection = GetFolderElementCollection(folderElement);
+			if (folderElementCollection == null)
+			{
+				return;
+			}
+
+			folderElementCollection.Remove(folderElement.Name);
+		}
+
+		private void AddFileMatchMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteFileMatchMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var fileMatchElement = CommandSectionTreeView.ContextMenu.Tag as FileMatchElement;
+
+			if (fileMatchElement == null)
+			{
+				return;
+			}
+
+			var fileMatchElementCollection = GetFileMatchElementCollection(fileMatchElement);
+			if (fileMatchElementCollection == null)
+			{
+				return;
+			}
+
+			fileMatchElementCollection.Remove(fileMatchElement.Name);
+		}
+
+		private void AddElementMenuItemClick(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteElementMenuItemClick(object sender, RoutedEventArgs e)
+		{
+			var namedConfigurationElement = CommandSectionTreeView.ContextMenu.Tag as NamedConfigurationElement;
+
+			if (namedConfigurationElement == null)
+			{
+				return;
+			}
+
+			var currentConfigurationElementCollection = GetCurrentConfigurationElementCollection(namedConfigurationElement);
+			if (currentConfigurationElementCollection == null)
+			{
+				return;
+			}
+			
+			currentConfigurationElementCollection.Remove(namedConfigurationElement.Name);
+		}
+
+		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
+		{
+			var folderElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+				.Select(x => x.Folders)
+				.Where(x => x.Cast<FolderElement>().Where(y => y == folderElement).Any())
+				.FirstOrDefault();
+
+			return folderElementCollection;
+		}
+
+		private FileMatchElementCollection GetFileMatchElementCollection(FileMatchElement fileMatchElement)
+		{
+			var fileMatchElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.Folders.Cast<FolderElement>())
+				.Select(x => x.FileMatches)
+				.Where(x => x.Cast<FileMatchElement>().Where(y => y == fileMatchElement).Any())
+				.FirstOrDefault();
+
+			return fileMatchElementCollection;
+		}
+
+    	private ProjectElement GetProjectElement(FileMatchElement fileMatchElement)
+    	{
+    		var project = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+    			.Where(x => x.Folders.Cast<FolderElement>()
+    			            	.Where(y => y.FileMatches.Cast<FileMatchElement>()
+    			            	            	.Where(z => z == fileMatchElement)
+    			            	            	.Any())
+    			            	.Any())
+    			.FirstOrDefault();
+
+			return project;
+		}
+
+		private CurrentConfigurationElementCollection GetCurrentConfigurationElementCollection(NamedConfigurationElement namedConfigurationElement)
+		{
+			var currentConfigurationElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.CommandPlugins)
+				.Where(x => x.Setting == namedConfigurationElement.Setting)
+				.Where(x => x.Cast<NamedConfigurationElement>()
+					.Where(y => y == namedConfigurationElement)
+					.Any())
+				.First();
+
+			return currentConfigurationElementCollection;
 		}
 
 		static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
@@ -274,72 +442,5 @@ namespace Talifun.Commander.Command.Configuration
 			return source;
 		}
 
-		private void DisplayElementContextMenu(NamedConfigurationElement element)
-		{
-			var contextMenu = Resources["ElementContextMenu"] as ContextMenu;
-			var menuItem = (MenuItem)contextMenu.Items[0];
-			menuItem.Header = "Delete " + element.GetType().Name;
-			CommandSectionTreeView.ContextMenu = contextMenu;
-		}
-
-		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection)
-		{
-			var contextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
-			var menuItem = (MenuItem)contextMenu.Items[0];
-			menuItem.Header = "Add " + elementCollection.Setting.ElementType.Name;
-			CommandSectionTreeView.ContextMenu = contextMenu;
-		}
-
-		private void ContextMenuClosed(object sender, RoutedEventArgs e)
-		{
-			if (!_changingContextMenu)
-			{
-				CommandSectionTreeView.ContextMenu = Resources["DefaultContextMenu"] as ContextMenu;
-			}
-			_changingContextMenu = false; 
-		}
-
-		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
-		{
-			var projects = _commandManager.Configuration.Projects;
-			var project = projects.CreateNew();
-			project.Name = "New Project " + projects.Count;
-			projects[project.Name] = project;
-		}
-
-		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void DeleteFolderMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void AddFileMatchMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void DeleteFileMatchMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void AddElementMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void DeleteElementMenuItemClick(object sender, RoutedEventArgs e)
-		{
-
-		}
     }
 }

@@ -8,7 +8,6 @@
     <Window.Resources>
         <complex:ComplexGroupDataTemplateSelector x:Key="complex-group-data-template-selector"/>
         <complex:ComplexGroupConverter x:Key="complex-group-converter"/>
-        
         <ContextMenu x:Key="DefaultContextMenu" Closed="ContextMenuClosed">
             <MenuItem Header="Add Project" Click="AddProjectMenuItemClick"/>
         </ContextMenu>
@@ -60,29 +59,31 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type Configuration:ProjectElement}">
                         <HierarchicalDataTemplate.ItemsSource>
-                            <MultiBinding Converter="{StaticResource complex-group-converter}" ConverterParameter="FolderElementCollection-Template,CommandConfigurations-Template">
-                                <Binding Path="Folders"/>
-                                <Binding Path="CommandConfigurations"/>
+                            <MultiBinding Converter="{StaticResource complex-group-converter}" ConverterParameter="FolderElementCollection-Template,CommandPlugins-Template">
+                                <Binding Path="Folders" />
+                                <Binding Path="CommandPlugins"/>
                             </MultiBinding>
                         </HierarchicalDataTemplate.ItemsSource>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Tag="{Binding}">
                             <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate x:Key="FolderElementCollection-Template" ItemsSource="{Binding Path=.}">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" >
                             <Image Source="{Binding Setting.ElementCollectionImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBlock Text="Folders to watch" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate x:Key="CommandConfigurations-Template" ItemsSource="{Binding Path=.}">
+                    <BitmapImage x:Key="CommandPluginsImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/CommandPlugins.png" DecodePixelHeight="24" DecodePixelWidth="24"  />
+                    <HierarchicalDataTemplate x:Key="CommandPlugins-Template" ItemsSource="{Binding Path=.}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource CommandPluginsImageSource}" VerticalAlignment="Center" Margin="0,0,4,0" />
                             <TextBlock Text="Plugins Settings" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>                    
                     <HierarchicalDataTemplate DataType="{x:Type Configuration:FolderElement }" ItemsSource="{Binding FileMatches}">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" >
                             <Image Source="{Binding Setting.ElementImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
                         </StackPanel>
