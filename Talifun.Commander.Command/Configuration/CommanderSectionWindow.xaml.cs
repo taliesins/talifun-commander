@@ -287,7 +287,7 @@ namespace Talifun.Commander.Command.Configuration
 		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
 			var projects = _commandManager.Configuration.Projects;
-			AddNewElementToCollection(projects);
+			AddNewElementToElementCollection(projects);
 		}
 
 		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)
@@ -300,7 +300,7 @@ namespace Talifun.Commander.Command.Configuration
 		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
 		{
 			var folders = (FolderElementCollection)CommandSectionTreeView.ContextMenu.Tag;
-			AddNewElementToCollection(folders);
+			AddNewElementToElementCollection(folders);
 			//todo: We have to manually refresh the filematches node as its using custom multi binding
 		}
 
@@ -322,7 +322,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			var folder = (FolderElement)CommandSectionTreeView.ContextMenu.Tag;
 			var fileMatches = folder.FileMatches;
-			AddNewElementToCollection(fileMatches);
+			AddNewElementToElementCollection(fileMatches);
 		}
 
 		private void DeleteFileMatchMenuItemClick(object sender, RoutedEventArgs e)
@@ -340,7 +340,7 @@ namespace Talifun.Commander.Command.Configuration
 		private void AddElementMenuItemClick(object sender, RoutedEventArgs e)
 		{
 			var currentConfigurationElementCollection = (CurrentConfigurationElementCollection)CommandSectionTreeView.ContextMenu.Tag;
-			AddNewElementToCollection(currentConfigurationElementCollection);
+			AddNewElementToElementCollection(currentConfigurationElementCollection);
 		}
 
 		private void DeleteElementMenuItemClick(object sender, RoutedEventArgs e)
@@ -356,11 +356,11 @@ namespace Talifun.Commander.Command.Configuration
 			currentConfigurationElementCollection.Remove(namedConfigurationElement.Name);
 		}
 
-		private NamedConfigurationElement AddNewElementToCollection(CurrentConfigurationElementCollection currentConfigurationElementCollection)
+		private void AddNewElementToElementCollection(CurrentConfigurationElementCollection currentConfigurationElementCollection)
 		{
 			if (currentConfigurationElementCollection == null)
 			{
-				return null;
+				return;
 			}
 
 			var namedConfigurationElement = currentConfigurationElementCollection.CreateNew();
@@ -374,8 +374,6 @@ namespace Talifun.Commander.Command.Configuration
 			} while (currentConfigurationElementCollection.Cast<NamedConfigurationElement>().Where(x => x.Name == namedConfigurationElement.Name).Any());
 
 			currentConfigurationElementCollection[namedConfigurationElement.Name] = namedConfigurationElement;
-
-			return namedConfigurationElement;
 		}
 
 		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
