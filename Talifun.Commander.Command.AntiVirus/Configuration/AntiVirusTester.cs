@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
 
@@ -16,7 +17,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             }
         }
 
-        public override void CheckProjectConfiguration(ProjectElement project)
+        public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
         {
             var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName, project);
             var antiVirusSettings = commandSettings.Settings;
@@ -55,7 +56,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
                 	case VirusScannerType.McAfee:
                 	case VirusScannerType.NotSpecified:
                 		{
-                			var virusScannerPath = AntiVirusConfiguration.Instance.McAfeePath;
+                			var virusScannerPath = appSettings[AntiVirusConfiguration.Instance.McAfeePathSettingName];
 
                 			if (string.IsNullOrEmpty(virusScannerPath))
                 			{

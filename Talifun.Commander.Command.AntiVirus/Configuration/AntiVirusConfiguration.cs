@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Media.Imaging;
 using Talifun.Commander.UI;
 
@@ -32,14 +31,6 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
     	{
 			get { return "McAfeePath"; }
     	}
-
-        public string McAfeePath
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[McAfeePathSettingName];
-            }
-        }
 
         public BitmapSource ElementImage
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
@@ -17,73 +18,74 @@ namespace Talifun.Commander.Command
 {
     internal class CommanderManager : ICommanderManager, IDisposable
     {
-        protected readonly IEnhancedFileSystemWatcherFactory EnhancedFileSystemWatcherFactory;
+    	private readonly IEnhancedFileSystemWatcherFactory _enhancedFileSystemWatcherFactory;
+    	private readonly CommandConfigurationTester _commandConfigurationTester;
+    	private readonly TimeSpan _lockTimeout = TimeSpan.FromSeconds(10);
+    	private readonly AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
 
-        protected CommandConfigurationTester CommandConfigurationTester;
-        protected TimeSpan LockTimeout = TimeSpan.FromSeconds(10);
-        protected AsyncOperation AsyncOperation = AsyncOperationManager.CreateOperation(null);
+    	private readonly List<IEnhancedFileSystemWatcher> _enhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
+    	private FileCreatedPreviouslyEventHandler _fileCreatedPreviouslyEvent;
+    	private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
 
-        protected List<IEnhancedFileSystemWatcher> EnhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
-        protected FileCreatedPreviouslyEventHandler FileCreatedPreviouslyEvent;
-        protected FileFinishedChangingEventHandler FileFinishedChangingEvent;
+    	private bool _stopSignalled = false;
 
-        protected bool StopSignalled = false;
+    	private readonly ExportProvider _container;
+    	private readonly CommanderSection _configuration;
+    	private readonly NameValueCollection _appSettings;
 
-        public ExportProvider Container { get; private set; }
-        public CommanderSection Configuration { get; private set; }
-
-        public CommanderManager(ExportProvider container, CommanderSection configuration, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
+        public CommanderManager(ExportProvider container, CommanderSection configuration, NameValueCollection appSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
         {
-            Container = container;
-            Configuration = configuration;
-            EnhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
+            _container = container;
+            _configuration = configuration;
+        	_appSettings = appSettings;
+            _enhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
 
             IsRunning = false;
 
-            CommandConfigurationTester = new CommandConfigurationTester(Container);
+            _commandConfigurationTester = new CommandConfigurationTester(_container);
 
             CheckConfiguration();
 
-            var projects = Configuration.Projects;
+            var projects = _configuration.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
-                var folderSettings = Configuration.Projects[j].Folders;
+                var folderSettings = _configuration.Projects[j].Folders;
 
                 for (var i = 0; i < folderSettings.Count; i++)
                 {
                     var folderSetting = folderSettings[i];
                     var enhancedFileSystemWatcher =
-                        EnhancedFileSystemWatcherFactory.CreateEnhancedFileSystemWatcher(
+                        _enhancedFileSystemWatcherFactory.CreateEnhancedFileSystemWatcher(
                             folderSetting.FolderToWatch, folderSetting.Filter, folderSetting.PollTime,
                             folderSetting.IncludeSubdirectories, folderSetting);
-                    EnhancedFileSystemWatchers.Add(enhancedFileSystemWatcher);
+                    _enhancedFileSystemWatchers.Add(enhancedFileSystemWatcher);
                 }
             }
 
-            FileCreatedPreviouslyEvent = new FileCreatedPreviouslyEventHandler(OnFileCreatedPreviouslyEvent);
-            FileFinishedChangingEvent = new FileFinishedChangingEventHandler(OnFileFinishedChangingEvent);
+            _fileCreatedPreviouslyEvent = new FileCreatedPreviouslyEventHandler(OnFileCreatedPreviouslyEvent);
+            _fileFinishedChangingEvent = new FileFinishedChangingEventHandler(OnFileFinishedChangingEvent);
 
-            foreach (var enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
-                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent += FileCreatedPreviouslyEvent;
-                enhancedFileSystemWatcher.FileFinishedChangingEvent += FileFinishedChangingEvent;
+                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent += _fileCreatedPreviouslyEvent;
+                enhancedFileSystemWatcher.FileFinishedChangingEvent += _fileFinishedChangingEvent;
             }
         }
 
-        protected void OnFileFinishedChangingEvent(object sender, FileFinishedChangingEventArgs e)
+    	private void OnFileFinishedChangingEvent(object sender, FileFinishedChangingEventArgs e)
         {
             if (!(e.ChangeType == WatcherChangeTypes.Changed || e.ChangeType == WatcherChangeTypes.Created)) return;
             var folderSetting = (FolderElement)e.UserState;
             ProcessFileMatches(e.FilePath, folderSetting);
         }
 
-        protected void OnFileCreatedPreviouslyEvent(object sender, FileCreatedPreviouslyEventArgs e)
+    	private void OnFileCreatedPreviouslyEvent(object sender, FileCreatedPreviouslyEventArgs e)
         {
             var folderSetting = (FolderElement)e.UserState;
             ProcessFileMatches(e.FilePath, folderSetting);
         }
 
-        protected void ProcessFileMatches(string filePath, FolderElement folderSetting)
+    	private void ProcessFileMatches(string filePath, FolderElement folderSetting)
         {
             WaitForFileToUnlock(filePath, 10, 500);
             var fileInfo = new FileInfo(filePath);
@@ -162,7 +164,7 @@ namespace Talifun.Commander.Command
             }
         }
 
-        protected static bool WaitForFileToUnlock(string filePath, int retry, int delay)
+    	private static bool WaitForFileToUnlock(string filePath, int retry, int delay)
         {
             for (var i = 0; i < retry; i++)
             {
@@ -176,7 +178,7 @@ namespace Talifun.Commander.Command
             return false;
         }
 
-        protected static bool IsFileLocked(string filePath)
+    	private static bool IsFileLocked(string filePath)
         {
             var result = false;
             FileStream file = null;
@@ -198,9 +200,9 @@ namespace Talifun.Commander.Command
             return result;
         }
 
-        protected ProjectElement GetCurrentProject(FileMatchElement fileMatch)
+    	private ProjectElement GetCurrentProject(FileMatchElement fileMatch)
         {
-            var projects = Configuration.Projects;
+            var projects = _configuration.Projects;
 
             for (var i = 0; i < projects.Count; i++)
             {
@@ -220,16 +222,16 @@ namespace Talifun.Commander.Command
             throw new Exception(string.Format(Resource.ErrorMessageCannotFindProjectForFileElement));
         }
 
-        protected ICommandSaga GetCommandSaga(string conversionType)
+    	private ICommandSaga GetCommandSaga(string conversionType)
         {
-            var commandRunner = Container.GetExportedValues<ICommandSaga>()
+            var commandRunner = _container.GetExportedValues<ICommandSaga>()
                 .Where(x => x.Settings.ConversionType == conversionType)
                 .First();
 
             return commandRunner;
         }
 
-        protected void ProcessFileMatch(FileInfo fileInfo, FileMatchElement fileMatch)
+    	private void ProcessFileMatch(FileInfo fileInfo, FileMatchElement fileMatch)
         {
             var project = GetCurrentProject(fileMatch);
             var commandSaga = GetCommandSaga(fileMatch.ConversionType);
@@ -259,7 +261,7 @@ namespace Talifun.Commander.Command
             }
         }
 
-        protected static string GetExceptionMessage(Exception exception)
+    	private static string GetExceptionMessage(Exception exception)
         {
             var error = new StringBuilder();
             error.Append("Date:              " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + Environment.NewLine);
@@ -292,7 +294,7 @@ namespace Talifun.Commander.Command
             return error.ToString();
         }
 
-        protected static string GetExceptionStack(Exception e)
+    	private static string GetExceptionStack(Exception e)
         {
             var message = new StringBuilder();
             message.Append(e.Message);
@@ -307,12 +309,13 @@ namespace Talifun.Commander.Command
         }
 
         #region Test Configuration
-        public void CheckConfiguration()
+
+    	private void CheckConfiguration()
         {
-            var projects = Configuration.Projects;
+            var projects = _configuration.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
-                CommandConfigurationTester.CheckProjectConfiguration(projects[j]);
+				_commandConfigurationTester.CheckProjectConfiguration(projects[j], _appSettings);
             }
         }
 
@@ -320,27 +323,32 @@ namespace Talifun.Commander.Command
 
         #region ICommanderManager Members
 
+		public CommanderSectionWindow GetCommanderSectionWindow()
+		{
+			return new CommanderSectionWindow(_container, _configuration);
+		}
+
         public void Start()
         {
-            if (IsRunning || StopSignalled) return;
+            if (IsRunning || _stopSignalled) return;
             IsRunning = true;
             StartEnhancedFileSystemWatchers();
         }
 
         public void Stop()
         {
-            if (!IsRunning || StopSignalled) return;
-            StopSignalled = true;
+            if (!IsRunning || _stopSignalled) return;
+            _stopSignalled = true;
             StopEnhancedFileSystemWatchers();
             IsRunning = false;
-            StopSignalled = false;
+            _stopSignalled = false;
         }
 
-        public bool IsRunning { get; protected set; }
+        public bool IsRunning { get; private set; }
 
         private void StartEnhancedFileSystemWatchers()
         {
-            foreach (var enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
                 enhancedFileSystemWatcher.Start();
             }
@@ -348,7 +356,7 @@ namespace Talifun.Commander.Command
 
         private void StopEnhancedFileSystemWatchers()
         {
-            foreach (var enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
                 enhancedFileSystemWatcher.Stop();
             }
@@ -374,7 +382,7 @@ namespace Talifun.Commander.Command
         {
             add
             {
-                if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
+                if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
                 {
                     throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd);
                 }
@@ -389,7 +397,7 @@ namespace Talifun.Commander.Command
             }
             remove
             {
-                if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
+                if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
                 {
                     throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove);
                 }
@@ -425,7 +433,7 @@ namespace Talifun.Commander.Command
         /// <param name="state">The state to be passed to the event.</param>
         private void RaiseCrossThreadOnCommandErrorEvent(CommandErrorEventArgs e)
         {
-            AsyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
+            _asyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
         }
 
         /// <summary>
@@ -436,7 +444,7 @@ namespace Talifun.Commander.Command
         /// <param name="state">The state to be passed to the event.</param>
         private void RaiseAsynchronousOnCommandErrorEvent(CommandErrorEventArgs e)
         {
-            AsyncOperation.Post(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
+            _asyncOperation.Post(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
         }
 
         /// <summary>
@@ -452,7 +460,7 @@ namespace Talifun.Commander.Command
 
             CommandErrorEventHandler eventHandler;
 
-            if (!Monitor.TryEnter(_commandErrorEventLock, LockTimeout))
+            if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
             {
                 throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock);
             }
@@ -487,7 +495,7 @@ namespace Talifun.Commander.Command
             Dispose();
         }
 
-        public void Dispose()
+    	private void Dispose()
         {
             if (_alreadyDisposed != 0) return;
             // dispose of the managed and unmanaged resources
@@ -509,19 +517,19 @@ namespace Talifun.Commander.Command
 
             // Dispose managed resources.
 
-            foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
-                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent -= FileCreatedPreviouslyEvent;
-                enhancedFileSystemWatcher.FileFinishedChangingEvent -= FileFinishedChangingEvent;
+                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent -= _fileCreatedPreviouslyEvent;
+                enhancedFileSystemWatcher.FileFinishedChangingEvent -= _fileFinishedChangingEvent;
             }
 
-            foreach (IEnhancedFileSystemWatcher enhancedFileSystemWatcher in EnhancedFileSystemWatchers)
+            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
                 enhancedFileSystemWatcher.Dispose();
             }
 
-            FileCreatedPreviouslyEvent = null;
-            FileFinishedChangingEvent = null;
+            _fileCreatedPreviouslyEvent = null;
+            _fileFinishedChangingEvent = null;
 
             _commandErrorEvent = null;
             // Dispose unmanaged resources.
@@ -530,5 +538,5 @@ namespace Talifun.Commander.Command
             // base class's Dispose(Boolean) method
         }
         #endregion
-    }
+	}
 }

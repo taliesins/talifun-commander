@@ -43,7 +43,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 
                 var thumbnailerSettings = GetThumbnailerSettings(videoThumbnailerSetting);
                 var thumbnailerCommand = new ThumbnailerCommand();
-                thumbnailCreationSucessful = thumbnailerCommand.Run(thumbnailerSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+                thumbnailCreationSucessful = thumbnailerCommand.Run(thumbnailerSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (thumbnailCreationSucessful)
                 {

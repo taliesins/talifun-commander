@@ -140,7 +140,7 @@ namespace Talifun.Commander.Command.Video
 				var containerSettings = GetContainerSettings(videoConversionSetting);
 
 				var videoCommand = GetCommand(containerSettings);
-				var encodeSucessful = videoCommand.Run(containerSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+				var encodeSucessful = videoCommand.Run(containerSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (encodeSucessful)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using Talifun.Commander.Command.CommandLine.Properties;
 using Talifun.Commander.Command.Configuration;
@@ -16,7 +17,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
             }
         }
 
-        public override void CheckProjectConfiguration(ProjectElement project)
+		public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
         {
             var commandSettings = new ProjectElementCommand<CommandLineElementCollection>(Settings.ElementCollectionSettingName, project);
             var commandLineSettings = commandSettings.Settings;

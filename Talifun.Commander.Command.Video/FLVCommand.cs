@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
@@ -11,7 +12,7 @@ namespace Talifun.Commander.Command.Video
     {
         #region ICommand<FLVCommand,FLVSettings> Members
 
-		public bool Run(IContainerSettings settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IContainerSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
@@ -27,8 +28,8 @@ namespace Talifun.Commander.Command.Video
             var flvTool2CommandArguments = string.Format("-U \"{0}\"", outPutFilePath.FullName);
 
             var workingDirectory = outputDirectoryPath.FullName;
-            var fFMpegCommandPath = VideoConversionConfiguration.Instance.FFMpegPath;
-            var flvTool2CommandPath = VideoConversionConfiguration.Instance.FlvTool2Path;
+            var fFMpegCommandPath = appSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
+            var flvTool2CommandPath = appSettings[VideoConversionConfiguration.Instance.FlvTool2PathSettingName];
  
             var result = false;
             var encodeOutput = string.Empty;

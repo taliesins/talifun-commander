@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using Talifun.Commander.Command.Properties;
@@ -27,7 +29,7 @@ namespace Talifun.Commander.Command.Configuration
             return commandConfigurationTester;
         }
 
-        public override void CheckProjectConfiguration(Configuration.ProjectElement project)
+		public override void CheckProjectConfiguration(Configuration.ProjectElement project, NameValueCollection appSettings)
         {
             //We only want to check the sections if they are used, otherwise it will complain about
             //sections missing even if we aren't using them.
@@ -70,7 +72,7 @@ namespace Talifun.Commander.Command.Configuration
                     var fileMatch = fileMatches[j];
 
                     var commandConfigurationTester = GetCommandConfigurationTester(fileMatch.ConversionType);
-                    commandConfigurationTester.CheckProjectConfiguration(project);
+					commandConfigurationTester.CheckProjectConfiguration(project, appSettings);
                 }
             }
         }

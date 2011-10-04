@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
 
@@ -15,7 +16,7 @@ namespace Talifun.Commander.Command.Video.Configuration
             }
         }
 
-        public override void CheckProjectConfiguration(ProjectElement project)
+		public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
         {
             var commandSettings = new ProjectElementCommand<VideoConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var videoConversionSettings = commandSettings.Settings;
@@ -27,14 +28,14 @@ namespace Talifun.Commander.Command.Video.Configuration
                 return;
             }
 
-            var ffMpegPath = VideoConversionConfiguration.Instance.FFMpegPath;
+            var ffMpegPath = appSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {
 				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, VideoConversionConfiguration.Instance.FFMpegPathSettingName));
             }
 
-            var flvTool2Path = VideoConversionConfiguration.Instance.FlvTool2Path;
+            var flvTool2Path = appSettings[VideoConversionConfiguration.Instance.FlvTool2PathSettingName];
 
             if (string.IsNullOrEmpty(flvTool2Path))
 			{

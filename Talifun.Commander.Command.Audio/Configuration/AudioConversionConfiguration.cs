@@ -33,14 +33,6 @@ namespace Talifun.Commander.Command.Audio.Configuration
 			get { return "FFMpegPath"; }
     	}
 
-        public string FFMpegPath
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
-            }
-        }
-
         public BitmapSource ElementImage
         {
 			get { return Properties.Resource.AudioConversionElement.ToBitmapSource(); }

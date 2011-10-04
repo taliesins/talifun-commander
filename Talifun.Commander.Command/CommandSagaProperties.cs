@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Specialized;
+using System.IO;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command
@@ -9,5 +10,6 @@ namespace Talifun.Commander.Command
         public FileInfo InputFilePath { get; set; }
         public ProjectElement Project { get; set; }
         public FileMatchElement FileMatch { get; set; }
+		public NameValueCollection AppSettings { get; set; }
     }
 }

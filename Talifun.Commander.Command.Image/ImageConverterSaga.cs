@@ -55,7 +55,7 @@ namespace Talifun.Commander.Command.Image
                 var imageResizeSettings = GetImageResizeSettings(imageConversionSetting);
                 var imageResizeCommand = new ImageResizeCommand();
 
-                encodeSucessful = imageResizeCommand.Run(imageResizeSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+                encodeSucessful = imageResizeCommand.Run(imageResizeSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (encodeSucessful)
                 {

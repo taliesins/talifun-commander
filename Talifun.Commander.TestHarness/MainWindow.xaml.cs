@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Talifun.Commander.Command;
-using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.UI;
 
 namespace Talifun.Commander.TestHarness
@@ -40,8 +39,8 @@ namespace Talifun.Commander.TestHarness
 
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            var commanderSectionWindow = new CommanderSectionWindow(_commanderManager);
-            commanderSectionWindow.ShowDialog();   
+        	var commanderSectionWindow = _commanderManager.GetCommanderSectionWindow();
+        	commanderSectionWindow.ShowDialog();
         }
     }
 }

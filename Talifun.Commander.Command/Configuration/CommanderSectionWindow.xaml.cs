@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
@@ -17,14 +18,16 @@ namespace Talifun.Commander.Command.Configuration
     public partial class CommanderSectionWindow : Window
     {
         private readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
-        private readonly ICommanderManager _commandManager;
+    	private readonly ExportProvider _container;
+    	private readonly CommanderSection _configuration;
         private readonly IEnumerable<CurrentConfigurationElementCollection> _currentConfigurationElementCollections;
         private readonly IEnumerable<ElementPanelBase> _elementPanels;
         private readonly IEnumerable<ElementCollectionPanelBase> _elementCollectionPanels;
 
-        public CommanderSectionWindow(ICommanderManager commandManager)
+		public CommanderSectionWindow(ExportProvider container, CommanderSection configuration)
         {
-            _commandManager = commandManager;
+			_container = container;
+			_configuration = configuration;
 
             _currentConfigurationElementCollections = GetConfiguration();
             _elementPanels = GetElementPanels();
@@ -38,19 +41,19 @@ namespace Talifun.Commander.Command.Configuration
 
         private IEnumerable<CurrentConfigurationElementCollection> GetConfiguration()
         {
-            return _commandManager.Container.GetExportedValues<CurrentConfigurationElementCollection>()
+			return _container.GetExportedValues<CurrentConfigurationElementCollection>()
                 .Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
         }
 
         private IEnumerable<ElementPanelBase> GetElementPanels()
         {
-            return _commandManager.Container.GetExportedValues<ElementPanelBase>()
+			return _container.GetExportedValues<ElementPanelBase>()
                 .Where(x => x.Settings != null);
         }
 
         private IEnumerable<ElementCollectionPanelBase> GetElementCollectionPanels()
         {
-            return _commandManager.Container.GetExportedValues<ElementCollectionPanelBase>()
+			return _container.GetExportedValues<ElementCollectionPanelBase>()
                 .Where(x => x.Settings != null);
         }
 
@@ -84,7 +87,7 @@ namespace Talifun.Commander.Command.Configuration
     	private void BuildTree()
         {
         	var viewModel = ((CommanderSectionWindowViewModel) this.DataContext);
-			viewModel.CommandTreeViewItemViewModels = _commandManager.Configuration.Projects;
+			viewModel.CommandTreeViewItemViewModels = _configuration.Projects;
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
@@ -105,7 +108,7 @@ namespace Talifun.Commander.Command.Configuration
 
         private void CommandSectionTreeViewSelected(object sender, RoutedEventArgs e)
         {
-            var treeView = sender as TreeView;
+            var treeView = (TreeView)sender;
             var selectedItem = treeView.SelectedItem;
 
             if (selectedItem is CurrentConfigurationElementCollection)
@@ -184,7 +187,7 @@ namespace Talifun.Commander.Command.Configuration
 		private void SaveButtonClick(object sender, RoutedEventArgs e)
 		{
 			SaveButton.IsEnabled = false;
-			_commandManager.Configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
+			_configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
     	private bool _changingContextMenu;
@@ -211,7 +214,7 @@ namespace Talifun.Commander.Command.Configuration
 				{
 					if (projectElement != null)
 					{
-						CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
+						CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["FolderCollectionContextMenu"];
 						CommandSectionTreeView.ContextMenu.Tag = projectElement.Folders;
 					}
 				}
@@ -227,22 +230,22 @@ namespace Talifun.Commander.Command.Configuration
 
 			if (selectedItem is ProjectElement)
 			{
-				CommandSectionTreeView.ContextMenu = Resources["ProjectContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["ProjectContextMenu"];
 				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is FolderElementCollection)
 			{
-				CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["FolderCollectionContextMenu"];
 				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is FolderElement)
 			{
-				CommandSectionTreeView.ContextMenu = Resources["FolderContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["FolderContextMenu"];
 				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is FileMatchElement)
 			{
-				CommandSectionTreeView.ContextMenu = Resources["FileMatchContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["FileMatchContextMenu"];
 				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
 			else if (selectedItem is CurrentConfigurationElementCollection)
@@ -259,7 +262,7 @@ namespace Talifun.Commander.Command.Configuration
 
     	private void DisplayElementContextMenu(NamedConfigurationElement element)
 		{
-			var contextMenu = Resources["ElementContextMenu"] as ContextMenu;
+			var contextMenu = (ContextMenu)Resources["ElementContextMenu"];
 			var menuItem = (MenuItem)contextMenu.Items[0];
 			menuItem.Header = string.Format(Properties.Resource.ContextMenuDeleteElement, element.Setting.ElementType.Name);
 			CommandSectionTreeView.ContextMenu = contextMenu;
@@ -268,7 +271,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void DisplayElementCollectionContextMenu(CurrentConfigurationElementCollection elementCollection)
 		{
-			var contextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
+			var contextMenu = (ContextMenu)Resources["ElementCollectionContextMenu"];
 			var menuItem = (MenuItem)contextMenu.Items[0];
 			menuItem.Header = string.Format(Properties.Resource.ContextMenuAddElement, elementCollection.Setting.ElementType.Name);
 			CommandSectionTreeView.ContextMenu = contextMenu;
@@ -279,14 +282,14 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			if (!_changingContextMenu)
 			{
-				CommandSectionTreeView.ContextMenu = Resources["DefaultContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu = (ContextMenu)Resources["DefaultContextMenu"];
 			}
 			_changingContextMenu = false; 
 		}
 
 		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var projects = _commandManager.Configuration.Projects;
+			var projects = _configuration.Projects;
 			AddNewElementToElementCollection(projects);
 		}
 
@@ -294,7 +297,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			var projectElement = (ProjectElement)CommandSectionTreeView.ContextMenu.Tag;
 
-			_commandManager.Configuration.Projects.Remove(projectElement.Name);
+			_configuration.Projects.Remove(projectElement.Name);
 		}
 
 		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
@@ -378,7 +381,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
 		{
-			var folderElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+			var folderElementCollection = _configuration.Projects.Cast<ProjectElement>()
 				.Select(x => x.Folders)
 				.Where(x => x.Cast<FolderElement>().Where(y => y == folderElement).Any())
 				.FirstOrDefault();
@@ -388,7 +391,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FileMatchElementCollection GetFileMatchElementCollection(FileMatchElement fileMatchElement)
 		{
-			var fileMatchElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+			var fileMatchElementCollection = _configuration.Projects.Cast<ProjectElement>()
 				.SelectMany(x => x.Folders.Cast<FolderElement>())
 				.Select(x => x.FileMatches)
 				.Where(x => x.Cast<FileMatchElement>().Where(y => y == fileMatchElement).Any())
@@ -399,7 +402,7 @@ namespace Talifun.Commander.Command.Configuration
 
     	private ProjectElement GetProjectElement(FileMatchElement fileMatchElement)
     	{
-    		var project = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+			var project = _configuration.Projects.Cast<ProjectElement>()
     			.Where(x => x.Folders.Cast<FolderElement>()
     			            	.Where(y => y.FileMatches.Cast<FileMatchElement>()
     			            	            	.Where(z => z == fileMatchElement)
@@ -412,7 +415,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private CurrentConfigurationElementCollection GetCurrentConfigurationElementCollection(NamedConfigurationElement namedConfigurationElement)
 		{
-			var currentConfigurationElementCollection = _commandManager.Configuration.Projects.Cast<ProjectElement>()
+			var currentConfigurationElementCollection = _configuration.Projects.Cast<ProjectElement>()
 				.SelectMany(x => x.CommandPlugins)
 				.Where(x => x.Setting == namedConfigurationElement.Setting)
 				.Where(x => x.Cast<NamedConfigurationElement>()

@@ -33,26 +33,10 @@ namespace Talifun.Commander.Command.Video.Configuration
 			get { return "FFMpegPath"; }
     	}
 
-        public string FFMpegPath
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
-            }
-        }
-
     	public string FlvTool2PathSettingName
     	{
 			get { return "FlvTool2Path"; }
     	}
-
-        public string FlvTool2Path
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[FlvTool2PathSettingName];
-            }
-        }
 
         public BitmapSource ElementImage
         {

@@ -33,14 +33,6 @@ namespace Talifun.Commander.Command.Image.Configuration
 			get { return "ConvertPath"; }
     	}
 
-        public string ConvertPath
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[ConvertPathSettingName];
-            }
-        }
-
         public BitmapSource ElementImage
         {
 			get { return Properties.Resource.ImageConversionElement.ToBitmapSource(); }

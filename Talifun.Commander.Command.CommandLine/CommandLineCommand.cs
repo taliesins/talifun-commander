@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Specialized;
+using System.IO;
 using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.CommandLine
 {
     public class CommandLineCommand : ICommand<CommandLineParameters>
     {
-        public bool Run(CommandLineParameters settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+        public bool Run(CommandLineParameters settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
             if (outPutFilePath.Exists)

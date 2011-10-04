@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Specialized;
+using System.IO;
 using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Executor.FFMpeg;
@@ -7,7 +8,7 @@ namespace Talifun.Commander.Command.Video
 {
 	public class OnePassCommand : ICommand<IContainerSettings>
 	{
-		public bool Run(IContainerSettings settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IContainerSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
 			var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
 			outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
@@ -22,7 +23,7 @@ namespace Talifun.Commander.Command.Video
 			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, videoArgs, settings.Video.FirstPhaseOptions, audioArgs, outPutFilePath.FullName);
 
 			var workingDirectory = outputDirectoryPath.FullName;
-			var fFMpegCommandPath = VideoConversionConfiguration.Instance.FFMpegPath;
+			var fFMpegCommandPath = appSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
 
 			var encodeOutput = string.Empty;
 

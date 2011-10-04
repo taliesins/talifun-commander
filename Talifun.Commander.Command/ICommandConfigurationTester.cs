@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Specialized;
+using System.ComponentModel.Composition;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command
@@ -7,6 +8,6 @@ namespace Talifun.Commander.Command
     public interface ICommandConfigurationTester
     {
         ISettingConfiguration Settings { get; }
-        void CheckProjectConfiguration(ProjectElement project);
+        void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings);
     }
 }

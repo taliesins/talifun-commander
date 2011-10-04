@@ -47,7 +47,7 @@ namespace Talifun.Commander.Command.CommandLine
                 var commandLineParameters = GetCommandLineParameters(commandLineSetting);
                 var commandLineCommand = new CommandLineCommand();
 
-                var commandSucessful = commandLineCommand.Run(commandLineParameters, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+                var commandSucessful = commandLineCommand.Run(commandLineParameters, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
                 if (commandSucessful)
                 {

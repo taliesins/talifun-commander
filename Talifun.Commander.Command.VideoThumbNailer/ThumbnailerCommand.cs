@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
@@ -11,7 +12,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
         #region ICommand<ThumbnailerCommand,ThumbnailerSettings> Members
 
-        public bool Run(ThumbnailerSettings settings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+        public bool Run(ThumbnailerSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
 
