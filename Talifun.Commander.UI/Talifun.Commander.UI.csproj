@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BindingGroup.cs" />
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="CollectionSynchronizer.cs" />
     <Compile Include="ComplexGroupConverter.cs" />
     <Compile Include="ComplexGroupDataTemplateSelector.cs" />
     <Compile Include="DialogExtensions.cs" />

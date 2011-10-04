@@ -78,13 +78,14 @@ namespace Talifun.Commander.Command.Configuration
         {
             var configurationElement = base.BaseGet(name);
             if (configurationElement == null) return;
+        	var index = base.BaseIndexOf(configurationElement);
 			this.OnPropertyChanging(IndexerName);
 			this.OnPropertyChanging(CountString);
-            base.BaseRemove(name);
-            this.OnPropertyChanged(CountString);
-            this.OnPropertyChanged(IndexerName);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement));
-        }
+			base.BaseRemoveAt(index);
+			this.OnPropertyChanged(CountString);
+			this.OnPropertyChanged(IndexerName);
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement, index));
+		}
 
         /// <summary>
         /// Gets or sets the configuration element at the specified index.
@@ -102,7 +103,7 @@ namespace Talifun.Commander.Command.Configuration
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, configurationElement)); 
+					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index)); 
                 }
                 else
                 {
@@ -110,7 +111,7 @@ namespace Talifun.Commander.Command.Configuration
                     base.BaseRemoveAt(index);
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));                    
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));
                 }
             }
         }
@@ -131,7 +132,8 @@ namespace Talifun.Commander.Command.Configuration
                     this.BaseAdd(value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));  
+					var index = this.BaseIndexOf(value);
+					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
                 }
                 else
                 {
@@ -139,7 +141,8 @@ namespace Talifun.Commander.Command.Configuration
                     base.BaseRemove(name);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement));                    
+					var index = this.BaseIndexOf(value);
+					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));
                 }
             }
         }
@@ -236,6 +239,28 @@ namespace Talifun.Commander.Command.Configuration
         }
 
         #endregion
+
+		/// <summary>
+		/// Creates a new instance of Setting.ElementType.
+		/// </summary>
+		/// <returns>
+		/// A new configuration element.
+		/// </returns>
+		protected override ConfigurationElement CreateNewElement()
+		{
+			return (ConfigurationElement)Activator.CreateInstance(Setting.ElementType);
+		}
+
+		/// <summary>
+		/// Creates a new instance of Setting.ElementType.
+		/// </summary>
+		/// <returns>
+		/// A new named configuration element.
+		/// </returns>
+		public NamedConfigurationElement CreateNew()
+		{
+			return (NamedConfigurationElement)Activator.CreateInstance(Setting.ElementType);
+		}
     }
 
     /// <summary>
@@ -260,7 +285,7 @@ namespace Talifun.Commander.Command.Configuration
                     this.BaseAdd(index, value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, configurationElement));                    
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
                 }
                 else
                 {
@@ -289,7 +314,8 @@ namespace Talifun.Commander.Command.Configuration
                     this.BaseAdd(value);
                     this.OnPropertyChanged(CountString);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));
+					var index = this.BaseIndexOf(value);
+					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
                 }
                 else
                 {
@@ -297,7 +323,8 @@ namespace Talifun.Commander.Command.Configuration
                     base.BaseRemove(name);
                     this.BaseAdd(value);
                     this.OnPropertyChanged(IndexerName);
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement));
+					var index = this.BaseIndexOf(value);
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, configurationElement, index));
                 }
             }
         }
@@ -319,9 +346,9 @@ namespace Talifun.Commander.Command.Configuration
 		/// <returns>
 		/// A new <typeparamref name="T" />.
 		/// </returns>
-		public T CreateNew()
+		public new T CreateNew()
 		{
-			return new T();
+			return (T)CreateNewElement();
 		}
 	}
 }

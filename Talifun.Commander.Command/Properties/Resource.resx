@@ -121,6 +121,15 @@
   <data name="Commander" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\commander.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ContextMenuAddElement" xml:space="preserve">
+    <value>Add {0}</value>
+  </data>
+  <data name="ContextMenuDeleteElement" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="ContextMenuNewElement" xml:space="preserve">
+    <value>New {0}</value>
+  </data>
   <data name="ErrorMessageAppSettingRequired" xml:space="preserve">
     <value>App settings {0} required </value>
   </data>

@@ -68,6 +68,33 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add {0}.
+        /// </summary>
+        public static string ContextMenuAddElement {
+            get {
+                return ResourceManager.GetString("ContextMenuAddElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete {0}.
+        /// </summary>
+        public static string ContextMenuDeleteElement {
+            get {
+                return ResourceManager.GetString("ContextMenuDeleteElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New {0}.
+        /// </summary>
+        public static string ContextMenuNewElement {
+            get {
+                return ResourceManager.GetString("ContextMenuNewElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App settings {0} required .
         /// </summary>
         public static string ErrorMessageAppSettingRequired {

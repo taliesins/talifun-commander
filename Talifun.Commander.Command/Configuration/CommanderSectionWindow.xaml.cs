@@ -54,6 +54,11 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => x.Settings != null);
         }
 
+		/// <summary>
+		/// This is all the command settings that are related to the file match element.
+		/// </summary>
+		/// <param name="fileMatchElement">The file match element to get the command settings for.</param>
+		/// <returns>Dictionary of command type/command </returns>
 		private Dictionary<string, List<string>> GetCommandSettings(FileMatchElement fileMatchElement)
 		{
 			var project = GetProjectElement(fileMatchElement);
@@ -207,16 +212,12 @@ namespace Talifun.Commander.Command.Configuration
 					if (projectElement != null)
 					{
 						CommandSectionTreeView.ContextMenu = Resources["FolderCollectionContextMenu"] as ContextMenu;
-						CommandSectionTreeView.ContextMenu.Tag = projectElement;
+						CommandSectionTreeView.ContextMenu.Tag = projectElement.Folders;
 					}
-				}
-				else if (bindingGroup.ElementType == typeof(CurrentConfigurationElementCollection))
-				{
-					CommandSectionTreeView.ContextMenu = null;
 				}
 				else
 				{
-					throw new Exception("Unknown binding group type");
+					CommandSectionTreeView.ContextMenu = null;
 				}
 			}
 			else
@@ -255,7 +256,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			var contextMenu = Resources["ElementContextMenu"] as ContextMenu;
 			var menuItem = (MenuItem)contextMenu.Items[0];
-			menuItem.Header = "Delete " + element.GetType().Name;
+			menuItem.Header = string.Format(Properties.Resource.ContextMenuDeleteElement, element.Setting.ElementType.Name);
 			CommandSectionTreeView.ContextMenu = contextMenu;
 			CommandSectionTreeView.ContextMenu.Tag = element;
 		}
@@ -264,7 +265,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			var contextMenu = Resources["ElementCollectionContextMenu"] as ContextMenu;
 			var menuItem = (MenuItem)contextMenu.Items[0];
-			menuItem.Header = "Add " + elementCollection.Setting.ElementType.Name;
+			menuItem.Header = string.Format(Properties.Resource.ContextMenuAddElement, elementCollection.Setting.ElementType.Name);
 			CommandSectionTreeView.ContextMenu = contextMenu;
 			CommandSectionTreeView.ContextMenu.Tag = elementCollection;
 		}
@@ -281,48 +282,26 @@ namespace Talifun.Commander.Command.Configuration
 		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
 			var projects = _commandManager.Configuration.Projects;
-			var project = projects.CreateNew();
-
-			var counter = 0;
-			do
-			{
-				counter++;
-				project.Name = "New Project " + counter;
-			} while (projects.Cast<NamedConfigurationElement>().Where(x => x.Name == project.Name).Any());
-
-			projects[project.Name] = project;
+			AddNewElementToCollection(projects);
 		}
 
 		private void DeleteProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var projectElement = CommandSectionTreeView.ContextMenu.Tag as ProjectElement;
-
-			if (projectElement == null)
-			{
-				return;
-			}
+			var projectElement = (ProjectElement)CommandSectionTreeView.ContextMenu.Tag;
 
 			_commandManager.Configuration.Projects.Remove(projectElement.Name);
 		}
 
 		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var folderElementCollection = CommandSectionTreeView.ContextMenu.Tag as FolderElementCollection;
-
-			if (folderElementCollection == null)
-			{
-				return;
-			}
+			var folders = (FolderElementCollection)CommandSectionTreeView.ContextMenu.Tag;
+			AddNewElementToCollection(folders);
+			//todo: We have to manually refresh the filematches node as its using custom multi binding
 		}
 
 		private void DeleteFolderMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var folderElement = CommandSectionTreeView.ContextMenu.Tag as FolderElement;
-
-			if (folderElement == null)
-			{
-				return;
-			}
+			var folderElement = (FolderElement)CommandSectionTreeView.ContextMenu.Tag;
 
 			var folderElementCollection = GetFolderElementCollection(folderElement);
 			if (folderElementCollection == null)
@@ -331,22 +310,19 @@ namespace Talifun.Commander.Command.Configuration
 			}
 
 			folderElementCollection.Remove(folderElement.Name);
+			//todo: We have to manually refresh the filematches node as its using custom multi binding
 		}
 
 		private void AddFileMatchMenuItemClick(object sender, RoutedEventArgs e)
 		{
-
+			var folder = (FolderElement)CommandSectionTreeView.ContextMenu.Tag;
+			var fileMatches = folder.FileMatches;
+			AddNewElementToCollection(fileMatches);
 		}
 
 		private void DeleteFileMatchMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var fileMatchElement = CommandSectionTreeView.ContextMenu.Tag as FileMatchElement;
-
-			if (fileMatchElement == null)
-			{
-				return;
-			}
-
+			var fileMatchElement = (FileMatchElement)CommandSectionTreeView.ContextMenu.Tag;
 			var fileMatchElementCollection = GetFileMatchElementCollection(fileMatchElement);
 			if (fileMatchElementCollection == null)
 			{
@@ -358,17 +334,13 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void AddElementMenuItemClick(object sender, RoutedEventArgs e)
 		{
-
+			var currentConfigurationElementCollection = (CurrentConfigurationElementCollection)CommandSectionTreeView.ContextMenu.Tag;
+			AddNewElementToCollection(currentConfigurationElementCollection);
 		}
 
 		private void DeleteElementMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var namedConfigurationElement = CommandSectionTreeView.ContextMenu.Tag as NamedConfigurationElement;
-
-			if (namedConfigurationElement == null)
-			{
-				return;
-			}
+			var namedConfigurationElement = (NamedConfigurationElement)CommandSectionTreeView.ContextMenu.Tag;
 
 			var currentConfigurationElementCollection = GetCurrentConfigurationElementCollection(namedConfigurationElement);
 			if (currentConfigurationElementCollection == null)
@@ -377,6 +349,28 @@ namespace Talifun.Commander.Command.Configuration
 			}
 			
 			currentConfigurationElementCollection.Remove(namedConfigurationElement.Name);
+		}
+
+		private NamedConfigurationElement AddNewElementToCollection(CurrentConfigurationElementCollection currentConfigurationElementCollection)
+		{
+			if (currentConfigurationElementCollection == null)
+			{
+				return null;
+			}
+
+			var namedConfigurationElement = currentConfigurationElementCollection.CreateNew();
+
+			var counter = 0;
+			do
+			{
+				counter++;
+				var name = namedConfigurationElement.Setting.ElementType.Name + " " + counter;
+				namedConfigurationElement.Name = string.Format(Properties.Resource.ContextMenuNewElement, name);
+			} while (currentConfigurationElementCollection.Cast<NamedConfigurationElement>().Where(x => x.Name == namedConfigurationElement.Name).Any());
+
+			currentConfigurationElementCollection[namedConfigurationElement.Name] = namedConfigurationElement;
+
+			return namedConfigurationElement;
 		}
 
 		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
@@ -421,7 +415,7 @@ namespace Talifun.Commander.Command.Configuration
 				.Where(x => x.Cast<NamedConfigurationElement>()
 					.Where(y => y == namedConfigurationElement)
 					.Any())
-				.First();
+				.FirstOrDefault();
 
 			return currentConfigurationElementCollection;
 		}
@@ -441,6 +435,5 @@ namespace Talifun.Commander.Command.Configuration
 			}
 			return source;
 		}
-
     }
 }
