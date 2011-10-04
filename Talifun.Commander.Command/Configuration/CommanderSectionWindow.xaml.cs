@@ -240,6 +240,11 @@ namespace Talifun.Commander.Command.Configuration
 				CommandSectionTreeView.ContextMenu = Resources["FolderContextMenu"] as ContextMenu;
 				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
 			}
+			else if (selectedItem is FileMatchElement)
+			{
+				CommandSectionTreeView.ContextMenu = Resources["FileMatchContextMenu"] as ContextMenu;
+				CommandSectionTreeView.ContextMenu.Tag = selectedItem;
+			}
 			else if (selectedItem is CurrentConfigurationElementCollection)
 			{
 				var elementCollection = (CurrentConfigurationElementCollection)selectedItem;
