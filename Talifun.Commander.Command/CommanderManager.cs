@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -31,9 +32,9 @@ namespace Talifun.Commander.Command
 
     	private readonly ExportProvider _container;
     	private readonly CommanderSection _configuration;
-    	private readonly NameValueCollection _appSettings;
+    	private readonly AppSettingsSection _appSettings;
 
-        public CommanderManager(ExportProvider container, CommanderSection configuration, NameValueCollection appSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
+		public CommanderManager(ExportProvider container, CommanderSection configuration, AppSettingsSection appSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
         {
             _container = container;
             _configuration = configuration;

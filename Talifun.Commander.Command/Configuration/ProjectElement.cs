@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -20,8 +21,10 @@ namespace Talifun.Commander.Command.Configuration
 			Setting = ProjectConfiguration.Instance;	
 
             var container = CommandContainer.Instance.Container;
-            var pluginProperties = container.GetExportedValues<CurrentConfigurationElementCollection>();
-
+			IEnumerable<CurrentConfigurationElementCollection> pluginProperties;
+        
+			pluginProperties = container.GetExportedValues<CurrentConfigurationElementCollection>();
+  
             properties.Add(name);
             properties.Add(folders);
 

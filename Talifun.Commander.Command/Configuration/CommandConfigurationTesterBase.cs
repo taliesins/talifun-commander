@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Properties;
 
@@ -27,7 +27,7 @@ namespace Talifun.Commander.Command.Configuration
             fileInfo.Delete();
         }
 
-        public abstract void CheckProjectConfiguration(Configuration.ProjectElement project, NameValueCollection appSettings);
+        public abstract void CheckProjectConfiguration(Configuration.ProjectElement project, AppSettingsSection appSettings);
 
         public abstract ISettingConfiguration Settings { get; }
     }

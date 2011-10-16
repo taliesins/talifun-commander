@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
 
@@ -16,7 +16,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
             }
         }
 
-        public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
+        public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
         {
             var commandSettings = new ProjectElementCommand<AudioConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var audioConversionSettings = commandSettings.Settings;
@@ -28,7 +28,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                 return;
             }
 
-            var ffMpegPath = appSettings[AudioConversionConfiguration.Instance.FFMpegPathSettingName];
+            var ffMpegPath = appSettings.Settings[AudioConversionConfiguration.Instance.FFMpegPathSettingName].Value;
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {

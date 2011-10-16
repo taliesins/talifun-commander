@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Media.Imaging;
 using Talifun.Commander.UI;
 

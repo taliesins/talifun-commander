@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command
@@ -25,13 +24,12 @@ namespace Talifun.Commander.Command
         public string AudioChannels { get; set; }
         public int AudioBitrate { get; set; }
 
-        public static VideoInfo GetVideoInfo(FileInfo videoFilePath, out string output)
+        public static VideoInfo GetVideoInfo(string commandPath, FileInfo videoFilePath, out string output)
         {
             var helper = new FfMpegCommandLineExecutor();
             var args = string.Format(@"-i ""{0}""", videoFilePath.FullName);
             
             var workingDirectory = videoFilePath.DirectoryName;
-            var commandPath = VideoThumbnailerConfiguration.Instance.FFMpegPath;
    
             if (!helper.Execute(workingDirectory, commandPath, args, out output))
             {

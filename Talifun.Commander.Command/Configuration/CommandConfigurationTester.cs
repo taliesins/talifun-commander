@@ -29,7 +29,7 @@ namespace Talifun.Commander.Command.Configuration
             return commandConfigurationTester;
         }
 
-		public override void CheckProjectConfiguration(Configuration.ProjectElement project, NameValueCollection appSettings)
+		public override void CheckProjectConfiguration(Configuration.ProjectElement project, AppSettingsSection appSettings)
         {
             //We only want to check the sections if they are used, otherwise it will complain about
             //sections missing even if we aren't using them.

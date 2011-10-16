@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Configuration;
-using System.Web;
-using System.Web.Configuration;
 using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
@@ -12,38 +10,40 @@ namespace Talifun.Commander.Command.Configuration
     /// </summary>
     public class CurrentConfigurationManager
     {
-        private static volatile System.Configuration.Configuration config = null;
         /// <summary>
         /// Finds the first configuration section matching any of the supplied <paramref name="sectionNames"/>,
         /// attempt to cast it to the generic type parameter <typeparamref name="T"/> and return the result
         /// if successful. If no matching configuration section is found, raise an exception.
         /// </summary>
         /// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationSection" /> </typeparam>
-        /// <param name="sectionNames">A list of strings identifying the names of configuration sections to be searched.</param>
         /// <returns>The first matching configuration section as an instance of <typeparamref name="T"/></returns>
         /// <exception cref="System.Configuration.ConfigurationErrorsException">Thrown when no matching configuration section can be found in the default configuration file.</exception>
-        public static T GetSection<T>(params string[] sectionNames) where T : ConfigurationSection
+        public static T GetSection<T>() where T : ConfigurationSection
         {
-            // Here we're using WebConfigurationManager instead of ConfigurationManager
-            // because we're using the same framework for both Web and client configuration.
-            T result;
-
-            foreach (var sectionName in sectionNames)
-            {
-                if ((result = WebConfigurationManager.GetSection(sectionName) as T) != null) return (result);
-            }
-
-            var currentConfiguration = GetCurrentConfiguration();
-
-            foreach (var section in currentConfiguration.Sections)
-            {
-                if ((result = section as T) != null) return (result);
-            }
-            // If we've got this far, it means we didn't find any matching sections in the configuration file. so we raise an exception:
-            throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSection, typeof(T).FullName));
+        	var currentConfiguration = GetCurrentConfiguration();
+        	return GetSection<T>(currentConfiguration);
         }
 
-        /// <summary>
+		/// <summary>
+		/// Finds the first configuration section matching any of the supplied <paramref name="sectionNames"/>,
+		/// attempt to cast it to the generic type parameter <typeparamref name="T"/> and return the result
+		/// if successful. If no matching configuration section is found, raise an exception.
+		/// </summary>
+		/// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationSection" /> </typeparam>
+		/// <returns>The first matching configuration section as an instance of <typeparamref name="T"/></returns>
+		/// <exception cref="System.Configuration.ConfigurationErrorsException">Thrown when no matching configuration section can be found in the default configuration file.</exception>
+		public static T GetSection<T>(System.Configuration.Configuration currentConfiguration) where T : ConfigurationSection
+		{
+			foreach (var section in currentConfiguration.Sections)
+			{
+				T result;
+				if ((result = section as T) != null) return (result);
+			}
+			// If we've got this far, it means we didn't find any matching sections in the configuration file. so we raise an exception:
+			throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSection, typeof(T).FullName));
+		}
+
+    	/// <summary>
         /// Finds the first configuration section group matching the type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationSectionGroup" /></typeparam>
@@ -51,45 +51,51 @@ namespace Talifun.Commander.Command.Configuration
         public static T GetSectionGroup<T>() where T : ConfigurationSectionGroup
         {
             var currentConfiguration = GetCurrentConfiguration();
-            foreach (ConfigurationSectionGroup group in currentConfiguration.SectionGroups)
-            {
-                var result = group as T;
-                if (result != null) return (result);
-            }
-            // If we've got this far, it means we didn't find any matching sections in the 
-            // configuration file. so we raise an exception:
-            throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSectionGroup, typeof(T).FullName));
+    		return GetSectionGroup<T>(currentConfiguration);
         }
+
+		/// <summary>
+		/// Finds the first configuration section group matching the type <typeparamref name="T"/>.
+		/// </summary>
+		/// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationSectionGroup" /></typeparam>
+		/// <returns>The first matching configuration section as an instance of <typeparamref name="T"/></returns>
+		public static T GetSectionGroup<T>(System.Configuration.Configuration currentConfiguration) where T : ConfigurationSectionGroup
+		{
+			foreach (ConfigurationSectionGroup group in currentConfiguration.SectionGroups)
+			{
+				var result = group as T;
+				if (result != null) return (result);
+			}
+			// If we've got this far, it means we didn't find any matching sections in the 
+			// configuration file. so we raise an exception:
+			throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageUnableToFindConfigurationSectionGroup, typeof(T).FullName));
+		}
+
+    	private static volatile System.Configuration.Configuration _config = null;
 
         /// <summary>
         /// Gets a reference to the currently active application configuration object.
         /// </summary>
-        private static System.Configuration.Configuration GetCurrentConfiguration()
+        public static System.Configuration.Configuration GetCurrentConfiguration()
         {
             // First - if we've previously cached the current configuration, return it
-            if (config != null) return (config);
-
-            // Next - if we're running in a web context, cache & return the current web configuration
-            if (HttpContext.Current != null)
-            {
-                config = WebConfigurationManager.OpenWebConfiguration("~");
-                return (config);
-            }
+            if (_config != null) return (_config);
 
             var configFileName = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
 
             configFileName = configFileName.Replace(".config", "").Replace(".temp", "");
-            // check for design mode
+            
+			// check for design mode
             if (configFileName.ToLower(CultureInfo.InvariantCulture).Contains("devenv.exe"))
             {
-                config = GetDesignTimeConfiguration();
+                _config = GetDesignTimeConfiguration();
             }
             else
             {
-                config = GetRuntimeTimeConfiguration();
+                _config = GetRuntimeTimeConfiguration();
             }
 
-            return config;
+            return _config;
         }
 
         private static System.Configuration.Configuration GetRuntimeTimeConfiguration()

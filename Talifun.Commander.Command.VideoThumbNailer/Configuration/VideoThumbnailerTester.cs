@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
 
@@ -16,7 +16,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
             }
         }
 
-		public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
+		public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
         {
             var commandSettings = new ProjectElementCommand<VideoThumbnailerElementCollection>(Settings.ElementCollectionSettingName, project);
             var videoThumbnailerSettings = commandSettings.Settings;
@@ -28,7 +28,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                 return;
             }
 
-            var ffMpegPath = VideoThumbnailerConfiguration.Instance.FFMpegPath;
+			var ffMpegPath = appSettings.Settings[VideoThumbnailerConfiguration.Instance.FFMpegPathSettingName].Value;
 
             if (string.IsNullOrEmpty(ffMpegPath))
             {

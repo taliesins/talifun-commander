@@ -26,6 +26,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
                     break;
             }
 
+			
             var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + extension;
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
 
@@ -36,11 +37,11 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
             var position = "";
 
+			var commandPath = appSettings[VideoThumbnailerConfiguration.Instance.FFMpegPathSettingName];
             var videoInfoOutput = string.Empty;
             if (settings.TimePercentage >= 0 && settings.TimePercentage <= 100)
             {
-
-                var videoInfo = VideoInfo.GetVideoInfo(inputFilePath, out videoInfoOutput);
+				var videoInfo = VideoInfo.GetVideoInfo(commandPath, inputFilePath, out videoInfoOutput);
 
                 if (videoInfo == null)
                 {
@@ -59,8 +60,6 @@ namespace Talifun.Commander.Command.VideoThumbnailer
             }
 
             var commandArguments = string.Format("-i \"{0}\" -s {1}x{2} {3} {4} \"{5}\"", inputFilePath.FullName, settings.Width, settings.Height, position, AllFixedOptions, outPutFilePath.FullName);
-
-            var commandPath = VideoThumbnailerConfiguration.Instance.FFMpegPath;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandOutput = string.Empty;

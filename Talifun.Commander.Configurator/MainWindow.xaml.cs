@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Windows;
+using Talifun.Commander.Command;
 
 namespace Talifun.Commander.Configurator
 {
@@ -9,12 +13,37 @@ namespace Talifun.Commander.Configurator
 	{
 		public MainWindow()
 		{
+			this.Visibility = Visibility.Collapsed;
 			InitializeComponent();
+
+			var configuration = GetCommanderConfiguration();
+			var commanderManager = CommanderManagerFactory.Instance.CreateCommandManager(configuration);
+			var commanderSectionWindow = commanderManager.GetCommanderSectionWindow();
+			commanderSectionWindow.ShowDialog();
+
+			Close();
 		}
 
-		private void settingsButton_Click(object sender, RoutedEventArgs e)
+		private Configuration GetCommanderConfiguration()
 		{
+			var configFileName = "Talifun.Commander.MediaConversionService.exe.config";
 
+			if (!File.Exists(configFileName))
+			{
+				configFileName = "Talifun.Commander.TestHarness.exe.config";
+			}
+
+			if (!File.Exists(configFileName))
+			{
+				throw new Exception("No configuration file found");
+			}
+
+			var configMap = new ExeConfigurationFileMap
+			                	{
+			                		ExeConfigFilename = configFileName
+			                	};
+
+			return (ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None));
 		}
 	}
 }

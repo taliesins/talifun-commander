@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.Configuration
         public FileMatchElementValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageFileMatchElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.Current.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
 			                   	.Where(x => x.Folders.Cast<FolderElement>()
 			                   	            	.SelectMany(y => y.FileMatches.Cast<FileMatchElement>())
 			                   	            	.Where(y => y.Name == name)

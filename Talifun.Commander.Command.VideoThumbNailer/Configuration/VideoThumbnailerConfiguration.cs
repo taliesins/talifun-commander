@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Media.Imaging;
 using Talifun.Commander.UI;
 
@@ -52,13 +51,5 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
     	{
 			get { return "FFMpegPath"; }
     	}
-
-        public string FFMpegPath
-        {
-            get
-            {
-				return ConfigurationManager.AppSettings[FFMpegPathSettingName];
-            }
-        }
     }
 }

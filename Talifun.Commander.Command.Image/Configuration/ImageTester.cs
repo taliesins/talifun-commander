@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Image.Properties;
@@ -81,7 +81,7 @@ namespace Talifun.Commander.Command.Image.Configuration
             }
         }
 
-		public override void CheckProjectConfiguration(ProjectElement project, NameValueCollection appSettings)
+		public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
         {
             var commandSettings = new ProjectElementCommand<ImageConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var imageConversionSettings = commandSettings.Settings;
@@ -92,8 +92,8 @@ namespace Talifun.Commander.Command.Image.Configuration
             {
                 return;
             }
-
-            var convertPath = appSettings[ImageConversionConfiguration.Instance.ConvertPathSettingName];
+			
+            var convertPath = appSettings.Settings[ImageConversionConfiguration.Instance.ConvertPathSettingName].Value;
 
             if (string.IsNullOrEmpty(convertPath))
             {
