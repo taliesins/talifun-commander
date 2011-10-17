@@ -16,7 +16,7 @@ namespace Talifun.Commander.Command.Configuration
 			                   	            	.Where(y => y.Name == name)
 			                   	            	.Count() > 1)
 			                   	.Any())
-				.WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUses);
+				.WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
 
 			RuleFor(x => x.Expression).Must(x =>
 			                                	{

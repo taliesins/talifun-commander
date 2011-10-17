@@ -11,10 +11,11 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
         {
             RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageAntiVirusElementNameMandatory)
 				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
-					.Where(x => x.GetCommandConfiguration<AntiVirusElementCollection>(x.GetConfigurationProperty(AntiVirusConfiguration.Instance.ElementCollectionSettingName)).Cast<AntiVirusElement>()
+					.Where(x => x.CommandPlugins
+						.Where(y => y.Setting.ElementType == typeof(AntiVirusElement)).Cast<AntiVirusElement>()
 						.Where(y => y.Name == name).Count() > 1)
 					.Any())
-				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUses);
+				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
         }
 	}
 }

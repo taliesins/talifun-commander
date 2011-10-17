@@ -1,5 +1,7 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 using Talifun.Commander.Command.Audio.Properties;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.Audio.Configuration
 {
@@ -7,7 +9,13 @@ namespace Talifun.Commander.Command.Audio.Configuration
 	{
 		public AudioConversionElementValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageAudioConversionElementNameMandatory);
+            RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageAudioConversionElementNameMandatory)
+				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
+					.Where(x => x.CommandPlugins
+						.Where(y => y.Setting.ElementType == typeof(AudioConversionElement)).Cast<AudioConversionElement>()
+						.Where(y => y.Name == name).Count() > 1)
+					.Any())
+				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
         }
 	}
 }
