@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Image.Configuration;
 using Talifun.Commander.Executor.CommandLine;
@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.Image
     {
         #region ICommand<ResizeSettings> Members
 
-        public bool Run(ImageResizeSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(ImageResizeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
             var backgroundColour = settings.BackgroundColour;
@@ -136,7 +136,7 @@ namespace Talifun.Commander.Command.Image
                     }
             }
 
-            var commandPath = appSettings[ImageConversionConfiguration.Instance.ConvertPathSettingName];
+            var commandPath = appSettings.Settings[ImageConversionConfiguration.Instance.ConvertPathSettingName].Value;
             var workingDirectory = outputDirectoryPath.FullName;
 
             var commandLineExecutor = new CommandLineExecutor();

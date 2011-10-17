@@ -9,27 +9,23 @@ namespace Talifun.Commander.FileWatcher
 {
     internal class EnhancedFileSystemWatcher : IEnhancedFileSystemWatcher
     {
-        private TimeSpan _lockTimeout = TimeSpan.FromSeconds(10);
-        private AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
-
-        private List<string> _fileToBeChecked = null;
+        private readonly TimeSpan _lockTimeout = TimeSpan.FromSeconds(10);
+        private readonly AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
 
         private readonly object _filesRaisingEventsLock = new object();
         private Dictionary<string, IFileChangingItem> _filesChanging;
 
-        private System.Timers.Timer _timer = new System.Timers.Timer();
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer();
         private string _nextFileToCheck = string.Empty;
 
-        private FileSystemEventHandler _fileSystemWatcherChangedEvent;
-        private FileSystemEventHandler _fileSystemWatcherCreatedEvent;
-        private FileSystemEventHandler _fileSystemWatcherDeletedEvent;
-        private RenamedEventHandler _fileSystemWatcherRenamedEvent;
-        private FileFinishedChangingCallback _fileFinishedChangingCallback;
-        private FileSystemWatcher _fileSystemWatcher;
+        private readonly FileSystemEventHandler _fileSystemWatcherChangedEvent;
+        private readonly FileSystemEventHandler _fileSystemWatcherCreatedEvent;
+        private readonly FileSystemEventHandler _fileSystemWatcherDeletedEvent;
+        private readonly RenamedEventHandler _fileSystemWatcherRenamedEvent;
+        private readonly FileFinishedChangingCallback _fileFinishedChangingCallback;
+        private readonly FileSystemWatcher _fileSystemWatcher;
 
-        private object _userState;
-
-        public EnhancedFileSystemWatcher(string folderToWatch, string filter, int pollTime, bool includeSubdirectories)
+    	public EnhancedFileSystemWatcher(string folderToWatch, string filter, int pollTime, bool includeSubdirectories)
         {
             FolderToWatch = folderToWatch;
             Filter = filter;
@@ -48,14 +44,7 @@ namespace Talifun.Commander.FileWatcher
             _fileSystemWatcherRenamedEvent = new RenamedEventHandler(OnFileRenamed);
             _fileFinishedChangingCallback = new FileFinishedChangingCallback(OnFileFinishedChanging);
 
-            if (!string.IsNullOrEmpty(Filter))
-            {
-                _fileSystemWatcher = new FileSystemWatcher(FolderToWatch, Filter);
-            }
-            else
-            {
-                _fileSystemWatcher = new FileSystemWatcher(FolderToWatch);
-            }
+            _fileSystemWatcher = !string.IsNullOrEmpty(Filter) ? new FileSystemWatcher(FolderToWatch, Filter) : new FileSystemWatcher(FolderToWatch);
             _fileSystemWatcher.IncludeSubdirectories = IncludeSubdirectories;
             _fileSystemWatcher.EnableRaisingEvents = false;
             _fileSystemWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
@@ -89,19 +78,9 @@ namespace Talifun.Commander.FileWatcher
             }
         }
 
-        public object UserState
-        {
-            get
-            {
-                return _userState;
-            }
-            set
-            {
-                _userState = value;
-            }
-        }
+    	public object UserState { get; set; }
 
-        public bool IsRunning
+    	public bool IsRunning
         {
             get
             {
@@ -119,10 +98,7 @@ namespace Talifun.Commander.FileWatcher
 
         private void RaiseEventsForExistingFiles()
         {
-            _fileToBeChecked = new List<string>();
             GetAllFilesToCheck(FolderToWatch);
-            CheckFiles();
-            _fileToBeChecked = null;
         }
 
         private void GetAllFilesToCheck(string folderPath)
@@ -141,35 +117,11 @@ namespace Talifun.Commander.FileWatcher
             string[] files = null;
             files = !string.IsNullOrEmpty(Filter) ? Directory.GetFiles(folderPath, Filter) : Directory.GetFiles(folderPath);
 
-            foreach (var file in files)
-            {
-                if (!IsFileLocked(file))
-                {
-                    //File is not being used and is in the directory
-                    _fileToBeChecked.Add(file);
-                } else
-                {
-                    //File is currently being used, but it might be free at a future date so put it on the queue
-                    Push(file, new FileSystemEventArgs(WatcherChangeTypes.All, folderPath, file));
-                }
-            }
-        }
-
-        private void CheckFiles()
-        {
-            //Collection may be modified at any time, we have to enumerate throught the collection this way
-            while (_fileToBeChecked.Count > 0)
-            {
-                lock (_filesRaisingEventsLock)
-                {
-                    var filePath = _fileToBeChecked[0];
-
-                    var fileCreatedPreviouslyEventArgs = new FileCreatedPreviouslyEventArgs(filePath, _userState);
-                    RaiseAsynchronousOnFileCreatedPreviouslyEvent(fileCreatedPreviouslyEventArgs);
-
-                    _fileToBeChecked.Remove(filePath);
-                }
-            }
+			foreach (var file in files)
+			{
+				var fileInfo = new FileInfo(file);
+				Push(file, new FileSystemEventArgs(WatcherChangeTypes.All, fileInfo.DirectoryName, fileInfo.Name));
+			}
         }
 
         private static bool IsFileLocked(string filePath)
@@ -322,11 +274,6 @@ namespace Talifun.Commander.FileWatcher
 
             lock (_filesRaisingEventsLock)
             {
-                if (_fileToBeChecked != null && _fileToBeChecked.Contains(filePath))
-                {
-                    _fileToBeChecked.Remove(filePath);
-                }
-
                 if (_filesChanging.ContainsKey(filePath))
                 {
                     if (IsFileLocked(filePath))
@@ -341,7 +288,7 @@ namespace Talifun.Commander.FileWatcher
                 }
             }
 
-            var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Changed, _userState);
+            var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Changed, UserState);
             RaiseAsynchronousOnFileFinishedChangingEvent(fileFinishedChangingEventArgs);
         }
 
@@ -352,11 +299,6 @@ namespace Talifun.Commander.FileWatcher
             if (e.ChangeType != WatcherChangeTypes.Created) return;
             lock (_filesRaisingEventsLock)
             {
-                if (_fileToBeChecked != null && _fileToBeChecked.Contains(filePath))
-                {
-                    _fileToBeChecked.Remove(filePath);
-                }
-
                 if (_filesChanging.ContainsKey(filePath))
                 {
                     Touch(filePath);
@@ -367,7 +309,7 @@ namespace Talifun.Commander.FileWatcher
                 }
             }
 
-            var fileCreatedEvent = new FileCreatedEventArgs(e.FullPath, _userState);
+            var fileCreatedEvent = new FileCreatedEventArgs(e.FullPath, UserState);
             RaiseAsynchronousOnFileCreatedEvent(fileCreatedEvent);
         }
 
@@ -377,11 +319,6 @@ namespace Talifun.Commander.FileWatcher
 
             lock (_filesRaisingEventsLock)
             {
-                if (_fileToBeChecked != null && _fileToBeChecked.Contains(filePath))
-                {
-                    _fileToBeChecked.Remove(filePath);
-                }
-
                 if (_filesChanging.ContainsKey(filePath))
                 {
                     Touch(filePath);
@@ -392,7 +329,7 @@ namespace Talifun.Commander.FileWatcher
                 }
             }
 
-            var fileChangedEventArgs = new FileChangedEventArgs(filePath, _userState);
+            var fileChangedEventArgs = new FileChangedEventArgs(filePath, UserState);
             RaiseAsynchronousOnFileChangedEvent(fileChangedEventArgs);
         }
 
@@ -402,21 +339,16 @@ namespace Talifun.Commander.FileWatcher
 
             lock (_filesRaisingEventsLock)
             {
-                if (_fileToBeChecked != null && _fileToBeChecked.Contains(filePath))
-                {
-                    _fileToBeChecked.Remove(filePath);
-                }
-
                 if (_filesChanging.ContainsKey(filePath))
                 {
                     Pop(filePath);
 
-                    var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Deleted, _userState);
+                    var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Deleted, UserState);
                     RaiseAsynchronousOnFileFinishedChangingEvent(fileFinishedChangingEventArgs);
                 }
             }
 
-            var fileDeletedEvent = new FileDeletedEventArgs(e.FullPath, _userState);
+            var fileDeletedEvent = new FileDeletedEventArgs(e.FullPath, UserState);
             RaiseAsynchronousOnFileDeletedEvent(fileDeletedEvent);
         }
 
@@ -426,143 +358,22 @@ namespace Talifun.Commander.FileWatcher
 
             lock (_filesRaisingEventsLock)
             {
-                if (_fileToBeChecked != null && _fileToBeChecked.Contains(filePath))
-                {
-                    _fileToBeChecked.Remove(filePath);
-                }
-
                 if (_filesChanging.ContainsKey(filePath))
                 {
                     Pop(filePath);
 
-                    var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Renamed, _userState);
+                    var fileFinishedChangingEventArgs = new FileFinishedChangingEventArgs(filePath, WatcherChangeTypes.Renamed, UserState);
                     RaiseAsynchronousOnFileFinishedChangingEvent(fileFinishedChangingEventArgs);
                 }
             }
 
-            var fileRenamedEvent = new FileRenamedEventArgs(e.OldFullPath, e.FullPath, _userState);
+            var fileRenamedEvent = new FileRenamedEventArgs(e.OldFullPath, e.FullPath, UserState);
             RaiseAsynchronousOnFileRenamedEvent(fileRenamedEvent);
         }
 
         #endregion
 
-        #region FileCreatedPreviouslyEvent
-        /// <summary>
-        /// Where the actual event is stored.
-        /// </summary>
-        private FileCreatedPreviouslyEventHandler _fileCreatedPreviouslyEvent;
-
-        /// <summary>
-        /// Lock for event delegate access.
-        /// </summary>
-        private readonly object _fileCreatedPreviouslyEventLock = new object();
-
-        /// <summary>
-        /// The event that is fired.
-        /// </summary>
-        public event FileCreatedPreviouslyEventHandler FileCreatedPreviouslyEvent
-        {
-            add
-            {
-                if (!Monitor.TryEnter(_fileCreatedPreviouslyEventLock, _lockTimeout))
-                {
-                    throw new ApplicationException("Timeout waiting for lock - FileCreatedPreviouslyEvent.add");
-                }
-                try
-                {
-                    _fileCreatedPreviouslyEvent += value;
-                }
-                finally
-                {
-                    Monitor.Exit(_fileCreatedPreviouslyEventLock);
-                }
-            }
-            remove
-            {
-                if (!Monitor.TryEnter(_fileCreatedPreviouslyEventLock, _lockTimeout))
-                {
-                    throw new ApplicationException("Timeout waiting for lock - FileCreatedPreviouslyEvent.remove");
-                }
-                try
-                {
-                    _fileCreatedPreviouslyEvent -= value;
-                }
-                finally
-                {
-                    Monitor.Exit(_fileCreatedPreviouslyEventLock);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Template method to add default behaviour for the event
-        /// </summary>
-        protected virtual void OnFileCreatedPreviouslyEvent(FileCreatedPreviouslyEventArgs e)
-        {
-            // TODO: Implement default behaviour of OnFileCreatedPreviouslyEvent
-        }
-
-        private void AsynchronousOnFileCreatedPreviouslyEventRaised(object state)
-        {
-            var e = state as FileCreatedPreviouslyEventArgs;
-            RaiseOnFileCreatedPreviouslyEvent(e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the calling thread synchronously. 
-        /// i.e. it will wait until all event handlers have processed the event.
-        /// </summary>
-        /// <param name="state">The state to be passed to the event.</param>
-        private void RaiseCrossThreadOnFileCreatedPreviouslyEvent(FileCreatedPreviouslyEventArgs e)
-        {
-            _asyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnFileCreatedPreviouslyEventRaised), e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the calling thread asynchronously. 
-        /// i.e. it will immediatly continue processing even though event 
-        /// handlers have not processed the event yet.
-        /// </summary>
-        /// <param name="state">The state to be passed to the event.</param>
-        private void RaiseAsynchronousOnFileCreatedPreviouslyEvent(FileCreatedPreviouslyEventArgs e)
-        {
-            _asyncOperation.Post(new SendOrPostCallback(AsynchronousOnFileCreatedPreviouslyEventRaised), e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the current thread synchronously.
-        /// i.e. it will wait until all event handlers have processed the event.
-        /// </summary>
-        /// <param name="e">The state to be passed to the event.</param>
-        private void RaiseOnFileCreatedPreviouslyEvent(FileCreatedPreviouslyEventArgs e)
-        {
-            // Make a temporary copy of the event to avoid possibility of
-            // a race condition if the last subscriber unsubscribes
-            // immediately after the null check and before the event is raised.
-
-            FileCreatedPreviouslyEventHandler eventHandler;
-
-            if (!Monitor.TryEnter(_fileCreatedPreviouslyEventLock, _lockTimeout))
-            {
-                throw new ApplicationException("Timeout waiting for lock - RaiseOnFileCreatedPreviouslyEvent");
-            }
-            try
-            {
-                eventHandler = _fileCreatedPreviouslyEvent;
-            }
-            finally
-            {
-                Monitor.Exit(_fileCreatedPreviouslyEventLock);
-            }
-
-            OnFileCreatedPreviouslyEvent(e);
-
-            if (eventHandler != null)
-            {
-                eventHandler(this, e);
-            }
-        }
-        #endregion
+        
 
         #region FileChangedEvent
         /// <summary>
@@ -1196,7 +1007,6 @@ namespace Talifun.Commander.FileWatcher
 
             _fileSystemWatcher.Dispose();
 
-            _fileCreatedPreviouslyEvent = null;
             _fileChangedEvent = null;
             _fileCreatedEvent = null;
             _fileDeletedEvent = null;

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
         #region ICommand<ThumbnailerCommand,ThumbnailerSettings> Members
 
-        public bool Run(ThumbnailerSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(ThumbnailerSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
 
@@ -37,7 +37,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
             var position = "";
 
-			var commandPath = appSettings[VideoThumbnailerConfiguration.Instance.FFMpegPathSettingName];
+			var commandPath = appSettings.Settings[VideoThumbnailerConfiguration.Instance.FFMpegPathSettingName].Value;
             var videoInfoOutput = string.Empty;
             if (settings.TimePercentage >= 0 && settings.TimePercentage <= 100)
             {

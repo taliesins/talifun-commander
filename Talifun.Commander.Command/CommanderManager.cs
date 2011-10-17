@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
@@ -25,7 +24,6 @@ namespace Talifun.Commander.Command
     	private readonly AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
 
     	private readonly List<IEnhancedFileSystemWatcher> _enhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
-    	private FileCreatedPreviouslyEventHandler _fileCreatedPreviouslyEvent;
     	private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
 
     	private bool _stopSignalled = false;
@@ -63,25 +61,17 @@ namespace Talifun.Commander.Command
                 }
             }
 
-            _fileCreatedPreviouslyEvent = new FileCreatedPreviouslyEventHandler(OnFileCreatedPreviouslyEvent);
             _fileFinishedChangingEvent = new FileFinishedChangingEventHandler(OnFileFinishedChangingEvent);
 
             foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
-                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent += _fileCreatedPreviouslyEvent;
                 enhancedFileSystemWatcher.FileFinishedChangingEvent += _fileFinishedChangingEvent;
             }
         }
 
     	private void OnFileFinishedChangingEvent(object sender, FileFinishedChangingEventArgs e)
         {
-            if (!(e.ChangeType == WatcherChangeTypes.Changed || e.ChangeType == WatcherChangeTypes.Created)) return;
-            var folderSetting = (FolderElement)e.UserState;
-            ProcessFileMatches(e.FilePath, folderSetting);
-        }
-
-    	private void OnFileCreatedPreviouslyEvent(object sender, FileCreatedPreviouslyEventArgs e)
-        {
+            if (e.ChangeType == WatcherChangeTypes.Deleted || e.ChangeType == WatcherChangeTypes.Renamed) return;
             var folderSetting = (FolderElement)e.UserState;
             ProcessFileMatches(e.FilePath, folderSetting);
         }
@@ -241,7 +231,8 @@ namespace Talifun.Commander.Command
                                                 CommanderManager = this,
                                                 FileMatch = fileMatch,
                                                 InputFilePath = fileInfo,
-                                                Project = project
+                                                Project = project,
+												AppSettings = _appSettings
                                             };
             commandSaga.Run(commandSagaProperties);
         }
@@ -520,7 +511,6 @@ namespace Talifun.Commander.Command
 
             foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
             {
-                enhancedFileSystemWatcher.FileCreatedPreviouslyEvent -= _fileCreatedPreviouslyEvent;
                 enhancedFileSystemWatcher.FileFinishedChangingEvent -= _fileFinishedChangingEvent;
             }
 
@@ -529,7 +519,6 @@ namespace Talifun.Commander.Command
                 enhancedFileSystemWatcher.Dispose();
             }
 
-            _fileCreatedPreviouslyEvent = null;
             _fileFinishedChangingEvent = null;
 
             _commandErrorEvent = null;

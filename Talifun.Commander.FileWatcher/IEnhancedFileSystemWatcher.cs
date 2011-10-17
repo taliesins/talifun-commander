@@ -89,13 +89,5 @@ namespace Talifun.Commander.FileWatcher
         /// If the file is renamed or deleted, this event will be called immediatly.
         /// </summary>
         event FileFinishedChangingEventHandler FileFinishedChangingEvent;
-
-        /// <summary>
-        /// This event is raised for every file that already exists when the FolderMonitor is started,
-        /// otherwise existing files may never raise an event. If the existing file is in use, this 
-        /// event will not be called. If an existing file raises an event before it can call this 
-        /// event, this event will not be called.
-        /// </summary>
-        event FileCreatedPreviouslyEventHandler FileCreatedPreviouslyEvent;
     }
 }

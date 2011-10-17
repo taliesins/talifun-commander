@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Text.RegularExpressions;
 using Talifun.Commander.Command.AntiVirus.Configuration;
@@ -13,7 +13,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
         #region ICommand<McAfeeCommand,McAfeeSettings> Members
 
-        public bool Run(McAfeeSettings settings, NameValueCollection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(McAfeeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
             if (outPutFilePath.Exists)
@@ -23,7 +23,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
             inputFilePath.CopyTo(outPutFilePath.FullName);
 
-            var commandPath = appSettings[AntiVirusConfiguration.Instance.McAfeePathSettingName];
+            var commandPath = appSettings.Settings[AntiVirusConfiguration.Instance.McAfeePathSettingName].Value;
             var workingDirectory = outputDirectoryPath.FullName;
             var commandArguments = @"/target """ + outPutFilePath.FullName + @""" " + AllFixedOptions;
 
