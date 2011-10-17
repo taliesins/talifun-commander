@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Threading;
+using NLog;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Properties;
 
@@ -73,39 +74,10 @@ namespace Talifun.Commander.Command
 
         public void HandleError(string output, ICommandSagaProperties properties, string errorProcessingPath, string uniqueProcessingNumber)
         {
-            FileInfo errorProcessingFilePath = null;
-            if (!string.IsNullOrEmpty(errorProcessingPath))
-            {
-                errorProcessingFilePath = new FileInfo(Path.Combine(errorProcessingPath, uniqueProcessingNumber + "." + properties.InputFilePath.Name));
-            }
+        	var sagaException = new SagaException(output, properties, errorProcessingPath, uniqueProcessingNumber);
 
-            if (errorProcessingFilePath == null)
-            {
-                var exceptionOccurred = new Exception(output);
-                properties.CommanderManager.LogException(null, exceptionOccurred);
-            }
-            else
-            {
-                if (errorProcessingFilePath.Exists)
-                {
-                    errorProcessingFilePath.Delete();
-                }
-
-                var errorProcessingLogFilePath = new FileInfo(errorProcessingFilePath.FullName + ".txt");
-
-                if (errorProcessingLogFilePath.Exists)
-                {
-                    errorProcessingLogFilePath.Delete();
-                }
-
-                var exceptionOccurred = new Exception(output);
-                properties.CommanderManager.LogException(errorProcessingLogFilePath, exceptionOccurred);
-
-                if (properties.InputFilePath.Exists)
-                {
-                    properties.InputFilePath.CopyTo(errorProcessingFilePath.FullName);
-                }
-            }
+			var logger = LogManager.GetLogger(Settings.ElementType.FullName);
+			logger.ErrorException(output, sagaException);
         }
 
         public DirectoryInfo GetWorkingDirectoryPath(ICommandSagaProperties properties, string workingPath, string uniqueProcessingNumber)

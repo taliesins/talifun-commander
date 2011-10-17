@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Talifun.Commander.Command.Configuration;
+﻿using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command
 {
@@ -14,12 +12,5 @@ namespace Talifun.Commander.Command
         {
             get;
         }
-
-        void LogException(FileInfo errorFileInfo, Exception exception);
-
-        /// <summary>
-        /// This event occurs when their is an error executing a command.
-        /// </summary>
-        event CommandErrorEventHandler CommandErrorEvent;
     }
 }

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using NLog;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Properties;
 using Talifun.Commander.FileWatcher;
@@ -20,8 +17,6 @@ namespace Talifun.Commander.Command
     {
     	private readonly IEnhancedFileSystemWatcherFactory _enhancedFileSystemWatcherFactory;
     	private readonly CommandConfigurationTester _commandConfigurationTester;
-    	private readonly TimeSpan _lockTimeout = TimeSpan.FromSeconds(10);
-    	private readonly AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
 
     	private readonly List<IEnhancedFileSystemWatcher> _enhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
     	private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
@@ -234,70 +229,11 @@ namespace Talifun.Commander.Command
                                                 Project = project,
 												AppSettings = _appSettings
                                             };
-            commandSaga.Run(commandSagaProperties);
-        }
 
-        public void LogException(FileInfo errorFileInfo, Exception exception)
-        {
-            var exceptionMessage = GetExceptionMessage(exception);
-
-            var commandErrorEventArgs = new CommandErrorEventArgs(exceptionMessage);
-
-            RaiseAsynchronousOnCommandErrorEvent(commandErrorEventArgs);
-
-            if (errorFileInfo == null) return;
-
-            using (var streamWriter = errorFileInfo.CreateText())
-            {
-                streamWriter.Write(exceptionMessage);
-            }
-        }
-
-    	private static string GetExceptionMessage(Exception exception)
-        {
-            var error = new StringBuilder();
-            error.Append("Date:              " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + Environment.NewLine);
-            error.Append("Computer name:     " + Environment.MachineName + Environment.NewLine);
-            error.Append("User name:         " + Environment.UserName + Environment.NewLine);
-            error.Append("OS:                " + Environment.OSVersion.ToString() + Environment.NewLine);
-            error.Append("Culture:           " + CultureInfo.CurrentCulture.Name + Environment.NewLine);
-
-            error.Append("Exception class:   " +
-            exception.GetType().ToString() + Environment.NewLine);
-            error.Append("Exception message: " + GetExceptionStack(exception) + Environment.NewLine);
-            error.Append(Environment.NewLine);
-            error.Append("Stack Trace:");
-            error.Append(Environment.NewLine);
-            error.Append(exception.StackTrace);
-            error.Append(Environment.NewLine);
-            error.Append(Environment.NewLine);
-            error.Append("Loaded Modules:");
-            error.Append(Environment.NewLine);
-            var thisProcess = Process.GetCurrentProcess();
-            foreach (ProcessModule module in thisProcess.Modules)
-            {
-                error.Append(module.FileName + " " + module.FileVersionInfo.FileVersion);
-                error.Append(Environment.NewLine);
-            }
-            error.Append(Environment.NewLine);
-            error.Append(Environment.NewLine);
-            error.Append(Environment.NewLine);
-
-            return error.ToString();
-        }
-
-    	private static string GetExceptionStack(Exception e)
-        {
-            var message = new StringBuilder();
-            message.Append(e.Message);
-            while (e.InnerException != null)
-            {
-                e = e.InnerException;
-                message.Append(Environment.NewLine);
-                message.Append(e.Message);
-            }
-
-            return message.ToString();
+			var logger = LogManager.GetLogger(commandSaga.Settings.ElementType.FullName);
+			logger.Info(string.Format(Resource.InfoMessageSagaStarted, project.Name, fileMatch.Name, fileInfo));
+			commandSaga.Run(commandSagaProperties);
+			logger.Info(string.Format(Resource.InfoMessageSagaCompleted, project.Name, fileMatch.Name, fileInfo));
         }
 
         #region Test Configuration
@@ -356,124 +292,6 @@ namespace Talifun.Commander.Command
 
         #endregion
 
-        #region CommandErrorEvent
-        /// <summary>
-        /// Where the actual event is stored.
-        /// </summary>
-        private CommandErrorEventHandler _commandErrorEvent;
-
-        /// <summary>
-        /// Lock for event delegate access.
-        /// </summary>
-        private readonly object _commandErrorEventLock = new object();
-
-        /// <summary>
-        /// The event that is fired.
-        /// </summary>
-        public event CommandErrorEventHandler CommandErrorEvent
-        {
-            add
-            {
-                if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
-                {
-                    throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd);
-                }
-                try
-                {
-                    _commandErrorEvent += value;
-                }
-                finally
-                {
-                    Monitor.Exit(_commandErrorEventLock);
-                }
-            }
-            remove
-            {
-                if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
-                {
-                    throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove);
-                }
-                try
-                {
-                    _commandErrorEvent -= value;
-                }
-                finally
-                {
-                    Monitor.Exit(_commandErrorEventLock);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Template method to add default behaviour for the event
-        /// </summary>
-        private void OnCommandErrorEvent(CommandErrorEventArgs e)
-        {
-            // TODO: Implement default behaviour of OnCommandErrorEvent
-        }
-
-        private void AsynchronousOnCommandErrorEventRaised(object state)
-        {
-            var e = state as CommandErrorEventArgs;
-            RaiseOnCommandErrorEvent(e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the calling thread synchronously. 
-        /// i.e. it will wait until all event handlers have processed the event.
-        /// </summary>
-        /// <param name="state">The state to be passed to the event.</param>
-        private void RaiseCrossThreadOnCommandErrorEvent(CommandErrorEventArgs e)
-        {
-            _asyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the calling thread asynchronously. 
-        /// i.e. it will immediatly continue processing even though event 
-        /// handlers have not processed the event yet.
-        /// </summary>
-        /// <param name="state">The state to be passed to the event.</param>
-        private void RaiseAsynchronousOnCommandErrorEvent(CommandErrorEventArgs e)
-        {
-            _asyncOperation.Post(new SendOrPostCallback(AsynchronousOnCommandErrorEventRaised), e);
-        }
-
-        /// <summary>
-        /// Will raise the event on the current thread synchronously.
-        /// i.e. it will wait until all event handlers have processed the event.
-        /// </summary>
-        /// <param name="e">The state to be passed to the event.</param>
-        private void RaiseOnCommandErrorEvent(CommandErrorEventArgs e)
-        {
-            // Make a temporary copy of the event to avoid possibility of
-            // a race condition if the last subscriber unsubscribes
-            // immediately after the null check and before the event is raised.
-
-            CommandErrorEventHandler eventHandler;
-
-            if (!Monitor.TryEnter(_commandErrorEventLock, _lockTimeout))
-            {
-                throw new ApplicationException(Resource.ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock);
-            }
-            try
-            {
-                eventHandler = _commandErrorEvent;
-            }
-            finally
-            {
-                Monitor.Exit(_commandErrorEventLock);
-            }
-
-            OnCommandErrorEvent(e);
-
-            if (eventHandler != null)
-            {
-                eventHandler(this, e);
-            }
-        }
-        #endregion
-
         #region IDisposable Members
         private int _alreadyDisposed = 0;
 
@@ -521,7 +339,6 @@ namespace Talifun.Commander.Command
 
             _fileFinishedChangingEvent = null;
 
-            _commandErrorEvent = null;
             // Dispose unmanaged resources.
 
             // If it is available, make the call to the

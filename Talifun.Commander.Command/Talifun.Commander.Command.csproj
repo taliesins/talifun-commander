@@ -88,6 +88,10 @@
       <HintPath>..\References\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -142,6 +146,7 @@
       <DependentUpon>ProjectElementPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration\ProjectElementValidator.cs" />
+    <Compile Include="Configuration\SagaException.cs" />
     <Compile Include="Configuration\SettingPanelBase.cs" />
     <Compile Include="Configuration\CommandConfigurationTester.cs" />
     <Compile Include="Configuration\CommandConfigurationTesterBase.cs" />

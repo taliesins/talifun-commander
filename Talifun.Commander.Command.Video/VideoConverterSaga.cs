@@ -136,7 +136,6 @@ namespace Talifun.Commander.Command.Video
                 var output = string.Empty;
                 FileInfo workingFilePath = null;
 
-
 				var containerSettings = GetContainerSettings(videoConversionSetting);
 
 				var videoCommand = GetCommand(containerSettings);

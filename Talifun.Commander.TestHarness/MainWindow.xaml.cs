@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using NLog;
 using Talifun.Commander.Command;
 using Talifun.Commander.UI;
 
@@ -9,6 +10,7 @@ namespace Talifun.Commander.TestHarness
     /// </summary>
     public partial class MainWindow : Window
     {
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly ICommanderManager _commanderManager;
         
         public MainWindow()
@@ -27,14 +29,18 @@ namespace Talifun.Commander.TestHarness
 
         private void StartButtonClick(object sender, RoutedEventArgs e)
         {
+			_logger.Info("Talifun Commander service starting");
             _commanderManager.Start();
             SetRunningState(true);
+			_logger.Info("Talifun Commander service started");
         }
 
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
+			_logger.Info("Talifun Commander service stopping");
             _commanderManager.Stop();
             SetRunningState(false);
+			_logger.Info("Talifun Commander service stopped");
         }
 
         private void SettingsButtonClick(object sender, RoutedEventArgs e)

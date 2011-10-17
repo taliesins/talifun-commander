@@ -302,6 +302,24 @@ namespace Talifun.Commander.Command.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to completed - {0} - {1} - {2}.
+        /// </summary>
+        public static string InfoMessageSagaCompleted {
+            get {
+                return ResourceManager.GetString("InfoMessageSagaCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to started - {0} - {1} - {2}.
+        /// </summary>
+        public static string InfoMessageSagaStarted {
+            get {
+                return ResourceManager.GetString("InfoMessageSagaStarted", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap ProjectElement {
             get {
                 object obj = ResourceManager.GetObject("ProjectElement", resourceCulture);
