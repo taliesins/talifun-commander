@@ -1598,7 +1598,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Talifun Commander"
         "ProductCode" = "8:{89BCDD35-7A04-42FC-8417-0BA3495F9EAB}"
-        "PackageCode" = "8:{D06DE36D-5DF0-44E4-BF5E-16D53C089775}"
+        "PackageCode" = "8:{71E92C8D-F1BA-44D7-A645-0218E26B75C8}"
         "UpgradeCode" = "8:{E0620CB5-F65C-4C3F-B61E-29B7245F10A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -2427,7 +2427,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A4A1463B71C843B690282D4AFBB918E9"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Service\\obj\\Debug\\Talifun.Commander.MediaConversionService.exe"
+            "SourcePath" = "8:..\\Talifun.Commander.Service\\obj\\Debug\\Talifun.Commander.Service.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"

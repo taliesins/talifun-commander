@@ -28,7 +28,7 @@ namespace Talifun.Commander.Service
 		{
 			if (EventLog.SourceExists(Properties.Resource.LogSource))
 			{
-				EventLog.DeleteEventSource(Properties.Resource.LogSource, Properties.Resource.LogName);
+				EventLog.DeleteEventSource(Properties.Resource.LogSource);
 			}
 			base.Uninstall(savedState);
 		}
