@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using NLog;
 using Talifun.Commander.Command;
 using Talifun.Commander.UI;
@@ -48,5 +49,21 @@ namespace Talifun.Commander.TestHarness
         	var commanderSectionWindow = _commanderManager.GetCommanderSectionWindow();
         	commanderSectionWindow.ShowDialog();
         }
+
+		private void DeleteEventLogButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (EventLog.SourceExists(Properties.Resources.LogSource))
+			{
+				EventLog.DeleteEventSource(Properties.Resources.LogSource);
+			}
+		}
+
+		private void AddEventLogButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (!EventLog.SourceExists(Properties.Resources.LogSource))
+			{
+				EventLog.CreateEventSource(Properties.Resources.LogSource, Properties.Resources.LogName);
+			}
+		}
     }
 }

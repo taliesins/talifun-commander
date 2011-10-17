@@ -28,18 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CommanderEventLog = new System.Diagnostics.EventLog();
-            ((System.ComponentModel.ISupportInitialize)(this.CommanderEventLog)).BeginInit();
-            // 
-            // CommanderService
-            // 
-            this.ServiceName = "CommanderService";
-            ((System.ComponentModel.ISupportInitialize)(this.CommanderEventLog)).EndInit();
+			// 
+			// CommanderService
+			// 
+			this.ServiceName = "CommanderService";
 
         }
 
         #endregion
 
-        private System.Diagnostics.EventLog CommanderEventLog;
-    }
+	}
 }

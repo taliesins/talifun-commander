@@ -6,8 +6,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="329" d:DesignWidth="386">
     <Grid>
-        <Button Content="Start" Height="23" HorizontalAlignment="Left" Margin="10,10,0,0" Name="StartButton" VerticalAlignment="Top" Width="75" Click="StartButtonClick" />
-        <Button Content="Stop" Height="23" HorizontalAlignment="Left" Margin="10,39,0,0" Name="StopButton" VerticalAlignment="Top" Width="75" Click="StopButtonClick" />
-        <Button Content="Settings" Height="23" HorizontalAlignment="Left" Margin="10,68,0,0" Name="SettingsButton" VerticalAlignment="Top" Width="75" Click="SettingsButtonClick" />
+        <Button Content="Start" Height="23" HorizontalAlignment="Left" Margin="10,10,0,0" Name="StartButton" VerticalAlignment="Top" Width="90" Click="StartButtonClick" />
+        <Button Content="Stop" Height="23" HorizontalAlignment="Left" Margin="10,39,0,0" Name="StopButton" VerticalAlignment="Top" Width="90" Click="StopButtonClick" />
+        <Button Content="Settings" Height="23" HorizontalAlignment="Left" Margin="10,68,0,0" Name="SettingsButton" VerticalAlignment="Top" Width="90" Click="SettingsButtonClick" />
+        <Button Content="Delete Event Log" Height="23" HorizontalAlignment="Left" Margin="12,131,0,0" Name="DeleteEventLogButton" VerticalAlignment="Top" Width="90" Click="DeleteEventLogButton_Click" />
+        <Button Content="Add Event Log" Height="23" HorizontalAlignment="Left" Margin="12,160,0,0" Name="AddEventLogButton" VerticalAlignment="Top" Width="90" Click="AddEventLogButton_Click" />
     </Grid>
 </Window>

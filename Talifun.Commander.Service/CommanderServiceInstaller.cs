@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Configuration.Install;
-
+using System.Diagnostics;
 
 namespace Talifun.Commander.Service
 {
@@ -11,5 +12,25 @@ namespace Talifun.Commander.Service
         {
             InitializeComponent();
         }
+
+		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
+		public override void Commit(IDictionary savedState)
+		{
+			base.Commit(savedState);
+			if (!EventLog.SourceExists(Properties.Resource.LogSource))
+			{
+				EventLog.CreateEventSource(Properties.Resource.LogSource, Properties.Resource.LogName);
+			}
+		}
+
+		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
+		public override void Uninstall(IDictionary savedState)
+		{
+			if (EventLog.SourceExists(Properties.Resource.LogSource))
+			{
+				EventLog.DeleteEventSource(Properties.Resource.LogSource, Properties.Resource.LogName);
+			}
+			base.Uninstall(savedState);
+		}
     }
 }

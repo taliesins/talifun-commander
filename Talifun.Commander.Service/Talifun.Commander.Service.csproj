@@ -8,8 +8,8 @@
     <ProjectGuid>{F913C226-1133-4C06-A592-1C2F33B45F7A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Talifun.Commander.MediaConversionService</RootNamespace>
-    <AssemblyName>Talifun.Commander.MediaConversionService</AssemblyName>
+    <RootNamespace>Talifun.Commander.Service</RootNamespace>
+    <AssemblyName>Talifun.Commander.Service</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>true</IsWebBootstrapper>

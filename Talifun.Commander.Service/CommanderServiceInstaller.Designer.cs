@@ -1,4 +1,4 @@
-﻿using Talifun.Commander.MediaConversionService.Properties;
+﻿using Talifun.Commander.Service.Properties;
 
 namespace Talifun.Commander.Service
 {
