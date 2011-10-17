@@ -13,7 +13,6 @@ namespace Talifun.Commander.Configurator
 	{
 		public MainWindow()
 		{
-			this.Visibility = Visibility.Collapsed;
 			InitializeComponent();
 
 			var configuration = GetCommanderConfiguration();
@@ -26,7 +25,7 @@ namespace Talifun.Commander.Configurator
 
 		private Configuration GetCommanderConfiguration()
 		{
-			var configFileName = "Talifun.Commander.MediaConversionService.exe.config";
+			var configFileName = "Talifun.Commander.Service.exe.config";
 
 			if (!File.Exists(configFileName))
 			{

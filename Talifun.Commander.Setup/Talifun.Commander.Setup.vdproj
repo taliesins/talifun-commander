@@ -1598,7 +1598,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Talifun Commander"
         "ProductCode" = "8:{89BCDD35-7A04-42FC-8417-0BA3495F9EAB}"
-        "PackageCode" = "8:{71E92C8D-F1BA-44D7-A645-0218E26B75C8}"
+        "PackageCode" = "8:{0B81646A-C20F-41B2-A238-D7A3F2CD6CAD}"
         "UpgradeCode" = "8:{E0620CB5-F65C-4C3F-B61E-29B7245F10A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -2259,7 +2259,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_129FC4788D294FD6873515520F14FCCF"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.Audio\\obj\\Debug\\Talifun.Commander.Command.Audio.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.Audio\\obj\\Release\\Talifun.Commander.Command.Audio.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2287,7 +2287,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1BA51D625CA843FE9EC00A520A0E6412"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.AntiVirus\\obj\\Debug\\Talifun.Commander.Command.AntiVirus.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.AntiVirus\\obj\\Release\\Talifun.Commander.Command.AntiVirus.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2315,7 +2315,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1C6588E3B1CF4961AF3498CD417D18DF"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.CommandLine\\obj\\Debug\\Talifun.Commander.Command.CommandLine.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.CommandLine\\obj\\Release\\Talifun.Commander.Command.CommandLine.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2343,7 +2343,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4478E82514AA4CEEBFE35D7EB69E88A6"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.Video\\obj\\Debug\\Talifun.Commander.Command.Video.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.Video\\obj\\Release\\Talifun.Commander.Command.Video.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2371,7 +2371,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8269AB6894984F498089451FC2B39C28"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Configurator\\obj\\Debug\\Talifun.Commander.Configurator.exe"
+            "SourcePath" = "8:..\\Talifun.Commander.Configurator\\obj\\Release\\Talifun.Commander.Configurator.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2399,7 +2399,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9609B963E05E4B9EB71F6C0E0931A142"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.VideoThumbNailer\\obj\\Debug\\Talifun.Commander.Command.VideoThumbNailer.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.VideoThumbNailer\\obj\\Release\\Talifun.Commander.Command.VideoThumbNailer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2427,7 +2427,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A4A1463B71C843B690282D4AFBB918E9"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Service\\obj\\Debug\\Talifun.Commander.Service.exe"
+            "SourcePath" = "8:..\\Talifun.Commander.Service\\obj\\Release\\Talifun.Commander.Service.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
@@ -2455,7 +2455,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BA0E9ED09DE84106AAF747DC48F4E082"
             {
-            "SourcePath" = "8:..\\Talifun.Commander.Command.Image\\obj\\Debug\\Talifun.Commander.Command.Image.dll"
+            "SourcePath" = "8:..\\Talifun.Commander.Command.Image\\obj\\Release\\Talifun.Commander.Command.Image.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_51CFE0EC036444A2AECA36BFFED94ACA"
