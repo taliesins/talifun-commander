@@ -1,5 +1,9 @@
 Talifun-Commander
 =================
+
+# Status
+Currently undergoing a lot of changes. So treat this code as Alpha quality!
+
 # LICENSE
 Apache 2.0 - see LICENSE.txt
 
