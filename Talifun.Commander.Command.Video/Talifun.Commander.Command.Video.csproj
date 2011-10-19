@@ -66,6 +66,7 @@
     <Compile Include="Configuration\VideoConversionElementPanel.xaml.cs">
       <DependentUpon>VideoConversionElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\VideoConversionElementPanelDataModel.cs" />
     <Compile Include="Configuration\VideoConversionElementValidator.cs" />
     <Compile Include="Configuration\VideoConversionTester.cs" />
     <Compile Include="Configuration\VideoConversionConfiguration.cs" />

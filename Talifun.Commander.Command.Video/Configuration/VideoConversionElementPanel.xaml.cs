@@ -20,21 +20,22 @@ namespace Talifun.Commander.Command.Video.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private VideoConversionElement Element { get; set; }
+		private VideoConversionElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
-			if (Element != null)
+			if (DataModel != null)
 			{
-				Element.PropertyChanged -= OnElementPropertyChanged;
+				DataModel.PropertyChanged -= OnElementPropertyChanged;
 			}
 
 			if (e.Element == null || !(e.Element is VideoConversionElement)) return;
-			Element = e.Element as VideoConversionElement;
+			var element = e.Element as VideoConversionElement;
 
-			Element.PropertyChanged += OnElementPropertyChanged;
+			DataModel = new VideoConversionElementPanelDataModel(element);
+			this.DataContext = DataModel;
 
-			this.DataContext = Element;
+			DataModel.PropertyChanged += OnElementPropertyChanged;
 
 			StartingValues();
 		}
@@ -136,7 +137,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			return attributeValue;
 		}
 
-
     	private bool _selectionBoxChanged = false;
 		private void CommonSettingsComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -161,21 +161,21 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var keyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "keyFrameInterval");
 			var minKeyFrameIntervals = GetIntFromAttribute(selectedCommonSetting, "minKeyFrameIntervals");
 
-			Element.AudioConversionType = audioConversionType;
-			Element.AudioBitRate = audioBitRate;
-			Element.AudioFrequency = audioFrequency;
-			Element.AudioChannel = audioChannel;
-			Element.Deinterlace = deinterlace;
-			Element.VideoConversionType = videoConversionType;
-    		Element.Width = width;
-			Element.Height = height;
-			Element.AspectRatio = aspectRatio;
-			Element.FrameRate = frameRate;
-			Element.VideoBitRate = videoBitRate;
-			Element.MaxVideoBitRate = maxVideoBitRate;
-			Element.BufferSize = bufferSize;
-			Element.KeyFrameInterval = keyFrameInterval;
-			Element.MinKeyFrameInterval = minKeyFrameIntervals;
+			DataModel.Element.AudioConversionType = audioConversionType;
+			DataModel.Element.AudioBitRate = audioBitRate;
+			DataModel.Element.AudioFrequency = audioFrequency;
+			DataModel.Element.AudioChannel = audioChannel;
+			DataModel.Element.Deinterlace = deinterlace;
+			DataModel.Element.VideoConversionType = videoConversionType;
+			DataModel.Element.Width = width;
+			DataModel.Element.Height = height;
+			DataModel.Element.AspectRatio = aspectRatio;
+			DataModel.Element.FrameRate = frameRate;
+			DataModel.Element.VideoBitRate = videoBitRate;
+			DataModel.Element.MaxVideoBitRate = maxVideoBitRate;
+			DataModel.Element.BufferSize = bufferSize;
+			DataModel.Element.KeyFrameInterval = keyFrameInterval;
+			DataModel.Element.MinKeyFrameInterval = minKeyFrameIntervals;
 			
     		_selectionBoxChanged = false;
 		}
@@ -189,47 +189,47 @@ namespace Talifun.Commander.Command.Video.Configuration
 
 			if (string.IsNullOrEmpty(bitRateComboBox.Text))
 			{
-				bitRateComboBox.Text = Element.AudioBitRate.ToString();
+				bitRateComboBox.Text = DataModel.Element.AudioBitRate.ToString();
 			}
 
 			if (string.IsNullOrEmpty(frequencyComboBox.Text))
 			{
-				frequencyComboBox.Text = Element.AudioFrequency.ToString();
+				frequencyComboBox.Text = DataModel.Element.AudioFrequency.ToString();
 			}
 
 			if (string.IsNullOrEmpty(channelComboBox.Text))
 			{
-				channelComboBox.Text = Element.AudioChannel.ToString();
+				channelComboBox.Text = DataModel.Element.AudioChannel.ToString();
 			}
 
 			if (string.IsNullOrEmpty(frameRateComboBox.Text))
 			{
-				frameRateComboBox.Text = Element.FrameRate.ToString();
+				frameRateComboBox.Text = DataModel.Element.FrameRate.ToString();
 			}
 			
 			if (string.IsNullOrEmpty(videoBitRateComboBox.Text))
 			{
-				videoBitRateComboBox.Text = Element.VideoBitRate.ToString();
+				videoBitRateComboBox.Text = DataModel.Element.VideoBitRate.ToString();
 			}
 
 			if (string.IsNullOrEmpty(maxVideoBitRateComboBox.Text))
 			{
-				maxVideoBitRateComboBox.Text = Element.MaxVideoBitRate.ToString();
+				maxVideoBitRateComboBox.Text = DataModel.Element.MaxVideoBitRate.ToString();
 			}
 
 			if (string.IsNullOrEmpty(bufferSizeComboBox.Text))
 			{
-				bufferSizeComboBox.Text = Element.BufferSize.ToString();
+				bufferSizeComboBox.Text = DataModel.Element.BufferSize.ToString();
 			}
 
 			if (string.IsNullOrEmpty(keyFrameIntervalComboBox.Text))
 			{
-				keyFrameIntervalComboBox.Text = Element.KeyFrameInterval.ToString();
+				keyFrameIntervalComboBox.Text = DataModel.Element.KeyFrameInterval.ToString();
 			}
 
 			if (string.IsNullOrEmpty(minKeyFrameIntervalComboBox.Text))
 			{
-				minKeyFrameIntervalComboBox.Text = Element.MinKeyFrameInterval.ToString();
+				minKeyFrameIntervalComboBox.Text = DataModel.Element.MinKeyFrameInterval.ToString();
 			}
 		}
     }
