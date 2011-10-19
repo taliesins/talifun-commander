@@ -41,6 +41,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,6 +60,10 @@
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AudioConversionElementCollectionPanel.xaml.cs">
+      <DependentUpon>AudioConversionElementCollectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\AudioConversionElementCollectionPanelDataModel.cs" />
     <Compile Include="Configuration\AudioConversionElementPanel.xaml.cs">
       <DependentUpon>AudioConversionElementPanel.xaml</DependentUpon>
     </Compile>
@@ -109,6 +114,10 @@
     <Resource Include="Resources\AudioConversionElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Configuration\AudioConversionElementCollectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configuration\AudioConversionElementPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
