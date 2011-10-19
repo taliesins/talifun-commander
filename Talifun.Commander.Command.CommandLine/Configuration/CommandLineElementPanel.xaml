@@ -27,17 +27,17 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Label Content="Command Path:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="commandPathTextBox" Text="{Binding Path=CommandPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="commandPathTextBox" Text="{Binding Path=Element.CommandPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
             <Button Content="..." Grid.Row="1" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="commandPathButton"  Width="25" Click="commandPathButton_Click" />
 
             <Label Content="Check Command Path Exists:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <CheckBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" Name="stopProcessingCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=CheckCommandPathExists, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" Name="stopProcessingCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Element.CheckCommandPathExists, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="Command Arguments:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandArgumentsTextBox" Text="{Binding Path=Args, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commandArgumentsTextBox" Text="{Binding Path=Element.Args, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <FlowDocumentScrollViewer Grid.Column="0" Grid.Row="4" IsTabStop="False" Grid.ColumnSpan="2" IsHitTestVisible="False" IsEnabled="False" IsSelectionEnabled="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
                 <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">

@@ -18,14 +18,15 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private CommandLineElement Element { get; set; }
+		private CommandLineElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
 			if (e.Element == null || !(e.Element is CommandLineElement)) return;
-			Element = e.Element as CommandLineElement;
+			var element = e.Element as CommandLineElement;
 
-			this.DataContext = Element;
+			DataModel = new CommandLineElementPanelDataModel(element);
+			this.DataContext = DataModel;
 		}
 
 		private void commandPathButton_Click(object sender, RoutedEventArgs e)

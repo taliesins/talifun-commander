@@ -60,6 +60,7 @@
     <Compile Include="Configuration\CommandLineElementPanel.xaml.cs">
       <DependentUpon>CommandLineElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\CommandLineElementPanelDataModel.cs" />
     <Compile Include="Configuration\CommandLineElementValidator.cs" />
     <Compile Include="Configuration\CommandLineTester.cs" />
     <Compile Include="Configuration\CommandLineConfiguration.cs" />
