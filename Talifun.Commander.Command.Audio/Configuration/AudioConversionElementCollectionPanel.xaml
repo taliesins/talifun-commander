@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                                xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
+             xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
              mc:Ignorable="d" 
              d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementCollectionPanelBase.Resources>
@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>
     <Grid>
-        <Label Content="Anti Virus Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Audio Conversion Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
         <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

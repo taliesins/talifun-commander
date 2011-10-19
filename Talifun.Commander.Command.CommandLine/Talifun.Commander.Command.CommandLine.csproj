@@ -57,6 +57,10 @@
     <Compile Include="Configuration\CommandLineElement.Validation.cs">
       <DependentUpon>CommandLineElement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\CommandLineElementCollectionPanel.xaml.cs">
+      <DependentUpon>CommandLineElementCollectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\CommandLineElementCollectionPanelDataModel.cs" />
     <Compile Include="Configuration\CommandLineElementPanel.xaml.cs">
       <DependentUpon>CommandLineElementPanel.xaml</DependentUpon>
     </Compile>
@@ -101,6 +105,10 @@
     <Resource Include="Resources\CommandLineElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Configuration\CommandLineElementCollectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configuration\CommandLineElementPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
