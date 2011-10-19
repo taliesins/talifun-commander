@@ -59,6 +59,7 @@
     <Compile Include="Configuration\ImageConversionElementPanel.xaml.cs">
       <DependentUpon>ImageConversionElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\ImageConversionElementPanelDataModel.cs" />
     <Compile Include="Configuration\ImageConversionElementValidator.cs" />
     <Compile Include="Configuration\ImageTester.cs" />
     <Compile Include="Configuration\ImageConversionConfiguration.cs" />

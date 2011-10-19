@@ -15,14 +15,15 @@ namespace Talifun.Commander.Command.Image.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private ImageConversionElement Element { get; set; }
+		private ImageConversionElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
 			if (e.Element == null || !(e.Element is ImageConversionElement)) return;
-			Element = e.Element as ImageConversionElement;
+			var element = e.Element as ImageConversionElement;
 
-			this.DataContext = Element;
+			DataModel = new ImageConversionElementPanelDataModel(element);
+			this.DataContext = DataModel;
 		}
     }
 }
