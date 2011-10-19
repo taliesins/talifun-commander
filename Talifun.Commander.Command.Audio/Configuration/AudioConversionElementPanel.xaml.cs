@@ -15,14 +15,15 @@ namespace Talifun.Commander.Command.Audio.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private AudioConversionElement Element { get; set; }
+		private AudioConversionElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
 			if (e.Element == null || !(e.Element is AudioConversionElement)) return;
-			Element = e.Element as AudioConversionElement;
+			var element = e.Element as AudioConversionElement;
 
-			this.DataContext = Element;
+			DataModel = new AudioConversionElementPanelDataModel(element);
+			this.DataContext = DataModel;
 
 			StartingValues();
 		}
@@ -31,7 +32,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
 		{
 			if (string.IsNullOrEmpty(bitRateComboBox.Text))
 			{
-				bitRateComboBox.Text = Element.BitRate.ToString();
+				bitRateComboBox.Text = DataModel.Element.BitRate.ToString();
 			}
 		}
     }

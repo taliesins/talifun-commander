@@ -62,6 +62,7 @@
     <Compile Include="Configuration\AudioConversionElementPanel.xaml.cs">
       <DependentUpon>AudioConversionElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AudioConversionElementPanelDataModel.cs" />
     <Compile Include="Configuration\AudioConversionElementValidator.cs" />
     <Compile Include="Configuration\AudioConversionTester.cs" />
     <Compile Include="Configuration\AudioConversionConfiguration.cs" />

@@ -67,19 +67,19 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Label Content="Audio Conversion Type:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="audioConversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=AudioConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="audioConversionTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioConversionType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.AudioConversionType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="Bit Rate:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=BitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="bitRateComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioBitRates}, XPath=audioBitRate, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Element.BitRate, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
 
             <Label Content="Frequency:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Frequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="frequencyComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioFrequencies}, XPath=audioFrequency, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Element.Frequency, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
 
             <Label Content="Channel:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
+            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="channelComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource audioChannels}, XPath=audioChannel, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Element.Channel, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True"/>
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>

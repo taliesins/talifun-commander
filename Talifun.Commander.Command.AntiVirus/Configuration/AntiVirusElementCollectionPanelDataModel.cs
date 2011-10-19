@@ -17,6 +17,8 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 			get { return AppSettings.Settings[AntiVirusConfiguration.Instance.McAfeePathSettingName].Value; }
 			set
 			{
+				if (AppSettings.Settings[AntiVirusConfiguration.Instance.McAfeePathSettingName].Value == value) return;
+
 				OnPropertyChanging("McAffeePath");
 				AppSettings.Settings[AntiVirusConfiguration.Instance.McAfeePathSettingName].Value = value;
 				OnPropertyChanged("McAffeePath");
