@@ -27,7 +27,7 @@ namespace Talifun.Commander.Command.Configuration
             fileInfo.Delete();
         }
 
-        public abstract void CheckProjectConfiguration(Configuration.ProjectElement project, AppSettingsSection appSettings);
+        public abstract void CheckProjectConfiguration(AppSettingsSection appSettings, Configuration.ProjectElement project);
 
         public abstract ISettingConfiguration Settings { get; }
     }

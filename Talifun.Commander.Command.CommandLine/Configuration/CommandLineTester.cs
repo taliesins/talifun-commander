@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
             }
         }
 
-		public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
+		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
             var commandSettings = new ProjectElementCommand<CommandLineElementCollection>(Settings.ElementCollectionSettingName, project);
             var commandLineSettings = commandSettings.Settings;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
@@ -17,19 +18,19 @@ namespace Talifun.Commander.Command.Configuration
     /// </summary>
     public partial class CommanderSectionWindow : Window
     {
-        private readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
     	private readonly ExportProvider _container;
-    	private readonly CommanderSection _configuration;
-        private readonly IEnumerable<CurrentConfigurationElementCollection> _currentConfigurationElementCollections;
+		private readonly AppSettingsSection _appSettings;
+    	private readonly CommanderSection _commanderSettings;
+        
         private readonly IEnumerable<ElementPanelBase> _elementPanels;
         private readonly IEnumerable<ElementCollectionPanelBase> _elementCollectionPanels;
 
-		public CommanderSectionWindow(ExportProvider container, CommanderSection configuration)
+		public CommanderSectionWindow(ExportProvider container, AppSettingsSection appSettings, CommanderSection commanderSettings)
         {
 			_container = container;
-			_configuration = configuration;
+			_appSettings = appSettings;
+			_commanderSettings = commanderSettings;
 
-            _currentConfigurationElementCollections = GetConfiguration();
             _elementPanels = GetElementPanels();
             _elementCollectionPanels = GetElementCollectionPanels();
 
@@ -37,12 +38,6 @@ namespace Talifun.Commander.Command.Configuration
             this.Icon = Properties.Resource.Commander.ToBitmap().ToBitmapSource();
         	this.DataContext = new CommanderSectionWindowViewModel();
             BuildTree();
-        }
-
-        private IEnumerable<CurrentConfigurationElementCollection> GetConfiguration()
-        {
-			return _container.GetExportedValues<CurrentConfigurationElementCollection>()
-                .Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
         }
 
         private IEnumerable<ElementPanelBase> GetElementPanels()
@@ -57,37 +52,10 @@ namespace Talifun.Commander.Command.Configuration
                 .Where(x => x.Settings != null);
         }
 
-		/// <summary>
-		/// This is all the command settings that are related to the file match element.
-		/// </summary>
-		/// <param name="fileMatchElement">The file match element to get the command settings for.</param>
-		/// <returns>Dictionary of command type/command </returns>
-		private Dictionary<string, List<string>> GetCommandSettings(FileMatchElement fileMatchElement)
-		{
-			var project = GetProjectElement(fileMatchElement);
-			var commandSettings = new Dictionary<string, List<string>>();
-			foreach (var configurationElementCollection in _currentConfigurationElementCollections)
-			{
-				var collectionSettingName = configurationElementCollection.Setting.ElementCollectionSettingName;
-				var configurationProperty = project.GetConfigurationProperty(collectionSettingName);
-				var commandElementCollection = project.GetCommandConfiguration<CurrentConfigurationElementCollection>(configurationProperty);
-				var conversionType = commandElementCollection.Setting.ConversionType;
-				var commandSettingKeys = new List<string>();
-				for (var i = 0; i < commandElementCollection.Count; i++)
-				{
-					var commandElement = commandElementCollection[i];
-					commandSettingKeys.Add(commandElement.Name);
-				}
-				commandSettings.Add(conversionType, commandSettingKeys);
-			}
-
-			return commandSettings;
-		}
-
     	private void BuildTree()
         {
         	var viewModel = ((CommanderSectionWindowViewModel) this.DataContext);
-			viewModel.CommandTreeViewItemViewModels = _configuration.Projects;
+			viewModel.CommandTreeViewItemViewModels = _commanderSettings.Projects;
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
@@ -133,7 +101,7 @@ namespace Talifun.Commander.Command.Configuration
             {
 				if (CommandConfigurationContentControl.Content != null)
 				{
-					((NamedConfigurationElement) ((ElementPanelBase) CommandConfigurationContentControl.Content).DataContext).PropertyChanged -= OnElementPropertyChanged;
+					((INotifyPropertyChanged)((SettingPanelBase)CommandConfigurationContentControl.Content).DataContext).PropertyChanged -= OnElementPropertyChanged;
 				}
 
                 CommandConfigurationContentControl.Content = null;
@@ -146,15 +114,8 @@ namespace Talifun.Commander.Command.Configuration
 
             if (elementSettingPanel != null && CommandConfigurationContentControl.Content != null)
             {
-				if (elementSettingPanel is FileMatchElementPanel)
-				{
-					var fileMatchElementPanel = ((FileMatchElementPanel)elementSettingPanel);
-					var fileMatchElement = (FileMatchElement) element;
-					var commandSettings = GetCommandSettings(fileMatchElement);
-					fileMatchElementPanel.OnBindCommandSettings(commandSettings);
-				}
-                elementSettingPanel.OnBindToElement(element);
-				((NamedConfigurationElement)elementSettingPanel.DataContext).PropertyChanged += OnElementPropertyChanged;
+                elementSettingPanel.OnBindToElement(_appSettings, _commanderSettings, element);
+				((INotifyPropertyChanged)elementSettingPanel.DataContext).PropertyChanged += OnElementPropertyChanged;
             }            
         }
 
@@ -164,22 +125,28 @@ namespace Talifun.Commander.Command.Configuration
 
             if (CommandConfigurationContentControl.Content == null || !CommandConfigurationContentControl.Content.Equals(elementCollectionPanel))
             {
+				if (CommandConfigurationContentControl.Content != null)
+				{
+					((INotifyPropertyChanged)((SettingPanelBase)CommandConfigurationContentControl.Content).DataContext).PropertyChanged -= OnElementPropertyChanged;
+				}
+
                 CommandConfigurationContentControl.Content = null;
 
                 if (elementCollectionPanel != null)
                 {
                     CommandConfigurationContentControl.Content = elementCollectionPanel;
-                    elementCollectionPanel.OnBindToElementCollection(elementCollection);
+					elementCollectionPanel.OnBindToElementCollection(_appSettings, _commanderSettings, elementCollection);
                 }
             }
 
             if (elementCollectionPanel != null && CommandConfigurationContentControl.Content != null)
             {
-                elementCollectionPanel.OnBindToElementCollection(elementCollection);
+				elementCollectionPanel.OnBindToElementCollection(_appSettings, _commanderSettings, elementCollection);
+				((INotifyPropertyChanged)elementCollectionPanel.DataContext).PropertyChanged += OnElementPropertyChanged;
             }                        
         }
 
-		private void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			SaveButton.IsEnabled = true;
 		}
@@ -187,7 +154,7 @@ namespace Talifun.Commander.Command.Configuration
 		private void SaveButtonClick(object sender, RoutedEventArgs e)
 		{
 			SaveButton.IsEnabled = false;
-			_configuration.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
+			_commanderSettings.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
 		}
 
     	private bool _changingContextMenu;
@@ -289,7 +256,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void AddProjectMenuItemClick(object sender, RoutedEventArgs e)
 		{
-			var projects = _configuration.Projects;
+			var projects = _commanderSettings.Projects;
 			AddNewElementToElementCollection(projects);
 		}
 
@@ -297,7 +264,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			var projectElement = (ProjectElement)CommandSectionTreeView.ContextMenu.Tag;
 
-			_configuration.Projects.Remove(projectElement.Name);
+			_commanderSettings.Projects.Remove(projectElement.Name);
 		}
 
 		private void AddFolderMenuItemClick(object sender, RoutedEventArgs e)
@@ -381,7 +348,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
 		{
-			var folderElementCollection = _configuration.Projects.Cast<ProjectElement>()
+			var folderElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
 				.Select(x => x.Folders)
 				.Where(x => x.Cast<FolderElement>().Where(y => y == folderElement).Any())
 				.FirstOrDefault();
@@ -391,7 +358,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FileMatchElementCollection GetFileMatchElementCollection(FileMatchElement fileMatchElement)
 		{
-			var fileMatchElementCollection = _configuration.Projects.Cast<ProjectElement>()
+			var fileMatchElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
 				.SelectMany(x => x.Folders.Cast<FolderElement>())
 				.Select(x => x.FileMatches)
 				.Where(x => x.Cast<FileMatchElement>().Where(y => y == fileMatchElement).Any())
@@ -400,22 +367,9 @@ namespace Talifun.Commander.Command.Configuration
 			return fileMatchElementCollection;
 		}
 
-    	private ProjectElement GetProjectElement(FileMatchElement fileMatchElement)
-    	{
-			var project = _configuration.Projects.Cast<ProjectElement>()
-    			.Where(x => x.Folders.Cast<FolderElement>()
-    			            	.Where(y => y.FileMatches.Cast<FileMatchElement>()
-    			            	            	.Where(z => z == fileMatchElement)
-    			            	            	.Any())
-    			            	.Any())
-    			.FirstOrDefault();
-
-			return project;
-		}
-
 		private CurrentConfigurationElementCollection GetCurrentConfigurationElementCollection(NamedConfigurationElement namedConfigurationElement)
 		{
-			var currentConfigurationElementCollection = _configuration.Projects.Cast<ProjectElement>()
+			var currentConfigurationElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
 				.SelectMany(x => x.CommandPlugins)
 				.Where(x => x.Setting == namedConfigurationElement.Setting)
 				.Where(x => x.Cast<NamedConfigurationElement>()

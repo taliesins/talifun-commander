@@ -15,14 +15,15 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private AntiVirusElement Element { get; set; }
+		private AntiVirusElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
 			if (e.Element == null || !(e.Element is AntiVirusElement)) return;
-			Element = e.Element as AntiVirusElement;
+			var element = e.Element as AntiVirusElement;
 
-			this.DataContext = Element;
+			DataModel = new AntiVirusElementPanelDataModel(element);
+			this.DataContext = DataModel;
 		}
     }
 }

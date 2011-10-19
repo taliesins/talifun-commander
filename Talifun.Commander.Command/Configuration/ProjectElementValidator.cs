@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.Configuration
         {
         	RuleFor(x => x.Name)
         		.NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameMandatory)
-				.Must((name) => CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>().Where(x=>x.Name == name).Count() < 2).WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
+				.Must((name) => CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>().Where(x=>x.Name == name).Count() < 2).WithLocalizedMessage(() => Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
 
         }
     }

@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Configuration
         public FolderElementValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageFolderElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
 					.Where(x => x.Folders.Cast<FolderElement>()
 						.Where(y => y.Name == name).Count() > 1)
 					.Any())

@@ -10,10 +10,13 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 		public VideoThumbnailerElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageVideoThumbNailerElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
 					.Where(x => x.CommandPlugins
-						.Where(y => y.Setting.ElementType == typeof(VideoThumbnailerElement)).Cast<VideoThumbnailerElement>()
-						.Where(y => y.Name == name).Count() > 1)
+						.Where(y => y.Setting.ElementType == typeof(VideoThumbnailerElement))
+						.Cast<VideoThumbnailerElementCollection>()
+						.SelectMany(y => y.Cast<VideoThumbnailerElement>())
+						.Where(y=>y.Name == name)
+						.Count() > 1)
 					.Any())
 				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
 		}

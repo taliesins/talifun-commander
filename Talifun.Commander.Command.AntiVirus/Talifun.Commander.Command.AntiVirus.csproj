@@ -41,6 +41,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,9 +55,14 @@
     <Compile Include="Configuration\AntiVirusElement.Validation.cs">
       <DependentUpon>AntiVirusElement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AntiVirusElementCollectionPanel.xaml.cs">
+      <DependentUpon>AntiVirusElementCollectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\AntiVirusElementCollectionPanelDataModel.cs" />
     <Compile Include="Configuration\AntiVirusElementPanel.xaml.cs">
       <DependentUpon>AntiVirusElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AntiVirusElementPanelDataModel.cs" />
     <Compile Include="Configuration\AntiVirusElementValidator.cs" />
     <Compile Include="Configuration\AntiVirusTester.cs" />
     <Compile Include="Configuration\AntiVirusElement.cs" />
@@ -101,6 +107,10 @@
     <Resource Include="Resources\AntiVirusElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Configuration\AntiVirusElementCollectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configuration\AntiVirusElementPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

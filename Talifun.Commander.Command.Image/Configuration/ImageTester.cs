@@ -81,7 +81,7 @@ namespace Talifun.Commander.Command.Image.Configuration
             }
         }
 
-		public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
+		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
             var commandSettings = new ProjectElementCommand<ImageConversionElementCollection>(Settings.ElementCollectionSettingName, project);
             var imageConversionSettings = commandSettings.Settings;

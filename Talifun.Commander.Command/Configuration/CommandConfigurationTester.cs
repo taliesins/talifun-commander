@@ -29,7 +29,7 @@ namespace Talifun.Commander.Command.Configuration
             return commandConfigurationTester;
         }
 
-		public override void CheckProjectConfiguration(Configuration.ProjectElement project, AppSettingsSection appSettings)
+		public override void CheckProjectConfiguration(AppSettingsSection appSettings, Configuration.ProjectElement project)
         {
             //We only want to check the sections if they are used, otherwise it will complain about
             //sections missing even if we aren't using them.
@@ -72,7 +72,7 @@ namespace Talifun.Commander.Command.Configuration
                     var fileMatch = fileMatches[j];
 
                     var commandConfigurationTester = GetCommandConfigurationTester(fileMatch.ConversionType);
-					commandConfigurationTester.CheckProjectConfiguration(project, appSettings);
+					commandConfigurationTester.CheckProjectConfiguration(appSettings, project);
                 }
             }
         }

@@ -14,13 +14,15 @@ namespace Talifun.Commander.Command
         #region ICommanderManagerFactory Members
         public ICommanderManager CreateCommandManager()
         {
-			return new CommanderManager(CommandContainer.Instance.Container, CurrentConfiguration.CommanderConfiguration, CurrentConfiguration.AppSettings, EnhancedFileSystemWatcherFactory.Instance);
+        	CurrentConfiguration.Container = CommandContainer.Instance.Container;
+			return new CommanderManager(CurrentConfiguration.Container, CurrentConfiguration.AppSettings, CurrentConfiguration.CommanderSettings, EnhancedFileSystemWatcherFactory.Instance);
         }
 
 		public ICommanderManager CreateCommandManager(System.Configuration.Configuration configuration)
 		{
+			CurrentConfiguration.Container = CommandContainer.Instance.Container;
 			CurrentConfiguration.Configuration = configuration;
-			return new CommanderManager(CommandContainer.Instance.Container, CurrentConfiguration.CommanderConfiguration, CurrentConfiguration.AppSettings, EnhancedFileSystemWatcherFactory.Instance);
+			return new CommanderManager(CurrentConfiguration.Container, CurrentConfiguration.AppSettings, CurrentConfiguration.CommanderSettings, EnhancedFileSystemWatcherFactory.Instance);
 		}
 
         #endregion

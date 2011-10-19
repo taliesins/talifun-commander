@@ -8,6 +8,6 @@ namespace Talifun.Commander.Command
     public interface ICommandConfigurationTester
     {
         ISettingConfiguration Settings { get; }
-        void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings);
+        void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project);
     }
 }

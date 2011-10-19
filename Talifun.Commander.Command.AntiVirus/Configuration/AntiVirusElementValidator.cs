@@ -10,10 +10,13 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 		public AntiVirusElementValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageAntiVirusElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
 					.Where(x => x.CommandPlugins
-						.Where(y => y.Setting.ElementType == typeof(AntiVirusElement)).Cast<AntiVirusElement>()
-						.Where(y => y.Name == name).Count() > 1)
+						.Where(y => y.Setting.ElementType == typeof(AntiVirusElement))
+						.Cast<AntiVirusElementCollection>()
+						.SelectMany(y => y.Cast<AntiVirusElement>())
+						.Where(y=>y.Name == name)
+						.Count() > 1)
 					.Any())
 				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
         }

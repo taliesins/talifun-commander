@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -12,25 +13,30 @@ namespace Talifun.Commander.Command.Configuration
 			Configuration = CurrentConfigurationManager.GetCurrentConfiguration();
 		}
 
+		internal static System.Configuration.Configuration Configuration { private get; set; }
+
+		/// <summary>
+		/// Get the container for plugins.
+		/// </summary>
+		public static ExportProvider Container { get; internal set; }
+
+		/// <summary>
+		/// Gets the current application configuration.
+		/// </summary>
+		public static AppSettingsSection AppSettings
+		{
+			get { return Configuration.AppSettings; }
+		}
+
     	/// <summary>
-        /// Gets the static instance of <see cref="CommanderSection" /> representing the current application configuration.
+        /// Gets the current commander configuration.
         /// </summary>
-        public static CommanderSection CommanderConfiguration
+        public static CommanderSection CommanderSettings
         {
 			get
 			{
 				return CurrentConfigurationManager.GetSection<CommanderSection>(Configuration);
 			}
         }
-
-		/// <summary>
-		/// Gets the static instance of <see cref="AppSettingsSection" /> representing the current application configuration.
-		/// </summary>
-    	public static AppSettingsSection AppSettings
-    	{
-    		get { return Configuration.AppSettings; }
-    	}
-
-    	public static System.Configuration.Configuration Configuration { get; internal set; }
     }
 }

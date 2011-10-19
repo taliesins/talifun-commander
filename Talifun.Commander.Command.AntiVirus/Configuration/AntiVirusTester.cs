@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             }
         }
 
-        public override void CheckProjectConfiguration(ProjectElement project, AppSettingsSection appSettings)
+		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
             var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName, project);
             var antiVirusSettings = commandSettings.Settings;

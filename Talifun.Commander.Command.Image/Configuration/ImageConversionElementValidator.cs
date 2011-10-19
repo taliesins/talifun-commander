@@ -10,10 +10,13 @@ namespace Talifun.Commander.Command.Image.Configuration
 		public ImageConversionElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageImageConversionElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderConfiguration.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
 					.Where(x => x.CommandPlugins
-						.Where(y => y.Setting.ElementType == typeof(ImageConversionElement)).Cast<ImageConversionElement>()
-						.Where(y => y.Name == name).Count() > 1)
+						.Where(y => y.Setting.ElementType == typeof(ImageConversionElement))
+						.Cast<ImageConversionElementCollection>()
+						.SelectMany(y => y.Cast<ImageConversionElement>())
+						.Where(y=>y.Name == name)
+						.Count() > 1)
 					.Any())
 				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
 		}

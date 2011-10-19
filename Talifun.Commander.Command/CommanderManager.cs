@@ -24,14 +24,14 @@ namespace Talifun.Commander.Command
     	private bool _stopSignalled = false;
 
     	private readonly ExportProvider _container;
-    	private readonly CommanderSection _configuration;
-    	private readonly AppSettingsSection _appSettings;
+		private readonly AppSettingsSection _appSettings;
+    	private readonly CommanderSection _commanderSettings;
 
-		public CommanderManager(ExportProvider container, CommanderSection configuration, AppSettingsSection appSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
+		public CommanderManager(ExportProvider container, AppSettingsSection appSettings, CommanderSection commanderSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
         {
             _container = container;
-            _configuration = configuration;
-        	_appSettings = appSettings;
+			_appSettings = appSettings;
+            _commanderSettings = commanderSettings;
             _enhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
 
             IsRunning = false;
@@ -40,10 +40,10 @@ namespace Talifun.Commander.Command
 
             CheckConfiguration();
 
-            var projects = _configuration.Projects;
+            var projects = _commanderSettings.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
-                var folderSettings = _configuration.Projects[j].Folders;
+                var folderSettings = _commanderSettings.Projects[j].Folders;
 
                 for (var i = 0; i < folderSettings.Count; i++)
                 {
@@ -188,7 +188,7 @@ namespace Talifun.Commander.Command
 
     	private ProjectElement GetCurrentProject(FileMatchElement fileMatch)
         {
-            var projects = _configuration.Projects;
+            var projects = _commanderSettings.Projects;
 
             for (var i = 0; i < projects.Count; i++)
             {
@@ -240,10 +240,10 @@ namespace Talifun.Commander.Command
 
     	private void CheckConfiguration()
         {
-            var projects = _configuration.Projects;
+            var projects = _commanderSettings.Projects;
             for (var j = 0; j < projects.Count; j++)
             {
-				_commandConfigurationTester.CheckProjectConfiguration(projects[j], _appSettings);
+				_commandConfigurationTester.CheckProjectConfiguration(_appSettings, projects[j]);
             }
         }
 
@@ -253,7 +253,7 @@ namespace Talifun.Commander.Command
 
 		public CommanderSectionWindow GetCommanderSectionWindow()
 		{
-			return new CommanderSectionWindow(_container, _configuration);
+			return new CommanderSectionWindow(_container, _appSettings, _commanderSettings);
 		}
 
         public void Start()
