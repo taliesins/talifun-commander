@@ -15,14 +15,15 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 			BindToElement += OnBindToElement;
         }
 
-		private VideoThumbnailerElement Element { get; set; }
+		private VideoThumbnailerElementPanelDataModel DataModel { get; set; }
 
 		private void OnBindToElement(object sender, BindToElementEventArgs e)
 		{
 			if (e.Element == null || !(e.Element is VideoThumbnailerElement)) return;
-			Element = e.Element as VideoThumbnailerElement;
+			var element = e.Element as VideoThumbnailerElement;
 
-			this.DataContext = Element;
+			DataModel = new VideoThumbnailerElementPanelDataModel(element);
+			this.DataContext = DataModel;
 		}
     }
 }

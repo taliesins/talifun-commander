@@ -59,6 +59,7 @@
     <Compile Include="Configuration\VideoThumbnailerElementPanel.xaml.cs">
       <DependentUpon>VideoThumbnailerElementPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\VideoThumbnailerElementPanelDataModel.cs" />
     <Compile Include="Configuration\VideoThumbnailerElementValidator.cs" />
     <Compile Include="Configuration\VideoThumbnailerTester.cs" />
     <Compile Include="Configuration\VideoThumbnailerConfiguration.cs" />
