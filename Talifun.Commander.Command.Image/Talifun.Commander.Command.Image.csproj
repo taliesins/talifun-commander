@@ -41,6 +41,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,6 +57,10 @@
     <Compile Include="Configuration\ImageConversionElement.Validation.cs">
       <DependentUpon>ImageConversionElement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\ImageConversionElementCollectionPanel.xaml.cs">
+      <DependentUpon>ImageConversionElementCollectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ImageConversionElementCollectionPanelDataModel.cs" />
     <Compile Include="Configuration\ImageConversionElementPanel.xaml.cs">
       <DependentUpon>ImageConversionElementPanel.xaml</DependentUpon>
     </Compile>
@@ -106,6 +111,10 @@
     <Resource Include="Resources\ImageConversionElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Configuration\ImageConversionElementCollectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configuration\ImageConversionElementPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
