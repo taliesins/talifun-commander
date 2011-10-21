@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="NLog.Extended.dll" Guid="adccd52a-db5e-40fa-891f-7cfce8273478">
+      <File Id="NLog.Extended.dll"
+            Source="$(var.SolutionDir)\References\NLog.Extended.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Growl.Connector.dll" Guid="7e264edb-f219-4741-b55c-1cfa30d4b385">
+      <File Id="Growl.Connector.dll"
+            Source="$(var.SolutionDir)\References\Growl.Connector.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Growl.CoreLibrary.dll" Guid="8c05bd84-3667-4dd4-8875-5f0d626879fa">
+      <File Id="Growl.CoreLibrary.dll"
+            Source="$(var.SolutionDir)\References\Growl.CoreLibrary.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="NLog.Targets.GrowlNotify.dll" Guid="e79ebbc1-9744-4c3a-abc0-606b0ad92423">
+      <File Id="NLog.Targets.GrowlNotify.dll"
+            Source="$(var.SolutionDir)\References\NLog.Targets.GrowlNotify.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+
+  <ComponentGroup Id="NLogExtended">
+    <ComponentRef Id="NLog.Extended.dll"/>
+  </ComponentGroup>
+  
+  <ComponentGroup Id="GrowlForNLog">
+    <ComponentRef Id="Growl.Connector.dll"/>
+    <ComponentRef Id="Growl.CoreLibrary.dll"/>
+    <ComponentRef Id="NLog.Targets.GrowlNotify.dll"/>
+  </ComponentGroup>
+
+  <FeatureRef Id="Logging" IgnoreParent="yes">
+    <Feature Id="NLogExtended" Title="Extended NLog Support" Level="1">
+      <ComponentGroupRef Id="NLogExtended"/>
+    </Feature>
+
+    <Feature Id="GrowlForNLog" Title="Growl Support" Level="1">
+      <ComponentGroupRef Id="GrowlForNLog"/>
+    </Feature>
+  </FeatureRef>
+</Include>

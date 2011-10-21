@@ -108,12 +108,6 @@
       <DependentUpon>CommanderService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="CommanderServiceInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CommanderServiceInstaller.Designer.cs">
-      <DependentUpon>CommanderServiceInstaller.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -146,10 +140,6 @@
   <ItemGroup>
     <EmbeddedResource Include="CommanderService.resx">
       <DependentUpon>CommanderService.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CommanderServiceInstaller.resx">
-      <DependentUpon>CommanderServiceInstaller.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx">

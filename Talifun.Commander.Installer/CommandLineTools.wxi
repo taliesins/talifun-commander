@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="convert.exe_x64" Guid="2e62ecfb-c071-4917-aeb0-d45d8f23ce8a">
+      <Condition><![CDATA[(VersionNT64)]]></Condition>
+      <File Id="convert.exe_x64"
+            Source="$(var.SolutionDir)\References\x64\convert.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="ffmpeg.exe_x64" Guid="f524f69c-7282-4890-a3c6-57cf6b8ad409">
+      <Condition><![CDATA[(VersionNT64)]]></Condition>
+      <File Id="ffmpeg.exe_x64"
+            Source="$(var.SolutionDir)\References\x64\ffmpeg.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="vcomp100.dll_x64" Guid="d1001949-b5e3-4351-adef-0a105229cd5f">
+      <Condition><![CDATA[(VersionNT64)]]></Condition>
+      <File Id="vcomp100.dll_x64"
+            Source="$(var.SolutionDir)\References\x64\vcomp100.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="convert.exe_x86" Guid="15123f99-7796-4ba2-8c38-659d0d5283a2">
+      <Condition><![CDATA[(VersionNT) AND (NOT VersionNT64)]]></Condition>
+      <File Id="convert.exe_x86"
+            Source="$(var.SolutionDir)\References\x86\convert.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="ffmpeg.exe_x86" Guid="a94ad257-9853-4c2e-a1ff-33f80be59260">
+      <Condition><![CDATA[(VersionNT) AND (NOT VersionNT64)]]></Condition>
+      <File Id="ffmpeg.exe_x86"
+            Source="$(var.SolutionDir)\References\x86\ffmpeg.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="vcomp100.dll_x86" Guid="005142c9-26eb-420a-b5cf-b7f3f2c3ba25">
+      <Condition><![CDATA[(VersionNT) AND (NOT VersionNT64)]]></Condition>
+      <File Id="vcomp100.dll_x86"
+            Source="$(var.SolutionDir)\References\x86\vcomp100.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="flvtool2.exe" Guid="a159d800-bd1a-4ae4-9bb1-1f2e8009ab34">
+      <File Id="flvtool2.exe"
+            Source="$(var.SolutionDir)\References\flvtool2.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+</Include>

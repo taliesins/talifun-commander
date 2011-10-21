@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.TestHarne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command", "Talifun.Commander.Command\Talifun.Commander.Command.csproj", "{EF4D6637-806C-4EAB-B372-A73BEE185F5F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Talifun.Commander.Setup", "Talifun.Commander.Setup\Talifun.Commander.Setup.vdproj", "{F17282E4-1CB3-41E7-A84C-CC989993AD1E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.AntiVirus", "Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj", "{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Image", "Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj", "{CFFF52F1-1870-4E7D-B951-800537243A97}"
@@ -30,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.UI", "Talifun.Commander.UI\Talifun.Commander.UI.csproj", "{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Configurator", "Talifun.Commander.Configurator\Talifun.Commander.Configurator.csproj", "{50755B8E-1139-4139-A680-55319954CD0F}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer", "Talifun.Commander.Installer\Talifun.Commander.Installer.wixproj", "{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,16 +87,6 @@ Global
 		{EF4D6637-806C-4EAB-B372-A73BEE185F5F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EF4D6637-806C-4EAB-B372-A73BEE185F5F}.Release|x86.ActiveCfg = Release|Any CPU
 		{EF4D6637-806C-4EAB-B372-A73BEE185F5F}.Release|x86.Build.0 = Release|Any CPU
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Debug|Any CPU.ActiveCfg = Debug
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Debug|x86.ActiveCfg = Debug
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Debug|x86.Build.0 = Debug
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|Any CPU.ActiveCfg = Release
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|Any CPU.Build.0 = Release
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|Mixed Platforms.ActiveCfg = Release
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|Mixed Platforms.Build.0 = Release
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|x86.ActiveCfg = Release
-		{F17282E4-1CB3-41E7-A84C-CC989993AD1E}.Release|x86.Build.0 = Release
 		{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -199,6 +189,16 @@ Global
 		{50755B8E-1139-4139-A680-55319954CD0F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{50755B8E-1139-4139-A680-55319954CD0F}.Release|x86.ActiveCfg = Release|Any CPU
 		{50755B8E-1139-4139-A680-55319954CD0F}.Release|x86.Build.0 = Release|Any CPU
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Debug|x86.ActiveCfg = Debug|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Debug|x86.Build.0 = Debug|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|Any CPU.ActiveCfg = Release|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|x86.ActiveCfg = Release|x86
+		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

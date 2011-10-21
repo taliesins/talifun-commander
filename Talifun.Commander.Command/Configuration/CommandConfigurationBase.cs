@@ -71,6 +71,7 @@ namespace Talifun.Commander.Command.Configuration
         /// <summary>
         /// Gets or sets the file name format that is applied on outputted files.
         /// </summary>
+        /// <remarks>This is the string.Format to apply to the outputted filename.</remarks>
         [ConfigurationProperty("fileNameFormat", DefaultValue = "")]
         public string FileNameFormat
         {

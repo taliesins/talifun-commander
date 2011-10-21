@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="Talifun.Commander.Command.Audio.dll" Guid="4c264210-7b31-4948-8b53-c9337d849325">
+      <File Id="Talifun.Commander.Command.Audio.dll"
+            Source="$(var.Talifun.Commander.Command.Audio.TargetDir)\Talifun.Commander.Command.Audio.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+
+  <ComponentGroup Id="Talifun.Commander.Command.Audio.dll">
+    <ComponentRef Id="Talifun.Commander.Command.Audio.dll"/>
+    <ComponentGroupRef Id="Talifun.Commander.Executor.FFMpeg.dll"/>
+    <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
+    <ComponentRef Id="ffmpeg.exe_x64"/>
+    <ComponentRef Id="ffmpeg.exe_x86"/>
+  </ComponentGroup>
+
+  <FeatureRef Id="PlugIns" IgnoreParent="yes">
+    <Feature Id="Talifun.Commander.Command.Audio" Title="Audio Conversion PlugIn" Level="1">
+      <ComponentGroupRef Id="Talifun.Commander.Command.Audio.dll"/>
+    </Feature>
+  </FeatureRef>
+</Include>

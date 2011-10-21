@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="Talifun.Commander.Configurator.exe" Guid="f6f39ac4-a1f9-40e3-ab8d-4ccbaafd0fef">
+      <File Id="Talifun.Commander.Configurator.exe"
+            Source="$(var.Talifun.Commander.Configurator.TargetDir)\Talifun.Commander.Configurator.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>      
+    </Component>
+    <Component Id="Talifun.Commander.Configurator.exe.config" Guid="98c19e8e-bebd-4cb1-bdcf-7514f381d570">
+      <File Id="Talifun.Commander.Configurator.exe.config"
+            Source="$(var.Talifun.Commander.Configurator.TargetDir)\Talifun.Commander.Configurator.exe.config"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+
+  <DirectoryRef Id="ProgramMenuSubfolder">
+    <Component Id="Talifun.Commander.Configurator.exe_MenuShortcut" Guid="345971b9-984b-41c6-b755-9cf9b1f9d815">
+      <Shortcut Id="Talifun.Commander.Configurator.exe_MenuShortcut"
+                Name="Configuration Wizard"
+                Description="Configuration Wizard"
+                Target="[INSTALLLOCATION]Talifun.Commander.Configurator.exe"
+                WorkingDirectory="INSTALLLOCATION"
+                Show="normal"
+                Icon="Configurator.exe" IconIndex="0">
+        <Icon Id="Configurator.exe" SourceFile="$(var.Talifun.Commander.Configurator.TargetDir)\Talifun.Commander.Configurator.exe"/>
+      </Shortcut>
+      <RemoveFolder Id="ProgramMenuSubfolder" On="uninstall"/>
+      <RegistryValue Root="HKCU" Key="Software\!(wix.Manufacturer)\!(wix.ShortProduct)"
+                Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+    </Component>
+  </DirectoryRef>
+  
+  <ComponentGroup Id="Talifun.Commander.Configurator.exe">
+    <ComponentRef Id="Talifun.Commander.Configurator.exe"/>
+    <ComponentRef Id="Talifun.Commander.Configurator.exe.config"/>
+    <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
+  </ComponentGroup>
+  <ComponentGroup Id="Talifun.Commander.Configurator.exe_MenuShortcuts">
+    <ComponentRef Id="Talifun.Commander.Configurator.exe_MenuShortcut"/>
+  </ComponentGroup>
+
+  <FeatureRef Id="Talifun.Commander.Configurator" IgnoreParent="yes">
+    <ComponentGroupRef Id="Talifun.Commander.Configurator.exe"/>
+    <ComponentGroupRef Id="Talifun.Commander.Configurator.exe_MenuShortcuts"/>
+  </FeatureRef>
+</Include>

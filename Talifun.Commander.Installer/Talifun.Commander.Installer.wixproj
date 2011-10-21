@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.5</ProductVersion>
+    <ProjectGuid>{1b4b5eca-f54b-4a05-a66d-1137afcb010e}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Talifun.Commander.Installer</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj">
+      <Name>Talifun.Commander.Command.AntiVirus</Name>
+      <Project>{2a6bf89f-b832-4cea-a1b3-03f5ab287228}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj">
+      <Name>Talifun.Commander.Command.Audio</Name>
+      <Project>{a2a1a16e-0821-4618-aae4-02d2ec477101}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
+      <Name>Talifun.Commander.Command.CommandLine</Name>
+      <Project>{3df20ff4-076a-492c-8df4-6c606dde7419}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj">
+      <Name>Talifun.Commander.Command.Image</Name>
+      <Project>{cfff52f1-1870-4e7d-b951-800537243a97}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbNailer.csproj">
+      <Name>Talifun.Commander.Command.VideoThumbNailer</Name>
+      <Project>{261a8736-8b04-4584-b61e-7002d037100f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
+      <Name>Talifun.Commander.Command.Video</Name>
+      <Project>{a0aacc6c-f046-4057-9caa-a313512c4e05}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
+      <Name>Talifun.Commander.Command</Name>
+      <Project>{ef4d6637-806c-4eab-b372-a73bee185f5f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Configurator\Talifun.Commander.Configurator.csproj">
+      <Name>Talifun.Commander.Configurator</Name>
+      <Project>{50755b8e-1139-4139-a680-55319954cd0f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Executor.CommandLine\Talifun.Commander.Executor.CommandLine.csproj">
+      <Name>Talifun.Commander.Executor.CommandLine</Name>
+      <Project>{05b649b2-2cf7-4775-a77a-1c4b547915ae}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Executor.FFMpeg\Talifun.Commander.Executor.FFMpeg.csproj">
+      <Name>Talifun.Commander.Executor.FFMpeg</Name>
+      <Project>{dbd72c26-152b-4ed1-8d11-683abb21f864}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Service\Talifun.Commander.Service.csproj">
+      <Name>Talifun.Commander.Service</Name>
+      <Project>{f913c226-1133-4c06-a592-1c2f33b45f7a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CommandLineTools.wxi" />
+    <Content Include="Logging.wxi" />
+    <Content Include="Talifun.Commander.Command.AntiVirus.wxi" />
+    <Content Include="Talifun.Commander.Command.Audio.wxi" />
+    <Content Include="Talifun.Commander.Command.CommandLine.wxi" />
+    <Content Include="Talifun.Commander.Command.Image.wxi" />
+    <Content Include="Talifun.Commander.Command.Video.wxi" />
+    <Content Include="Talifun.Commander.Command.VideoThumbNailer.wxi" />
+    <Content Include="Talifun.Commander.Command.wxi" />
+    <Content Include="Talifun.Commander.Configurator.wxi" />
+    <Content Include="Talifun.Commander.Executor.CommandLine.wxi" />
+    <Content Include="Talifun.Commander.Executor.FFMpeg.wxi" />
+    <Content Include="Talifun.Commander.Service.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

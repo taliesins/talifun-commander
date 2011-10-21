@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="a7a5f269-c373-4986-88b5-a9299e4eedb0" 
+           Name="Talifun.Commander" 
+           Language="1033" 
+           Version="1.0.0.0" 
+           Manufacturer="Talifun Ltd" 
+           UpgradeCode="ef671a34-51a6-4ab0-9d31-4452d7427c28">
+    <Package 
+      InstallerVersion="200" 
+      Description="Talifun Commander" 
+      Comments="A windows service that executes command line tools, as specified in configuration, when files are placed into watched directories."
+      Manufacturer="Talifun Ltd" 
+      Compressed="yes" 
+      InstallPrivileges="elevated"
+      />
+
+    <WixVariable Id="Manufacturer" Value="Talifun Ltd"/>
+    <WixVariable Id="ShortProduct" Value="Talifun Commander"/>
+    <WixVariable Id="Version" Value="1.0.0.0"/>
+
+    <Media Id="1" Cabinet="Talifun.Commander.!(wix.Version).cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="ManufacturerFolder" Name="!(wix.Manufacturer)">
+          <Directory Id="INSTALLLOCATION" Name="!(wix.ShortProduct)">
+            <Component Id="NLog.dll" Guid="fe91a0da-b22b-4c10-9bbd-791a1798d1d0">
+              <File Id="NLog.dll"
+                    Source="$(var.SolutionDir)\References\NLog.dll"
+                    DiskId="1"
+                    KeyPath="yes"
+                    Checksum="yes"/>
+            </Component>
+            <Component Id="FluentValidation.dll" Guid="23b5d20f-c1ae-4651-9d7c-0a602ff45c52">
+              <File Id="FluentValidation.dll"
+                    Source="$(var.SolutionDir)\References\FluentValidation.dll"
+                    DiskId="1"
+                    KeyPath="yes"
+                    Checksum="yes"/>
+            </Component>
+            <Component Id="WPFToolkit.Extended.dll" Guid="f6fe35ff-a15a-4b06-be0f-c5b0ee16ded3">
+              <File Id="WPFToolkit.Extended.dll"
+                    Source="$(var.SolutionDir)\References\WPFToolkit.Extended.dll"
+                    DiskId="1"
+                    KeyPath="yes"
+                    Checksum="yes"/>
+            </Component>
+          </Directory>
+        </Directory>
+			</Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuSubfolder" Name="!(wix.ShortProduct)">
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="Talifun.Commander" 
+             Title="!(wix.ShortProduct)" 
+             Description="A windows service that executes command line tools, as specified in configuration, when files are placed into watched directories." 
+             TypicalDefault="install" 
+             ConfigurableDirectory="INSTALLLOCATION"
+             Level="1">
+
+      <Feature Id="Talifun.Commander.Configurator" Title="GUI Config Editor" Level="1"/>
+      <Feature Id="Talifun.Commander.Service" Title="Service" Level="1"/>
+
+      <Feature Id="Logging" Title="Logging" Level="1"/>
+
+      <Feature Id="PlugIns" Title="Plugins" Level="1"/>
+      
+      <Feature Id="ProductFeature" Title="Talifun.Commander.Installer" Level="1">
+        <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			  <ComponentGroupRef Id="Product.Generated" />
+		  </Feature>
+    </Feature>
+
+    <?include $(sys.CURRENTDIR)Logging.wxi ?>
+    <?include $(sys.CURRENTDIR)CommandLineTools.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Executor.CommandLine.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Executor.FFMpeg.wxi ?>
+    
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Configurator.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Service.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.AntiVirus.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Audio.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.CommandLine.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Image.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Video.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.VideoThumbNailer.wxi ?>
+  </Product>
+</Wix>

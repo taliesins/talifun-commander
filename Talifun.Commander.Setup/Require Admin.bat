@@ -1,2 +1,0 @@
-cscript.exe MSI_SetProperty.js Debug\TalifunCommanderSetup.msi MSIUSEREALADMINDETECTION 1
-cscript.exe MSI_SetProperty.js Release\TalifunCommanderSetup.msi MSIUSEREALADMINDETECTION 1

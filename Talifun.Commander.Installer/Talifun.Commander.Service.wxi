@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="Talifun.Commander.Service.exe" Guid="aa9fda95-5f47-4809-84ea-aa6535f16393">
+      <File Id="Talifun.Commander.Service.exe"
+            Source="$(var.Talifun.Commander.Service.TargetDir)\Talifun.Commander.Service.exe"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+      <ServiceInstall
+             Id="ServiceInstaller"
+             Type="ownProcess"
+             Vital="yes"
+             Name="Talifun.Commander"
+             DisplayName="Talifun Commander"
+             Description="A windows service that executes command line tools, as specified in configuration, when files are placed into watched directories that match configuration criteria."
+             Start="auto"
+             Account="LocalSystem"
+             ErrorControl="ignore"
+             Interactive="no"/>
+      <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="Talifun.Commander" Wait="yes" />
+    </Component>
+    <Component Id="Talifun.Commander.Service.exe.config" Guid="ca96c269-ca6f-47b1-883b-f0d59c6d0ed2">
+      <File Id="Talifun.Commander.Service.exe.config"
+            Source="$(var.Talifun.Commander.Service.TargetDir)\Talifun.Commander.Service.exe.config"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="NLog.config" Guid="9b2c742d-036c-4894-963d-c35a9df99fcf">
+      <File Id="NLog.config"
+            Source="$(var.Talifun.Commander.Service.TargetDir)\NLog.config"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+      <Util:EventSource
+        xmlns:Util="http://schemas.microsoft.com/wix/UtilExtension"
+        Name="TalifunCommanderLogSource" Log="Talifun Commander" 
+        EventMessageFile="[NETFRAMEWORK40FULLINSTALLROOTDIR]EventLogMessages.dll"/>
+    </Component>    
+  </DirectoryRef>
+
+  <ComponentGroup Id="Talifun.Commander.Service.exe">
+    <ComponentRef Id="Talifun.Commander.Service.exe"/>
+    <ComponentRef Id="Talifun.Commander.Service.exe.config"/>
+    <ComponentRef Id="NLog.config"/>
+    <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
+  </ComponentGroup>
+
+  <FeatureRef Id="Talifun.Commander.Service" IgnoreParent="yes">
+    <ComponentGroupRef Id="Talifun.Commander.Service.exe"/>
+  </FeatureRef>
+</Include>

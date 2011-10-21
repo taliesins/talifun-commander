@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="Talifun.Commander.Executor.FFMpeg.dll" Guid="c5f161b2-9e58-402d-91b1-b62bc563b16c">
+      <File Id="Talifun.Commander.Executor.FFMpeg.dll"
+            Source="$(var.Talifun.Commander.Executor.FFMpeg.TargetDir)\Talifun.Commander.Executor.FFMpeg.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+
+  <ComponentGroup Id="Talifun.Commander.Executor.FFMpeg.dll">
+    <ComponentRef Id="Talifun.Commander.Executor.FFMpeg.dll"/>
+    <ComponentGroupRef Id="Talifun.Commander.Executor.CommandLine.dll"/>
+  </ComponentGroup>
+</Include>
