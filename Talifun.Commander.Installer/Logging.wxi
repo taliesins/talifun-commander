@@ -42,11 +42,11 @@
   </ComponentGroup>
 
   <FeatureRef Id="Logging" IgnoreParent="yes">
-    <Feature Id="NLogExtended" Title="Extended NLog Support" Level="1">
+    <Feature Id="NLogExtended" Title="Extended NLog Support" Description="Publish log events to MSQM." Level="1">
       <ComponentGroupRef Id="NLogExtended"/>
     </Feature>
 
-    <Feature Id="GrowlForNLog" Title="Growl Support" Level="1">
+    <Feature Id="GrowlForNLog" Title="Growl Support" Description="Publish log events to Growl target." Level="1">
       <ComponentGroupRef Id="GrowlForNLog"/>
     </Feature>
   </FeatureRef>

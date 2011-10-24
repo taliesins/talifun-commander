@@ -21,7 +21,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.Image" Title="Image Conversion PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.Image" Title="Image Conversion PlugIn" Description="Run image conversion on matched image files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.Image.dll"/>
     </Feature>
   </FeatureRef>

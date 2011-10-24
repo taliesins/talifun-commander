@@ -17,7 +17,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.AntiVirus" Title="Antivirus PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.AntiVirus" Title="Antivirus PlugIn" Description="Run antivirus on matched files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.AntiVirus.dll"/>
     </Feature>    
   </FeatureRef>

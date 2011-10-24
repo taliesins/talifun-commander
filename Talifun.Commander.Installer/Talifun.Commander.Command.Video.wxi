@@ -20,7 +20,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.Video" Title="Video Conversion PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.Video" Title="Video Conversion PlugIn" Description="Run video conversion on matched video files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.Video.dll"/>
     </Feature>
   </FeatureRef>

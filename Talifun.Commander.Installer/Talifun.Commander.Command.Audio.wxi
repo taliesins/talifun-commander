@@ -19,7 +19,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.Audio" Title="Audio Conversion PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.Audio" Title="Audio Conversion PlugIn" Description="Run audio conversion on matched audio files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.Audio.dll"/>
     </Feature>
   </FeatureRef>

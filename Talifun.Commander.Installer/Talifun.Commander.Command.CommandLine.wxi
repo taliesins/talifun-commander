@@ -17,7 +17,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.CommandLine" Title="Command Line PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.CommandLine" Title="Command Line PlugIn" Description="Run any command line tool on matched files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.CommandLine.dll"/>
     </Feature>
   </FeatureRef>

@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
+    <Compile Include="UI_Texts.wxs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj">
@@ -115,6 +116,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CommandLineTools.wxi" />
+    <Content Include="Icons\Banner.bmp" />
+    <Content Include="Icons\Complete.ico" />
+    <Content Include="Icons\Custom.ico" />
+    <Content Include="Icons\Dialog.bmp" />
+    <Content Include="Icons\Exclam.ico" />
+    <Content Include="Icons\Info.ico" />
+    <Content Include="Icons\License.rtf" />
+    <Content Include="Icons\New.ico" />
+    <Content Include="Icons\Remove.ico" />
+    <Content Include="Icons\Repair.ico" />
+    <Content Include="Icons\Typical.ico" />
+    <Content Include="Icons\Up.ico" />
     <Content Include="Logging.wxi" />
     <Content Include="Talifun.Commander.Command.AntiVirus.wxi" />
     <Content Include="Talifun.Commander.Command.Audio.wxi" />
@@ -137,6 +150,9 @@
       <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
     </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

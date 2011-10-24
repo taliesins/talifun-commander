@@ -19,7 +19,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.VideoThumb" Title="Video Thumbnailer PlugIn" Level="1">
+    <Feature Id="Talifun.Commander.Command.VideoThumb" Title="Video Thumbnailer PlugIn" Description="Create image thumbnails on matched video files." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.VideoThumbNailer.dll"/>
     </Feature>
   </FeatureRef>
