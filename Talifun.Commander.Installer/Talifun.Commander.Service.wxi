@@ -41,10 +41,10 @@
   </DirectoryRef>
 
   <ComponentGroup Id="Talifun.Commander.Service.exe">
-    <ComponentRef Id="Talifun.Commander.Service.exe"/>
     <ComponentRef Id="Talifun.Commander.Service.exe.config"/>
     <ComponentRef Id="NLog.config"/>
     <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
+    <ComponentRef Id="Talifun.Commander.Service.exe"/>
   </ComponentGroup>
 
   <FeatureRef Id="Talifun.Commander.Service" IgnoreParent="yes">

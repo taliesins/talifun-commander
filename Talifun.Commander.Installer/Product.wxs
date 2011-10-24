@@ -19,7 +19,7 @@
     <WixVariable Id="ShortProduct" Value="Talifun Commander"/>
     <WixVariable Id="Version" Value="1.0.0.0"/>
 
-    <Media Id="1" Cabinet="Talifun.Commander.!(wix.Version).cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="Talifun.Commander.!(wix.Version).cab" EmbedCab="yes" CompressionLevel="high" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
@@ -62,7 +62,7 @@
              ConfigurableDirectory="INSTALLLOCATION"
              Level="1">
 
-      <Feature Id="Talifun.Commander.Configurator" Title="GUI Config Editor" Description="A GUI tool to modify configuration." Level="1"/>
+      <Feature Id="Talifun.Commander.Configurator" Title="GUI Config Editor" Description="A GUI tool to modify configuration." Level="1" Display="0"/>
       <Feature Id="Talifun.Commander.Service" Title="Service" Description="A windows service that executes command line tools when files are placed into watched directories." Level="1" Display="0"/>
       <Feature Id="Logging" Title="Logging" Description="How logging is done by the service." Level="1"/>
       <Feature Id="PlugIns" Title="Plugins" Description="Plugins that can be run by service." Level="1"/>
@@ -83,7 +83,7 @@
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Video.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.VideoThumbNailer.wxi ?>
 
-    <CustomAction Id="LaunchFile" FileKey="Talifun.Commander.Configurator.exe" ExeCommand="" Return="asyncNoWait" />
+    <CustomAction Id="LaunchFile" Directory="INSTALLLOCATION" ExeCommand="[INSTALLLOCATION]Talifun.Commander.Configurator.exe" Return="asyncNoWait" />
 
     <UI>
       <UIRef Id="UI_Texts" />
@@ -197,12 +197,16 @@
       <Dialog Id="ExitDialog" Width="370" Height="270" Title="[ProductName] [Setup]" NoMinimize="yes">
         <Control Id="Finish" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Finish]">
           <Publish Event="EndDialog" Value="Return">1</Publish>
+          <Publish Event="DoAction" Value="LaunchFile">(NOT Installed) AND (LAUNCHPRODUCT = 1)</Publish>
         </Control>
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Cancel]" />
         <Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="[DialogBitmap]" />
         <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Back]" />
         <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
           <Text>Click the Finish button to exit the [Wizard].</Text>
+        </Control>
+        <Control Id="Launch" Type="CheckBox" X="135" Y="120" Width="150" Height="17" Property="LAUNCHPRODUCT" CheckBoxValue="1">
+          <Text>Launch Configuration GUI</Text>
         </Control>
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
         <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes">
