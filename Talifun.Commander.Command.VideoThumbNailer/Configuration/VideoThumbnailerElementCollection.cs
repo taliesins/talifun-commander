@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoThumbnailerElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoThumbnailerElementCollection), new VideoThumbnailerElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

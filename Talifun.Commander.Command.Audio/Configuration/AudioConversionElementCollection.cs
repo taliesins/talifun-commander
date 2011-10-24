@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AudioConversionElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AudioConversionElementCollection), new AudioConversionElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

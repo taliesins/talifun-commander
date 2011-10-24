@@ -30,18 +30,23 @@ namespace Talifun.Commander.UI
 
 		public static Type GetElementType(IEnumerable enumerable)
 		{
-			var enumerableType = enumerable.GetType();
 			Type elementType = null;
-
-			if (enumerableType.IsGenericType)
-			{
-				var genericArguments = enumerableType.GetGenericArguments();
-				if (genericArguments.Length > 0)
+			var enumerableType = enumerable.GetType();
+			
+			do
+			{	
+				if (enumerableType.IsGenericType)
 				{
-					elementType = genericArguments[0];
+					var genericArguments = enumerableType.GetGenericArguments();
+					if (genericArguments.Length > 0)
+					{
+						elementType = genericArguments[0];
+					}
 				}
-			}
 
+				enumerableType = enumerableType.BaseType;
+			} while (elementType == null && enumerableType != null);
+			
 			if (elementType == null)
 			{
 				var enumItems = enumerable.GetEnumerator();
@@ -56,7 +61,6 @@ namespace Talifun.Commander.UI
 			return elementType;
 		}
 
-
 		#region IEnumerable Members
 
 		IEnumerator IEnumerable.GetEnumerator()
@@ -67,7 +71,8 @@ namespace Talifun.Commander.UI
 
 		public override string ToString()
 		{
-			return string.Format("{{BindingGroup of {0}}}", ElementType.FullName);
+			var elementType = ElementType;
+			return string.Format("{{BindingGroup of {0}}}", elementType == null ? "Unknown Type" : elementType.FullName);
 		}
 
 		#region INotifyCollectionChanged Members

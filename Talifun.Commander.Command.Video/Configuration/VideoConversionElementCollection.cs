@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoConversionElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(VideoConversionElementCollection), new VideoConversionElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

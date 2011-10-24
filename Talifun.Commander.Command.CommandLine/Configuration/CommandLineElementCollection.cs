@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(CommandLineElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(CommandLineElementCollection), new CommandLineElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

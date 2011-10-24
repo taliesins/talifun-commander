@@ -8,9 +8,11 @@ namespace Talifun.Commander.Command.Configuration
 {
     public partial class ProjectElement : NamedConfigurationElement
     {
+		private readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
+
         protected ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
         protected readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-        protected readonly ConfigurationProperty folders = new ConfigurationProperty("folders", typeof(FolderElementCollection), null, ConfigurationPropertyOptions.None);
+        protected readonly ConfigurationProperty folders = new ConfigurationProperty("folders", typeof(FolderElementCollection), new FolderElementCollection(), ConfigurationPropertyOptions.None);
         
         /// <summary>
         /// Initializes the <see cref="ProjectElement"/> class.
@@ -21,16 +23,16 @@ namespace Talifun.Commander.Command.Configuration
 			Setting = ProjectConfiguration.Instance;	
 
             var container = CommandContainer.Instance.Container;
-			IEnumerable<CurrentConfigurationElementCollection> pluginProperties;
-        
-			pluginProperties = container.GetExportedValues<CurrentConfigurationElementCollection>();
+
+        	var elementCollectionConfigurationProperties = container.GetExportedValues<CurrentConfigurationElementCollection>()
+        		.Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
   
             properties.Add(name);
             properties.Add(folders);
 
-            foreach (var configurationProperty in pluginProperties)
+            foreach (var elementCollectionConfigurationProperty in elementCollectionConfigurationProperties)
             {
-                properties.Add(configurationProperty.CreateNewConfigurationProperty());
+                properties.Add(elementCollectionConfigurationProperty.CreateNewConfigurationProperty());
             }
         }
 

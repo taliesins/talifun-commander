@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AntiVirusElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(AntiVirusElementCollection), new AntiVirusElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

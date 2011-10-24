@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 
         public override ConfigurationProperty CreateNewConfigurationProperty()
         {
-            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(ImageConversionElementCollection), null, ConfigurationPropertyOptions.None);
+            return new ConfigurationProperty(Setting.ElementCollectionSettingName, typeof(ImageConversionElementCollection), new ImageConversionElementCollection(), ConfigurationPropertyOptions.None);
         }
     }
 }

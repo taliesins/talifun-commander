@@ -59,7 +59,7 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type Configuration:ProjectElement}">
                         <HierarchicalDataTemplate.ItemsSource>
-                            <MultiBinding Converter="{StaticResource complex-group-converter}" ConverterParameter="FolderElementCollection-Template,CommandPlugins-Template">
+                            <MultiBinding Converter="{StaticResource complex-group-converter}" ConverterParameter="FolderElementCollection-Template,CommandPlugins-Template" >
                                 <Binding Path="Folders" />
                                 <Binding Path="CommandPlugins"/>
                             </MultiBinding>
@@ -69,9 +69,10 @@
                             <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
+                    <BitmapImage x:Key="FolderElementCollectionImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/FolderElementCollection.png" DecodePixelHeight="24" DecodePixelWidth="24"  />
                     <HierarchicalDataTemplate x:Key="FolderElementCollection-Template" ItemsSource="{Binding Path=.}">
                         <StackPanel Orientation="Horizontal" >
-                            <Image Source="{Binding Setting.ElementCollectionImage}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <Image Source="{StaticResource FolderElementCollectionImageSource}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBlock Text="Folders to watch" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>

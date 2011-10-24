@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Configuration
         private static readonly ConfigurationProperty includeSubdirectories = new ConfigurationProperty("includeSubdirectories", typeof(bool), false, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty workingPath = new ConfigurationProperty("workingPath", typeof(string), "", ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty completedPath = new ConfigurationProperty("completedPath", typeof(string), "", ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty fileMatches = new ConfigurationProperty("fileMatches", typeof(FileMatchElementCollection), null, ConfigurationPropertyOptions.None | ConfigurationPropertyOptions.IsDefaultCollection);
+        private static readonly ConfigurationProperty fileMatches = new ConfigurationProperty("fileMatches", typeof(FileMatchElementCollection), new FileMatchElementCollection(), ConfigurationPropertyOptions.None | ConfigurationPropertyOptions.IsDefaultCollection);
 
         /// <summary>
         /// Initializes the <see cref="FolderElement"/> class.
