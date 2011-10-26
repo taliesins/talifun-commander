@@ -142,6 +142,15 @@ namespace Talifun.Commander.Command.Video.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;project name=\&quot;{0}\&quot;&gt;&lt;{1}&gt;&lt;{2} name=\&quot;{3}\&quot;&gt; watermarkPath does not exist - {4}.
+        /// </summary>
+        public static string ErrorMessageCommandWatermarkPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ErrorMessageCommandWatermarkPathDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown audio conversion type.
         /// </summary>
         public static string ErrorMessageUnknownAudioConversionType {

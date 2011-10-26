@@ -79,12 +79,8 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var width = widthIntegerUpDown.Value;
 			var height = heightIntegerUpDown.Value;
 			var aspectRatio = GetSelectedEnumFromComboBox(aspectRatioComboBox, AspectRatio.NotSpecified);
-			var frameRate = GetSelectedValueFromComboBox(frameRateComboBox);
 			var videoBitRate = GetSelectedValueFromComboBox(videoBitRateComboBox);
 			var maxVideoBitRate = GetSelectedValueFromComboBox(maxVideoBitRateComboBox);
-			var bufferSize = GetSelectedValueFromComboBox(bufferSizeComboBox);
-			var keyFrameInterval = GetSelectedValueFromComboBox(keyFrameIntervalComboBox);
-			var minKeyFrameInterval = GetSelectedValueFromComboBox(minKeyFrameIntervalComboBox);
 
 			var audioConversionTypeConverter = new EnumConverter(typeof(AudioConversionType));
 			var videoConversionTypeConverter = new EnumConverter(typeof(VideoConversionType));
@@ -102,12 +98,8 @@ namespace Talifun.Commander.Command.Video.Configuration
 					&& int.Parse(x.Attributes["width"].Value) == width 
 					&& int.Parse(x.Attributes["height"].Value) == height
 					&& (AspectRatio)aspectRatioConverter.ConvertFromString(x.Attributes["aspectRatio"].Value) == aspectRatio
-					&& x.Attributes["frameRate"].Value == frameRate
 					&& x.Attributes["videoBitRate"].Value == videoBitRate
 					&& x.Attributes["maxVideoBitRate"].Value == maxVideoBitRate
-					&& x.Attributes["bufferSize"].Value == bufferSize
-					&& x.Attributes["keyFrameInterval"].Value == keyFrameInterval
-					&& x.Attributes["minKeyFrameInterval"].Value == minKeyFrameInterval
 					)
 				.FirstOrDefault() 
 				?? xmlElements.Where(x => x.Attributes["name"].Value == "Custom").First();
@@ -157,11 +149,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var aspectRatio = GetEnumFromAttribute<AspectRatio>(selectedCommonSetting, "aspectRatio");
 			var videoBitRate = GetIntFromAttribute(selectedCommonSetting, "videoBitRate");
 			var maxVideoBitRate = GetIntFromAttribute(selectedCommonSetting, "maxVideoBitRate");
-
-			var frameRate = GetIntFromAttribute(selectedCommonSetting, "frameRate");
-			var bufferSize = GetIntFromAttribute(selectedCommonSetting, "bufferSize");
-			var keyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "keyFrameInterval");
-			var minKeyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "minKeyFrameInterval");
 
 			if (audioConversionType != AudioConversionType.NotSpecified)
 			{
@@ -213,26 +200,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			if (maxVideoBitRate != 0)
 			{
 				DataModel.Element.MaxVideoBitRate = maxVideoBitRate;
-			}
-
-			if (frameRate != 0)
-			{
-				DataModel.Element.FrameRate = frameRate;
-			}
-
-			if (bufferSize != 0)
-			{
-				DataModel.Element.BufferSize = bufferSize;
-			}
-
-			if (keyFrameInterval != 0)
-			{
-				DataModel.Element.KeyFrameInterval = keyFrameInterval;
-			}
-
-			if (minKeyFrameInterval != 0)
-			{
-				DataModel.Element.MinKeyFrameInterval = minKeyFrameInterval;
 			}
 
 			_selectionBoxChanged = false;

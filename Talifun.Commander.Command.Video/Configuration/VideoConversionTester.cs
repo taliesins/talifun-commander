@@ -101,6 +101,20 @@ namespace Talifun.Commander.Command.Video.Configuration
                     }
                 }
 
+				if (!string.IsNullOrEmpty(videoSetting.WatermarkPath))
+				{
+					if (!File.Exists(videoSetting.WatermarkPath))
+					{
+						throw new Exception(
+							string.Format(Properties.Resource.ErrorMessageCommandWatermarkPathDoesNotExist,
+							              project.Name,
+							              Settings.ElementCollectionSettingName,
+							              Settings.ElementSettingName,
+							              videoSetting.Name,
+										  videoSetting.WatermarkPath));
+					}
+				}
+
                 videoConversionSettingsKeys.Remove(videoSetting.Name);
             }
 
