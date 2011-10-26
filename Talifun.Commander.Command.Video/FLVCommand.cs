@@ -23,7 +23,7 @@ namespace Talifun.Commander.Command.Video
                 outPutFilePath.Delete();
             }
 
-			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} \"{3}\"", inputFilePath.FullName, settings.Video.GetOptionsForFirstPass(), settings.Audio.GetOptions(), outPutFilePath.FullName);
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, settings.Video.GetOptionsForFirstPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
             var flvTool2CommandArguments = string.Format("-U \"{0}\"", outPutFilePath.FullName);
 
             var workingDirectory = outputDirectoryPath.FullName;
