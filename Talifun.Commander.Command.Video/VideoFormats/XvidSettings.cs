@@ -4,7 +4,7 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 {
 	public class XvidSettings : IVideoSettings
 	{
-		const string AllFixedOptions = @"-threads auto";
+		const string AllFixedOptions = @"-threads 0";
 		const string FirstPhaseFixedOptions = AllFixedOptions;
 
 		public XvidSettings(VideoConversionElement videoConversion)

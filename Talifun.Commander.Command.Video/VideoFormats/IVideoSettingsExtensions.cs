@@ -43,7 +43,7 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 				videoOptions.Add("-keyint_min", settings.MinKeyframeInterval.ToString());
 			}
 
-			var value = videoOptions.Aggregate(new StringBuilder(), (x, y) => x.Append(y.Key + " " + y.Value));
+			var value = videoOptions.Select(x=>x.Key + " " + x.Value).Aggregate(new StringBuilder(), (x, y) => x.Append(" " + y));
 
 			return value;
 		}

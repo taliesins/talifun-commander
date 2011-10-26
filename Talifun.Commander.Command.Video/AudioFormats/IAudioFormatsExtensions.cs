@@ -25,7 +25,7 @@ namespace Talifun.Commander.Command.Video.AudioFormats
 				audioOptions.Add("-ac", settings.Channels.ToString());
 			}
 
-			var value = audioOptions.Aggregate(new StringBuilder(), (x, y) => x.Append(y.Key + " " + y.Value));
+			var value = audioOptions.Select(x => x.Key + " " + x.Value).Aggregate(new StringBuilder(), (x, y) => x.Append(" " + y));
 
 			if (!string.IsNullOrEmpty(settings.Options))
 			{

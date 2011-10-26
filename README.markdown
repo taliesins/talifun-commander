@@ -1,7 +1,12 @@
 Talifun-Commander
 =================
 
+# KNOWN ISSUES
+
+webm container broken in 64 bit version of ffmpeg, so if you need to use it then download the 32 bit version of ffmpeg.
+
 # Status
+
 Currently undergoing a lot of changes. So treat this code as Alpha quality!
 
 # LICENSE

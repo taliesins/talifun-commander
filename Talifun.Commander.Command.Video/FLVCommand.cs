@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using Talifun.Commander.Command.Video.AudioFormats;
 using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
+using Talifun.Commander.Command.Video.VideoFormats;
 using Talifun.Commander.Executor.CommandLine;
 using Talifun.Commander.Executor.FFMpeg;
 
@@ -21,10 +23,7 @@ namespace Talifun.Commander.Command.Video
                 outPutFilePath.Delete();
             }
 
-			var audioArgs = string.Format("-acodec {0} -ab {1} -ar {2} -ac {3}", settings.Audio.CodecName, settings.Audio.BitRate, settings.Audio.Frequency, settings.Audio.Channels);
-			var videoArgs = string.Format("-vcodec {0} -s {1}x{2} -b {3} -maxrate {4} -bufsize {5} -r {6} -g {7} -keyint_min {8}", settings.Video.CodecName, settings.Video.Width, settings.Video.Height, settings.Video.BitRate, settings.Video.MaxBitRate, settings.Video.BufferSize, settings.Video.FrameRate, settings.Video.KeyframeInterval, settings.Video.MinKeyframeInterval);
-
-			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, videoArgs, settings.Video.FirstPhaseOptions, audioArgs, outPutFilePath.FullName);
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} \"{3}\"", inputFilePath.FullName, settings.Video.GetOptionsForFirstPass(), settings.Audio.GetOptions(), outPutFilePath.FullName);
             var flvTool2CommandArguments = string.Format("-U \"{0}\"", outPutFilePath.FullName);
 
             var workingDirectory = outputDirectoryPath.FullName;

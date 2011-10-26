@@ -9,6 +9,7 @@ namespace Talifun.Commander.Command.Video.Containers
 		{
 			FileNameExtension = "ogv";
 			Audio = audio;
+			Audio.CodecName = "libvorbis"; //This is the only supported audio codec for the ogg container
 			Video = video;
 			Watermark = watermark;
 		}

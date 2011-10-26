@@ -27,8 +27,8 @@ namespace Talifun.Commander.Command.Video
                 logFilePath.Delete();
             }
 
-			var firstPassCommandArguments = string.Format("-i \"{0}\" -passlogfile \"{1}\" -pass 1 {2} {3} \"{4}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForFirstPass(), "-an", outPutFilePath.FullName);
-			var secondPassCommandArguments = string.Format("-i \"{0}\" -passlogfile \"{1}\" -pass 2 {2} {3} {4} \"{5}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForSecondPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
+			var firstPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 1 {2} {3} \"{4}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForFirstPass(), "-an", outPutFilePath.FullName);
+			var secondPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 2 {2} {3} {4} \"{5}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForSecondPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
 
             var fFMpegCommandPath = appSettings.Settings[VideoConversionConfiguration.Instance.FFMpegPathSettingName].Value;
             var workingDirectory = outputDirectoryPath.FullName;

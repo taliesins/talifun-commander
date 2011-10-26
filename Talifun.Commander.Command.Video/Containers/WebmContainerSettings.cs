@@ -9,6 +9,7 @@ namespace Talifun.Commander.Command.Video.Containers
 		{
 			FileNameExtension = "webm";
 			Audio = audio;
+			Audio.CodecName = "libvorbis"; //This is the only supported audio codec for the webm container
 			Video = video;
 			Watermark = watermark;
 		}

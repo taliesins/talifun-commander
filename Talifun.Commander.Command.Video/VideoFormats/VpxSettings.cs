@@ -4,7 +4,7 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 {
 	public class VpxSettings : IVideoSettings
 	{
-		const string AllFixedOptions = @"-threads auto";
+		const string AllFixedOptions = @"-threads 0";
 		const string FirstPhaseFixedOptions = AllFixedOptions;
 
 		public VpxSettings(VideoConversionElement videoConversion)

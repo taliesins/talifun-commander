@@ -19,7 +19,7 @@ namespace Talifun.Commander.Command.Video
 				outPutFilePath.Delete();
 			}
 
-			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, settings.Video.GetOptionsForFirstPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" -y {1} {2} {3} \"{4}\"", inputFilePath.FullName, settings.Video.GetOptionsForFirstPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
 
 			var workingDirectory = outputDirectoryPath.FullName;
 			var fFMpegCommandPath = appSettings.Settings[VideoConversionConfiguration.Instance.FFMpegPathSettingName].Value;
