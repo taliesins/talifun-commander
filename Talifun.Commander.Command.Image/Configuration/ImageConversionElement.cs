@@ -99,7 +99,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Gets or sets the image quality, as a percentage (0-100), of images returned in this photo style when 
         /// using an image format that supports lossy compression (such as JPG or PNG)
         /// </summary>
-        [ConfigurationProperty("quality", DefaultValue = null, IsRequired = false)]
+        [ConfigurationProperty("quality", DefaultValue = 0, IsRequired = false)]
         public int Quality
         {
             get { return ((int)base[quality]); }

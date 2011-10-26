@@ -10,16 +10,16 @@ namespace Talifun.Commander.Command.Video.Configuration
     public sealed partial class VideoConversionElement : CommandConfigurationBase
     {
 		private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 64000, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioFrequency = new ConfigurationProperty("audioFrequency", typeof(int), 44100, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioChannels = new ConfigurationProperty("audioChannels", typeof(int), 2, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioFrequency = new ConfigurationProperty("audioFrequency", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioChannels = new ConfigurationProperty("audioChannels", typeof(int), 0, ConfigurationPropertyOptions.None);
 
 		private static readonly ConfigurationProperty videoConversionType = new ConfigurationProperty("videoConversionType", typeof(VideoConversionType), VideoConversionType.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty deinterlace = new ConfigurationProperty("deinterlace", typeof(bool), false, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
-        private static readonly ConfigurationProperty height = new ConfigurationProperty("height", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
-        private static readonly ConfigurationProperty videoBitRate = new ConfigurationProperty("videoBitRate", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
-        private static readonly ConfigurationProperty frameRate = new ConfigurationProperty("frameRate", typeof(int), null, ConfigurationPropertyOptions.IsRequired);
+        private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
+        private static readonly ConfigurationProperty height = new ConfigurationProperty("height", typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
+        private static readonly ConfigurationProperty videoBitRate = new ConfigurationProperty("videoBitRate", typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
+        private static readonly ConfigurationProperty frameRate = new ConfigurationProperty("frameRate", typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
 
         private static readonly ConfigurationProperty aspectRatio = new ConfigurationProperty("aspectRatio", typeof(AspectRatio), AspectRatio.NotSpecified, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty maxVideoBitRate = new ConfigurationProperty("maxVideoBitRate", typeof(int), 0, ConfigurationPropertyOptions.None);
@@ -85,7 +85,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 64000
         /// 32000
         /// </summary>
-        [ConfigurationProperty("audioBitRate", DefaultValue = 64000, IsRequired = false)]
+        [ConfigurationProperty("audioBitRate", DefaultValue = 0, IsRequired = false)]
         public int AudioBitRate
         {
             get { return ((int)base[audioBitRate]); }
@@ -100,7 +100,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 44100
         /// 22050
         /// </summary>
-        [ConfigurationProperty("audioFrequency", DefaultValue = 44100, IsRequired = false)]
+        [ConfigurationProperty("audioFrequency", DefaultValue = 0, IsRequired = false)]
         public int AudioFrequency
         {
             get { return ((int)base[audioFrequency]); }
@@ -113,7 +113,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 1 (Mono)
         /// 2 (Stero)
         /// </summary>
-        [ConfigurationProperty("audioChannels", DefaultValue = 2, IsRequired = false)]
+        [ConfigurationProperty("audioChannels", DefaultValue = 0, IsRequired = false)]
         public int AudioChannel
         {
             get { return ((int)base[audioChannels]); }
@@ -143,7 +143,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// <summary>
         /// Gets or sets the width of the video output.
         /// </summary>
-        [ConfigurationProperty("width", DefaultValue = null, IsRequired = true)]
+        [ConfigurationProperty("width", DefaultValue = 0, IsRequired = true)]
         public int Width
         {
             get { return ((int)base[width]); }
@@ -153,7 +153,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// <summary>
         /// Gets or sets the height of the video output.
         /// </summary>
-        [ConfigurationProperty("height", DefaultValue = null, IsRequired = true)]
+        [ConfigurationProperty("height", DefaultValue = 0, IsRequired = true)]
         public int Height
         {
             get { return ((int)base[height]); }
@@ -163,7 +163,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// <summary>
         /// Gets or sets the video bit rate of the video output.
         /// </summary>
-        [ConfigurationProperty("videoBitRate", DefaultValue = null, IsRequired = true)]
+        [ConfigurationProperty("videoBitRate", DefaultValue = 0, IsRequired = true)]
         public int VideoBitRate
         {
             get { return ((int)base[videoBitRate]); }
@@ -173,7 +173,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// <summary>
         /// Gets or sets the frame rate of the video output.
         /// </summary>
-        [ConfigurationProperty("frameRate", DefaultValue = null, IsRequired = true)]
+        [ConfigurationProperty("frameRate", DefaultValue = 0, IsRequired = true)]
         public int FrameRate
         {
             get { return ((int)base[frameRate]); }
@@ -194,7 +194,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the max video bit rate of the video output.
         /// Recommend setting MaxVideoBitRate > VideoBitRate
         /// </summary>
-        [ConfigurationProperty("maxVideoBitRate", DefaultValue = null, IsRequired = false)]
+        [ConfigurationProperty("maxVideoBitRate", DefaultValue = 0, IsRequired = false)]
         public int MaxVideoBitRate
         {
             get { return ((int)base[maxVideoBitRate]); }
@@ -205,7 +205,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the buffer size of the video output.
         /// Recommend setting BufferSize > MaxVideoBitRate > VideoBitRate
         /// </summary>
-        [ConfigurationProperty("bufferSize", DefaultValue = null, IsRequired = false)]
+        [ConfigurationProperty("bufferSize", DefaultValue = 0, IsRequired = false)]
         public int BufferSize
         {
             get { return ((int)base[bufferSize]); }
@@ -216,7 +216,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the buffer size of the video output.
         /// Recommend setting KeyFrameInterval = 10 * FrameRate
         /// </summary>
-        [ConfigurationProperty("keyFrameInterval", DefaultValue = null, IsRequired = false)]
+        [ConfigurationProperty("keyFrameInterval", DefaultValue = 0, IsRequired = false)]
         public int KeyFrameInterval
         {
             get { return ((int)base[keyFrameInterval]); }
@@ -227,7 +227,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the buffer size of the video output.
         /// Recommend setting MinKeyFrameInterval = FrameRate
         /// </summary>
-        [ConfigurationProperty("minKeyframeInterval", DefaultValue = null, IsRequired = false)]
+        [ConfigurationProperty("minKeyframeInterval", DefaultValue = 0, IsRequired = false)]
         public int MinKeyFrameInterval
         {
             get { return ((int)base[minKeyFrameInterval]); }

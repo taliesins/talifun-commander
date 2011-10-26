@@ -55,6 +55,7 @@
     <Compile Include="AudioFormats\Ac3Settings.cs" />
     <Compile Include="AudioConverterSaga.cs" />
     <Compile Include="AudioFormats\AacSettings.cs" />
+    <Compile Include="AudioFormats\IAudioFormatsExtensions.cs" />
     <Compile Include="AudioFormats\IAudioSettings.cs" />
     <Compile Include="AudioFormats\VorbisSettings.cs" />
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">

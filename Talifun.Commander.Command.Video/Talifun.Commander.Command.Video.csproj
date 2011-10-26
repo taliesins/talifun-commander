@@ -58,6 +58,7 @@
     <Compile Include="AudioConversionType.cs" />
     <Compile Include="AudioFormats\AacSettings.cs" />
     <Compile Include="AudioFormats\Ac3Settings.cs" />
+    <Compile Include="AudioFormats\IAudioFormatsExtensions.cs" />
     <Compile Include="AudioFormats\IAudioSettings.cs" />
     <Compile Include="AudioFormats\Mp3Settings.cs" />
     <Compile Include="AudioFormats\VorbisSettings.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Gravity.cs" />
     <Compile Include="GravityExtensions.cs" />
     <Compile Include="IWatermarkSettings.cs" />
+    <Compile Include="IWatermarkSettingsExtensions.cs" />
     <Compile Include="OnePassCommand.cs" />
     <Compile Include="VideoFormats\FlvSettings.cs" />
     <Compile Include="TwoPassCommand.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="VideoConversionType.cs" />
     <Compile Include="VideoConverterSaga.cs" />
     <Compile Include="VideoFormats\IVideoSettings.cs" />
+    <Compile Include="VideoFormats\IVideoSettingsExtensions.cs" />
     <Compile Include="VideoFormats\TheoraSettings.cs" />
     <Compile Include="VideoFormats\VpxSettings.cs" />
     <Compile Include="VideoFormats\XvidSettings.cs" />

@@ -19,6 +19,7 @@
         <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
             <x:XData>
                 <audioBitRates xmlns="">
+                    <audioBitRate name="Auto" value="0"/>
                     <audioBitRate name="32 kbit/s" value="32000"/>
                     <audioBitRate name="64 kbit/s" value="64000"/>
                     <audioBitRate name="96 kbit/s" value="96000"/>
@@ -30,6 +31,7 @@
         <XmlDataProvider x:Key="audioFrequencies" XPath="/audioFrequencies">
             <x:XData>
                 <audioFrequencies xmlns="">
+                    <audioFrequency name="Auto" value="0"/>
                     <audioFrequency name="22050 Hz" value="22050"/>
                     <audioFrequency name="44100 Hz" value="44100"/>
                     <audioFrequency name="48000 Hz" value="48000"/>
@@ -40,6 +42,7 @@
         <XmlDataProvider x:Key="audioChannels" XPath="/audioChannels">
             <x:XData>
                 <audioChannels xmlns="">
+                    <audioChannel name="Auto" value="0"/>
                     <audioChannel name="Mono" value="1"/>
                     <audioChannel name="Stereo" value="2"/>
                     <audioChannel name="5.1" value="6"/>

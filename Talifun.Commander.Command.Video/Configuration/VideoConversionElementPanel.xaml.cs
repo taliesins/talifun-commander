@@ -36,11 +36,9 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var element = e.Element as VideoConversionElement;
 
 			DataModel = new VideoConversionElementPanelDataModel(element);
-			this.DataContext = DataModel;
-
 			DataModel.PropertyChanged += OnElementPropertyChanged;
 
-			StartingValues();
+			this.DataContext = DataModel;
 		}
 
 		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -157,30 +155,87 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var width = GetIntFromAttribute(selectedCommonSetting, "width");
 			var height = GetIntFromAttribute(selectedCommonSetting, "height");
 			var aspectRatio = GetEnumFromAttribute<AspectRatio>(selectedCommonSetting, "aspectRatio");
-			var frameRate = GetIntFromAttribute(selectedCommonSetting, "frameRate");
 			var videoBitRate = GetIntFromAttribute(selectedCommonSetting, "videoBitRate");
 			var maxVideoBitRate = GetIntFromAttribute(selectedCommonSetting, "maxVideoBitRate");
+
+			var frameRate = GetIntFromAttribute(selectedCommonSetting, "frameRate");
 			var bufferSize = GetIntFromAttribute(selectedCommonSetting, "bufferSize");
 			var keyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "keyFrameInterval");
-			var minKeyFrameIntervals = GetIntFromAttribute(selectedCommonSetting, "minKeyFrameIntervals");
+			var minKeyFrameInterval = GetIntFromAttribute(selectedCommonSetting, "minKeyFrameInterval");
 
-			DataModel.Element.AudioConversionType = audioConversionType;
-			DataModel.Element.AudioBitRate = audioBitRate;
-			DataModel.Element.AudioFrequency = audioFrequency;
-			DataModel.Element.AudioChannel = audioChannel;
+			if (audioConversionType != AudioConversionType.NotSpecified)
+			{
+				DataModel.Element.AudioConversionType = audioConversionType;
+			}
+
+			if (audioBitRate != 0)
+			{
+				DataModel.Element.AudioBitRate = audioBitRate;
+			}
+
+			if (audioFrequency != 0)
+			{
+				DataModel.Element.AudioFrequency = audioFrequency;
+			}
+
+			if (audioChannel != 0)
+			{
+				DataModel.Element.AudioChannel = audioChannel;
+			}
+
 			DataModel.Element.Deinterlace = deinterlace;
-			DataModel.Element.VideoConversionType = videoConversionType;
-			DataModel.Element.Width = width;
-			DataModel.Element.Height = height;
-			DataModel.Element.AspectRatio = aspectRatio;
-			DataModel.Element.FrameRate = frameRate;
-			DataModel.Element.VideoBitRate = videoBitRate;
-			DataModel.Element.MaxVideoBitRate = maxVideoBitRate;
-			DataModel.Element.BufferSize = bufferSize;
-			DataModel.Element.KeyFrameInterval = keyFrameInterval;
-			DataModel.Element.MinKeyFrameInterval = minKeyFrameIntervals;
-			
-    		_selectionBoxChanged = false;
+
+			if (videoConversionType != VideoConversionType.NotSpecified)
+			{
+				DataModel.Element.VideoConversionType = videoConversionType;
+			}
+
+			if (width != 0)
+			{
+				DataModel.Element.Width = width;
+			}
+
+			if (height != 0)
+			{
+				DataModel.Element.Height = height;
+			}
+
+			if (aspectRatio != AspectRatio.NotSpecified)
+			{
+				DataModel.Element.AspectRatio = aspectRatio;
+			}
+
+			if (videoBitRate != 0)
+			{
+				DataModel.Element.VideoBitRate = videoBitRate;
+			}
+
+			if (maxVideoBitRate != 0)
+			{
+				DataModel.Element.MaxVideoBitRate = maxVideoBitRate;
+			}
+
+			if (frameRate != 0)
+			{
+				DataModel.Element.FrameRate = frameRate;
+			}
+
+			if (bufferSize != 0)
+			{
+				DataModel.Element.BufferSize = bufferSize;
+			}
+
+			if (keyFrameInterval != 0)
+			{
+				DataModel.Element.KeyFrameInterval = keyFrameInterval;
+			}
+
+			if (minKeyFrameInterval != 0)
+			{
+				DataModel.Element.MinKeyFrameInterval = minKeyFrameInterval;
+			}
+
+			_selectionBoxChanged = false;
 		}
 
     	private void StartingValues()
@@ -190,50 +245,50 @@ namespace Talifun.Commander.Command.Video.Configuration
 				commonSettingsComboBox.Text = "Custom";
 			}
 
-			if (string.IsNullOrEmpty(bitRateComboBox.Text))
-			{
-				bitRateComboBox.Text = DataModel.Element.AudioBitRate.ToString();
-			}
+			//if (string.IsNullOrEmpty(bitRateComboBox.Text))
+			//{
+			//    bitRateComboBox.Text = DataModel.Element.AudioBitRate.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(frequencyComboBox.Text))
-			{
-				frequencyComboBox.Text = DataModel.Element.AudioFrequency.ToString();
-			}
+			//if (string.IsNullOrEmpty(frequencyComboBox.Text))
+			//{
+			//    frequencyComboBox.Text = DataModel.Element.AudioFrequency.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(channelComboBox.Text))
-			{
-				channelComboBox.Text = DataModel.Element.AudioChannel.ToString();
-			}
+			//if (string.IsNullOrEmpty(channelComboBox.Text))
+			//{
+			//    channelComboBox.Text = DataModel.Element.AudioChannel.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(frameRateComboBox.Text))
-			{
-				frameRateComboBox.Text = DataModel.Element.FrameRate.ToString();
-			}
+			//if (string.IsNullOrEmpty(frameRateComboBox.Text))
+			//{
+			//    frameRateComboBox.Text = DataModel.Element.FrameRate.ToString();
+			//}
 			
-			if (string.IsNullOrEmpty(videoBitRateComboBox.Text))
-			{
-				videoBitRateComboBox.Text = DataModel.Element.VideoBitRate.ToString();
-			}
+			//if (string.IsNullOrEmpty(videoBitRateComboBox.Text))
+			//{
+			//    videoBitRateComboBox.Text = DataModel.Element.VideoBitRate.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(maxVideoBitRateComboBox.Text))
-			{
-				maxVideoBitRateComboBox.Text = DataModel.Element.MaxVideoBitRate.ToString();
-			}
+			//if (string.IsNullOrEmpty(maxVideoBitRateComboBox.Text))
+			//{
+			//    maxVideoBitRateComboBox.Text = DataModel.Element.MaxVideoBitRate.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(bufferSizeComboBox.Text))
-			{
-				bufferSizeComboBox.Text = DataModel.Element.BufferSize.ToString();
-			}
+			//if (string.IsNullOrEmpty(bufferSizeComboBox.Text))
+			//{
+			//    bufferSizeComboBox.Text = DataModel.Element.BufferSize.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(keyFrameIntervalComboBox.Text))
-			{
-				keyFrameIntervalComboBox.Text = DataModel.Element.KeyFrameInterval.ToString();
-			}
+			//if (string.IsNullOrEmpty(keyFrameIntervalComboBox.Text))
+			//{
+			//    keyFrameIntervalComboBox.Text = DataModel.Element.KeyFrameInterval.ToString();
+			//}
 
-			if (string.IsNullOrEmpty(minKeyFrameIntervalComboBox.Text))
-			{
-				minKeyFrameIntervalComboBox.Text = DataModel.Element.MinKeyFrameInterval.ToString();
-			}
+			//if (string.IsNullOrEmpty(minKeyFrameIntervalComboBox.Text))
+			//{
+			//    minKeyFrameIntervalComboBox.Text = DataModel.Element.MinKeyFrameInterval.ToString();
+			//}
 		}
 
 		private void watermarkPathButton_Click(object sender, System.Windows.RoutedEventArgs e)

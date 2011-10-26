@@ -10,9 +10,9 @@ namespace Talifun.Commander.Command.Audio.Configuration
     public sealed partial class AudioConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 128000, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioFrequency = new ConfigurationProperty("audioFrequency", typeof(int), 44100, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty audioChannels = new ConfigurationProperty("audioChannels", typeof(int), 2, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioBitRate = new ConfigurationProperty("audioBitRate", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioFrequency = new ConfigurationProperty("audioFrequency", typeof(int), 0, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty audioChannels = new ConfigurationProperty("audioChannels", typeof(int), 0, ConfigurationPropertyOptions.None);
 
         /// <summary>
         /// Initializes the <see cref="AudioConversionElement"/> class.
@@ -50,7 +50,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 64000
         /// 32000
         /// </summary>
-        [ConfigurationProperty("audioBitRate", DefaultValue = 128000, IsRequired = false)]
+        [ConfigurationProperty("audioBitRate", DefaultValue = 0, IsRequired = false)]
         public int BitRate
         {
             get { return ((int)base[audioBitRate]); }
@@ -65,7 +65,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 44100
         /// 22050
         /// </summary>
-        [ConfigurationProperty("audioFrequency", DefaultValue = 44100, IsRequired = false)]
+        [ConfigurationProperty("audioFrequency", DefaultValue = 0, IsRequired = false)]
         public int Frequency
         {
             get { return ((int)base[audioFrequency]); }
@@ -78,7 +78,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 1 (Mono)
         /// 2 (Stero)
         /// </summary>
-        [ConfigurationProperty("audioChannels", DefaultValue = 2, IsRequired = false)]
+        [ConfigurationProperty("audioChannels", DefaultValue = 0, IsRequired = false)]
         public int Channel
         {
             get { return ((int)base[audioChannels]); }
