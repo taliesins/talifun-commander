@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Xml;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.UI;
+using ComboBox = System.Windows.Controls.ComboBox;
 
 namespace Talifun.Commander.Command.Video.Configuration
 {
@@ -231,6 +234,21 @@ namespace Talifun.Commander.Command.Video.Configuration
 			{
 				minKeyFrameIntervalComboBox.Text = DataModel.Element.MinKeyFrameInterval.ToString();
 			}
+		}
+
+		private void watermarkPathButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				FileName = watermarkPathTextBox.Text,
+				Multiselect = false
+			};
+
+			var result = openFileDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = openFileDialog.FileName;
+			watermarkPathTextBox.Text = foldername;
 		}
     }
 }

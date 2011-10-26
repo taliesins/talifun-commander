@@ -4,17 +4,21 @@ namespace Talifun.Commander.Command.Video.AudioFormats
 {
 	public class AacSettings : IAudioSettings
 	{
+		private const string AllFixedOptions = @"";
+
 		public AacSettings(VideoConversionElement audioConversion)
 		{
-			CodecName = "aac";
+			CodecName = "libvo_aacenc";
 			BitRate = audioConversion.AudioBitRate;
 			Channels = audioConversion.AudioChannel;
 			Frequency = audioConversion.AudioFrequency;
+			Options = AllFixedOptions;
 		}
 
 		public string CodecName { get; set; }
 		public int BitRate { get; set; } //-ab {AudioBitRate}
 		public int Frequency { get; set; } //-ar {AudioFrequency}
 		public int Channels { get; set; }//-ac {AudioChannels - 1, 2}
+		public string Options { get; set; }
 	}
 }

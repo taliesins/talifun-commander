@@ -8,5 +8,6 @@ namespace Talifun.Commander.Command.Video.Containers
 		string FileNameExtension { get; }
 		IAudioSettings Audio { get; }
 		IVideoSettings Video { get; }
+		IWatermarkSettings Watermark { get; }
 	}
 }

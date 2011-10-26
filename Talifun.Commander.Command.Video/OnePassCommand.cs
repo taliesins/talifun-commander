@@ -17,10 +17,18 @@ namespace Talifun.Commander.Command.Video
 				outPutFilePath.Delete();
 			}
 
-			var audioArgs = string.Format("-acodec {0} -ab {1} -ar {2} -ac {3}", settings.Audio.CodecName, settings.Audio.BitRate, settings.Audio.Frequency, settings.Audio.Channels);
-			var videoArgs = string.Format("-vcodec {0} -s {1}x{2} -b {3} -maxrate {4} -bufsize {5} -r {6} -g {7} -keyint_min {8}", settings.Video.CodecName, settings.Video.Width, settings.Video.Height, settings.Video.BitRate, settings.Video.MaxBitRate, settings.Video.BufferSize, settings.Video.FrameRate, settings.Video.KeyframeInterval, settings.Video.MinKeyframeInterval);
+			var videoFilterArgs = string.Empty;
+			if (!string.IsNullOrEmpty(settings.Watermark.Path))
+			{
+				var overlayPosition = string.Format(settings.Watermark.Gravity.GetOverlayPosition(), settings.Watermark.WidthPadding, settings.Watermark.HeightPadding);
+				var watermarkPath = settings.Watermark.Path.Replace('\\', '/').Replace(":", "\\:");
+				videoFilterArgs = string.Format("-vf \"movie={0} [watermark]; [in][watermark] overlay={1}\"", watermarkPath, overlayPosition);
+			}
 
-			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} \"{4}\"", inputFilePath.FullName, videoArgs, settings.Video.FirstPhaseOptions, audioArgs, outPutFilePath.FullName);
+			var audioArgs = string.Format("-codec:a {0} -b:a {1} -ar {2} -ac {3} {4}", settings.Audio.CodecName, settings.Audio.BitRate, settings.Audio.Frequency, settings.Audio.Channels, settings.Audio.Options);
+			var videoArgs = string.Format("-codec:v {0} -s {1}x{2} -b:v {3} -maxrate {4} -bufsize {5} -r {6} -g {7} -keyint_min {8}", settings.Video.CodecName, settings.Video.Width, settings.Video.Height, settings.Video.BitRate, settings.Video.MaxBitRate, settings.Video.BufferSize, settings.Video.FrameRate, settings.Video.KeyframeInterval, settings.Video.MinKeyframeInterval);
+
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" {1} {2} {3} {4} \"{5}\"", inputFilePath.FullName, videoArgs, settings.Video.FirstPhaseOptions, audioArgs, videoFilterArgs, outPutFilePath.FullName);
 
 			var workingDirectory = outputDirectoryPath.FullName;
 			var fFMpegCommandPath = appSettings.Settings[VideoConversionConfiguration.Instance.FFMpegPathSettingName].Value;

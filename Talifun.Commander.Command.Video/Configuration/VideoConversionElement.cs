@@ -27,6 +27,11 @@ namespace Talifun.Commander.Command.Video.Configuration
         private static readonly ConfigurationProperty keyFrameInterval = new ConfigurationProperty("keyFrameInterval", typeof(int), 0, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty minKeyFrameInterval = new ConfigurationProperty("minKeyFrameInterval", typeof(int), 0, ConfigurationPropertyOptions.None);
 
+		private static readonly ConfigurationProperty watermarkPath = new ConfigurationProperty("watermarkPath", typeof(string), "", ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationProperty watermarkGravity = new ConfigurationProperty("watermarkGravity", typeof(Gravity), Gravity.SouthEast, ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationProperty watermarkWidthPadding = new ConfigurationProperty("watermarkWidthPadding", typeof(int), 10, ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty watermarkHeightPadding = new ConfigurationProperty("watermarkHeightPadding", typeof(int), 10, ConfigurationPropertyOptions.IsRequired);
+
         /// <summary>
         /// Initializes the <see cref="VideoConversionElement"/> class.
         /// </summary>
@@ -49,6 +54,11 @@ namespace Talifun.Commander.Command.Video.Configuration
             properties.Add(bufferSize);
             properties.Add(keyFrameInterval);
             properties.Add(minKeyFrameInterval);
+
+			properties.Add(watermarkPath);
+			properties.Add(watermarkGravity);
+			properties.Add(watermarkWidthPadding);
+			properties.Add(watermarkHeightPadding);
         }
 
 		public VideoConversionElement()
@@ -223,5 +233,52 @@ namespace Talifun.Commander.Command.Video.Configuration
             get { return ((int)base[minKeyFrameInterval]); }
 			set { SetPropertyValue(value, minKeyFrameInterval, "MinKeyFrameInterval"); }
         }
+
+		/// <summary>
+		/// Gets or sets the path where the watermark image to use is. If none is specified then video will not be
+		/// watermarked.
+		/// </summary>       
+		[ConfigurationProperty("watermarkPath", DefaultValue = "")]
+		public string WatermarkPath
+		{
+			get { return ((string)base[watermarkPath]); }
+			set { SetPropertyValue(value, watermarkPath, "WatermarkPath"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the gravity to use when placing watermark overlay.
+		/// </summary>
+		[ConfigurationProperty("videoConversionType", DefaultValue = Gravity.SouthEast)]
+		public Gravity WatermarkGravity
+		{
+			get { return ((Gravity)base[watermarkGravity]); }
+			set { SetPropertyValue(value, watermarkGravity, "WatermarkGravity"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the number of audio channels to use the audio.
+		/// Popular values are
+		/// 1 (Mono)
+		/// 2 (Stero)
+		/// </summary>
+		[ConfigurationProperty("watermarkWidthPadding", DefaultValue = 10, IsRequired = false)]
+		public int WatermarkWidthPadding
+		{
+			get { return ((int)base[watermarkWidthPadding]); }
+			set { SetPropertyValue(value, watermarkWidthPadding, "WatermarkWidthPadding"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the number of audio channels to use the audio.
+		/// Popular values are
+		/// 1 (Mono)
+		/// 2 (Stero)
+		/// </summary>
+		[ConfigurationProperty("watermarkHeightPadding", DefaultValue = 10, IsRequired = false)]
+		public int WatermarkHeightPadding
+		{
+			get { return ((int)base[watermarkHeightPadding]); }
+			set { SetPropertyValue(value, watermarkHeightPadding, "WatermarkHeightPadding"); }
+		}
     }
 }

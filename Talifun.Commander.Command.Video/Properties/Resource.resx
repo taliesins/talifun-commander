@@ -178,4 +178,31 @@
   <data name="VideoConversionType_Xvid" xml:space="preserve">
     <value>XVid</value>
   </data>
+  <data name="Gravity_Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Gravity_East" xml:space="preserve">
+    <value>East</value>
+  </data>
+  <data name="Gravity_North" xml:space="preserve">
+    <value>North</value>
+  </data>
+  <data name="Gravity_NorthEast" xml:space="preserve">
+    <value>North East</value>
+  </data>
+  <data name="Gravity_NorthWest" xml:space="preserve">
+    <value>North West</value>
+  </data>
+  <data name="Gravity_South" xml:space="preserve">
+    <value>South</value>
+  </data>
+  <data name="Gravity_SouthEast" xml:space="preserve">
+    <value>South East</value>
+  </data>
+  <data name="Gravity_SouthWest" xml:space="preserve">
+    <value>South West</value>
+  </data>
+  <data name="Gravity_West" xml:space="preserve">
+    <value>West</value>
+  </data>
 </root>

@@ -16,5 +16,6 @@ namespace Talifun.Commander.Command.Video.AudioFormats
 		public int BitRate { get; set; } //-ab {AudioBitRate}
 		public int Frequency { get; set; } //-ar {AudioFrequency}
 		public int Channels { get; set; }//-ac {AudioChannels - 1, 2}
+		public string Options { get; set; }
 	}
 }

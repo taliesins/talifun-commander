@@ -84,6 +84,9 @@
     <Compile Include="Containers\Mp4ContainerSettings.cs" />
     <Compile Include="Containers\OggContainerSettings.cs" />
     <Compile Include="Containers\WebmContainerSettings.cs" />
+    <Compile Include="Gravity.cs" />
+    <Compile Include="GravityExtensions.cs" />
+    <Compile Include="IWatermarkSettings.cs" />
     <Compile Include="OnePassCommand.cs" />
     <Compile Include="VideoFormats\FlvSettings.cs" />
     <Compile Include="TwoPassCommand.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="VideoFormats\TheoraSettings.cs" />
     <Compile Include="VideoFormats\VpxSettings.cs" />
     <Compile Include="VideoFormats\XvidSettings.cs" />
+    <Compile Include="WatermarkSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">

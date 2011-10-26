@@ -151,6 +151,13 @@
                 <x:Type TypeName="Video:AspectRatio" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="gravity"
+                    MethodName="GetValues" 
+                    ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Video:Gravity" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>        
         <ResourceDictionary x:Key="Resources">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
@@ -165,6 +172,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -233,6 +244,19 @@
 
             <Label Content="MinKeyFrameInterval:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <ComboBox Grid.Column="1" Grid.Row="16" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="minKeyFrameIntervalComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource minKeyFrameIntervals}, XPath=minKeyFrameInterval, Mode=OneTime}" DisplayMemberPath="@name" SelectedValuePath="@value" SelectedValue="{Binding Path=Element.MinKeyFrameInterval, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" />
+
+            <Label Content="Watermark Path:" Grid.Column="0" Grid.Row="17" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="17" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="watermarkPathTextBox" Text="{Binding Path=Element.WatermarkPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+            <Button Content="..." Grid.Row="17" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="watermarkPathButton" Width="25" Click="watermarkPathButton_Click" />
+
+            <Label Content="Watermark Gravity:" Grid.Column="0" Grid.Row="18" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="1" Grid.Row="18" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Content="Watermark Width Padding:" Grid.Column="0" Grid.Row="19" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="19" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityWidthPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkWidthPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Content="Watermark Height Padding:" Grid.Column="0" Grid.Row="20" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="20" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityHeightPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkHeightPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>

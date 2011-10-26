@@ -54,6 +54,19 @@ namespace Talifun.Commander.Command.Video
 			}
 		}
 
+		private IWatermarkSettings GetWatermarkSettings(VideoConversionElement videoConversionSetting)
+		{
+			var watermarkSettings = new WatermarkSettings()
+			                        	{
+											Gravity = videoConversionSetting.WatermarkGravity,
+											Path = videoConversionSetting.WatermarkPath,
+											WidthPadding = videoConversionSetting.WatermarkWidthPadding,
+											HeightPadding = videoConversionSetting.WatermarkHeightPadding,
+			                        	};
+
+			return watermarkSettings;
+		}
+
 		private IContainerSettings GetContainerSettings(VideoConversionElement videoConversionSetting)
 		{
 			if (videoConversionSetting.VideoConversionType == VideoConversionType.NotSpecified)
@@ -85,6 +98,7 @@ namespace Talifun.Commander.Command.Video
 				}
 			}
 
+			var watermarkSettings = GetWatermarkSettings(videoConversionSetting);
 			var videoSettings = GetVideoSettings(videoConversionSetting);
 			var audioSettings = GetAudioSettings(videoConversionSetting);
 
@@ -92,15 +106,15 @@ namespace Talifun.Commander.Command.Video
 			{
 				case VideoConversionType.NotSpecified:
 				case VideoConversionType.Flv:
-					return new FlvContainerSettings(audioSettings, videoSettings);
+					return new FlvContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.H264:
-					return new Mp4ContainerSettings(audioSettings, videoSettings);
+					return new Mp4ContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.Theora:
-					return new OggContainerSettings(audioSettings, videoSettings);
+					return new OggContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.Vpx:
-					return new WebmContainerSettings(audioSettings, videoSettings);
+					return new WebmContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.Xvid:
-					return new AviContainerSettings(audioSettings, videoSettings);
+					return new AviContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				default:
 					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
 			}

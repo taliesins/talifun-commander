@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using NLog;
 
 namespace Talifun.Commander.Executor.CommandLine
 {
     public class CommandLineExecutor : IExectutor
     {
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         protected bool UnableToExecuteCommand;
         protected StringBuilder Output;
 
@@ -37,10 +40,14 @@ namespace Talifun.Commander.Executor.CommandLine
                 Output.Append(commandPath + " ");
                 Output.AppendLine(commandArguments);
 
+				_logger.Info(string.Format(Properties.Resource.InfoMessageCommandLineStarted, commandPath, commandArguments));
+
                 processCommand.Start();
                 processCommand.BeginOutputReadLine();
                 processCommand.BeginErrorReadLine();
                 processCommand.WaitForExit();
+
+				_logger.Info(string.Format(Properties.Resource.InfoMessageCommandLineCompleted, commandPath, commandArguments));
             }
             finally
             {

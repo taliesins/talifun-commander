@@ -21,7 +21,7 @@ namespace Talifun.Commander.Command.Audio
 			var commandPath =appSettings.Settings[AudioConversionConfiguration.Instance.FFMpegPathSettingName].Value;
 			var workingDirectory = outputDirectoryPath.FullName;
 
-			var audioArgs = string.Format("-acodec {0} -ab {1} -ar {2} -ac {3}", settings.CodecName, settings.BitRate, settings.Frequency, settings.Channels);
+			var audioArgs = string.Format("-codec:a {0} -b:a {1} -ar {2} -ac {3} {4}", settings.CodecName, settings.BitRate, settings.Frequency, settings.Channels, settings.Options);
 			var commandArguments = String.Format("-i \"{0}\" {1} \"{2}\"", inputFilePath.FullName, audioArgs, outPutFilePath.FullName);
 
 			var ffmpegHelper = new FfMpegCommandLineExecutor();
