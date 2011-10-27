@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorMessageCommandWatermarkPathDoesNotExist" xml:space="preserve">
+    <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; watermarkPath does not exist - {4}</value>
+  </data>
   <data name="ErrorMessageHeightIsRequiredForResizeMode" xml:space="preserve">
     <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; height is required when resize mode is - {4}</value>
   </data>

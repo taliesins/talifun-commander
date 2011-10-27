@@ -1,4 +1,6 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using System.Windows.Forms;
+using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.Image.Configuration
 {
@@ -24,6 +26,21 @@ namespace Talifun.Commander.Command.Image.Configuration
 
 			DataModel = new ImageConversionElementPanelDataModel(element);
 			this.DataContext = DataModel;
+		}
+
+		private void watermarkPathButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				FileName = watermarkPathTextBox.Text,
+				Multiselect = false
+			};
+
+			var result = openFileDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = openFileDialog.FileName;
+			watermarkPathTextBox.Text = foldername;
 		}
     }
 }

@@ -6,14 +6,12 @@
              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
              mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
-        <ResourceDictionary x:Key="Resources">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ErrorStyles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>
-
-
     <Grid>
         <Label Content="File Match" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
         <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">

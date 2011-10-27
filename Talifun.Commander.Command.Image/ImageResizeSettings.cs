@@ -11,6 +11,8 @@
         public int Width { get; set; }
         public string BackgroundColour { get; set; }
         public Gravity Gravity { get; set; }
-        public int? Quality { get; set; } 
+        public int? Quality { get; set; }
+		public string WatermarkPath { get; set; }
+		public Gravity WatermarkGravity { get; set; }
     }
 }

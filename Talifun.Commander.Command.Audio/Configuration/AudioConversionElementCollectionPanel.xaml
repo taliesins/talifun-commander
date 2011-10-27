@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementCollectionPanelBase.Resources>
-        <ResourceDictionary x:Key="Resources">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>

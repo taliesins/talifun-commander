@@ -19,6 +19,11 @@
     <WixVariable Id="ShortProduct" Value="Talifun Commander"/>
     <WixVariable Id="Version" Value="1.0.0.0"/>
 
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This application requires .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+    
     <Media Id="1" Cabinet="Talifun.Commander.!(wix.Version).cab" EmbedCab="yes" CompressionLevel="high" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">

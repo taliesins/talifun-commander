@@ -85,6 +85,7 @@
     <Compile Include="Configuration\CommandConfigurationBase.cs" />
     <Compile Include="Configuration\CommanderSectionWindowViewModel.cs" />
     <Compile Include="Configuration\DataModelBase.cs" />
+    <Compile Include="Configuration\DefaultPaths.cs" />
     <Compile Include="Configuration\ElementCollectionPanelBase.cs" />
     <Compile Include="Configuration\ElementDataModelBase.cs" />
     <Compile Include="Configuration\ElementPanelBase.cs" />
@@ -102,6 +103,7 @@
       <DependentUpon>FolderElementPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration\FolderElementValidator.cs" />
+    <Compile Include="Configuration\IDefaultPaths.cs" />
     <Compile Include="Configuration\ProjectElement.Validation.cs">
       <DependentUpon>ProjectElement.cs</DependentUpon>
     </Compile>
@@ -198,10 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Resource Include="Configuration\ErrorStyles.xaml">
+    <Page Include="Configuration\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Resource>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Commander.ico" />

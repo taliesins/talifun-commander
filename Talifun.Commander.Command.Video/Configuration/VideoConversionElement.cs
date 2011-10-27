@@ -256,10 +256,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		}
 
 		/// <summary>
-		/// Gets or sets the number of audio channels to use the audio.
-		/// Popular values are
-		/// 1 (Mono)
-		/// 2 (Stero)
+		/// Gets or sets the padding to use for x/width.
 		/// </summary>
 		[ConfigurationProperty("watermarkWidthPadding", DefaultValue = 10, IsRequired = false)]
 		public int WatermarkWidthPadding
@@ -269,10 +266,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		}
 
 		/// <summary>
-		/// Gets or sets the number of audio channels to use the audio.
-		/// Popular values are
-		/// 1 (Mono)
-		/// 2 (Stero)
+		/// Gets or sets the padding to use for y/height.
 		/// </summary>
 		[ConfigurationProperty("watermarkHeightPadding", DefaultValue = 10, IsRequired = false)]
 		public int WatermarkHeightPadding

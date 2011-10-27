@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
+             xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
              mc:Ignorable="d" 
              d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementCollectionPanelBase.Resources>
-        <ResourceDictionary x:Key="Resources">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>

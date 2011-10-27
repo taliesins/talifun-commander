@@ -7,9 +7,9 @@
         mc:Ignorable="d" 
         d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
-        <ResourceDictionary x:Key="Resources">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ErrorStyles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>

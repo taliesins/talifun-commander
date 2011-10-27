@@ -159,6 +159,20 @@ namespace Talifun.Commander.Command.Image.Configuration
                     }
                 }
 
+				if (!string.IsNullOrEmpty(imageSetting.WatermarkPath))
+				{
+					if (!File.Exists(imageSetting.WatermarkPath))
+					{
+						throw new Exception(
+							string.Format(Resource.ErrorMessageCommandWatermarkPathDoesNotExist,
+										  project.Name,
+										  Settings.ElementCollectionSettingName,
+										  Settings.ElementSettingName,
+										  imageSetting.Name,
+										  imageSetting.WatermarkPath));
+					}
+				}
+
                 TestImageResizeModeSetting(project, imageSetting);
 
                 imageConversionSettingsKeys.Remove(imageSetting.Name);

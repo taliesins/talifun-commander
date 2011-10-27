@@ -37,7 +37,6 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
 			get { return Properties.Resource.AntiVirusElement.ToBitmapSource(); }
         }
 
-
 		public BitmapSource ElementCollectionImage
         {
 			get { return Properties.Resource.AntiVirusElementCollection.ToBitmapSource(); }

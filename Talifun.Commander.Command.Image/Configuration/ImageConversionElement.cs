@@ -19,6 +19,9 @@ namespace Talifun.Commander.Command.Image.Configuration
         
         private static readonly ConfigurationProperty resizeImageType = new ConfigurationProperty("resizeImageType", typeof(ResizeImageType), ResizeImageType.Orginal, ConfigurationPropertyOptions.None);
 
+		private static readonly ConfigurationProperty watermarkPath = new ConfigurationProperty("watermarkPath", typeof(string), "", ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationProperty watermarkGravity = new ConfigurationProperty("watermarkGravity", typeof(Gravity), Gravity.SouthEast, ConfigurationPropertyOptions.None);
+
         /// <summary>
         /// Initializes the <see cref="ImageConversionElement"/> class.
         /// </summary>
@@ -34,6 +37,9 @@ namespace Talifun.Commander.Command.Image.Configuration
             properties.Add(quality);
 
             properties.Add(resizeImageType);
+
+			properties.Add(watermarkPath);
+			properties.Add(watermarkGravity);
         }
 
 		public ImageConversionElement()
@@ -118,5 +124,26 @@ namespace Talifun.Commander.Command.Image.Configuration
             get { return ((ResizeImageType)base[resizeImageType]); }
 			set { SetPropertyValue(value, resizeImageType, "ResizeImageType"); }
         }
+
+		/// <summary>
+		/// Gets or sets the path where the watermark image to use is. If none is specified then image will not be
+		/// watermarked.
+		/// </summary>       
+		[ConfigurationProperty("watermarkPath", DefaultValue = "")]
+		public string WatermarkPath
+		{
+			get { return ((string)base[watermarkPath]); }
+			set { SetPropertyValue(value, watermarkPath, "WatermarkPath"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the gravity to use when placing watermark overlay.
+		/// </summary>
+		[ConfigurationProperty("videoConversionType", DefaultValue = Gravity.SouthEast)]
+		public Gravity WatermarkGravity
+		{
+			get { return ((Gravity)base[watermarkGravity]); }
+			set { SetPropertyValue(value, watermarkGravity, "WatermarkGravity"); }
+		}
     }
 }

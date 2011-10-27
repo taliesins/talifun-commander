@@ -4,7 +4,6 @@
         xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
         xmlns:complex="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI" 
         Title="CommanderSectionWindow" Height="645" Width="621">
-    
     <Window.Resources>
         <complex:ComplexGroupDataTemplateSelector x:Key="complex-group-data-template-selector"/>
         <complex:ComplexGroupConverter x:Key="complex-group-converter"/>

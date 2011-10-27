@@ -3,56 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
-                                xmlns:System="clr-namespace:System;assembly=mscorlib"
-                                xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
-                                xmlns:Audio="clr-namespace:Talifun.Commander.Command.Audio" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
+             xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
+             xmlns:Audio="clr-namespace:Talifun.Commander.Command.Audio" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
-        <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-        <ObjectDataProvider x:Key="audioConversionType"
-                    MethodName="GetValues" 
-                    ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="Audio:AudioConversionType" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
-            <x:XData>
-                <audioBitRates xmlns="">
-                    <audioBitRate name="Auto" value="0"/>
-                    <audioBitRate name="32 kbit/s" value="32000"/>
-                    <audioBitRate name="64 kbit/s" value="64000"/>
-                    <audioBitRate name="96 kbit/s" value="96000"/>
-                    <audioBitRate name="128 kbit/s" value="128000"/>
-                    <audioBitRate name="192 kbit/s" value="192000"/>
-                </audioBitRates>
-            </x:XData>
-        </XmlDataProvider>
-        <XmlDataProvider x:Key="audioFrequencies" XPath="/audioFrequencies">
-            <x:XData>
-                <audioFrequencies xmlns="">
-                    <audioFrequency name="Auto" value="0"/>
-                    <audioFrequency name="22050 Hz" value="22050"/>
-                    <audioFrequency name="44100 Hz" value="44100"/>
-                    <audioFrequency name="48000 Hz" value="48000"/>
-                    <audioFrequency name="96000 Hz" value="96000"/>
-                </audioFrequencies>
-            </x:XData>
-        </XmlDataProvider>
-        <XmlDataProvider x:Key="audioChannels" XPath="/audioChannels">
-            <x:XData>
-                <audioChannels xmlns="">
-                    <audioChannel name="Auto" value="0"/>
-                    <audioChannel name="Mono" value="1"/>
-                    <audioChannel name="Stereo" value="2"/>
-                    <audioChannel name="5.1" value="6"/>
-                </audioChannels>
-            </x:XData>
-        </XmlDataProvider>
-        <ResourceDictionary x:Key="Resources">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/ErrorStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
+            <ObjectDataProvider x:Key="audioConversionType"
+                        MethodName="GetValues" 
+                        ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="Audio:AudioConversionType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">
+                <x:XData>
+                    <audioBitRates xmlns="">
+                        <audioBitRate name="Auto" value="0"/>
+                        <audioBitRate name="32 kbit/s" value="32000"/>
+                        <audioBitRate name="64 kbit/s" value="64000"/>
+                        <audioBitRate name="96 kbit/s" value="96000"/>
+                        <audioBitRate name="128 kbit/s" value="128000"/>
+                        <audioBitRate name="192 kbit/s" value="192000"/>
+                    </audioBitRates>
+                </x:XData>
+            </XmlDataProvider>
+            <XmlDataProvider x:Key="audioFrequencies" XPath="/audioFrequencies">
+                <x:XData>
+                    <audioFrequencies xmlns="">
+                        <audioFrequency name="Auto" value="0"/>
+                        <audioFrequency name="22050 Hz" value="22050"/>
+                        <audioFrequency name="44100 Hz" value="44100"/>
+                        <audioFrequency name="48000 Hz" value="48000"/>
+                        <audioFrequency name="96000 Hz" value="96000"/>
+                    </audioFrequencies>
+                </x:XData>
+            </XmlDataProvider>
+            <XmlDataProvider x:Key="audioChannels" XPath="/audioChannels">
+                <x:XData>
+                    <audioChannels xmlns="">
+                        <audioChannel name="Auto" value="0"/>
+                        <audioChannel name="Mono" value="1"/>
+                        <audioChannel name="Stereo" value="2"/>
+                        <audioChannel name="5.1" value="6"/>
+                    </audioChannels>
+                </x:XData>
+            </XmlDataProvider>
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>
     <Grid>
