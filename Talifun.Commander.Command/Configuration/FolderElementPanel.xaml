@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
              mc:Ignorable="d" 
              d:DesignHeight="575" d:DesignWidth="300">
@@ -41,7 +42,7 @@
             <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="filterTextBox" Text="{Binding Path=Filter, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
 
             <Label Content="Poll Time:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="pollTimeTextBox" Text="{Binding Path=PollTime, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="pollTimeIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=PollTime, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
             
             <Label Content="Subdirectories:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <CheckBox Content="Watch Subdirectories" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="includeSubdirectoriesCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=IncludeSubdirectories, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
