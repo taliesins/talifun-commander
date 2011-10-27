@@ -48,46 +48,67 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Width:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+            <Expander Header="Image" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
+                <Grid HorizontalAlignment="Stretch" Name="imageGrid" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Label Content="Height:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Resize Mode:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"  />
+                    <ComboBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="resizeModeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource resizeMode}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.ResizeMode, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Resize Mode:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"  />
-            <ComboBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="resizeModeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource resizeMode}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.ResizeMode, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Gravity:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="gravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.Gravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Gravity:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="gravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.Gravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Width:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Background Color:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <extToolkit:ColorPicker Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="3" Name="backgroundColorColorPicker" VerticalAlignment="Top" SelectedColor="{Binding Path=Element.BackgroundColor, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Height:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Quality:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Slider Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="qualitySlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
-            <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="6" Grid.RowSpan="2" HorizontalAlignment="Right" Name="qualityUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Background Color:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <extToolkit:ColorPicker Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="backgroundColorColorPicker" VerticalAlignment="Top" SelectedColor="{Binding Path=Element.BackgroundColor, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Resize Type:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="7" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="resizeImageTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource resizeImageType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.ResizeImageType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Quality:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <Slider Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="qualitySlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Right" Name="qualityUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
-            <Label Content="Watermark Path:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="8" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="watermarkPathTextBox" Text="{Binding Path=Element.WatermarkPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
-            <Button Content="..." Grid.Row="8" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="watermarkPathButton" Width="25" Click="watermarkPathButton_Click" />
+                    <Label Content="Resize Type:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="resizeImageTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource resizeImageType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.ResizeImageType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </Expander>
+            <Expander Header="Watermark" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
+                <Grid HorizontalAlignment="Stretch" Name="watermarkGrid" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Path:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="watermarkPathTextBox" Text="{Binding Path=Element.WatermarkPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
+                    <Button Content="..." Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="watermarkPathButton" Width="25" Click="watermarkPathButton_Click" />
 
-            <Label Content="Watermark Gravity:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <ComboBox Grid.Column="1" Grid.Row="18" Height="9" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
-
+                    <Label Content="Gravity:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </Expander>
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>
