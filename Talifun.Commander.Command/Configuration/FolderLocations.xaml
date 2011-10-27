@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="Talifun.Commander.Command.Configuration.FolderLocations"
+             x:Name="root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:StringFormatDemoConverter x:Key="stringFormatConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Expander Header="Folder Locations" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
+        <Grid HorizontalAlignment="Stretch" Name="pathsGrid" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Working Path:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="workingPathTextBox" Text="{Binding ElementName=root, Path=WorkingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Button Content="..." Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="workingPathButton"  Width="25" Click="workingPathButton_Click" />
+
+            <Label Content="Error Processing Path:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="errorProcessingPathTextBox" Text="{Binding ElementName=root, Path=ErrorProcessingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Button Content="..." Grid.Row="1" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="errorProcessingPathButton" Width="25" Click="errorProcessingPathButton_Click" />
+
+            <Label Content="Output Path:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="outputPathTextBox" Text="{Binding ElementName=root, Path=OutPutPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Button Content="..." Grid.Row="2" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="outputPathButton" Width="25" Click="outputPathButton_Click" />
+
+            <Label Content="File Name Format:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="fileNameFormatTextBox" Text="{Binding ElementName=root, Path=FileNameFormat, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+
+            <Label Content="Example output:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBlock  Text="{Binding ElementName=root, Path=FileNameFormat, Converter={StaticResource stringFormatConverter}, ConverterParameter='filename', TargetNullValue='Invalid!', Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+
+            <FlowDocumentScrollViewer Grid.Column="0" Grid.Row="5" IsTabStop="False" Grid.ColumnSpan="2" IsHitTestVisible="False" IsEnabled="False" IsSelectionEnabled="False" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
+                <FlowDocument IsOptimalParagraphEnabled="True" IsHyphenationEnabled="True">
+                    <Section>
+                        <Paragraph>
+                            Uses standard string.format syntax for file name excluding the extension. There is 1 parameter passed in which is filename. Leaving this blank will result in the existing filename being used.
+                            <Floater>
+                                <Table>
+                                    <TableRowGroup>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Paragraph>prefix_{0}</Paragraph>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Paragraph>prefix_filename</Paragraph>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Paragraph>{0}_suffix</Paragraph>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Paragraph>filename_prefix</Paragraph>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableRowGroup>
+                                </Table>
+                            </Floater>
+                        </Paragraph>
+                    </Section>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </Grid>
+    </Expander>
+</UserControl>

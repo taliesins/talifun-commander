@@ -1,4 +1,7 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using System.Windows;
+using System.Windows.Forms;
+using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.UI;
 
 namespace Talifun.Commander.Command.AntiVirus.Configuration
 {

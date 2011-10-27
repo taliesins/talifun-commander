@@ -37,6 +37,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
@@ -53,6 +54,13 @@
             <Label Content="Time Percentage:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <Slider Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="timePercentageSlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
             <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Right" Name="timePercentageUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.TimePercentage, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Configuration:FolderLocations Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" 
+                                           WorkingPath="{Binding Path=Element.WorkingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"
+                                           ErrorProcessingPath="{Binding Path=Element.ErrorProcessingPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"
+                                           OutPutPath="{Binding Path=Element.OutPutPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"
+                                           FileNameFormat="{Binding Path=Element.FileNameFormat, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"
+                                           />
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>

@@ -103,6 +103,9 @@
       <DependentUpon>FolderElementPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Configuration\FolderElementValidator.cs" />
+    <Compile Include="Configuration\FolderLocations.xaml.cs">
+      <DependentUpon>FolderLocations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\IDefaultPaths.cs" />
     <Compile Include="Configuration\ProjectElement.Validation.cs">
       <DependentUpon>ProjectElement.cs</DependentUpon>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Configuration\FolderElementPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configuration\FolderLocations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
