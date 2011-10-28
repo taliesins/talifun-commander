@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.Image
         PNG,
 		[LocalizableDescription("ResizeImageType_GIF", typeof(Properties.Resource))]
         GIF,
-		[LocalizableDescription("ResizeImageType_Orginal", typeof(Properties.Resource))]
-        Orginal
+		[LocalizableDescription("ResizeImageType_Original", typeof(Properties.Resource))]
+        Original
     }
 }

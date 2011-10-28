@@ -101,13 +101,18 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Content="Path:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="watermarkPathTextBox" Text="{Binding Path=Element.WatermarkPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
                     <Button Content="..." Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="watermarkPathButton" Width="25" Click="watermarkPathButton_Click" />
 
-                    <Label Content="Gravity:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Dissolve Levels:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <Slider Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="watermarkDissolveLevelsSlier" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.WatermarkDissolveLevels, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" Name="watermarkDissolveLevelsUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.WatermarkDissolveLevels, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Content="Gravity:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </Expander>
 

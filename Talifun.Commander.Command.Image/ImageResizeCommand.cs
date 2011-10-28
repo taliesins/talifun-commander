@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Talifun.Commander.Command.Image.Configuration;
 using Talifun.Commander.Executor.CommandLine;
 
@@ -9,6 +12,26 @@ namespace Talifun.Commander.Command.Image
     public class ImageResizeCommand : ICommand<ImageResizeSettings>
     {
         #region ICommand<ResizeSettings> Members
+
+		private string WatermarkArguments(ImageResizeSettings settings, string outPutFilePath)
+		{
+			var watermarkArguments = string.Empty;
+
+			if (!string.IsNullOrEmpty(settings.WatermarkPath))
+			{
+				var watermarkOptions = new Dictionary<string, string>()
+			                   	{
+			                   		{"-dissolve", settings.WatermarkDissolveLevels.ToString()},
+									{"-gravity", Enum.GetName(typeof(Gravity), settings.WatermarkGravity)}
+			                   	};
+
+				var commandArguments = watermarkOptions.Select(x => x.Key + " " + x.Value).Aggregate(new StringBuilder(), (x, y) => x.Append(" " + y)).ToString();
+
+				watermarkArguments = string.Format("{0} {1} {2} {2}", commandArguments.ToString(), settings.WatermarkPath, outPutFilePath);
+			}
+
+			return watermarkArguments;
+		}
 
 		private string ThumbnailArguments(ImageResizeSettings settings, string inputFilePath, string outPutFilePath)
 		{
@@ -108,8 +131,6 @@ namespace Talifun.Commander.Command.Image
 					}
 			}
 
-			
-
 			commandArguments += string.Format(" \"{0}\"", outPutFilePath);
 
 			return commandArguments;
@@ -142,12 +163,27 @@ namespace Talifun.Commander.Command.Image
                 outPutFilePath.Delete();
             }
 
-			var commandArguments = ThumbnailArguments(settings, inputFilePath.FullName, outPutFilePath.FullName);
-            var commandPath = appSettings.Settings[ImageConversionConfiguration.Instance.ConvertPathSettingName].Value;
-            var workingDirectory = outputDirectoryPath.FullName;
+			var workingDirectory = outputDirectoryPath.FullName;
 
+			var thumbnailArguments = ThumbnailArguments(settings, inputFilePath.FullName, outPutFilePath.FullName);
+            var convertPath = appSettings.Settings[ImageConversionConfiguration.Instance.ConvertPathSettingName].Value;
+			var thumbnailOutput = string.Empty;
+			
             var commandLineExecutor = new CommandLineExecutor();
-            return commandLineExecutor.Execute(workingDirectory, commandPath, commandArguments, out output);
+			var result = commandLineExecutor.Execute(workingDirectory, convertPath, thumbnailArguments, out thumbnailOutput);
+			output = thumbnailOutput;
+
+			if (result && !string.IsNullOrEmpty(settings.WatermarkPath))
+			{
+				var watermarkArguments = WatermarkArguments(settings, outPutFilePath.FullName);
+				var compositePath = appSettings.Settings[ImageConversionConfiguration.Instance.CompositePathSettingName].Value;
+				var watermarkOutput = string.Empty;
+
+				result = commandLineExecutor.Execute(workingDirectory, compositePath, watermarkArguments, out watermarkOutput);
+				output += Environment.NewLine + watermarkOutput;
+			}
+
+			return result;
         }
 
         #endregion

@@ -17,10 +17,11 @@ namespace Talifun.Commander.Command.Image.Configuration
 		private static readonly ConfigurationProperty backgroundColor = new ConfigurationProperty("backgroundColor", typeof(string), "#00FFFFFF", ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty quality = new ConfigurationProperty("quality", typeof(int), 0, ConfigurationPropertyOptions.None);
         
-        private static readonly ConfigurationProperty resizeImageType = new ConfigurationProperty("resizeImageType", typeof(ResizeImageType), ResizeImageType.Orginal, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty resizeImageType = new ConfigurationProperty("resizeImageType", typeof(ResizeImageType), ResizeImageType.Original, ConfigurationPropertyOptions.None);
 
 		private static readonly ConfigurationProperty watermarkPath = new ConfigurationProperty("watermarkPath", typeof(string), "", ConfigurationPropertyOptions.None);
 		private static readonly ConfigurationProperty watermarkGravity = new ConfigurationProperty("watermarkGravity", typeof(Gravity), Gravity.SouthEast, ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationProperty watermarkDissolveLevels = new ConfigurationProperty("watermarkDissolveLevels", typeof(int), 15, ConfigurationPropertyOptions.None);
 
         /// <summary>
         /// Initializes the <see cref="ImageConversionElement"/> class.
@@ -40,6 +41,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 
 			properties.Add(watermarkPath);
 			properties.Add(watermarkGravity);
+			properties.Add(watermarkDissolveLevels);
         }
 
 		public ImageConversionElement()
@@ -116,9 +118,9 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Gets or sets the image format to convert to.
         /// </summary>
         /// <remarks>
-        /// Orginal uses the source format for its output format
+        /// Original uses the source format for its output format
         /// </remarks>
-        [ConfigurationProperty("resizeImageType", DefaultValue = ResizeImageType.Orginal, IsRequired = false)]
+        [ConfigurationProperty("resizeImageType", DefaultValue = ResizeImageType.Original, IsRequired = false)]
         public ResizeImageType ResizeImageType
         {
             get { return ((ResizeImageType)base[resizeImageType]); }
@@ -129,7 +131,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 		/// Gets or sets the path where the watermark image to use is. If none is specified then image will not be
 		/// watermarked.
 		/// </summary>       
-		[ConfigurationProperty("watermarkPath", DefaultValue = "")]
+		[ConfigurationProperty("watermarkPath", DefaultValue = "", IsRequired = false)]
 		public string WatermarkPath
 		{
 			get { return ((string)base[watermarkPath]); }
@@ -139,11 +141,21 @@ namespace Talifun.Commander.Command.Image.Configuration
 		/// <summary>
 		/// Gets or sets the gravity to use when placing watermark overlay.
 		/// </summary>
-		[ConfigurationProperty("videoConversionType", DefaultValue = Gravity.SouthEast)]
+		[ConfigurationProperty("watermarkGravity", DefaultValue = Gravity.SouthEast, IsRequired = false)]
 		public Gravity WatermarkGravity
 		{
 			get { return ((Gravity)base[watermarkGravity]); }
 			set { SetPropertyValue(value, watermarkGravity, "WatermarkGravity"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the dissolve levels to use when placing watermark overlay.
+		/// </summary>
+		[ConfigurationProperty("watermarkDissolveLevels", DefaultValue = 15, IsRequired = false)]
+		public int WatermarkDissolveLevels
+		{
+			get { return ((int)base[watermarkDissolveLevels]); }
+			set { SetPropertyValue(value, watermarkDissolveLevels, "WatermarkDissolveLevels"); }
 		}
     }
 }

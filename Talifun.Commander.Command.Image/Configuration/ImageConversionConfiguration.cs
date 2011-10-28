@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Media.Imaging;
 using Talifun.Commander.UI;
 
@@ -32,6 +31,11 @@ namespace Talifun.Commander.Command.Image.Configuration
     	{
 			get { return "ConvertPath"; }
     	}
+
+		public string CompositePathSettingName
+		{
+			get { return "CompositePath"; }
+		}
 
         public BitmapSource ElementImage
         {

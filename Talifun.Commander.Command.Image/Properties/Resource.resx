@@ -166,7 +166,7 @@
   <data name="ResizeImageType_JPG" xml:space="preserve">
     <value>JPG</value>
   </data>
-  <data name="ResizeImageType_Orginal" xml:space="preserve">
+  <data name="ResizeImageType_Original" xml:space="preserve">
     <value>Use orginal format</value>
   </data>
   <data name="ResizeImageType_PNG" xml:space="preserve">

@@ -13,6 +13,7 @@
         public Gravity Gravity { get; set; }
         public int? Quality { get; set; }
 		public string WatermarkPath { get; set; }
+		public int WatermarkDissolveLevels { get; set; }
 		public Gravity WatermarkGravity { get; set; }
     }
 }

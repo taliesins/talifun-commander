@@ -21,7 +21,10 @@ namespace Talifun.Commander.Command.Image
                                               Gravity = imageConversion.Gravity,
                                               ResizeMode = imageConversion.ResizeMode,
                                               ResizeImageType = imageConversion.ResizeImageType,
-                                              Quality = imageConversion.Quality
+                                              Quality = imageConversion.Quality,
+											  WatermarkPath = imageConversion.WatermarkPath,
+											  WatermarkDissolveLevels = imageConversion.WatermarkDissolveLevels,
+											  WatermarkGravity = imageConversion.WatermarkGravity,
                                           };
 
             if (imageConversion.Height != 0)

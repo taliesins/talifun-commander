@@ -203,9 +203,9 @@ namespace Talifun.Commander.Command.Image.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Use orginal format.
         /// </summary>
-        public static string ResizeImageType_Orginal {
+        public static string ResizeImageType_Original {
             get {
-                return ResourceManager.GetString("ResizeImageType_Orginal", resourceCulture);
+                return ResourceManager.GetString("ResizeImageType_Original", resourceCulture);
             }
         }
         
