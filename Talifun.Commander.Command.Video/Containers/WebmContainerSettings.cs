@@ -15,6 +15,8 @@ namespace Talifun.Commander.Command.Video.Containers
 		}
 
 		public string FileNameExtension { get; set; }
+		public string IntroPath { get; set; }
+		public string OuttroPath { get; set; }
 		public IAudioSettings Audio { get; set; }
 		public IVideoSettings Video { get; set; }
 		public IWatermarkSettings Watermark { get; private set; }

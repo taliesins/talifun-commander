@@ -37,6 +37,11 @@ namespace Talifun.Commander.Command.Video.Configuration
 			get { return "FlvTool2Path"; }
     	}
 
+		public string QtFastStartPathSettingName
+		{
+			get { return "QtFastStartPath"; }
+		}
+
         public BitmapSource ElementImage
         {
 			get { return Properties.Resource.VideoConversionElement.ToBitmapSource(); }

@@ -32,6 +32,9 @@ namespace Talifun.Commander.Command.Video.Configuration
 		private static readonly ConfigurationProperty watermarkWidthPadding = new ConfigurationProperty("watermarkWidthPadding", typeof(int), 10, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty watermarkHeightPadding = new ConfigurationProperty("watermarkHeightPadding", typeof(int), 10, ConfigurationPropertyOptions.IsRequired);
 
+		private static readonly ConfigurationProperty introPath = new ConfigurationProperty("introPath", typeof(string), "", ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationProperty outtroPath = new ConfigurationProperty("outroPath", typeof(string), "", ConfigurationPropertyOptions.None);
+
         /// <summary>
         /// Initializes the <see cref="VideoConversionElement"/> class.
         /// </summary>
@@ -59,6 +62,9 @@ namespace Talifun.Commander.Command.Video.Configuration
 			properties.Add(watermarkGravity);
 			properties.Add(watermarkWidthPadding);
 			properties.Add(watermarkHeightPadding);
+
+			properties.Add(introPath);
+			properties.Add(outtroPath);
         }
 
 		public VideoConversionElement()
@@ -273,6 +279,28 @@ namespace Talifun.Commander.Command.Video.Configuration
 		{
 			get { return ((int)base[watermarkHeightPadding]); }
 			set { SetPropertyValue(value, watermarkHeightPadding, "WatermarkHeightPadding"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the path where the intro video to use is. If none is specified then video will not have an intro video
+		/// added to the beginning.
+		/// </summary>       
+		[ConfigurationProperty("introPath", DefaultValue = "")]
+		public string IntroPath
+		{
+			get { return ((string)base[introPath]); }
+			set { SetPropertyValue(value, introPath, "IntroPath"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the path where the outtro video to use is. If none is specified then video will not have an outtro video
+		/// added to the end.
+		/// </summary>       
+		[ConfigurationProperty("outtroPath", DefaultValue = "")]
+		public string OuttroPath
+		{
+			get { return ((string)base[outtroPath]); }
+			set { SetPropertyValue(value, outtroPath, "OuttroPath"); }
 		}
     }
 }

@@ -291,6 +291,7 @@ goto :undefinedPlatformName
 :standard
 copy "$(SolutionDir)References\flvtool2.exe" "$(TargetDir)flvtool2.exe"
 copy "$(SolutionDir)References\$(PlatformName)\ffmpeg.exe" "$(TargetDir)ffmpeg.exe"
+copy "$(SolutionDir)References\$(PlatformName)\qt-faststart.exe" "$(TargetDir)qt-faststart.exe"
 copy "$(SolutionDir)References\$(PlatformName)\convert.exe" "$(TargetDir)convert.exe"
 copy "$(SolutionDir)References\$(PlatformName)\composite.exe" "$(TargetDir)composite.exe"
 copy "$(SolutionDir)References\$(PlatformName)\vcomp100.dll" "$(TargetDir)vcomp100.dll"
@@ -299,6 +300,7 @@ goto :exit
 :undefinedPlatformName
 copy "$(SolutionDir)References\flvtool2.exe" "$(TargetDir)flvtool2.exe"
 copy "$(SolutionDir)References\x86\ffmpeg.exe" "$(TargetDir)ffmpeg.exe"
+copy "$(SolutionDir)References\x86\qt-faststart.exe" "$(TargetDir)qt-faststart.exe"
 copy "$(SolutionDir)References\x86\convert.exe" "$(TargetDir)convert.exe"
 copy "$(SolutionDir)References\x86\composite.exe" "$(TargetDir)composite.exe"
 copy "$(SolutionDir)References\x86\vcomp100.dll" "$(TargetDir)vcomp100.dll"

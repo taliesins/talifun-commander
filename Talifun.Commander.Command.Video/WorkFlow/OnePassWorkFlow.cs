@@ -6,9 +6,9 @@ using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Command.Video.VideoFormats;
 using Talifun.Commander.Executor.FFMpeg;
 
-namespace Talifun.Commander.Command.Video
+namespace Talifun.Commander.Command.Video.WorkFlow
 {
-	public class OnePassCommand : ICommand<IContainerSettings>
+	public class OnePassWorkFlow : ICommand<IContainerSettings>
 	{
 		public bool Run(IContainerSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{

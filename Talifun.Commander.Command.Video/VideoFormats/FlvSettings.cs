@@ -4,7 +4,7 @@ namespace Talifun.Commander.Command.Video.VideoFormats
 {
     public class FlvSettings : IVideoSettings
     {
-		const string AllFixedOptions = @"-async 4 -f flv -deinterlace -y -qcomp 0.7 -refs 7 -cmp +chroma -coder 1 -me_range 16 -sc_threshold 40 -i_qfactor 0.71 -level 30 -qmin 10 -qmax 51 -qdiff 4";
+		const string AllFixedOptions = @"-async 4 -deinterlace -y -qcomp 0.7 -refs 7 -cmp +chroma -coder 1 -me_range 16 -sc_threshold 40 -i_qfactor 0.71 -level 30 -qmin 10 -qmax 51 -qdiff 4";
 
 		public FlvSettings(VideoConversionElement videoConversion)
 		{

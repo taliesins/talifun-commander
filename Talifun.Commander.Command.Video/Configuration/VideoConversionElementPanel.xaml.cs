@@ -272,5 +272,35 @@ namespace Talifun.Commander.Command.Video.Configuration
 			var foldername = openFileDialog.FileName;
 			watermarkPathTextBox.Text = foldername;
 		}
+
+		private void introPathButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				FileName = introPathTextBox.Text,
+				Multiselect = false
+			};
+
+			var result = openFileDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = openFileDialog.FileName;
+			introPathTextBox.Text = foldername;
+		}
+
+		private void outtroPathButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				FileName = outtroPathTextBox.Text,
+				Multiselect = false
+			};
+
+			var result = openFileDialog.ShowDialog(this.GetIWin32Window());
+			if (result != DialogResult.OK) return;
+
+			var foldername = openFileDialog.FileName;
+			outtroPathTextBox.Text = foldername;
+		}
     }
 }

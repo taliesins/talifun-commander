@@ -73,12 +73,13 @@ namespace Talifun.Commander.Command
 
     	private void ProcessFileMatches(string filePath, FolderElement folderSetting)
         {
-            WaitForFileToUnlock(filePath, 10, 500);
-            var fileInfo = new FileInfo(filePath);
-            if (!fileInfo.Exists)
-            {
-                return;
-            }
+			var fileInfo = new FileInfo(filePath);
+			if (!fileInfo.Exists)
+			{
+				return;
+			}
+
+			fileInfo.WaitForFileToUnlock(10, 500);
 
             var fileName = fileInfo.Name;
 
@@ -96,7 +97,7 @@ namespace Talifun.Commander.Command
             {
                 workingDirectoryPath.Create();
 
-                WaitForFileToUnlock(fileInfo.FullName, 10, 500);
+				fileInfo.WaitForFileToUnlock(10, 500);
                 fileInfo.Refresh();
                 fileInfo.MoveTo(workingFilePath.FullName);
 
@@ -123,7 +124,7 @@ namespace Talifun.Commander.Command
                     }
 
                     //Make sure that processing on file has stopped
-                    WaitForFileToUnlock(workingFilePath.FullName, 10, 500);
+					workingFilePath.WaitForFileToUnlock(10, 500);
                     workingFilePath.Refresh();
                 }
             }
@@ -138,7 +139,7 @@ namespace Talifun.Commander.Command
                     }
 
                     //Make sure that processing on file has stopped
-                    WaitForFileToUnlock(workingFilePath.FullName, 10, 500);
+					workingFilePath.WaitForFileToUnlock(10, 500);
                     workingFilePath.Refresh();
                     workingFilePath.MoveTo(completedFilePath.FullName);
                 }
@@ -148,42 +149,6 @@ namespace Talifun.Commander.Command
                     workingDirectoryPath.Delete(true);
                 }
             }
-        }
-
-    	private static bool WaitForFileToUnlock(string filePath, int retry, int delay)
-        {
-            for (var i = 0; i < retry; i++)
-            {
-                if (!IsFileLocked(filePath))
-                {
-                    return true;
-                }
-                Thread.Sleep(delay);
-            }
-
-            return false;
-        }
-
-    	private static bool IsFileLocked(string filePath)
-        {
-            var result = false;
-            FileStream file = null;
-            try
-            {
-                file = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch
-            {
-                result = true;
-            }
-            finally
-            {
-                if (file != null)
-                {
-                    file.Close();
-                }
-            }
-            return result;
         }
 
     	private ProjectElement GetCurrentProject(FileMatchElement fileMatch)
@@ -345,5 +310,5 @@ namespace Talifun.Commander.Command
             // base class's Dispose(Boolean) method
         }
         #endregion
-	}
+    }
 }

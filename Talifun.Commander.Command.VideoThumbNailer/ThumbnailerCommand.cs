@@ -8,7 +8,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 {
     public class ThumbnailerCommand : ICommand<ThumbnailerSettings>
     {
-        const string AllFixedOptions = @"-vframes 1 -f image2";
+		const string AllFixedOptions = @"-f image2 -vframes 1";
 
         #region ICommand<ThumbnailerCommand,ThumbnailerSettings> Members
 

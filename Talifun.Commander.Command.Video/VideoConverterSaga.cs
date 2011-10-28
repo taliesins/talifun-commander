@@ -5,6 +5,7 @@ using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Command.Video.Properties;
 using Talifun.Commander.Command.Video.VideoFormats;
+using Talifun.Commander.Command.Video.WorkFlow;
 
 namespace Talifun.Commander.Command.Video
 {
@@ -122,22 +123,22 @@ namespace Talifun.Commander.Command.Video
 
 		private ICommand<IContainerSettings> GetCommand(IContainerSettings containerSettings)
 		{
-			if (containerSettings.Video.CodecName == "flv")
+			if (containerSettings is FlvContainerSettings)
 			{
-				return new FlvCommand();
+				return new FlvWorkFlow();
 			}
 
-			if (string.IsNullOrEmpty(containerSettings.Video.SecondPhaseOptions))
+			if (containerSettings is Mp4ContainerSettings)
 			{
-				return new OnePassCommand();
+				return new Mp4WorkFlow();
 			}
-			else
-			{
-				return new TwoPassCommand();
-			}
+
+			return string.IsNullOrEmpty(containerSettings.Video.SecondPhaseOptions)
+			       	? (ICommand<IContainerSettings>) new OnePassWorkFlow()
+					: new TwoPassWorkFlow();
 		}
 
-        public override void Run(ICommandSagaProperties properties)
+    	public override void Run(ICommandSagaProperties properties)
         {
             var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
