@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommanderInstallerDescription" xml:space="preserve">
-    <value>A windows service that executes command line tools, as specified in configuration, when files are placed into watched directories that match configuration criteria.</value>
-  </data>
-  <data name="CommanderInstallerDisplayName" xml:space="preserve">
-    <value>Talifun Commander</value>
-  </data>
-  <data name="CommanderInstallerServiceName" xml:space="preserve">
-    <value>TalifunCommander</value>
-  </data>
-  <data name="LogName" xml:space="preserve">
-    <value>TalifunCommanderLog</value>
-  </data>
-  <data name="LogSource" xml:space="preserve">
-    <value>TalifunCommanderLogSource</value>
-  </data>
 </root>

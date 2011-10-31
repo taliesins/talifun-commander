@@ -15,9 +15,9 @@
     <ComponentGroupRef Id="Talifun.Commander.Executor.FFMpeg.dll"/>
     <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
     <ComponentRef Id="ffmpeg.exe_x64"/>
-    <ComponentRef Id="qt-faststart.exe_x64"/>
+    <ComponentRef Id="qt_faststart.exe_x64"/>
     <ComponentRef Id="ffmpeg.exe_x86"/>
-    <ComponentRef Id="qt-faststart.exe_x86"/>
+    <ComponentRef Id="qt_faststart.exe_x86"/>
     <ComponentRef Id="flvtool2.exe"/>
   </ComponentGroup>
 

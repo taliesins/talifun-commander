@@ -9,9 +9,9 @@
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
-    <Component Id="qt-faststart.exe_x64" Guid="eef75ee0-d209-44e3-b36b-f77808714128">
+    <Component Id="qt_faststart.exe_x64" Guid="eef75ee0-d209-44e3-b36b-f77808714128">
       <Condition><![CDATA[(VersionNT64)]]></Condition>
-      <File Id="qt-faststart.exe_x64"
+      <File Id="qt_faststart.exe_x64"
             Source="$(var.SolutionDir)\References\x64\qt-faststart.exe"
             DiskId="1"
             KeyPath="yes"
@@ -49,9 +49,9 @@
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
-    <Component Id="qt-faststart.exe_x86" Guid="f820ebc8-5ee3-4654-9521-8e8793c9aaca">
+    <Component Id="qt_faststart.exe_x86" Guid="f820ebc8-5ee3-4654-9521-8e8793c9aaca">
       <Condition><![CDATA[(VersionNT) AND (NOT VersionNT64)]]></Condition>
-      <File Id="qt-faststart.exe_x86"
+      <File Id="qt_faststart.exe_x86"
             Source="$(var.SolutionDir)\References\x86\qt-faststart.exe"
             DiskId="1"
             KeyPath="yes"

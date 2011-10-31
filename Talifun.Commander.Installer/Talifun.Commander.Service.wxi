@@ -33,14 +33,17 @@
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
+    </Component>
+    <Component Id="EventSource" Guid="90f04a7b-61ad-4508-aeec-6a3f77c94e15">
       <Util:EventSource
         xmlns:Util="http://schemas.microsoft.com/wix/UtilExtension"
-        Name="TalifunCommanderLogSource" Log="Talifun Commander" 
-        EventMessageFile="[NETFRAMEWORK40FULLINSTALLROOTDIR]EventLogMessages.dll"/>
-    </Component>    
+        Name="Talifun Commander" Log="Application"
+        EventMessageFile="[NETFRAMEWORK40FULLINSTALLROOTDIR]EventLogMessages.dll" KeyPath="yes"/>      
+    </Component>
   </DirectoryRef>
 
   <ComponentGroup Id="Talifun.Commander.Service.exe">
+    <ComponentRef Id="EventSource"/>
     <ComponentRef Id="Talifun.Commander.Service.exe.config"/>
     <ComponentRef Id="NLog.config"/>
     <ComponentGroupRef Id="Talifun.Commander.Command.dll"/>
