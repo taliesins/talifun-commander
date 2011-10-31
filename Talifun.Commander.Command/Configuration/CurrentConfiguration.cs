@@ -30,8 +30,9 @@ namespace Talifun.Commander.Command.Configuration
 
     	public static IDefaultPaths DefaultPaths
     	{
-			get { return new DefaultPaths(AppSettings); }
+			get { return new DefaultPaths(AppSettings, CommanderSettings); }
     	}
+
     	/// <summary>
         /// Gets the current commander configuration.
         /// </summary>

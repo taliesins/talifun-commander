@@ -30,7 +30,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
         {
             var videoThumbnailerSetting = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoThumbnailerSetting.WorkingPath, uniqueProcessingNumber);
+            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoThumbnailerSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -47,11 +47,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 
                 if (thumbnailCreationSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.OutPutPath);
+                    MoveCompletedFileToOutputFolder(workingFilePath, videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-                    HandleError(output, properties, videoThumbnailerSetting.ErrorProcessingPath, uniqueProcessingNumber);
+                    HandleError(output, properties, videoThumbnailerSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
                 }
             }
             finally

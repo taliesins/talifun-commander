@@ -44,7 +44,7 @@ namespace Talifun.Commander.Command.Image
         {
             var imageConversionSetting = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, imageConversionSetting.WorkingPath, uniqueProcessingNumber);
+            var workingDirectoryPath = GetWorkingDirectoryPath(properties, imageConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -62,11 +62,11 @@ namespace Talifun.Commander.Command.Image
 
                 if (encodeSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, imageConversionSetting.FileNameFormat, imageConversionSetting.OutPutPath);
+                    MoveCompletedFileToOutputFolder(workingFilePath, imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-                    HandleError(output, properties, imageConversionSetting.ErrorProcessingPath, uniqueProcessingNumber);
+                    HandleError(output, properties, imageConversionSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
                 }
             }
             finally

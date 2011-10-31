@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Expander Header="Folder Locations" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
+    <Expander Header="Folder Locations" IsExpanded="False" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
         <Grid HorizontalAlignment="Stretch" Name="pathsGrid" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

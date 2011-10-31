@@ -33,21 +33,23 @@ namespace Talifun.Commander.Command.AntiVirus.Configuration
             {
                 var antiVirusSetting = antiVirusSettings[i];
 
-                if (!string.IsNullOrEmpty(antiVirusSetting.ErrorProcessingPath))
+            	var errorProcessingPath = antiVirusSetting.GetErrorProcessingPathOrDefault();
+
+				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
-                    if (!Directory.Exists(antiVirusSetting.ErrorProcessingPath))
+					if (!Directory.Exists(errorProcessingPath))
                     {
                         throw new Exception(
                             string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
 								project.Name,
 								Settings.ElementCollectionSettingName,
 								Settings.ElementSettingName, 
-								antiVirusSetting.Name, 
-								antiVirusSetting.ErrorProcessingPath));
+								antiVirusSetting.Name,
+								errorProcessingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(antiVirusSetting.ErrorProcessingPath));
+						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
                     }
                 }
 

@@ -33,7 +33,8 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
             {
                 var commandLineSetting = commandLineSettings[i];
 
-                if (commandLineSetting.CheckCommandPathExists && !File.Exists(commandLineSetting.CommandPath))
+            	var commandPath = commandLineSetting.CommandPath;
+				if (commandLineSetting.CheckCommandPathExists && !File.Exists(commandPath))
                 {
                 	throw new Exception(
                 		string.Format(Resource.ErrorMessageCommandPathDoesNotExist,
@@ -41,10 +42,11 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
                 		              commandLineSetting.Name,
-                		              commandLineSetting.CommandPath));
+									  commandPath));
                 }
 
-                if (!Directory.Exists(commandLineSetting.OutPutPath))
+				var outPutPath = commandLineSetting.GetOutPutPathOrDefault();
+				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
                 		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
@@ -52,16 +54,17 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
                 		              commandLineSetting.Name,
-                		              commandLineSetting.OutPutPath));
+									  outPutPath));
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(commandLineSetting.OutPutPath));
+					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-                if (!string.IsNullOrEmpty(commandLineSetting.WorkingPath))
+				var workingPath = commandLineSetting.GetWorkingPathOrDefault();
+				if (!string.IsNullOrEmpty(workingPath))
                 {
-                    if (!Directory.Exists(commandLineSetting.WorkingPath))
+					if (!Directory.Exists(workingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
@@ -69,11 +72,11 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              commandLineSetting.Name,
-                    		              commandLineSetting.WorkingPath));
+										  workingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(commandLineSetting.WorkingPath));
+						TryCreateTestFile(new DirectoryInfo(workingPath));
                     }
                 }
                 else
@@ -81,9 +84,10 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-                if (!string.IsNullOrEmpty(commandLineSetting.ErrorProcessingPath))
+            	var errorProcessingPath = commandLineSetting.GetErrorProcessingPathOrDefault();
+				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
-                    if (!Directory.Exists(commandLineSetting.ErrorProcessingPath))
+					if (!Directory.Exists(errorProcessingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
@@ -91,11 +95,11 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              commandLineSetting.Name,
-                    		              commandLineSetting.ErrorProcessingPath));
+										  errorProcessingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(commandLineSetting.ErrorProcessingPath));
+						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
                     }
                 }
 

@@ -142,7 +142,7 @@ namespace Talifun.Commander.Command.Video
         {
             var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoConversionSetting.WorkingPath, uniqueProcessingNumber);
+            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -158,11 +158,11 @@ namespace Talifun.Commander.Command.Video
 
                 if (encodeSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, videoConversionSetting.FileNameFormat, videoConversionSetting.OutPutPath);
+                    MoveCompletedFileToOutputFolder(workingFilePath, videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-                    HandleError(output, properties, videoConversionSetting.ErrorProcessingPath, uniqueProcessingNumber);
+                    HandleError(output, properties, videoConversionSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
                 }
             }
             finally

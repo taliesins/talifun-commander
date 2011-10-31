@@ -2,10 +2,10 @@ namespace Talifun.Commander.Command.Configuration
 {
 	public interface IDefaultPaths
 	{
-		string FolderToWatch(CommandConfigurationBase commandConfiguration);
-		string WorkingPath(CommandConfigurationBase commandConfiguration);
-		string ErrorProcessingPath(CommandConfigurationBase commandConfiguration);
-		string OutPutPath(CommandConfigurationBase commandConfiguration);
-		string CompletedPath(CommandConfigurationBase commandConfiguration);
+		string FolderToWatch(NamedConfigurationElement namedConfigurationElement);
+		string WorkingPath(NamedConfigurationElement namedConfigurationElement);
+		string ErrorProcessingPath(NamedConfigurationElement namedConfigurationElement);
+		string OutPutPath(NamedConfigurationElement namedConfigurationElement);
+		string CompletedPath(NamedConfigurationElement namedConfigurationElement);
 	}
 }

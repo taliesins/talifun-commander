@@ -39,7 +39,8 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
             {
                 var videoThumbnailerSetting = videoThumbnailerSettings[i];
 
-                if (!Directory.Exists(videoThumbnailerSetting.OutPutPath))
+            	var outPutPath = videoThumbnailerSetting.GetOutPutPathOrDefault();
+				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
                 		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
@@ -47,16 +48,17 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
                 		              videoThumbnailerSetting.Name,
-                		              videoThumbnailerSetting.OutPutPath));
+									  outPutPath));
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(videoThumbnailerSetting.OutPutPath));
+					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-                if (!string.IsNullOrEmpty(videoThumbnailerSetting.WorkingPath))
+            	var workingPath = videoThumbnailerSetting.GetWorkingPathOrDefault();
+				if (!string.IsNullOrEmpty(workingPath))
                 {
-                    if (!Directory.Exists(videoThumbnailerSetting.WorkingPath))
+					if (!Directory.Exists(workingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
@@ -64,11 +66,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              videoThumbnailerSetting.Name,
-                    		              videoThumbnailerSetting.WorkingPath));
+										  workingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(videoThumbnailerSetting.WorkingPath));
+						TryCreateTestFile(new DirectoryInfo(workingPath));
                     }
                 }
                 else
@@ -76,9 +78,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-                if (!string.IsNullOrEmpty(videoThumbnailerSetting.ErrorProcessingPath))
+            	var errorProcessingPath = videoThumbnailerSetting.GetErrorProcessingPathOrDefault();
+				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
-                    if (!Directory.Exists(videoThumbnailerSetting.ErrorProcessingPath))
+					if (!Directory.Exists(errorProcessingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
@@ -86,11 +89,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              videoThumbnailerSetting.Name,
-                    		              videoThumbnailerSetting.ErrorProcessingPath));
+										  errorProcessingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(videoThumbnailerSetting.ErrorProcessingPath));
+						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
                     }
                 }
 

@@ -45,6 +45,13 @@ namespace Talifun.Commander.Command.Configuration
 			set { SetPropertyValue(value, outPutPath, "OutPutPath"); }
         }
 
+		public string GetOutPutPathOrDefault()
+		{
+			return string.IsNullOrEmpty(OutPutPath)
+				? Configuration.CurrentConfiguration.DefaultPaths.OutPutPath(this)
+				: OutPutPath;
+		}
+
         /// <summary>
         /// Gets or sets the path where files will be saved to, while being processed. 
         /// </summary>
@@ -58,6 +65,13 @@ namespace Talifun.Commander.Command.Configuration
 			set { SetPropertyValue(value, workingPath, "WorkingPath"); }
         }
 
+		public string GetWorkingPathOrDefault()
+		{
+			return string.IsNullOrEmpty(WorkingPath)
+				? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this)
+				: WorkingPath;
+		}
+
         /// <summary>
         /// Gets or sets the path where files that could not be processed will be moved to.
         /// </summary>       
@@ -67,6 +81,13 @@ namespace Talifun.Commander.Command.Configuration
             get { return ((string)base[errorProcessingPath]); }
 			set { SetPropertyValue(value, errorProcessingPath, "ErrorProcessingPath"); }
         }
+
+		public string GetErrorProcessingPathOrDefault()
+		{
+			return string.IsNullOrEmpty(ErrorProcessingPath)
+				? Configuration.CurrentConfiguration.DefaultPaths.ErrorProcessingPath(this)
+				: ErrorProcessingPath;
+		}
 
         /// <summary>
         /// Gets or sets the file name format that is applied on outputted files.

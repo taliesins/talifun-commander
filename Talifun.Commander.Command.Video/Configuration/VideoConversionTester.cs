@@ -46,7 +46,8 @@ namespace Talifun.Commander.Command.Video.Configuration
             {
                 var videoSetting = videoConversionSettings[i];
 
-                if (!Directory.Exists(videoSetting.OutPutPath))
+            	var outPutPath = videoSetting.GetOutPutPathOrDefault();
+				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
                 		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
@@ -54,16 +55,17 @@ namespace Talifun.Commander.Command.Video.Configuration
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
                 		              videoSetting.Name,
-                		              videoSetting.OutPutPath));
+									  outPutPath));
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(videoSetting.OutPutPath));
+					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-                if (!string.IsNullOrEmpty(videoSetting.WorkingPath))
+            	var workingPath = videoSetting.GetWorkingPathOrDefault();
+				if (!string.IsNullOrEmpty(workingPath))
                 {
-                    if (!Directory.Exists(videoSetting.WorkingPath))
+					if (!Directory.Exists(workingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
@@ -71,11 +73,11 @@ namespace Talifun.Commander.Command.Video.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              videoSetting.Name,
-                    		              videoSetting.WorkingPath));
+										  workingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(videoSetting.WorkingPath));
+						TryCreateTestFile(new DirectoryInfo(workingPath));
                     }
                 }
                 else
@@ -83,9 +85,10 @@ namespace Talifun.Commander.Command.Video.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-                if (!string.IsNullOrEmpty(videoSetting.ErrorProcessingPath))
+            	var errorProcessingPath = videoSetting.GetErrorProcessingPathOrDefault();
+				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
-                    if (!Directory.Exists(videoSetting.ErrorProcessingPath))
+					if (!Directory.Exists(errorProcessingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
@@ -93,17 +96,18 @@ namespace Talifun.Commander.Command.Video.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              videoSetting.Name,
-                    		              videoSetting.ErrorProcessingPath));
+										  errorProcessingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(videoSetting.ErrorProcessingPath));
+						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
                     }
                 }
 
-				if (!string.IsNullOrEmpty(videoSetting.WatermarkPath))
+            	var watermarkPath = videoSetting.WatermarkPath;
+				if (!string.IsNullOrEmpty(watermarkPath))
 				{
-					if (!File.Exists(videoSetting.WatermarkPath))
+					if (!File.Exists(watermarkPath))
 					{
 						throw new Exception(
 							string.Format(Properties.Resource.ErrorMessageCommandWatermarkPathDoesNotExist,
@@ -111,7 +115,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 							              Settings.ElementCollectionSettingName,
 							              Settings.ElementSettingName,
 							              videoSetting.Name,
-										  videoSetting.WatermarkPath));
+										  watermarkPath));
 					}
 				}
 

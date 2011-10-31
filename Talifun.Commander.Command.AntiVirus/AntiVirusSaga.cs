@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.AntiVirus
         {
             var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
             var uniqueProcessingNumber = UniqueIdentifier();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.WorkingPath, uniqueProcessingNumber);
+            var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -45,11 +45,11 @@ namespace Talifun.Commander.Command.AntiVirus
 
                 if (!fileVirusFree)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, antiVirusSetting.FileNameFormat, antiVirusSetting.OutPutPath);
+                    MoveCompletedFileToOutputFolder(workingFilePath, antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-                    HandleError(output, properties, antiVirusSetting.ErrorProcessingPath, uniqueProcessingNumber);
+                    HandleError(output, properties, antiVirusSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
                 }
             }
             finally

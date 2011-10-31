@@ -104,7 +104,8 @@ namespace Talifun.Commander.Command.Image.Configuration
             {
                 var imageSetting = imageConversionSettings[i];
 
-                if (!Directory.Exists(imageSetting.OutPutPath))
+            	var outPutPath = imageSetting.GetOutPutPathOrDefault();
+				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
                 		string.Format(Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
@@ -112,16 +113,17 @@ namespace Talifun.Commander.Command.Image.Configuration
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
                 		              imageSetting.Name,
-                		              imageSetting.OutPutPath));
+									  outPutPath));
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(imageSetting.OutPutPath));
+					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-                if (!string.IsNullOrEmpty(imageSetting.WorkingPath))
+            	var workingPath = imageSetting.GetWorkingPathOrDefault();
+				if (!string.IsNullOrEmpty(workingPath))
                 {
-                    if (!Directory.Exists(imageSetting.WorkingPath))
+					if (!Directory.Exists(workingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
@@ -129,11 +131,11 @@ namespace Talifun.Commander.Command.Image.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              imageSetting.Name,
-                    		              imageSetting.WorkingPath));
+										 workingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(imageSetting.WorkingPath));
+						TryCreateTestFile(new DirectoryInfo(workingPath));
                     }
                 }
                 else
@@ -141,9 +143,10 @@ namespace Talifun.Commander.Command.Image.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-                if (!string.IsNullOrEmpty(imageSetting.ErrorProcessingPath))
+            	var errorProcessingPath = imageSetting.GetErrorProcessingPathOrDefault();
+				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
-                    if (!Directory.Exists(imageSetting.ErrorProcessingPath))
+					if (!Directory.Exists(errorProcessingPath))
                     {
                     	throw new Exception(
                     		string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
@@ -151,17 +154,18 @@ namespace Talifun.Commander.Command.Image.Configuration
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
                     		              imageSetting.Name,
-                    		              imageSetting.ErrorProcessingPath));
+										  errorProcessingPath));
                     }
                     else
                     {
-                        TryCreateTestFile(new DirectoryInfo(imageSetting.ErrorProcessingPath));
+						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
                     }
                 }
 
-				if (!string.IsNullOrEmpty(imageSetting.WatermarkPath))
+            	var watermarkPath = imageSetting.WatermarkPath;
+				if (!string.IsNullOrEmpty(watermarkPath))
 				{
-					if (!File.Exists(imageSetting.WatermarkPath))
+					if (!File.Exists(watermarkPath))
 					{
 						throw new Exception(
 							string.Format(Resource.ErrorMessageCommandWatermarkPathDoesNotExist,
@@ -169,7 +173,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 										  Settings.ElementCollectionSettingName,
 										  Settings.ElementSettingName,
 										  imageSetting.Name,
-										  imageSetting.WatermarkPath));
+										  watermarkPath));
 					}
 				}
 
