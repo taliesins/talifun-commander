@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,9 +37,19 @@ namespace Talifun.Commander.Command.Configuration
 
             InitializeComponent();
             this.Icon = Properties.Resource.Commander.ToBitmap().ToBitmapSource();
-        	this.DataContext = new CommanderSectionWindowViewModel();
-            BuildTree();
+
+			this.DataContextChanged += OnCommanderSectionWindowDataContextChanged;
+			this.DataContext = new CommanderSectionWindowViewModel
+			                   	{
+			                   		CommandTreeViewItemViewModels = _commanderSettings.Projects
+			                   	};
         }
+
+		private void OnCommanderSectionWindowDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			SaveButton.IsEnabled = false;
+			CreateFoldersButton.IsEnabled = !AreAllFoldersCreated();
+		}
 
         private IEnumerable<ElementPanelBase> GetElementPanels()
         {
@@ -50,12 +61,6 @@ namespace Talifun.Commander.Command.Configuration
         {
 			return _container.GetExportedValues<ElementCollectionPanelBase>()
                 .Where(x => x.Settings != null);
-        }
-
-    	private void BuildTree()
-        {
-        	var viewModel = ((CommanderSectionWindowViewModel) this.DataContext);
-			viewModel.CommandTreeViewItemViewModels = _commanderSettings.Projects;
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
@@ -73,6 +78,12 @@ namespace Talifun.Commander.Command.Configuration
             CommandConfigurationContentControl.Content = null;
             Close();
         }
+
+		private void CreateFoldersButtonClick(object sender, RoutedEventArgs e)
+		{
+			CreateAllFolders();
+			CreateFoldersButton.IsEnabled = !AreAllFoldersCreated();
+		}
 
         private void CommandSectionTreeViewSelected(object sender, RoutedEventArgs e)
         {
@@ -148,13 +159,15 @@ namespace Talifun.Commander.Command.Configuration
 
 		private void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			SaveButton.IsEnabled = true;
+			SaveButton.IsEnabled = _commanderSettings.Projects.IsModified;
+			CreateFoldersButton.IsEnabled = !SaveButton.IsEnabled && !AreAllFoldersCreated();
 		}
 
-		private void SaveButtonClick(object sender, RoutedEventArgs e)
+    	private void SaveButtonClick(object sender, RoutedEventArgs e)
 		{
 			SaveButton.IsEnabled = false;
 			_commanderSettings.CurrentConfiguration.Save(ConfigurationSaveMode.Minimal);
+			CreateFoldersButton.IsEnabled = !AreAllFoldersCreated();
 		}
 
     	private bool _changingContextMenu;
@@ -394,6 +407,127 @@ namespace Talifun.Commander.Command.Configuration
 				}
 			}
 			return source;
+		}
+
+		/// <summary>
+		/// Are all the folders required to run created?
+		/// </summary>
+		/// <returns>True: if all the folders needed are created; otherwise false;</returns>
+		public bool AreAllFoldersCreated()
+		{
+			return AreAllFoldersCreatedForFolderElement() && AreAllFoldersCreatedForPlugins();
+		}
+
+		/// <summary>
+		/// Are all the folders required for FolderElements to run created?
+		/// </summary>
+		/// <returns>True: if all the folders needed for FolderElements are created; otherwise false;</returns>
+		private bool AreAllFoldersCreatedForFolderElement()
+		{
+			var allFoldersCreatedForFolderElement = _commanderSettings.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.Folders.Cast<FolderElement>());
+
+			if (!allFoldersCreatedForFolderElement.Any()) return true;
+
+			var result = !allFoldersCreatedForFolderElement
+				.Where(y =>
+					(!string.IsNullOrEmpty(y.GetFolderToWatchOrDefault()) && !Directory.Exists(y.GetFolderToWatchOrDefault()))
+					|| (!string.IsNullOrEmpty(y.GetWorkingPathOrDefault()) && !Directory.Exists(y.GetWorkingPathOrDefault()))
+					|| (!string.IsNullOrEmpty(y.GetCompletedPathOrDefault()) && !Directory.Exists(y.GetCompletedPathOrDefault()))
+				)
+				.Any();
+
+			return result;
+		}
+
+		/// <summary>
+		/// Are all the folder required for plugins to run created?
+		/// </summary>
+		/// <returns>True: if all the folders needed for plugins are created; otherwise false;</returns>
+		private bool AreAllFoldersCreatedForPlugins()
+		{
+			var allFoldersCreatedForPlugins = _commanderSettings.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.CommandPlugins)
+				.SelectMany(x => x.Cast<CommandConfigurationBase>());
+
+			if (!allFoldersCreatedForPlugins.Any())
+			{
+				return true;
+			}
+
+			var result = !allFoldersCreatedForPlugins
+				.Where(x =>
+					(!string.IsNullOrEmpty(x.GetWorkingPathOrDefault()) && !Directory.Exists(x.GetWorkingPathOrDefault()))
+					|| (!string.IsNullOrEmpty(x.GetErrorProcessingPathOrDefault()) && !Directory.Exists(x.GetErrorProcessingPathOrDefault()))
+					|| (!string.IsNullOrEmpty(x.GetOutPutPathOrDefault()) && !Directory.Exists(x.GetOutPutPathOrDefault()))
+				)
+				.Any();
+
+			return result;
+		}
+
+		/// <summary>
+		/// Create any folders that are needed.
+		/// </summary>
+		public void CreateAllFolders()
+		{
+			CreateAllFoldersForFolderElement();
+			CreateAllFoldersCreatedForPlugins();
+		}
+
+		/// <summary>
+		/// Create all the folders needed by FolderElements.
+		/// </summary>
+		private void CreateAllFoldersForFolderElement()
+		{
+			var allFoldersCreatedForFolderElement = _commanderSettings.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.Folders.Cast<FolderElement>());
+
+			foreach (var folderElement in allFoldersCreatedForFolderElement)
+			{
+				if (!string.IsNullOrEmpty(folderElement.GetFolderToWatchOrDefault()) && !Directory.Exists(folderElement.GetFolderToWatchOrDefault()))
+				{
+					Directory.CreateDirectory(folderElement.GetFolderToWatchOrDefault());
+				}
+
+				if (!string.IsNullOrEmpty(folderElement.GetWorkingPathOrDefault()) && !Directory.Exists(folderElement.GetWorkingPathOrDefault()))
+				{
+					Directory.CreateDirectory(folderElement.GetWorkingPathOrDefault());
+				}
+
+				if (!string.IsNullOrEmpty(folderElement.GetCompletedPathOrDefault()) && !Directory.Exists(folderElement.GetCompletedPathOrDefault()))
+				{
+					Directory.CreateDirectory(folderElement.GetCompletedPathOrDefault());
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create all the folders needed by plugins.
+		/// </summary>
+		private void CreateAllFoldersCreatedForPlugins()
+		{
+			var allFoldersCreatedForPlugins = _commanderSettings.Projects.Cast<ProjectElement>()
+				.SelectMany(x => x.CommandPlugins)
+				.SelectMany(x => x.Cast<CommandConfigurationBase>());
+
+			foreach (var allFoldersCreatedForPlugin in allFoldersCreatedForPlugins)
+			{
+				if (!string.IsNullOrEmpty(allFoldersCreatedForPlugin.GetWorkingPathOrDefault()) && !Directory.Exists(allFoldersCreatedForPlugin.GetWorkingPathOrDefault()))
+				{
+					Directory.CreateDirectory(allFoldersCreatedForPlugin.GetWorkingPathOrDefault());
+				}
+
+				if (!string.IsNullOrEmpty(allFoldersCreatedForPlugin.GetErrorProcessingPathOrDefault()) && !Directory.Exists(allFoldersCreatedForPlugin.GetErrorProcessingPathOrDefault()))
+				{
+					Directory.CreateDirectory(allFoldersCreatedForPlugin.GetErrorProcessingPathOrDefault());
+				}
+
+				if (!string.IsNullOrEmpty(allFoldersCreatedForPlugin.GetOutPutPathOrDefault()) && !Directory.Exists(allFoldersCreatedForPlugin.GetOutPutPathOrDefault()))
+				{
+					Directory.CreateDirectory(allFoldersCreatedForPlugin.GetOutPutPathOrDefault());
+				}
+			}
 		}
     }
 }

@@ -13,19 +13,37 @@ namespace Talifun.Commander.Command.Configuration
 			_commanderSettings = commanderSettings;
 		}
 
+		/// <summary>
+		/// Get the project element for a plugin.
+		/// </summary>
+		/// <param name="commanderSettings"></param>
+		/// <param name="namedConfigurationElement"></param>
+		/// <returns>The project element for the plugin.</returns>
 		private ProjectElement GetCurrentProjectElement(CommanderSection commanderSettings, NamedConfigurationElement namedConfigurationElement)
 		{
-			var currentConfigurationElementCollection = commanderSettings.Projects
+			if (namedConfigurationElement is FolderElement)
+			{
+				var projectElementForFolderElement = commanderSettings.Projects
+					.Cast<ProjectElement>()
+					.Where(x => x.Folders.Cast<FolderElement>()
+						.Where(y => y == namedConfigurationElement)
+						.Any()
+					)
+					.First();
+
+				return projectElementForFolderElement;
+			}
+
+			var projectElementForPlugin = commanderSettings.Projects
 				.Cast<ProjectElement>()
 				.Where(x => x.CommandPlugins
-					.Where(y => y.Cast<NamedConfigurationElement>()
-						.Where(z => z == namedConfigurationElement)
-						.Any())
+					.SelectMany(y => y.Cast<NamedConfigurationElement>())					
+					.Where(z => z == namedConfigurationElement)
 					.Any()
 				)
 				.First();
 
-			return currentConfigurationElementCollection;
+			return projectElementForPlugin;
 		}
 
 		private string GetValue(string appSettingKey, NamedConfigurationElement namedConfigurationElement)
@@ -61,5 +79,7 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			return GetValue("completedPath", namedConfigurationElement);
 		}
+
+	
 	}
 }

@@ -50,7 +50,7 @@ namespace Talifun.Commander.Command
                     var folderSetting = folderSettings[i];
                     var enhancedFileSystemWatcher =
                         _enhancedFileSystemWatcherFactory.CreateEnhancedFileSystemWatcher(
-                            folderSetting.FolderToWatch, folderSetting.Filter, folderSetting.PollTime,
+                            folderSetting.GetFolderToWatchOrDefault(), folderSetting.Filter, folderSetting.PollTime,
                             folderSetting.IncludeSubdirectories, folderSetting);
                     _enhancedFileSystemWatchers.Add(enhancedFileSystemWatcher);
                 }
@@ -88,8 +88,9 @@ namespace Talifun.Commander.Command
 
             var uniqueDirectoryName = "master." + fileName + "." + Guid.NewGuid();
 
-            var workingDirectoryPath = !string.IsNullOrEmpty(folderSetting.WorkingPath) ? 
-                new DirectoryInfo(Path.Combine(folderSetting.WorkingPath, uniqueDirectoryName)) 
+    		var workingPath = folderSetting.GetWorkingPathOrDefault();
+			var workingDirectoryPath = !string.IsNullOrEmpty(workingPath) ?
+				new DirectoryInfo(Path.Combine(workingPath, uniqueDirectoryName)) 
                 : new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
 
             var workingFilePath = new FileInfo(Path.Combine(workingDirectoryPath.FullName, fileName));
@@ -130,9 +131,10 @@ namespace Talifun.Commander.Command
             }
             finally
             {
-                if (!string.IsNullOrEmpty(folderSetting.CompletedPath) && workingFilePath.Exists)
+            	var completedPath = folderSetting.GetCompletedPathOrDefault();
+				if (!string.IsNullOrEmpty(completedPath) && workingFilePath.Exists)
                 {
-                    var completedFilePath = new FileInfo(Path.Combine(folderSetting.CompletedPath, fileName));
+					var completedFilePath = new FileInfo(Path.Combine(completedPath, fileName));
                     if (completedFilePath.Exists)
                     {
                         completedFilePath.Delete();

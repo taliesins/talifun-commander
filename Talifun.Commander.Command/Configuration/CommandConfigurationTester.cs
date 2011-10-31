@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
@@ -29,7 +28,7 @@ namespace Talifun.Commander.Command.Configuration
             return commandConfigurationTester;
         }
 
-		public override void CheckProjectConfiguration(AppSettingsSection appSettings, Configuration.ProjectElement project)
+		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
             //We only want to check the sections if they are used, otherwise it will complain about
             //sections missing even if we aren't using them.
@@ -43,26 +42,29 @@ namespace Talifun.Commander.Command.Configuration
             {
                 var folderSetting = folderSettings[i];
 
+            	var folderToWatch = folderSetting.GetFolderToWatchOrDefault();
                 //Check that folder to watch exists
-                if (!Directory.Exists(folderSetting.FolderToWatch)) throw new Exception(string.Format(Resource.ErrorMessageFolderToWatchDoesNotExist, project.Name, folderSetting.Name, folderSetting.FolderToWatch));
+				if (!Directory.Exists(folderToWatch)) throw new Exception(string.Format(Resource.ErrorMessageFolderToWatchDoesNotExist, project.Name, folderSetting.Name, folderToWatch));
 
                 //Check that there are no duplicate folderToWatch
-                if (foldersToWatch.Contains(folderSetting.FolderToWatch)) throw new Exception(string.Format(Resource.ErrorMessageFolderToWatchIsADuplicate, project.Name, folderSetting.Name, folderSetting.FolderToWatch));
-                foldersToWatch.Add(folderSetting.FolderToWatch);
+				if (foldersToWatch.Contains(folderToWatch)) throw new Exception(string.Format(Resource.ErrorMessageFolderToWatchIsADuplicate, project.Name, folderSetting.Name, folderToWatch));
+				foldersToWatch.Add(folderToWatch);
 
+            	var workingPath = folderSetting.GetWorkingPathOrDefault();
                 //Check that working path is valid
-                if (!string.IsNullOrEmpty(folderSetting.WorkingPath))
+				if (!string.IsNullOrEmpty(workingPath))
                 {
-                    if (!Directory.Exists(folderSetting.WorkingPath)) throw new Exception(string.Format(Resource.ErrorMessageWorkingPathDoesNotExist, project.Name, folderSetting.Name, folderSetting.WorkingPath));
-                    else TryCreateTestFile(new DirectoryInfo(folderSetting.WorkingPath));
+					if (!Directory.Exists(workingPath)) throw new Exception(string.Format(Resource.ErrorMessageWorkingPathDoesNotExist, project.Name, folderSetting.Name, workingPath));
+					else TryCreateTestFile(new DirectoryInfo(workingPath));
                 }
                 else TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
 
+            	var completedPath = folderSetting.GetCompletedPathOrDefault();
                 //Check completed path is valid
-                if (!string.IsNullOrEmpty(folderSetting.CompletedPath))
+				if (!string.IsNullOrEmpty(completedPath))
                 {
-                    if (!Directory.Exists(folderSetting.CompletedPath)) throw new Exception(string.Format(Resource.ErrorMessageCompletedPathDoesNotExist, project.Name, folderSetting.Name, folderSetting.CompletedPath));
-                    else TryCreateTestFile(new DirectoryInfo(folderSetting.CompletedPath));
+					if (!Directory.Exists(completedPath)) throw new Exception(string.Format(Resource.ErrorMessageCompletedPathDoesNotExist, project.Name, folderSetting.Name, completedPath));
+					else TryCreateTestFile(new DirectoryInfo(completedPath));
                 }
 
                 var fileMatches = folderSetting.FileMatches;

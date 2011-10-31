@@ -117,5 +117,10 @@ namespace Talifun.Commander.Command.Configuration
 
 			return true;
 		}
+
+		public new bool IsModified
+		{
+			get { return base.IsModified(); }
+		}
 	}
 }

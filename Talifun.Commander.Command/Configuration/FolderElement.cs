@@ -63,6 +63,13 @@ namespace Talifun.Commander.Command.Configuration
 			set { SetPropertyValue(value, folderToWatch, "FolderToWatch"); }
         }
 
+		public string GetFolderToWatchOrDefault()
+		{
+			return string.IsNullOrEmpty(FolderToWatch)
+				? Configuration.CurrentConfiguration.DefaultPaths.FolderToWatch(this)
+				: FolderToWatch;
+		}
+
         /// <summary>
         /// The wildcard filter to use for files. E.g. *.txt
         /// </summary>
@@ -113,7 +120,14 @@ namespace Talifun.Commander.Command.Configuration
 			set { SetPropertyValue(value, workingPath, "WorkingPath"); }
         }
 
-        /// <summary>
+		public string GetWorkingPathOrDefault()
+		{
+			return string.IsNullOrEmpty(WorkingPath)
+				? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this)
+				: WorkingPath;
+		}
+
+    	/// <summary>
         /// Gets or sets the path where file will be moved after it is finished being processed.
         /// </summary>
         /// <remarks>
@@ -126,6 +140,13 @@ namespace Talifun.Commander.Command.Configuration
             get { return ((string)base[completedPath]); }
 			set { SetPropertyValue(value, completedPath, "CompletedPath"); }
         }
+
+		public string GetCompletedPathOrDefault()
+		{
+			return string.IsNullOrEmpty(CompletedPath)
+				? Configuration.CurrentConfiguration.DefaultPaths.CompletedPath(this)
+				: CompletedPath;
+		}
 
         /// <summary>
         /// Gets a <see cref="FileMatchElementCollection" /> containing the <see cref="FileMatchElement" /> elements

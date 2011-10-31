@@ -350,5 +350,10 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			return (T)CreateNewElement();
 		}
+
+		public new bool IsModified
+		{
+			get { return base.IsModified(); }
+		}
 	}
 }
