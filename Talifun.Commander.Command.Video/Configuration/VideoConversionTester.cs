@@ -44,9 +44,9 @@ namespace Talifun.Commander.Command.Video.Configuration
 
             for (var i = 0; i < videoConversionSettings.Count; i++)
             {
-                var videoSetting = videoConversionSettings[i];
+                var videoConversionSetting = videoConversionSettings[i];
 
-            	var outPutPath = videoSetting.GetOutPutPathOrDefault();
+            	var outPutPath = videoConversionSetting.GetOutPutPathOrDefault();
 				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
@@ -54,7 +54,7 @@ namespace Talifun.Commander.Command.Video.Configuration
                 		              project.Name,
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
-                		              videoSetting.Name,
+                		              videoConversionSetting.Name,
 									  outPutPath));
                 }
                 else
@@ -62,7 +62,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-            	var workingPath = videoSetting.GetWorkingPathOrDefault();
+            	var workingPath = videoConversionSetting.GetWorkingPathOrDefault();
 				if (!string.IsNullOrEmpty(workingPath))
                 {
 					if (!Directory.Exists(workingPath))
@@ -72,7 +72,7 @@ namespace Talifun.Commander.Command.Video.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              videoSetting.Name,
+                    		              videoConversionSetting.Name,
 										  workingPath));
                     }
                     else
@@ -85,7 +85,7 @@ namespace Talifun.Commander.Command.Video.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-            	var errorProcessingPath = videoSetting.GetErrorProcessingPathOrDefault();
+            	var errorProcessingPath = videoConversionSetting.GetErrorProcessingPathOrDefault();
 				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
 					if (!Directory.Exists(errorProcessingPath))
@@ -95,7 +95,7 @@ namespace Talifun.Commander.Command.Video.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              videoSetting.Name,
+                    		              videoConversionSetting.Name,
 										  errorProcessingPath));
                     }
                     else
@@ -104,7 +104,7 @@ namespace Talifun.Commander.Command.Video.Configuration
                     }
                 }
 
-            	var watermarkPath = videoSetting.WatermarkPath;
+            	var watermarkPath = videoConversionSetting.WatermarkPath;
 				if (!string.IsNullOrEmpty(watermarkPath))
 				{
 					if (!File.Exists(watermarkPath))
@@ -114,12 +114,12 @@ namespace Talifun.Commander.Command.Video.Configuration
 							              project.Name,
 							              Settings.ElementCollectionSettingName,
 							              Settings.ElementSettingName,
-							              videoSetting.Name,
+							              videoConversionSetting.Name,
 										  watermarkPath));
 					}
 				}
 
-                videoConversionSettingsKeys.Remove(videoSetting.Name);
+                videoConversionSettingsKeys.Remove(videoConversionSetting.Name);
             }
 
             if (videoConversionSettingsKeys.Count > 0)

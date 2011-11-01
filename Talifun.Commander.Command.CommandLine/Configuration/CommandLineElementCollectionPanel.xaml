@@ -14,6 +14,6 @@
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>
     <Grid>
-        <Label Content="Command Line Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Command Line Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
     </Grid>
 </Configuration:ElementCollectionPanelBase>

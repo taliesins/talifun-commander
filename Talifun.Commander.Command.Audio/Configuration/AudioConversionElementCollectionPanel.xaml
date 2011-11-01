@@ -14,8 +14,8 @@
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>
     <Grid>
-        <Label Content="Audio Conversion Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">
+        <Label Content="Audio Conversion Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -24,9 +24,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="FFMpeg Path:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-
-            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="fFMpegPathTextBox" Text="{Binding Path=FFMpegPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  />
-            <Button Content="..." Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="fFMpegPathButton"  Width="25" Click="fFMpegPathButton_Click" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3,3,31,3" Name="fFMpegPathTextBox" Text="{Binding Path=FFMpegPath, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Button Content="..." Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="3,0,3,3" Name="fFMpegPathButton" Width="25" Click="fFMpegPathButton_Click" />
         </Grid>
     </Grid>
 </Configuration:ElementCollectionPanelBase>

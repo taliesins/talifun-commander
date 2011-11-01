@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Configura
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer", "Talifun.Commander.Installer\Talifun.Commander.Installer.wixproj", "{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.YouTubeUploader", "Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj", "{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,16 @@ Global
 		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|x86.ActiveCfg = Release|x86
 		{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}.Release|x86.Build.0 = Release|x86
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

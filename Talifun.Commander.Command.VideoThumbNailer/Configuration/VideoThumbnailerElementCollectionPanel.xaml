@@ -14,8 +14,8 @@
         </ResourceDictionary>
     </Configuration:ElementCollectionPanelBase.Resources>
     <Grid>
-        <Label Content="Video Thumbnailer Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">
+        <Label Content="Video Thumbnailer Collection" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

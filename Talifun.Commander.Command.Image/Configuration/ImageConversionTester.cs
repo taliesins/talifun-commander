@@ -7,7 +7,7 @@ using Talifun.Commander.Command.Image.Properties;
 
 namespace Talifun.Commander.Command.Image.Configuration
 {
-    public class ImageTester : CommandConfigurationTesterBase
+    public class ImageConversionTester : CommandConfigurationTesterBase
     {
         public override ISettingConfiguration Settings
         {
@@ -102,9 +102,9 @@ namespace Talifun.Commander.Command.Image.Configuration
 
             for (var i = 0; i < imageConversionSettings.Count; i++)
             {
-                var imageSetting = imageConversionSettings[i];
+                var imageConversionSetting = imageConversionSettings[i];
 
-            	var outPutPath = imageSetting.GetOutPutPathOrDefault();
+            	var outPutPath = imageConversionSetting.GetOutPutPathOrDefault();
 				if (!Directory.Exists(outPutPath))
                 {
                 	throw new Exception(
@@ -112,7 +112,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                 		              project.Name,
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
-                		              imageSetting.Name,
+                		              imageConversionSetting.Name,
 									  outPutPath));
                 }
                 else
@@ -120,7 +120,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-            	var workingPath = imageSetting.GetWorkingPathOrDefault();
+            	var workingPath = imageConversionSetting.GetWorkingPathOrDefault();
 				if (!string.IsNullOrEmpty(workingPath))
                 {
 					if (!Directory.Exists(workingPath))
@@ -130,7 +130,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              imageSetting.Name,
+                    		              imageConversionSetting.Name,
 										 workingPath));
                     }
                     else
@@ -143,7 +143,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-            	var errorProcessingPath = imageSetting.GetErrorProcessingPathOrDefault();
+            	var errorProcessingPath = imageConversionSetting.GetErrorProcessingPathOrDefault();
 				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
 					if (!Directory.Exists(errorProcessingPath))
@@ -153,7 +153,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              imageSetting.Name,
+                    		              imageConversionSetting.Name,
 										  errorProcessingPath));
                     }
                     else
@@ -162,7 +162,7 @@ namespace Talifun.Commander.Command.Image.Configuration
                     }
                 }
 
-            	var watermarkPath = imageSetting.WatermarkPath;
+            	var watermarkPath = imageConversionSetting.WatermarkPath;
 				if (!string.IsNullOrEmpty(watermarkPath))
 				{
 					if (!File.Exists(watermarkPath))
@@ -172,14 +172,14 @@ namespace Talifun.Commander.Command.Image.Configuration
 										  project.Name,
 										  Settings.ElementCollectionSettingName,
 										  Settings.ElementSettingName,
-										  imageSetting.Name,
+										  imageConversionSetting.Name,
 										  watermarkPath));
 					}
 				}
 
-                TestImageResizeModeSetting(project, imageSetting);
+                TestImageResizeModeSetting(project, imageConversionSetting);
 
-                imageConversionSettingsKeys.Remove(imageSetting.Name);
+                imageConversionSettingsKeys.Remove(imageConversionSetting.Name);
             }
 
             if (imageConversionSettingsKeys.Count > 0)

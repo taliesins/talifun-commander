@@ -24,16 +24,6 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
 			DataModel = new AudioConversionElementPanelDataModel(element);
 			this.DataContext = DataModel;
-
-			StartingValues();
-		}
-
-		private void StartingValues()
-		{
-			if (string.IsNullOrEmpty(bitRateComboBox.Text))
-			{
-				bitRateComboBox.Text = DataModel.Element.BitRate.ToString();
-			}
 		}
     }
 }

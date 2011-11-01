@@ -226,6 +226,10 @@
       <Project>{A0AACC6C-F046-4057-9CAA-A313512C4E05}</Project>
       <Name>Talifun.Commander.Command.Video</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj">
+      <Project>{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}</Project>
+      <Name>Talifun.Commander.Command.YouTubeUploader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
       <Name>Talifun.Commander.Command</Name>

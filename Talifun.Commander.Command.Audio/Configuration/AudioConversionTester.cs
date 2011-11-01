@@ -38,9 +38,9 @@ namespace Talifun.Commander.Command.Audio.Configuration
             
             for (var i = 0; i < audioConversionSettings.Count; i++)
             {
-                var audioSetting = audioConversionSettings[i];
+                var audioConversionSetting = audioConversionSettings[i];
 
-            	var outPutPath = audioSetting.GetOutPutPathOrDefault();
+            	var outPutPath = audioConversionSetting.GetOutPutPathOrDefault();
 
 				if (!Directory.Exists(outPutPath))
                 {
@@ -49,7 +49,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                 		              project.Name,
                 		              Settings.ElementCollectionSettingName,
                 		              Settings.ElementSettingName,
-                		              audioSetting.Name,
+                		              audioConversionSetting.Name,
 									  outPutPath));
                 }
                 else
@@ -57,7 +57,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
 					TryCreateTestFile(new DirectoryInfo(outPutPath));
                 }
 
-            	var workingPath = audioSetting.GetWorkingPathOrDefault();
+            	var workingPath = audioConversionSetting.GetWorkingPathOrDefault();
 				if (!string.IsNullOrEmpty(workingPath))
                 {
 					if (!Directory.Exists(workingPath))
@@ -67,7 +67,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              audioSetting.Name,
+                    		              audioConversionSetting.Name,
 										  workingPath));
                     }
                     else
@@ -80,7 +80,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
                 }
 
-            	var errorProcessingPath = audioSetting.GetErrorProcessingPathOrDefault();
+            	var errorProcessingPath = audioConversionSetting.GetErrorProcessingPathOrDefault();
 				if (!string.IsNullOrEmpty(errorProcessingPath))
                 {
 					if (!Directory.Exists(errorProcessingPath))
@@ -90,7 +90,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     		              project.Name,
                     		              Settings.ElementCollectionSettingName,
                     		              Settings.ElementSettingName,
-                    		              audioSetting.Name,
+                    		              audioConversionSetting.Name,
 										  errorProcessingPath));
                     }
                     else
@@ -99,7 +99,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     }
                 }
 
-                audioConversionSettingsKeys.Remove(audioSetting.Name);
+                audioConversionSettingsKeys.Remove(audioConversionSetting.Name);
             }
 
             if (audioConversionSettingsKeys.Count > 0)

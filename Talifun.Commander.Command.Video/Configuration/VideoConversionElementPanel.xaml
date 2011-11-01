@@ -146,7 +146,7 @@
             <XmlDataProvider x:Key="commonSettings" XPath="/commonSettings">
                 <x:XData>
                     <commonSettings xmlns="">
-                        <commonSetting name="Custom" value="" audioConversionType="NotSpecified" audioBitRate="0" audioFrequency="0" audioChannel="0" videoConversionType="NotSpecified" deinterlace="false" width="0" height="0" aspectRatio="NotSpecified" videoBitRate="0" maxVideoBitRate="0" />
+                        <commonSetting name="Custom" audioConversionType="NotSpecified" audioBitRate="0" audioFrequency="0" audioChannel="0" videoConversionType="NotSpecified" deinterlace="false" width="0" height="0" aspectRatio="NotSpecified" videoBitRate="0" maxVideoBitRate="0" />
                         <commonSetting name="Youtube - 240p"  audioConversionType="Mp3" audioBitRate="64000" audioFrequency="22050" audioChannel="2" videoConversionType="H264" deinterlace="false" width="400" height="226" aspectRatio="RatioOf16By9" videoBitRate="324000" maxVideoBitRate="384000" />
                         <commonSetting name="Youtube - 360p" audioConversionType="Aac" audioBitRate="96000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="640" height="360" aspectRatio="RatioOf16By9" videoBitRate="672000" maxVideoBitRate="768000" />
                         <commonSetting name="Youtube - SD 4:3" audioConversionType="Aac" audioBitRate="128000" audioFrequency="44100" audioChannel="2" videoConversionType="H264" deinterlace="false" width="640" height="480" aspectRatio="RatioOf4By3" videoBitRate="672000" maxVideoBitRate="768000" />
@@ -173,8 +173,8 @@
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>
     <Grid>
-        <Label Content="Video Conversion" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">
+        <Label Content="Video Conversion" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -196,7 +196,7 @@
             <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="commonSettingsComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource commonSettings}, XPath=commonSetting, Mode=OneTime}" DisplayMemberPath="@name" SelectionChanged="CommonSettingsComboBoxSelectionChanged" />
 
             <Expander Header="Audio" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
-                <Grid HorizontalAlignment="Stretch" Name="audioGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -222,7 +222,7 @@
                 </Grid>
             </Expander>
             <Expander Header="Video" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
-                <Grid HorizontalAlignment="Stretch" Name="videoGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -276,7 +276,7 @@
                 </Grid>
             </Expander>
             <Expander Header="Watermark" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
-                <Grid HorizontalAlignment="Stretch" Name="watermarkGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -303,7 +303,7 @@
             </Expander>
 
             <Expander Header="Intro &amp; Outtro" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
-                <Grid HorizontalAlignment="Stretch" Name="introAndOuttroGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

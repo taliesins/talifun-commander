@@ -73,6 +73,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLLOCATION</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj">
+      <Name>Talifun.Commander.Command.YouTubeUploader</Name>
+      <Project>{66a0cfa1-08f1-43a9-beb8-defd4a43221f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Name>Talifun.Commander.Command</Name>
       <Project>{ef4d6637-806c-4eab-b372-a73bee185f5f}</Project>
@@ -116,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CommandLineTools.wxi" />
+    <Content Include="Libraries.wxi" />
+    <Content Include="Talifun.Commander.Command.YouTubeUploader.wxi" />
     <Content Include="Icons\Banner.bmp" />
     <Content Include="Icons\Complete.ico" />
     <Content Include="Icons\Custom.ico" />

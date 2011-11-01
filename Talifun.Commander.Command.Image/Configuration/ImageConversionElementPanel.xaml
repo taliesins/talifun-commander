@@ -38,8 +38,8 @@
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>
     <Grid>
-        <Label Content="Image Conversion" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" Name="formGrid" VerticalAlignment="Top">
+        <Label Content="Image Conversion" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -54,7 +54,7 @@
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
             <Expander Header="Image" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
-                <Grid HorizontalAlignment="Stretch" Name="imageGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -93,7 +93,7 @@
                 </Grid>
             </Expander>
             <Expander Header="Watermark" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}" >
-                <Grid HorizontalAlignment="Stretch" Name="watermarkGrid" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

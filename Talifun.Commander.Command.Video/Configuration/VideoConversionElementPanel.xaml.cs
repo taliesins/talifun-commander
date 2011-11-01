@@ -38,10 +38,16 @@ namespace Talifun.Commander.Command.Video.Configuration
 			DataModel = new VideoConversionElementPanelDataModel(element);
 			DataModel.PropertyChanged += OnElementPropertyChanged;
 
+			this.DataContextChanged += OnVideoConversionElementPanelDataContextChanged;
 			this.DataContext = DataModel;
 		}
 
-		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void OnVideoConversionElementPanelDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+		{
+			SetSelectedVideoFormat();
+		}
+
+		private void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			SetSelectedVideoFormat();
 		}
@@ -203,59 +209,6 @@ namespace Talifun.Commander.Command.Video.Configuration
 			}
 
 			_selectionBoxChanged = false;
-		}
-
-    	private void StartingValues()
-		{
-			if (string.IsNullOrEmpty(commonSettingsComboBox.Text))
-			{
-				commonSettingsComboBox.Text = "Custom";
-			}
-
-			//if (string.IsNullOrEmpty(bitRateComboBox.Text))
-			//{
-			//    bitRateComboBox.Text = DataModel.Element.AudioBitRate.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(frequencyComboBox.Text))
-			//{
-			//    frequencyComboBox.Text = DataModel.Element.AudioFrequency.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(channelComboBox.Text))
-			//{
-			//    channelComboBox.Text = DataModel.Element.AudioChannel.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(frameRateComboBox.Text))
-			//{
-			//    frameRateComboBox.Text = DataModel.Element.FrameRate.ToString();
-			//}
-			
-			//if (string.IsNullOrEmpty(videoBitRateComboBox.Text))
-			//{
-			//    videoBitRateComboBox.Text = DataModel.Element.VideoBitRate.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(maxVideoBitRateComboBox.Text))
-			//{
-			//    maxVideoBitRateComboBox.Text = DataModel.Element.MaxVideoBitRate.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(bufferSizeComboBox.Text))
-			//{
-			//    bufferSizeComboBox.Text = DataModel.Element.BufferSize.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(keyFrameIntervalComboBox.Text))
-			//{
-			//    keyFrameIntervalComboBox.Text = DataModel.Element.KeyFrameInterval.ToString();
-			//}
-
-			//if (string.IsNullOrEmpty(minKeyFrameIntervalComboBox.Text))
-			//{
-			//    minKeyFrameIntervalComboBox.Text = DataModel.Element.MinKeyFrameInterval.ToString();
-			//}
 		}
 
 		private void watermarkPathButton_Click(object sender, System.Windows.RoutedEventArgs e)
