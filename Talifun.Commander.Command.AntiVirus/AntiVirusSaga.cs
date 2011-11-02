@@ -49,7 +49,7 @@ namespace Talifun.Commander.Command.AntiVirus
                 }
                 else
                 {
-                    HandleError(output, properties, antiVirusSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, antiVirusSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

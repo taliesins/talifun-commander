@@ -72,12 +72,22 @@ namespace Talifun.Commander.Command
             workingFilePath.MoveTo(outputFilePath.FullName);
         }
 
-        public void HandleError(string output, ICommandSagaProperties properties, string errorProcessingPath, string uniqueProcessingNumber)
+		public void HandleError(ICommandSagaProperties properties, string uniqueProcessingNumber, FileInfo workingFilePath, string output, string errorProcessingPath)
         {
-        	var sagaException = new SagaException(output, properties, errorProcessingPath, uniqueProcessingNumber);
-
+			var sagaException = new SagaException(properties, uniqueProcessingNumber, workingFilePath, output, errorProcessingPath);
 			var logger = LogManager.GetLogger(Settings.ElementType.FullName);
 			logger.ErrorException(output, sagaException);
+
+			if (!workingFilePath.Exists || string.IsNullOrEmpty(errorProcessingPath)) return;
+
+			var filename = workingFilePath.Name;
+			var outputFilePath = new FileInfo(Path.Combine(errorProcessingPath, filename));
+			if (outputFilePath.Exists)
+			{
+				outputFilePath.Delete();
+			}
+
+			workingFilePath.MoveTo(outputFilePath.FullName);
         }
 
         public DirectoryInfo GetWorkingDirectoryPath(ICommandSagaProperties properties, string workingPath, string uniqueProcessingNumber)

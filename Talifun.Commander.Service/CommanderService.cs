@@ -38,7 +38,25 @@ namespace Talifun.Commander.Service
 		protected void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			var exception = (Exception)e.ExceptionObject;
-			_logger.FatalException("Unhandled exception", exception);
+			HandleUnhandledException(exception);
+		}
+
+		private void HandleUnhandledException(Exception exception)
+		{
+			var message = "Unhandled exception";
+			try
+			{
+				var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+				message = string.Format("Unhandled exception in {0} v{1} - {2}", assemblyName.Name, assemblyName.Version, exception);
+			}
+			catch (Exception exc)
+			{
+				_logger.ErrorException("Exception in unhandled exception handler", exc);
+			}
+			finally
+			{
+				_logger.ErrorException(message, exception);
+			}
 		}
     }
 }

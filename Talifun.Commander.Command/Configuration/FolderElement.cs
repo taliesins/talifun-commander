@@ -15,8 +15,8 @@ namespace Talifun.Commander.Command.Configuration
         private static readonly ConfigurationProperty fileNameFilter = new ConfigurationProperty("fileNameFilter", typeof(string), "", ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty pollTime = new ConfigurationProperty("pollTime", typeof(int), 3000, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty includeSubdirectories = new ConfigurationProperty("includeSubdirectories", typeof(bool), false, ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty workingPath = new ConfigurationProperty("workingPath", typeof(string), "", ConfigurationPropertyOptions.None);
-        private static readonly ConfigurationProperty completedPath = new ConfigurationProperty("completedPath", typeof(string), "", ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty workingPath = new ConfigurationProperty("workingPath", typeof(string), null, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty completedPath = new ConfigurationProperty("completedPath", typeof(string), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty fileMatches = new ConfigurationProperty("fileMatches", typeof(FileMatchElementCollection), new FileMatchElementCollection(), ConfigurationPropertyOptions.None | ConfigurationPropertyOptions.IsDefaultCollection);
 
         /// <summary>
@@ -108,12 +108,13 @@ namespace Talifun.Commander.Command.Configuration
         /// Gets or sets the path where file will be moved before being processed.
         /// </summary>
         /// <remarks>
-        /// Leaving this blank will result in the file staying where it is. This means that other programs 
-        /// may still potentially modify the file (ftp upload for instance) and could result in unexpected 
-        /// results if there are multiple fileMatch elements. So to make it more "transactional" we move it
-        /// to another location that other programs will not know about.
+		/// Excluding the configuration value from config will result in:
+		/// the configuration defaults being used.
+		/// 
+		/// Setting an empty string for the configuration value will result in:
+		/// the windows temp directory will be used to process files.
         /// </remarks>
-        [ConfigurationProperty("workingPath", DefaultValue = "")]
+        [ConfigurationProperty("workingPath", DefaultValue = null)]
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
@@ -122,19 +123,20 @@ namespace Talifun.Commander.Command.Configuration
 
 		public string GetWorkingPathOrDefault()
 		{
-			return string.IsNullOrEmpty(WorkingPath)
-				? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this)
-				: WorkingPath;
+			return WorkingPath ?? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this);
 		}
 
     	/// <summary>
         /// Gets or sets the path where file will be moved after it is finished being processed.
         /// </summary>
         /// <remarks>
-        /// Leaving this blank will result in the file being deleted, once it has been processed by all
-        /// matching FileMatch elements.
+        /// Excluding the configuration value from config will result in:
+        /// the configuration defaults being used.
+        /// 
+		/// Setting an empty string for the configuration value will result in:
+		/// not moving files to the completed path once they have been successfully processed.
         /// </remarks>
-        [ConfigurationProperty("completedPath", DefaultValue = "")]
+        [ConfigurationProperty("completedPath", DefaultValue = null)]
         public string CompletedPath
         {
             get { return ((string)base[completedPath]); }
@@ -143,9 +145,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		public string GetCompletedPathOrDefault()
 		{
-			return string.IsNullOrEmpty(CompletedPath)
-				? Configuration.CurrentConfiguration.DefaultPaths.CompletedPath(this)
-				: CompletedPath;
+			return CompletedPath ?? Configuration.CurrentConfiguration.DefaultPaths.CompletedPath(this);
 		}
 
         /// <summary>

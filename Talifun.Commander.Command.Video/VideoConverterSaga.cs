@@ -162,7 +162,7 @@ namespace Talifun.Commander.Command.Video
                 }
                 else
                 {
-                    HandleError(output, properties, videoConversionSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, videoConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

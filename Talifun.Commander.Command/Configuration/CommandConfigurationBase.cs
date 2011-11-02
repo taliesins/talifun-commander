@@ -8,8 +8,8 @@ namespace Talifun.Commander.Command.Configuration
         protected static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
         protected static readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
         protected static readonly ConfigurationProperty outPutPath = new ConfigurationProperty("outPutPath", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-        protected static readonly ConfigurationProperty workingPath = new ConfigurationProperty("workingPath", typeof(string), "", ConfigurationPropertyOptions.None);
-        protected static readonly ConfigurationProperty errorProcessingPath = new ConfigurationProperty("errorProcessingPath", typeof(string), "", ConfigurationPropertyOptions.None);
+        protected static readonly ConfigurationProperty workingPath = new ConfigurationProperty("workingPath", typeof(string), null, ConfigurationPropertyOptions.None);
+        protected static readonly ConfigurationProperty errorProcessingPath = new ConfigurationProperty("errorProcessingPath", typeof(string), null, ConfigurationPropertyOptions.None);
         protected static readonly ConfigurationProperty fileNameFormat = new ConfigurationProperty("fileNameFormat", typeof(string), "", ConfigurationPropertyOptions.None);
 
         /// <summary>
@@ -55,10 +55,14 @@ namespace Talifun.Commander.Command.Configuration
         /// <summary>
         /// Gets or sets the path where files will be saved to, while being processed. 
         /// </summary>
-        /// <remarks>
-        /// Basically the temp directory for processing
-        /// </remarks>
-        [ConfigurationProperty("workingPath", DefaultValue = "")]
+		/// <remarks>
+		/// Excluding the configuration value from config will result in:
+		/// the configuration defaults being used.
+		/// 
+		/// Setting an empty string for the configuration value will result in:
+		/// the windows temp directory will be used to process files.
+		/// </remarks>
+        [ConfigurationProperty("workingPath", DefaultValue = null)]
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
@@ -67,15 +71,20 @@ namespace Talifun.Commander.Command.Configuration
 
 		public string GetWorkingPathOrDefault()
 		{
-			return string.IsNullOrEmpty(WorkingPath)
-				? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this)
-				: WorkingPath;
+			return WorkingPath ?? Configuration.CurrentConfiguration.DefaultPaths.WorkingPath(this);
 		}
 
         /// <summary>
         /// Gets or sets the path where files that could not be processed will be moved to.
-        /// </summary>       
-        [ConfigurationProperty("errorProcessingPath", DefaultValue = "")]
+        /// </summary>   
+		/// <remarks>
+		/// Excluding the configuration value from config will result in:
+		/// the configuration defaults being used.
+		/// 
+		/// Setting an empty string for the configuration value will result in:
+		/// the files that cannot be processed are just deleted
+		/// </remarks>    
+        [ConfigurationProperty("errorProcessingPath", DefaultValue = null)]
         public string ErrorProcessingPath
         {
             get { return ((string)base[errorProcessingPath]); }
@@ -84,9 +93,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		public string GetErrorProcessingPathOrDefault()
 		{
-			return string.IsNullOrEmpty(ErrorProcessingPath)
-				? Configuration.CurrentConfiguration.DefaultPaths.ErrorProcessingPath(this)
-				: ErrorProcessingPath;
+			return ErrorProcessingPath ?? Configuration.CurrentConfiguration.DefaultPaths.ErrorProcessingPath(this);
 		}
 
         /// <summary>

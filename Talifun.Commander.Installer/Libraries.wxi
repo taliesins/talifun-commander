@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="NLog.dll" Guid="fe91a0da-b22b-4c10-9bbd-791a1798d1d0">
+      <File Id="NLog.dll"
+            Source="$(var.SolutionDir)\References\NLog.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="FluentValidation.dll" Guid="23b5d20f-c1ae-4651-9d7c-0a602ff45c52">
+      <File Id="FluentValidation.dll"
+            Source="$(var.SolutionDir)\References\FluentValidation.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="WPFToolkit.Extended.dll" Guid="f6fe35ff-a15a-4b06-be0f-c5b0ee16ded3">
+      <File Id="WPFToolkit.Extended.dll"
+            Source="$(var.SolutionDir)\References\WPFToolkit.Extended.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Google.GData.Client.dll" Guid="9e5c296b-1a32-400d-9bc0-e247d600a4bb">
+      <File Id="Google.GData.Client.dll"
+            Source="$(var.SolutionDir)\References\Google.GData.Client.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Google.GData.Extensions.dll" Guid="b7fd16c3-d0df-45ce-91fe-f3e270dcbe5a">
+      <File Id="Google.GData.Extensions.dll"
+            Source="$(var.SolutionDir)\References\Google.GData.Extensions.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <!--<Component Id="Google.GData.Photos.dll" Guid="e86f2f4a-8bdb-410e-a92a-db98da38066a">
+      <File Id="Google.GData.Photos.dll"
+            Source="$(var.SolutionDir)\References\Google.GData.Photos.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>-->
+    <Component Id="Google.GData.YouTube.dll" Guid="4aeee50d-ae03-42f0-b078-b6bcdeec205a">
+      <File Id="Google.GData.YouTube.dll"
+            Source="$(var.SolutionDir)\References\Google.GData.YouTube.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+  </DirectoryRef>
+</Include>

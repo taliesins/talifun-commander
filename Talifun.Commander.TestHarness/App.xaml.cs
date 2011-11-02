@@ -42,7 +42,7 @@ namespace Talifun.Commander.TestHarness
 			try
 			{
 				var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
-				message = string.Format("Unhandled exception in {0} v{1}", assemblyName.Name, assemblyName.Version);
+				message = string.Format("Unhandled exception in {0} v{1} - {2}", assemblyName.Name, assemblyName.Version, exception);
 			}
 			catch (Exception exc)
 			{

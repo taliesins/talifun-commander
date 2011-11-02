@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
                 }
                 else
                 {
-                    HandleError(output, properties, videoThumbnailerSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, videoThumbnailerSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

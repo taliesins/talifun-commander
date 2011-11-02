@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using Google.GData.Client;
 using Google.GData.Client.ResumableUpload;
@@ -9,15 +10,23 @@ namespace Talifun.Commander.Command.YouTubeUploader
 {
 	public class YouTubeUploaderCommand : ICommand<YouTubeUploaderSettings>
 	{
-		public bool Run(YouTubeUploaderSettings settings, System.Configuration.AppSettingsSection appSettings, System.IO.FileInfo inputFilePath, System.IO.DirectoryInfo outputDirectoryPath, out System.IO.FileInfo outPutFilePath, out string output)
+		public bool Run(YouTubeUploaderSettings settings, System.Configuration.AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
+			outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
+			if (outPutFilePath.Exists)
+			{
+				outPutFilePath.Delete();
+			}
+
+			inputFilePath.CopyTo(outPutFilePath.FullName);
+
 			var credentials = new GDataCredentials(settings.Authentication.GoogleUsername, settings.Authentication.GooglePassword);
 			var youTubeAuthenticator = new ClientLoginAuthenticator(settings.Authentication.ApplicationName, ServiceNames.YouTube, credentials)
 			                           	{
 			                           		DeveloperKey = settings.Authentication.DeveloperKey
 			                           	};
 
-			var contentType = MediaFileSource.GetContentTypeForFileName(inputFilePath.FullName);
+			var contentType = MediaFileSource.GetContentTypeForFileName(outPutFilePath.FullName);
 
 			var link = new AtomLink(string.Format(Resource.UploadLink, settings.Authentication.YouTubeUsername))
 			{
@@ -26,7 +35,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 
 			var video = new Video
 			            	{
-			            		MediaSource = new MediaFileSource(inputFilePath.FullName, contentType)
+								MediaSource = new MediaFileSource(outPutFilePath.FullName, contentType)
 			            	};
 			video.YouTubeEntry.Links.Add(link);
 
@@ -41,7 +50,6 @@ namespace Talifun.Commander.Command.YouTubeUploader
 			resumableUploader.InsertAsync(youTubeAuthenticator, video.YouTubeEntry, uploadCompletedEventArgs);
 			uploadCompletedEventArgs.AutoResetEvent.WaitOne();
 
-			outPutFilePath = null; //This command does not output a file
 			output = uploadCompletedEventArgs.Output;
 			return uploadCompletedEventArgs.Result;
 		}

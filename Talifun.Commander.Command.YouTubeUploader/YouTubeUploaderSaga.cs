@@ -42,12 +42,16 @@ namespace Talifun.Commander.Command.YouTubeUploader
 				var youTubeUploadSuccessful = false;
 
 				var youTubeUploaderSettings = GetYouTubeUploaderSettings(youTubeUploaderSetting);
-				//var thumbnailerCommand = new ThumbnailerCommand();
-				//youTubeUploadSuccessful = thumbnailerCommand.Run(thumbnailerSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+				var youTubeUploaderCommand = new YouTubeUploaderCommand();
+				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
 
-				if (!youTubeUploadSuccessful)
+				if (youTubeUploadSuccessful)
 				{
-					HandleError(output, properties, youTubeUploaderSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					MoveCompletedFileToOutputFolder(workingFilePath, youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
+				}
+				else
+				{
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, youTubeUploaderSetting.GetErrorProcessingPathOrDefault());
 				}
 			}
 			finally

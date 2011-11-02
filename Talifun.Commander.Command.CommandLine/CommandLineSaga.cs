@@ -55,7 +55,7 @@ namespace Talifun.Commander.Command.CommandLine
                 }
                 else
                 {
-                    HandleError(output, properties, commandLineSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, commandLineSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

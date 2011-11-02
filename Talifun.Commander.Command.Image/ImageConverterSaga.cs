@@ -66,7 +66,7 @@ namespace Talifun.Commander.Command.Image
                 }
                 else
                 {
-                    HandleError(output, properties, imageConversionSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, imageConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

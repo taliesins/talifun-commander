@@ -58,7 +58,7 @@ namespace Talifun.Commander.Command.Audio
                 }
                 else
                 {
-                    HandleError(output, properties, audioConversionSetting.GetErrorProcessingPathOrDefault(), uniqueProcessingNumber);
+					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, audioConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally
