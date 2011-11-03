@@ -190,7 +190,6 @@ namespace Talifun.Commander.Command
             var commandSaga = GetCommandSaga(fileMatch.ConversionType);
             var commandSagaProperties = new CommandSagaProperties
                                             {
-                                                CommanderManager = this,
                                                 FileMatch = fileMatch,
                                                 InputFilePath = fileInfo,
                                                 Project = project,

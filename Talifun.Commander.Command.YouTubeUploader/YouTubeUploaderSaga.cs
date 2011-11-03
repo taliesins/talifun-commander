@@ -22,7 +22,11 @@ namespace Talifun.Commander.Command.YouTubeUploader
 					GooglePassword = youTubeUploader.GooglePassword,
 					GoogleUsername = youTubeUploader.GoogleUsername,
 					YouTubeUsername = youTubeUploader.YouTubeUsername
-				}
+				},
+				Upload = new UploadSettings()
+				         	{
+				         		ChunkSize = 25
+				         	}
 			};
 		}
 
