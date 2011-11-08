@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command
 {
     public interface ICommandSagaProperties
     {
-        FileInfo InputFilePath { get; }
+        string InputFilePath { get; }
         ProjectElement Project { get; }
         FileMatchElement FileMatch { get; }
     	AppSettingsSection AppSettings { get; }

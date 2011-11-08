@@ -183,10 +183,12 @@ namespace Talifun.Commander.Command.Esb
 			var commandSagaProperties = new CommandSagaProperties
 			{
 				FileMatch = fileMatch,
-				InputFilePath = fileInfo,
+				InputFilePath = fileInfo.FullName,
 				Project = project,
 				AppSettings = AppSettings
 			};
+
+
 
 			var logger = LogManager.GetLogger(commandSaga.Settings.ElementType.FullName);
 			logger.Info(string.Format(Resource.InfoMessageSagaStarted, project.Name, fileMatch.Name, fileInfo));

@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.Audio
             	var audioSettings = GetAudioSettings(audioConversionSetting);
 
             	var audioCommand = new AudioCommand();
-				var encodeSucessful = audioCommand.Run(audioSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+				var encodeSucessful = audioCommand.Run(audioSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
 
                 if (encodeSucessful)
                 {

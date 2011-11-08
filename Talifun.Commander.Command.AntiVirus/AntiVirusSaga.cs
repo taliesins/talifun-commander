@@ -39,7 +39,7 @@ namespace Talifun.Commander.Command.AntiVirus
                     case VirusScannerType.McAfee:
                         var mcAfeeSettings = GetMcAfeeSettings(antiVirusSetting);
                         var mcAfeeCommand = new McAfeeCommand();
-                        fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+                        fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
                         break;
                 }
 

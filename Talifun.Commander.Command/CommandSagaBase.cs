@@ -92,7 +92,7 @@ namespace Talifun.Commander.Command
 
         public DirectoryInfo GetWorkingDirectoryPath(ICommandSagaProperties properties, string workingPath, string uniqueProcessingNumber)
         {
-            var uniqueDirectoryName = Settings.ConversionType + "." + properties.InputFilePath.Name + "." + uniqueProcessingNumber;
+            var uniqueDirectoryName = Settings.ConversionType + "." + properties.InputFilePath + "." + uniqueProcessingNumber;
 
             DirectoryInfo workingDirectoryPath = null;
             if (!string.IsNullOrEmpty(workingPath))

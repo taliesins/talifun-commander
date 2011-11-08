@@ -47,7 +47,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 
 				var youTubeUploaderSettings = GetYouTubeUploaderSettings(youTubeUploaderSetting);
 				var youTubeUploaderCommand = new YouTubeUploaderCommand();
-				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, properties.InputFilePath, workingDirectoryPath, out workingFilePath, out output);
+				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
 
 				if (youTubeUploadSuccessful)
 				{
