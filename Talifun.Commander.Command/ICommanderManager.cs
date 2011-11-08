@@ -12,5 +12,8 @@ namespace Talifun.Commander.Command
         {
             get;
         }
+
+    	event CommanderStartedEventHandler CommanderStartedEvent;
+    	event CommanderStoppedEventHandler CommanderStoppedEvent;
     }
 }

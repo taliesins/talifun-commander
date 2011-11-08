@@ -167,13 +167,13 @@
     <value>OnPropertyChanged was invoked with invalid property name {0}: {0} is not a public property of {1}.</value>
   </data>
   <data name="ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock" xml:space="preserve">
-    <value>Timeout waiting for lock - RaiseOnCommandErrorEvent</value>
+    <value>Timeout waiting for lock - RaiseOnCommanderStartedEvent</value>
   </data>
   <data name="ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd" xml:space="preserve">
-    <value>Timeout waiting for lock - CommandErrorEvent.add</value>
+    <value>Timeout waiting for lock - CommanderStartedEvent.add</value>
   </data>
   <data name="ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove" xml:space="preserve">
-    <value>Timeout waiting for lock - CommandErrorEvent.remove</value>
+    <value>Timeout waiting for lock - CommanderStartedEvent.remove</value>
   </data>
   <data name="ErrorMessageTheSpecifiedMemberWasNotFoundOnInstance" xml:space="preserve">
     <value>The specified member {0} was not found on the instance {1}</value>

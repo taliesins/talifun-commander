@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
@@ -6,22 +7,28 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using MassTransit;
 using NLog;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Properties;
+using Talifun.Commander.Command.TestConfiguration;
 using Talifun.Commander.FileWatcher;
 
 namespace Talifun.Commander.Command
 {
-    internal class CommanderManager : ICommanderManager, IDisposable
+	internal class CommanderManager : ICommanderManager, IDisposable
     {
+		private readonly TimeSpan _lockTimeout = TimeSpan.FromSeconds(10);
+		private readonly AsyncOperation _asyncOperation = AsyncOperationManager.CreateOperation(null);
+
     	private readonly IEnhancedFileSystemWatcherFactory _enhancedFileSystemWatcherFactory;
-    	private readonly CommandConfigurationTester _commandConfigurationTester;
-
     	private readonly List<IEnhancedFileSystemWatcher> _enhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
-    	private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
+    	private readonly ICommandManagerServiceBuses _commandManagerServiceBuses = new CommandManagerServiceBuses();
+		
+		private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
 
-    	private bool _stopSignalled = false;
+    	private bool _startOrStopSignalled = false;
 
     	private readonly ExportProvider _container;
 		private readonly AppSettingsSection _appSettings;
@@ -35,10 +42,6 @@ namespace Talifun.Commander.Command
             _enhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
 
             IsRunning = false;
-
-            _commandConfigurationTester = new CommandConfigurationTester(_container);
-
-            CheckConfiguration();
 
             var projects = _commanderSettings.Projects;
             for (var j = 0; j < projects.Count; j++)
@@ -202,19 +205,6 @@ namespace Talifun.Commander.Command
 			logger.Info(string.Format(Resource.InfoMessageSagaCompleted, project.Name, fileMatch.Name, fileInfo));
         }
 
-        #region Test Configuration
-
-    	private void CheckConfiguration()
-        {
-            var projects = _commanderSettings.Projects;
-            for (var j = 0; j < projects.Count; j++)
-            {
-				_commandConfigurationTester.CheckProjectConfiguration(_appSettings, projects[j]);
-            }
-        }
-
-        #endregion
-
         #region ICommanderManager Members
 
 		public CommanderSectionWindow GetCommanderSectionWindow()
@@ -222,20 +212,42 @@ namespace Talifun.Commander.Command
 			return new CommanderSectionWindow(_container, _appSettings, _commanderSettings);
 		}
 
-        public void Start()
+		public void Start()
         {
-            if (IsRunning || _stopSignalled) return;
-            IsRunning = true;
-            StartEnhancedFileSystemWatchers();
+            if (IsRunning || _startOrStopSignalled) return;
+			_startOrStopSignalled = true;
+        	_commandManagerServiceBuses.Start();
+
+			var bus = BusDriver.Instance.GetBus(CommandManagerServiceBuses.CommandManagerBusName);
+			bus.SubscribeHandler<ResponseTestConfigurationMessage>((message) =>
+			{
+				IsRunning = true;
+				StartEnhancedFileSystemWatchers();
+				_startOrStopSignalled = false;
+
+				var commanderStartedEventArgs = new CommanderStartedEventArgs();
+
+				RaiseAsynchronousOnCommanderStartedEvent(commanderStartedEventArgs);
+			});
+
+			var requestTestConfigurationMessage = new RequestTestConfigurationMessage()
+			{
+			};
+
+			bus.Publish(requestTestConfigurationMessage);
         }
 
         public void Stop()
         {
-            if (!IsRunning || _stopSignalled) return;
-            _stopSignalled = true;
+            if (!IsRunning || _startOrStopSignalled) return;
+            _startOrStopSignalled = true;
             StopEnhancedFileSystemWatchers();
+			_commandManagerServiceBuses.Stop();
             IsRunning = false;
-            _stopSignalled = false;
+            _startOrStopSignalled = false;
+
+			var commanderStoppedEventArgs = new CommanderStoppedEventArgs();
+			RaiseAsynchronousOnCommanderStoppedEvent(commanderStoppedEventArgs);
         }
 
         public bool IsRunning { get; private set; }
@@ -257,6 +269,242 @@ namespace Talifun.Commander.Command
         }
 
         #endregion
+
+		#region CommanderStartedEvent
+		/// <summary>
+		/// Where the actual event is stored.
+		/// </summary>
+		private CommanderStartedEventHandler _commanderStartedEvent;
+
+		/// <summary>
+		/// Lock for event delegate access.
+		/// </summary>
+		private readonly object _commanderStartedEventLock = new object();
+
+		/// <summary>
+		/// The event that is fired.
+		/// </summary>
+		public event CommanderStartedEventHandler CommanderStartedEvent
+		{
+			add
+			{
+				if (!Monitor.TryEnter(_commanderStartedEventLock, _lockTimeout))
+				{
+					throw new ApplicationException("Timeout waiting for lock - CommanderStartedEvent.add");
+				}
+				try
+				{
+					_commanderStartedEvent += value;
+				}
+				finally
+				{
+					Monitor.Exit(_commanderStartedEventLock);
+				}
+			}
+			remove
+			{
+				if (!Monitor.TryEnter(_commanderStartedEventLock, _lockTimeout))
+				{
+					throw new ApplicationException("Timeout waiting for lock - CommanderStartedEvent.remove");
+				}
+				try
+				{
+					_commanderStartedEvent -= value;
+				}
+				finally
+				{
+					Monitor.Exit(_commanderStartedEventLock);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Template method to add default behaviour for the event
+		/// </summary>
+		private void OnCommanderStartedEvent(CommanderStartedEventArgs e)
+		{
+			// TODO: Implement default behaviour of OnCommanderStartedEvent
+		}
+
+		private void AsynchronousOnCommanderStartedEventRaised(object state)
+		{
+			var e = state as CommanderStartedEventArgs;
+			RaiseOnCommanderStartedEvent(e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the calling thread synchronously. 
+		/// i.e. it will wait until all event handlers have processed the event.
+		/// </summary>
+		/// <param name="state">The state to be passed to the event.</param>
+		private void RaiseCrossThreadOnCommanderStartedEvent(CommanderStartedEventArgs e)
+		{
+			_asyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnCommanderStartedEventRaised), e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the calling thread asynchronously. 
+		/// i.e. it will immediatly continue processing even though event 
+		/// handlers have not processed the event yet.
+		/// </summary>
+		/// <param name="state">The state to be passed to the event.</param>
+		private void RaiseAsynchronousOnCommanderStartedEvent(CommanderStartedEventArgs e)
+		{
+			_asyncOperation.Post(new SendOrPostCallback(AsynchronousOnCommanderStartedEventRaised), e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the current thread synchronously.
+		/// i.e. it will wait until all event handlers have processed the event.
+		/// </summary>
+		/// <param name="e">The state to be passed to the event.</param>
+		private void RaiseOnCommanderStartedEvent(CommanderStartedEventArgs e)
+		{
+			// Make a temporary copy of the event to avoid possibility of
+			// a race condition if the last subscriber unsubscribes
+			// immediately after the null check and before the event is raised.
+
+			CommanderStartedEventHandler eventHandler;
+
+			if (!Monitor.TryEnter(_commanderStartedEventLock, _lockTimeout))
+			{
+				throw new ApplicationException("Timeout waiting for lock - RaiseOnCommanderStartedEvent");
+			}
+			try
+			{
+				eventHandler = _commanderStartedEvent;
+			}
+			finally
+			{
+				Monitor.Exit(_commanderStartedEventLock);
+			}
+
+			OnCommanderStartedEvent(e);
+
+			if (eventHandler != null)
+			{
+				eventHandler(this, e);
+			}
+		}
+		#endregion
+
+		#region CommanderStoppedEvent
+		/// <summary>
+		/// Where the actual event is stored.
+		/// </summary>
+		private CommanderStoppedEventHandler _commanderStoppedEvent;
+
+		/// <summary>
+		/// Lock for event delegate access.
+		/// </summary>
+		private readonly object _commanderStoppedEventLock = new object();
+
+		/// <summary>
+		/// The event that is fired.
+		/// </summary>
+		public event CommanderStoppedEventHandler CommanderStoppedEvent
+		{
+			add
+			{
+				if (!Monitor.TryEnter(_commanderStoppedEventLock, _lockTimeout))
+				{
+					throw new ApplicationException("Timeout waiting for lock - CommanderStoppedEvent.add");
+				}
+				try
+				{
+					_commanderStoppedEvent += value;
+				}
+				finally
+				{
+					Monitor.Exit(_commanderStoppedEventLock);
+				}
+			}
+			remove
+			{
+				if (!Monitor.TryEnter(_commanderStoppedEventLock, _lockTimeout))
+				{
+					throw new ApplicationException("Timeout waiting for lock - CommanderStoppedEvent.remove");
+				}
+				try
+				{
+					_commanderStoppedEvent -= value;
+				}
+				finally
+				{
+					Monitor.Exit(_commanderStoppedEventLock);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Template method to add default behaviour for the event
+		/// </summary>
+		private void OnCommanderStoppedEvent(CommanderStoppedEventArgs e)
+		{
+			// TODO: Implement default behaviour of OnCommanderStoppedEvent
+		}
+
+		private void AsynchronousOnCommanderStoppedEventRaised(object state)
+		{
+			var e = state as CommanderStoppedEventArgs;
+			RaiseOnCommanderStoppedEvent(e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the calling thread synchronously. 
+		/// i.e. it will wait until all event handlers have processed the event.
+		/// </summary>
+		/// <param name="state">The state to be passed to the event.</param>
+		private void RaiseCrossThreadOnCommanderStoppedEvent(CommanderStoppedEventArgs e)
+		{
+			_asyncOperation.SynchronizationContext.Send(new SendOrPostCallback(AsynchronousOnCommanderStoppedEventRaised), e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the calling thread asynchronously. 
+		/// i.e. it will immediatly continue processing even though event 
+		/// handlers have not processed the event yet.
+		/// </summary>
+		/// <param name="state">The state to be passed to the event.</param>
+		private void RaiseAsynchronousOnCommanderStoppedEvent(CommanderStoppedEventArgs e)
+		{
+			_asyncOperation.Post(new SendOrPostCallback(AsynchronousOnCommanderStoppedEventRaised), e);
+		}
+
+		/// <summary>
+		/// Will raise the event on the current thread synchronously.
+		/// i.e. it will wait until all event handlers have processed the event.
+		/// </summary>
+		/// <param name="e">The state to be passed to the event.</param>
+		private void RaiseOnCommanderStoppedEvent(CommanderStoppedEventArgs e)
+		{
+			// Make a temporary copy of the event to avoid possibility of
+			// a race condition if the last subscriber unsubscribes
+			// immediately after the null check and before the event is raised.
+
+			CommanderStoppedEventHandler eventHandler;
+
+			if (!Monitor.TryEnter(_commanderStoppedEventLock, _lockTimeout))
+			{
+				throw new ApplicationException("Timeout waiting for lock - RaiseOnCommanderStoppedEvent");
+			}
+			try
+			{
+				eventHandler = _commanderStoppedEvent;
+			}
+			finally
+			{
+				Monitor.Exit(_commanderStoppedEventLock);
+			}
+
+			OnCommanderStoppedEvent(e);
+
+			if (eventHandler != null)
+			{
+				eventHandler(this, e);
+			}
+		}
+		#endregion
 
         #region IDisposable Members
         private int _alreadyDisposed = 0;

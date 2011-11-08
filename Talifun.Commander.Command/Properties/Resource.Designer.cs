@@ -212,7 +212,7 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timeout waiting for lock - CommandErrorEvent.add.
+        ///   Looks up a localized string similar to Timeout waiting for lock - CommanderStartedEvent.add.
         /// </summary>
         public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockAdd {
             get {
@@ -221,7 +221,7 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timeout waiting for lock - CommandErrorEvent.remove.
+        ///   Looks up a localized string similar to Timeout waiting for lock - CommanderStartedEvent.remove.
         /// </summary>
         public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLockRemove {
             get {
