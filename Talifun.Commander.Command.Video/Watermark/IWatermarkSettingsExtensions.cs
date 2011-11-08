@@ -1,4 +1,4 @@
-﻿namespace Talifun.Commander.Command.Video
+﻿namespace Talifun.Commander.Command.Video.Watermark
 {
 	public static class IWatermarkSettingsExtensions
 	{

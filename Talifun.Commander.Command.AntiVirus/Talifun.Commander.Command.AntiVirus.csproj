@@ -35,6 +35,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit">
+      <HintPath>..\References\MassTransit.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -51,6 +54,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Esb\Request\AntiVirusCheckCancelMessageHandler.cs" />
+    <Compile Include="Esb\Request\AntiVirusCheckRequestMessageHandler.cs" />
+    <Compile Include="Esb\Request\AntiVirusCheckTestConfigurationRequestMessageHandler.cs" />
     <Compile Include="AntiVirusSaga.cs" />
     <Compile Include="Configuration\AntiVirusElement.Validation.cs">
       <DependentUpon>AntiVirusElement.cs</DependentUpon>
@@ -64,9 +70,19 @@
     </Compile>
     <Compile Include="Configuration\AntiVirusElementPanelDataModel.cs" />
     <Compile Include="Configuration\AntiVirusElementValidator.cs" />
-    <Compile Include="Configuration\AntiVirusTester.cs" />
+    <Compile Include="AntiVirusTester.cs" />
     <Compile Include="Configuration\AntiVirusElement.cs" />
     <Compile Include="Configuration\AntiVirusElementCollection.cs" />
+    <Compile Include="Esb\Events\AntiVirusCheckCompletedMessage.cs" />
+    <Compile Include="Esb\Events\AntiVirusCheckProgressMessage.cs" />
+    <Compile Include="Esb\Events\AntiVirusCheckStartedMessage.cs" />
+    <Compile Include="Esb\Response\AntiVirusCheckResponseMessage.cs" />
+    <Compile Include="Esb\Response\AntiVirusCheckResponseMessageHandler.cs" />
+    <Compile Include="Esb\Response\AntiVirusCheckTestConfigurationResponseMessage.cs" />
+    <Compile Include="Esb\Request\AntiVirusCheckCancelMessage.cs" />
+    <Compile Include="Esb\Request\AntiVirusCheckRequestMessage.cs" />
+    <Compile Include="Esb\Request\AntiVirusCheckTestConfigurationRequestMessage.cs" />
+    <Compile Include="Esb\Response\AntiVirusCheckTestConfigurationResponseMessageHandler.cs" />
     <Compile Include="Scanners\AntiVirusSettings.cs" />
     <Compile Include="Configuration\AntiVirusConfiguration.cs" />
     <Compile Include="McAfeeCommand.cs" />
@@ -116,6 +132,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

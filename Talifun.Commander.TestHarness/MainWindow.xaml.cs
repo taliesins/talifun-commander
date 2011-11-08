@@ -19,29 +19,41 @@ namespace Talifun.Commander.TestHarness
             InitializeComponent();
             this.Icon = Command.Properties.Resource.Commander.ToBitmap().ToBitmapSource();
             _commanderManager = CommanderManagerFactory.Instance.CreateCommandManager();
+			_commanderManager.CommanderStartedEvent += OnCommanderStarted;
+			_commanderManager.CommanderStoppedEvent += OnCommanderStopped;
             SetRunningState(_commanderManager.IsRunning);
         }
 
-        private void SetRunningState(bool isRunning)
-        {
-            StartButton.IsEnabled = !isRunning;
-            StopButton.IsEnabled = isRunning;
-        }
+		private void SetRunningState(bool isRunning)
+		{
+			StartButton.IsEnabled = !isRunning;
+			StopButton.IsEnabled = isRunning;
+		}
+
+		private void OnCommanderStarted(object sender, CommanderStartedEventArgs e)
+		{
+			SetRunningState(true);
+			_logger.Info("Talifun Commander service started");
+		}
+
+		private void OnCommanderStopped(object sender, CommanderStoppedEventArgs e)
+		{
+			SetRunningState(false);
+			_logger.Info("Talifun Commander service stopped");
+		}
 
         private void StartButtonClick(object sender, RoutedEventArgs e)
         {
 			_logger.Info("Talifun Commander service starting");
             _commanderManager.Start();
-            SetRunningState(true);
-			_logger.Info("Talifun Commander service started");
+        	StartButton.IsEnabled = false;
         }
 
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
 			_logger.Info("Talifun Commander service stopping");
             _commanderManager.Stop();
-            SetRunningState(false);
-			_logger.Info("Talifun Commander service stopped");
+        	StopButton.IsEnabled = false;
         }
 
         private void SettingsButtonClick(object sender, RoutedEventArgs e)

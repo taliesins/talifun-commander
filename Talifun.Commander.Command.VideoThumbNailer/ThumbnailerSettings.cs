@@ -1,4 +1,5 @@
 ﻿using System;
+using Talifun.Commander.Command.VideoThumbNailer;
 
 namespace Talifun.Commander.Command.VideoThumbnailer
 {

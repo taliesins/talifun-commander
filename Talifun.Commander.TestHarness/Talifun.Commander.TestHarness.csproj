@@ -206,30 +206,6 @@
       <Project>{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}</Project>
       <Name>Talifun.Commander.Command.AntiVirus</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj">
-      <Project>{A2A1A16E-0821-4618-AAE4-02D2EC477101}</Project>
-      <Name>Talifun.Commander.Command.Audio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
-      <Project>{3DF20FF4-076A-492C-8DF4-6C606DDE7419}</Project>
-      <Name>Talifun.Commander.Command.CommandLine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj">
-      <Project>{CFFF52F1-1870-4E7D-B951-800537243A97}</Project>
-      <Name>Talifun.Commander.Command.Image</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbNailer.csproj">
-      <Project>{261A8736-8B04-4584-B61E-7002D037100F}</Project>
-      <Name>Talifun.Commander.Command.VideoThumbNailer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
-      <Project>{A0AACC6C-F046-4057-9CAA-A313512C4E05}</Project>
-      <Name>Talifun.Commander.Command.Video</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj">
-      <Project>{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}</Project>
-      <Name>Talifun.Commander.Command.YouTubeUploader</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
       <Name>Talifun.Commander.Command</Name>

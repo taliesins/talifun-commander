@@ -5,6 +5,7 @@ using Talifun.Commander.Command.Video.AudioFormats;
 using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Command.Video.VideoFormats;
+using Talifun.Commander.Command.Video.Watermark;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video.WorkFlow

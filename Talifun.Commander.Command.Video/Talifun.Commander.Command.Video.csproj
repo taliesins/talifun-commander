@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MassTransit.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -88,8 +92,8 @@
     <Compile Include="Containers\WebmContainerSettings.cs" />
     <Compile Include="Gravity.cs" />
     <Compile Include="GravityExtensions.cs" />
-    <Compile Include="IWatermarkSettings.cs" />
-    <Compile Include="IWatermarkSettingsExtensions.cs" />
+    <Compile Include="Watermark\IWatermarkSettings.cs" />
+    <Compile Include="Watermark\IWatermarkSettingsExtensions.cs" />
     <Compile Include="WorkFlow\OnePassWorkFlow.cs" />
     <Compile Include="VideoFormats\FlvSettings.cs" />
     <Compile Include="WorkFlow\TwoPassWorkFlow.cs" />
@@ -107,7 +111,7 @@
     <Compile Include="VideoFormats\TheoraSettings.cs" />
     <Compile Include="VideoFormats\VpxSettings.cs" />
     <Compile Include="VideoFormats\XvidSettings.cs" />
-    <Compile Include="WatermarkSettings.cs" />
+    <Compile Include="Watermark\WatermarkSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
@@ -149,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="InternalMessages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

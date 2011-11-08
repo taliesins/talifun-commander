@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.AntiVirus.Configuration
+namespace Talifun.Commander.Command.AntiVirus
 {
     public class AntiVirusTester : CommandConfigurationTesterBase
     {

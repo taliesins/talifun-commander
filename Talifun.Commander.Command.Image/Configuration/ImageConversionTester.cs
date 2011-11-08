@@ -34,7 +34,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 								Settings.ElementCollectionSettingName,
 								Settings.ElementSettingName,
 								image.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
+                                Enum.GetName(typeof(ResizeMode), image.ResizeMode)));
                     }
                     if (image.Height == 0)
                     {
@@ -45,7 +45,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 								Settings.ElementCollectionSettingName,
 								Settings.ElementSettingName,
 								image.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
+                                Enum.GetName(typeof(ResizeMode), image.ResizeMode)));
                     }
                     break;
                 case ResizeMode.FitWidth:
@@ -60,7 +60,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 								Settings.ElementCollectionSettingName,
 								Settings.ElementSettingName,
 								image.Name,
-                                Enum.GetName(typeof(Commander.Command.Image.ResizeMode), image.ResizeMode)));
+                                Enum.GetName(typeof(ResizeMode), image.ResizeMode)));
                     }
                     break;
                 case ResizeMode.FitHeight:

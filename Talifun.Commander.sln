@@ -33,12 +33,6 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.YouTubeUploader", "Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj", "{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core Client", "..\google-gdata\clients\cs\src\core\Core Client.csproj", "{B6F6D938-0D45-42BA-8A67-55D92EF03995}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common Data Extensions", "..\google-gdata\clients\cs\src\extensions\Common Data Extensions.csproj", "{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTube", "..\google-gdata\clients\cs\src\youtube\YouTube.csproj", "{2C497F73-7C10-4DC6-A680-CAA9DF442E91}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -300,51 +294,6 @@ Global
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|x86.ActiveCfg = Release|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP|Any CPU.Build.0 = ASP|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP|Mixed Platforms.ActiveCfg = ASP|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP|Mixed Platforms.Build.0 = ASP|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.ASP|x86.ActiveCfg = ASP|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B6F6D938-0D45-42BA-8A67-55D92EF03995}.Release|x86.ActiveCfg = Release|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.ASP|Any CPU.Build.0 = ASP|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.ASP|Mixed Platforms.ActiveCfg = ASP|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.ASP|Mixed Platforms.Build.0 = ASP|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.ASP|x86.ActiveCfg = ASP|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{21BCB644-F9C3-4ADC-8BE1-4E55C6565011}.Release|x86.ActiveCfg = Release|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.ASP|Any CPU.ActiveCfg = ASP|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.ASP|Any CPU.Build.0 = ASP|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.ASP|Mixed Platforms.ActiveCfg = ASP|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.ASP|Mixed Platforms.Build.0 = ASP|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.ASP|x86.ActiveCfg = ASP|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2C497F73-7C10-4DC6-A680-CAA9DF442E91}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

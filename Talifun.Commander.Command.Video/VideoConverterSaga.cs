@@ -5,6 +5,7 @@ using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Command.Video.Properties;
 using Talifun.Commander.Command.Video.VideoFormats;
+using Talifun.Commander.Command.Video.Watermark;
 using Talifun.Commander.Command.Video.WorkFlow;
 
 namespace Talifun.Commander.Command.Video

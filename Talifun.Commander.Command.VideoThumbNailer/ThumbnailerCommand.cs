@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using Talifun.Commander.Command.VideoThumbNailer;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 using Talifun.Commander.Executor.FFMpeg;
 

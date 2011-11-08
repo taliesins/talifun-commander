@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
              xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" 
              xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="300" >
+                                mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="300" >
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
