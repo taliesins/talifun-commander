@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.ConfigurationChecker;
 using Talifun.Commander.Command.Image.Properties;
 
 namespace Talifun.Commander.Command.Image.Configuration

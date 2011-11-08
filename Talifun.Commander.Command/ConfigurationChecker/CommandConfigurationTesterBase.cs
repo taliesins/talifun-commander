@@ -3,7 +3,7 @@ using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.Properties;
 
-namespace Talifun.Commander.Command.Configuration
+namespace Talifun.Commander.Command.ConfigurationChecker
 {
     public abstract class CommandConfigurationTesterBase : ICommandConfigurationTester
     {

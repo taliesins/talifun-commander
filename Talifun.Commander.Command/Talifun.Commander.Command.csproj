@@ -83,7 +83,8 @@
     <Compile Include="CommanderStoppedEventHandler.cs" />
     <Compile Include="Esb\BusDriver.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />
-    <Compile Include="FileMatched\FileMatchedSaga.cs" />
+    <Compile Include="FolderWatcher\FileFinishedChangingMessage.cs" />
+    <Compile Include="FileMatcher\FileMatcherSaga.cs" />
     <Compile Include="Esb\IBusDriver.cs" />
     <Compile Include="Esb\ICommandIdentifier.cs" />
     <Compile Include="Configuration\BindToElementCollectionEventArgs.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="Configuration\ProjectElementValidator.cs" />
     <Compile Include="Configuration\SagaException.cs" />
     <Compile Include="Configuration\SettingPanelBase.cs" />
+    <Compile Include="FolderWatcher\FolderWatcherService.cs" />
+    <Compile Include="FolderWatcher\IFolderWatcherService.cs" />
     <Compile Include="ICommandManagerServiceBuses.cs" />
     <Compile Include="ConfigurationChecker\CommandConfigurationTester.cs" />
     <Compile Include="ConfigurationChecker\CommandConfigurationTesterBase.cs" />

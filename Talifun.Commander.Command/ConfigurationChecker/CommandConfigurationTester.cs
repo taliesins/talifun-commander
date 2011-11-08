@@ -5,9 +5,10 @@ using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Properties;
 
-namespace Talifun.Commander.Command.Configuration
+namespace Talifun.Commander.Command.ConfigurationChecker
 {
     [PartNotDiscoverable]
     public class CommandConfigurationTester : CommandConfigurationTesterBase

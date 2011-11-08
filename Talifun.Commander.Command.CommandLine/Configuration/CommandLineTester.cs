@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using Talifun.Commander.Command.CommandLine.Properties;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.ConfigurationChecker;
 
 namespace Talifun.Commander.Command.CommandLine.Configuration
 {

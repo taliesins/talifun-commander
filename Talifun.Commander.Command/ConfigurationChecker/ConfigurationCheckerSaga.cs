@@ -5,6 +5,7 @@ using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.ConfigurationChecker;
 using Talifun.Commander.Command.TestConfiguration;
 
 namespace Talifun.Commander.Command.Esb
