@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.YouTubeUploader.Configuration;
 
 namespace Talifun.Commander.Command.YouTubeUploader

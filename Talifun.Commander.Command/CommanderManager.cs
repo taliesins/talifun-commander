@@ -2,13 +2,15 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
+using System.IO;
 using System.Threading;
 using MassTransit;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.ConfigurationChecker.Messages;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FolderWatcher;
-using Talifun.Commander.Command.TestConfiguration;
 using Talifun.Commander.FileWatcher;
+using log4net.Config;
 
 namespace Talifun.Commander.Command
 {
@@ -19,12 +21,14 @@ namespace Talifun.Commander.Command
     	private readonly ExportProvider _container;
 		private readonly AppSettingsSection _appSettings;
     	private readonly CommanderSection _commanderSettings;
-		private readonly ICommandManagerServiceBuses _commandManagerServiceBuses = new CommandManagerServiceBuses();
+		private readonly CommanderService _commanderService = new CommanderService();
 		private readonly IFolderWatcherService _folderWatcherService;
 		private bool _startOrStopSignalled = false;
 		
 		public CommanderManager(ExportProvider container, AppSettingsSection appSettings, CommanderSection commanderSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
         {
+			XmlConfigurator.Configure(new FileInfo("log4net.config"));
+
             _container = container;
 			_appSettings = appSettings;
             _commanderSettings = commanderSettings;
@@ -43,9 +47,9 @@ namespace Talifun.Commander.Command
         {
             if (IsRunning || _startOrStopSignalled) return;
 			_startOrStopSignalled = true;
-        	_commandManagerServiceBuses.Start();
+        	_commanderService.Start();
 
-			var bus = BusDriver.Instance.GetBus(CommandManagerServiceBuses.CommandManagerBusName);
+			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
 			bus.SubscribeHandler<ResponseTestConfigurationMessage>((message) =>
 			{
 				IsRunning = true;
@@ -66,7 +70,7 @@ namespace Talifun.Commander.Command
             if (!IsRunning || _startOrStopSignalled) return;
             _startOrStopSignalled = true;
 			_folderWatcherService.Stop();
-			_commandManagerServiceBuses.Stop();
+			_commanderService.Stop();
             IsRunning = false;
             _startOrStopSignalled = false;
 

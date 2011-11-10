@@ -8,7 +8,7 @@ using Talifun.Commander.Command.ConfigurationChecker;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
-    public class AntiVirusTester : CommandConfigurationTesterBase
+    public class OldAntiVirusTester : CommandConfigurationTesterBase
     {
         #region ICommandConfigurationTester Members
         public override ISettingConfiguration Settings

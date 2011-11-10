@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using MassTransit.Serialization;
 using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
@@ -10,9 +16,14 @@ namespace Talifun.Commander.Command.Configuration
     /// Defines an abstract base class for configuration elements that can be contained within sections that derive from
     /// <see cref="ConfigurationElementCollection" />.
     /// </summary>
-	public abstract class NamedConfigurationElement : ConfigurationElement, INotifyPropertyChanged, INotifyPropertyChanging 
+	public abstract class NamedConfigurationElement : ConfigurationElement, INotifyPropertyChanged, INotifyPropertyChanging, ISerializable
     {
-		public ISettingConfiguration Setting { get; protected set; }
+		public NamedConfigurationElement()
+		{
+
+		}
+
+    	public ISettingConfiguration Setting { get; protected set; }
 
         /// <summary>
         /// Gets or sets a string containing the name of this configuration element.
@@ -32,7 +43,6 @@ namespace Talifun.Commander.Command.Configuration
 		/// Occurs when a property value is about to be changed.
 		/// </summary>
 		public event PropertyChangingEventHandler PropertyChanging;
-
 
 		/// <summary>
 		/// Raises the <see cref="PropertyChanged"/> event for
@@ -122,5 +132,78 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			get { return base.IsModified(); }
 		}
-	}
+
+		#region ISerializable Members
+		public NamedConfigurationElement(SerializationInfo info, StreamingContext context)
+		{
+			SetObjectData(info, context);
+		}
+
+
+		public void SetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			if (info == null)
+				throw new System.ArgumentNullException("info");
+
+			foreach (ConfigurationProperty property in Properties)
+			{
+				//All because Masstransit has set WriteArrayAttribute = false in XmlMessageSerializer
+				Object value = null;
+				if (typeof(IEnumerable).IsAssignableFrom(property.Type))
+				{
+					try
+					{
+						value = info.GetValue(property.Name, property.Type);	
+					} 
+					catch(SerializationException exception)
+					{
+						if (exception.Message == string.Format("Member '{0}' was not found.", property.Name))
+						{
+							value = Activator.CreateInstance(property.Type);
+						}
+						else
+						{
+							throw;
+						}
+					} catch(Exception exception)
+					{
+						if (exception.Message == string.Format("Cannot deserialize JSON object into type '{0}'.", property.Type.FullName))
+						{
+							value = Activator.CreateInstance(property.Type);
+
+							var itemType = (property.Type.GetInterfaces()
+								.Where(iType => iType.IsGenericType && iType.GetGenericTypeDefinition() == typeof (IEnumerable<>))
+								.Select(iType => iType.GetGenericArguments()[0]))
+								.FirstOrDefault();
+
+							var itemValue = info.GetValue(property.Name, itemType);
+
+							var method = property.Type.GetMethod("Add");
+							method.Invoke(value, new object[] {itemValue});
+						}
+						else
+						{
+							throw;	
+						}
+					}
+				}
+				else
+				{
+					value = info.GetValue(property.Name, property.Type);	
+				}
+				
+				base[property] = value;
+			}
+		}
+
+		public void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			foreach (ConfigurationProperty property in Properties)
+			{
+				info.AddValue(property.Name, base[property], property.Type);
+			}
+		}
+
+		#endregion
+    }
 }

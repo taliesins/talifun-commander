@@ -61,7 +61,7 @@ namespace Talifun.Commander.Command.Esb
 			ServiceBusFactory.ConfigureDefaultSettings(x =>
 			{
 				x.SetEndpointCache(EndpointCache);
-				x.SetConcurrentConsumerLimit(4);
+				x.SetConcurrentConsumerLimit(1);
 				x.SetReceiveTimeout(50.Milliseconds());
 				x.EnableAutoStart();
 			});

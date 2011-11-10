@@ -1,8 +1,7 @@
 ﻿using System.Configuration;
-using System.IO;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command
+namespace Talifun.Commander.Command.FileMatcher
 {
     public interface ICommandSagaProperties
     {

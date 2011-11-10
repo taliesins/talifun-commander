@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Magnum, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Magnum.dll</HintPath>
+    </Reference>
     <Reference Include="MassTransit">
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
@@ -54,10 +58,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiVirusSaga.cs" />
+    <Compile Include="AntiVirusService.cs" />
     <Compile Include="Esb\Request\AntiVirusCheckCancelMessageHandler.cs" />
     <Compile Include="Esb\Request\AntiVirusCheckRequestMessageHandler.cs" />
     <Compile Include="Esb\Request\AntiVirusCheckTestConfigurationRequestMessageHandler.cs" />
-    <Compile Include="AntiVirusSaga.cs" />
+    <Compile Include="OldAntiVirusSaga.cs" />
     <Compile Include="Configuration\AntiVirusElement.Validation.cs">
       <DependentUpon>AntiVirusElement.cs</DependentUpon>
     </Compile>
@@ -70,7 +76,7 @@
     </Compile>
     <Compile Include="Configuration\AntiVirusElementPanelDataModel.cs" />
     <Compile Include="Configuration\AntiVirusElementValidator.cs" />
-    <Compile Include="AntiVirusTester.cs" />
+    <Compile Include="OldAntiVirusTester.cs" />
     <Compile Include="Configuration\AntiVirusElement.cs" />
     <Compile Include="Configuration\AntiVirusElementCollection.cs" />
     <Compile Include="Esb\Events\AntiVirusCheckCompletedMessage.cs" />

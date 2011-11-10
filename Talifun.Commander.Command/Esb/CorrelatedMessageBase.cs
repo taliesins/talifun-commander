@@ -1,14 +1,13 @@
 ﻿using System;
-using MassTransit;
 
-namespace Talifun.Commander.Command.TestConfiguration
+namespace Talifun.Commander.Command.Esb
 {
 	[Serializable]
-	public class RequestTestConfigurationMessage : IEquatable<RequestTestConfigurationMessage>, CorrelatedBy<Guid>
+	public abstract class CorrelatedMessageBase<T> : ICommandIdentifier, IEquatable<T> where T : ICommandIdentifier
 	{
 		public Guid CorrelationId { get; set; }
 
-		public bool Equals(RequestTestConfigurationMessage obj)
+		public bool Equals(T obj)
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
@@ -19,8 +18,8 @@ namespace Talifun.Commander.Command.TestConfiguration
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != typeof(RequestTestConfigurationMessage)) return false;
-			return Equals((RequestTestConfigurationMessage)obj);
+			if (obj.GetType() != typeof(T)) return false;
+			return Equals((T)obj);
 		}
 
 		public override int GetHashCode()

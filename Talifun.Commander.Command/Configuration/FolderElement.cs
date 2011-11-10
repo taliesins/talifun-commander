@@ -1,13 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 
 namespace Talifun.Commander.Command.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
-    public sealed partial class FolderElement : NamedConfigurationElement, IDataErrorInfo
+	public sealed partial class FolderElement : NamedConfigurationElement
     {
         private static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
         private static readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
@@ -40,6 +41,12 @@ namespace Talifun.Commander.Command.Configuration
 			Setting = FolderConfiguration.Instance;	
 		}
 
+		public FolderElement(SerializationInfo info, StreamingContext context)
+			: this()
+		{
+			SetObjectData(info, context);
+		}
+
         /// <summary>
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
@@ -65,7 +72,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		public string GetFolderToWatchOrDefault()
 		{
-			return string.IsNullOrEmpty(FolderToWatch)
+			return String.IsNullOrEmpty(FolderToWatch)
 				? Configuration.CurrentConfiguration.DefaultPaths.FolderToWatch(this)
 				: FolderToWatch;
 		}
@@ -158,6 +165,7 @@ namespace Talifun.Commander.Command.Configuration
         {
             get { return ((FileMatchElementCollection)base[fileMatches]); }
         }
+
 
         /// <summary>
         /// Gets the collection of configuration properties contained by this configuration element.

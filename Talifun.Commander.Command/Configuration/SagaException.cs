@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Talifun.Commander.Command.FileMatcher;
 
 namespace Talifun.Commander.Command.Configuration
 {

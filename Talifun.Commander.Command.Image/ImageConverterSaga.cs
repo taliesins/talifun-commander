@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.Image.Configuration;
 
 namespace Talifun.Commander.Command.Image

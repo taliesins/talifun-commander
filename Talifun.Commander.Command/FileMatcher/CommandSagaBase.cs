@@ -6,7 +6,7 @@ using NLog;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Properties;
 
-namespace Talifun.Commander.Command
+namespace Talifun.Commander.Command.FileMatcher
 {
     public abstract class CommandSagaBase : ICommandSaga
     {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using FluentValidation.Results;
 
@@ -26,9 +27,9 @@ namespace Talifun.Commander.Command.Configuration
             get
             {
                 var validationResults = SelfValidate();
-                if (validationResults == null) return string.Empty;
-                var columnResults = validationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
-                return columnResults != null ? columnResults.ErrorMessage : string.Empty;
+                if (validationResults == null) return String.Empty;
+                var columnResults = validationResults.Errors.FirstOrDefault<ValidationFailure>(x => String.Compare(x.PropertyName, columnName, true) == 0);
+                return columnResults != null ? columnResults.ErrorMessage : String.Empty;
             }
         }
     }

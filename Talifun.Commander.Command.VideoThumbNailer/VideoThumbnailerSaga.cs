@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.VideoThumbnailer;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 

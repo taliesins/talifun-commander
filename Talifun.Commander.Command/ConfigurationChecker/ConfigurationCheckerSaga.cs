@@ -6,7 +6,7 @@ using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.ConfigurationChecker;
-using Talifun.Commander.Command.TestConfiguration;
+using Talifun.Commander.Command.ConfigurationChecker.Messages;
 
 namespace Talifun.Commander.Command.Esb
 {

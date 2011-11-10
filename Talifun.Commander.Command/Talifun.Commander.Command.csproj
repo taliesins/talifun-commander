@@ -78,12 +78,24 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CommandManagerServiceBuses.cs" />
+    <Compile Include="CommanderService.cs" />
     <Compile Include="CommanderStoppedEventArgs.cs" />
     <Compile Include="CommanderStoppedEventHandler.cs" />
+    <Compile Include="CommandServiceBase.cs" />
     <Compile Include="Esb\BusDriver.cs" />
+    <Compile Include="Esb\CorrelatedMessageBase.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />
-    <Compile Include="FolderWatcher\FileFinishedChangingMessage.cs" />
+    <Compile Include="FileMatcher\Messages\ProcessedFileMatchesMessage.cs" />
+    <Compile Include="FileMatcher\Messages\ProcessFileMatchesMessage.cs" />
+    <Compile Include="FileMatcher\Messages\MovedProcessedFileIntoCompletedDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\MoveProcessedFileIntoCompletedDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\DeletedTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\DeleteTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\MovedFileToBeProcessedIntoTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\CreateTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\MoveFileToBeProcessedIntoTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Messages\CreatedTempDirectoryMessage.cs" />
+    <Compile Include="FolderWatcher\Messages\FileFinishedChangingMessage.cs" />
     <Compile Include="FileMatcher\FileMatcherSaga.cs" />
     <Compile Include="Esb\IBusDriver.cs" />
     <Compile Include="Esb\ICommandIdentifier.cs" />
@@ -127,7 +139,6 @@
     <Compile Include="Configuration\SettingPanelBase.cs" />
     <Compile Include="FolderWatcher\FolderWatcherService.cs" />
     <Compile Include="FolderWatcher\IFolderWatcherService.cs" />
-    <Compile Include="ICommandManagerServiceBuses.cs" />
     <Compile Include="ConfigurationChecker\CommandConfigurationTester.cs" />
     <Compile Include="ConfigurationChecker\CommandConfigurationTesterBase.cs" />
     <Compile Include="CommandContainer.cs" />
@@ -136,8 +147,8 @@
     <Compile Include="CommanderStartedEventArgs.cs" />
     <Compile Include="CommanderStartedEventHandler.cs" />
     <Compile Include="CommandProperties.cs" />
-    <Compile Include="CommandSagaBase.cs" />
-    <Compile Include="CommandSagaProperties.cs" />
+    <Compile Include="FileMatcher\CommandSagaBase.cs" />
+    <Compile Include="FileMatcher\CommandSagaProperties.cs" />
     <Compile Include="Configuration\CommanderSection.cs" />
     <Compile Include="Configuration\CommanderSectionWindow.xaml.cs">
       <DependentUpon>CommanderSectionWindow.xaml</DependentUpon>
@@ -164,8 +175,8 @@
     <Compile Include="Esb\Events\ICommandCompletedMessage.cs" />
     <Compile Include="Esb\Events\ICommandStartedMessage.cs" />
     <Compile Include="Esb\ServiceInstance.cs" />
-    <Compile Include="ConfigurationChecker\ResponseTestConfigurationMessage.cs" />
-    <Compile Include="ConfigurationChecker\RequestTestConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Messages\ResponseTestConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Messages\RequestTestConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\ConfigurationCheckerSaga.cs" />
     <Compile Include="FileExtensions.cs" />
     <Compile Include="ICommandConfiguration.cs" />
@@ -173,8 +184,9 @@
     <Compile Include="ICommanderManager.cs" />
     <Compile Include="ICommanderManagerFactory.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="ICommandSaga.cs" />
-    <Compile Include="ICommandSagaProperties.cs" />
+    <Compile Include="FileMatcher\ICommandSaga.cs" />
+    <Compile Include="FileMatcher\ICommandSagaProperties.cs" />
+    <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
     <Compile Include="Esb\Request\ICommandCancelMessage.cs" />
     <Compile Include="Esb\Request\ICommandCancelMessageHandler.cs" />
@@ -293,24 +305,37 @@
     <Reference Include="MassTransit">
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Stact, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Stact.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
     <Reference Include="WPFToolkit.Extended">
       <HintPath>..\References\WPFToolkit.Extended.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

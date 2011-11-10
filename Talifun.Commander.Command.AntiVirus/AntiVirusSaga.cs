@@ -1,61 +1,33 @@
-﻿using System.IO;
-using Talifun.Commander.Command.AntiVirus.Configuration;
+﻿using System;
+using Magnum.StateMachine;
+using MassTransit;
+using MassTransit.Saga;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
-    public class AntiVirusSaga : CommandSagaBase
-    {
-        public override ISettingConfiguration Settings
-        {
-            get
-            {
-                return AntiVirusConfiguration.Instance;
-            }
-        }
+	[Serializable]
+	public class AntiVirusSaga : SagaStateMachine<AntiVirusSaga>, ISaga
+	{
+		static AntiVirusSaga()
+		{
+			Define(() =>
+			{
+			});
+		}
 
-        public McAfeeSettings GetMcAfeeSettings(AntiVirusElement antiVirus)
-        {
-            return new McAfeeSettings();
-        }
+		// ReSharper disable UnusedMember.Global
+		public static State Initial { get; set; }
+		// ReSharper restore UnusedMember.Global
+		// ReSharper disable UnusedMember.Global
+		public static State Completed { get; set; }
+		// ReSharper restore UnusedMember.Global
 
-        public override void Run(ICommandSagaProperties properties)
-        {
-            var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+		public AntiVirusSaga(Guid correlationId)
+		{
+			CorrelationId = correlationId;
+		}
 
-            try
-            {
-                workingDirectoryPath.Create();
-
-                var output = string.Empty;
-                FileInfo workingFilePath = null;
-
-                var fileVirusFree = false;
-
-                switch (antiVirusSetting.VirusScannerType)
-                {
-                    case VirusScannerType.NotSpecified:
-                    case VirusScannerType.McAfee:
-                        var mcAfeeSettings = GetMcAfeeSettings(antiVirusSetting);
-                        var mcAfeeCommand = new McAfeeCommand();
-                        fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
-                        break;
-                }
-
-                if (!fileVirusFree)
-                {
-                    MoveCompletedFileToOutputFolder(workingFilePath, antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
-                }
-                else
-                {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, antiVirusSetting.GetErrorProcessingPathOrDefault());
-                }
-            }
-            finally
-            {
-                Cleanup(workingDirectoryPath);
-            }
-        }
-    }
+		public Guid CorrelationId { get; private set; }
+		public IServiceBus Bus { get; set; }
+	}
 }

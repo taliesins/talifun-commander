@@ -5,6 +5,7 @@ using System.Threading;
 using MassTransit;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.FolderWatcher.Messages;
 using Talifun.Commander.FileWatcher;
 
 namespace Talifun.Commander.Command.FolderWatcher
@@ -82,11 +83,12 @@ namespace Talifun.Commander.Command.FolderWatcher
 
 			var fileFinishedChangingMessage = new FileFinishedChangingMessage
 			{
+				CorrelationId = Guid.NewGuid(),
 				FilePath = e.FilePath,
 				Folder = (FolderElement)e.UserState
 			};
 
-			BusDriver.Instance.GetBus(CommandManagerServiceBuses.CommandManagerBusName).Publish(fileFinishedChangingMessage);
+			BusDriver.Instance.GetBus(FolderWatcherServiceBusName).Publish(fileFinishedChangingMessage);
 		}
 
         #region IDisposable Members

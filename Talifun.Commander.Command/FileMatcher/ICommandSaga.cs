@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 
-namespace Talifun.Commander.Command
+namespace Talifun.Commander.Command.FileMatcher
 {
     [InheritedExport]
     public interface ICommandSaga

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -10,6 +12,7 @@ using Talifun.Commander.Command.Properties;
 namespace Talifun.Commander.Command.Configuration
 {
     [InheritedExport]
+	[Serializable]
     public abstract class CurrentConfigurationElementCollection : ConfigurationElementCollection, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>
@@ -58,26 +61,27 @@ namespace Talifun.Commander.Command.Configuration
         /// Remove an element from the collection.
         /// </summary>
         /// <param name="index">The index of the element to remove from the collection.</param>
-        public void Remove(int index)
+        public bool Remove(int index)
         {
             var configurationElement = base.BaseGet(index);
-            if (base.BaseGet(index) == null) return;
+            if (base.BaseGet(index) == null) return false;
 			this.OnPropertyChanging(IndexerName);
 			this.OnPropertyChanging(CountString);
             base.BaseRemoveAt(index);
             this.OnPropertyChanged(CountString);
             this.OnPropertyChanged(IndexerName);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement, index));
+        	return true;
         }
 
         /// <summary>
         /// Remove an element from the collection.
         /// </summary>
         /// <param name="name">The name of the element to remove from the collection.</param>
-        public void Remove(string name)
+		public bool Remove(string name)
         {
             var configurationElement = base.BaseGet(name);
-            if (configurationElement == null) return;
+            if (configurationElement == null) return false;
         	var index = base.BaseIndexOf(configurationElement);
 			this.OnPropertyChanging(IndexerName);
 			this.OnPropertyChanging(CountString);
@@ -85,6 +89,7 @@ namespace Talifun.Commander.Command.Configuration
 			this.OnPropertyChanged(CountString);
 			this.OnPropertyChanged(IndexerName);
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, configurationElement, index));
+			return true;
 		}
 
         /// <summary>
@@ -267,7 +272,7 @@ namespace Talifun.Commander.Command.Configuration
     /// Defines a generic collection class for strongly-typed configuration elements, where <typeparamref name="T"/> is a type derived from <see cref="System.Configuration.ConfigurationElement" />.
     /// </summary>
     /// <typeparam name="T">A type derived from <see cref="System.Configuration.ConfigurationElement" />.</typeparam>
-	public abstract class CurrentConfigurationElementCollection<T> : CurrentConfigurationElementCollection where T : NamedConfigurationElement, new()
+	public abstract class CurrentConfigurationElementCollection<T> : CurrentConfigurationElementCollection, IList<T> where T : NamedConfigurationElement, new()
     {
         /// <summary>
         /// Gets or sets the configuration element at the specified index.
@@ -354,6 +359,123 @@ namespace Talifun.Commander.Command.Configuration
 		public new bool IsModified
 		{
 			get { return base.IsModified(); }
+		}
+
+		public void Add(T item)
+		{
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
+			this.BaseAdd(item);
+			this.OnPropertyChanged(CountString);
+			this.OnPropertyChanged(IndexerName);
+			var index = this.BaseIndexOf(item);
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+		}
+
+		public void Clear()
+		{
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
+			base.BaseClear();
+			this.OnPropertyChanged(CountString);
+			this.OnPropertyChanged(IndexerName);
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+		}
+
+		public bool Contains(T item)
+		{
+			return (base.BaseIndexOf(item) > -1);
+		}
+
+		public void CopyTo(T[] array, int arrayIndex)
+		{
+			base.CopyTo(array, arrayIndex);
+		}
+
+		public new bool IsReadOnly
+		{
+			get { return base.IsReadOnly(); }
+		}
+
+		public bool Remove(T item)
+		{
+			var index = base.BaseIndexOf(item);
+			var result = false;
+			if (index > -1)
+			{
+				this.OnPropertyChanging(IndexerName);
+				this.OnPropertyChanging(CountString);
+				result = base.Remove(index);
+				this.OnPropertyChanged(CountString);
+				this.OnPropertyChanged(IndexerName);
+				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+			}
+
+			return result;
+		}
+
+		public int IndexOf(T item)
+		{
+			return base.BaseIndexOf(item);
+		}
+
+		public void Insert(int index, T item)
+		{
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
+			this.BaseAdd(index, item);
+			this.OnPropertyChanged(CountString);
+			this.OnPropertyChanged(IndexerName);
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+		}
+
+		public void RemoveAt(int index)
+		{
+			var item = base.BaseGet(index);
+			this.OnPropertyChanging(IndexerName);
+			this.OnPropertyChanging(CountString);
+			base.BaseRemoveAt(index);
+			this.OnPropertyChanged(CountString);
+			this.OnPropertyChanged(IndexerName);
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+		}
+
+		public new IEnumerator<T> GetEnumerator()
+		{
+			return new WrapperEnumerator(base.GetEnumerator());
+		}
+
+		private class WrapperEnumerator : IEnumerator<T>
+		{
+			private readonly IEnumerator _enumerator;
+			public WrapperEnumerator(IEnumerator enumerator)
+			{
+				_enumerator = enumerator;
+			}
+
+			public T Current
+			{
+				get { return (T)_enumerator.Current; }
+			}
+
+			object IEnumerator.Current
+			{
+				get { return _enumerator.Current; }
+			}
+
+			public bool MoveNext()
+			{
+				return _enumerator.MoveNext();
+			}
+
+			public void Reset()
+			{
+				_enumerator.Reset();
+			}
+
+			public void Dispose()
+			{
+			}
 		}
 	}
 }
