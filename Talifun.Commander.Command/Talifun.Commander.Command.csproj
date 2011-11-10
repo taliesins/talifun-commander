@@ -85,6 +85,11 @@
     <Compile Include="Esb\BusDriver.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />
+    <Compile Include="FileMatcher\MessageHandlers\CreateTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MessageHandlers\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MessageHandlers\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MessageHandlers\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MessageHandlers\ProcessFileMatchesMessageHandler.cs" />
     <Compile Include="FileMatcher\Messages\ProcessedFileMatchesMessage.cs" />
     <Compile Include="FileMatcher\Messages\ProcessFileMatchesMessage.cs" />
     <Compile Include="FileMatcher\Messages\MovedProcessedFileIntoCompletedDirectoryMessage.cs" />
