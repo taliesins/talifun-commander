@@ -12,11 +12,11 @@ namespace Talifun.Commander.Command.Esb
 		{
 			DataBus = ServiceBusFactory.New(x =>
 			{
+				x.UseJsonSerializer();
 				x.UseSubscriptionService(subscriptionServiceUri);
-
 				x.ReceiveFrom(name);
 				x.UseControlBus();
-				x.SetConcurrentConsumerLimit(5);
+				x.SetConcurrentConsumerLimit(1);
 
 				configurator(x);
 			});

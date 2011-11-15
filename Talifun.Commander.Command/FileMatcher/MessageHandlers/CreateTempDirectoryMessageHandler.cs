@@ -11,12 +11,10 @@ namespace Talifun.Commander.Command.FileMatcher.MessageHandlers
 		public void Consume(CreateTempDirectoryMessage message)
 		{
 			var fileInfo = new FileInfo(message.FilePath);
-			if (!fileInfo.Exists)
+			if (fileInfo.Exists)
 			{
-				return;
+				fileInfo.WaitForFileToUnlock(10, 500);
 			}
-
-			fileInfo.WaitForFileToUnlock(10, 500);
 
 			var fileName = fileInfo.Name;
 			var uniqueDirectoryName = "master." + fileName + "." + Guid.NewGuid();

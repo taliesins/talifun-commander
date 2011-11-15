@@ -1,0 +1,2693 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>MassTransit</name>
+  </assembly>
+  <members>
+    <member name="T:MassTransit.Bus">
+      <summary>
+            This is a static singleton instance of an IServiceBus. While it goes
+            against my very soul, it is here to ensure consistent usage of MassTransit
+            as a singleton. It is highly recommended that ServiceBusFactory.New() be
+            used instead and the application maintain the reference to the IServiceBus.
+            </summary>
+    </member>
+    <member name="M:MassTransit.Bus.Initialize(System.Action{MassTransit.BusConfigurators.ServiceBusConfigurator})">
+      <summary>
+            Call to initialize the service bus instance, including any configuration
+            </summary>
+      <param name="configure">
+      </param>
+    </member>
+    <member name="M:MassTransit.Bus.Shutdown">
+      <summary>
+            Shuts down the service bus and disposes any used resources
+            </summary>
+    </member>
+    <member name="P:MassTransit.Bus.Instance">
+      <summary>
+            The configured instance of the service bus.
+            </summary>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.Add``1(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator)">
+      <summary>
+            Add an environment to the configuration
+            </summary>
+      <typeparam name="TEnvironment">The environment class to add</typeparam>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.Add``1(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator,``0)">
+      <summary>
+            Add an environment to the configuration
+            </summary>
+      <typeparam name="TEnvironment">The environment class to add</typeparam>
+      <param name="configurator">
+      </param>
+      <param name="environment">The environment instance already created and ready to use</param>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.Add``1(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator,System.Func{``0})">
+      <summary>
+            Add an environment to the configuration
+            </summary>
+      <typeparam name="TEnvironment">The environment class to add</typeparam>
+      <param name="configurator">
+      </param>
+      <param name="environmentFactory">The factory method to create the environment instance</param>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.SelectByAppSetting(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator,System.String)">
+      <summary>
+            Selects the current environment using an application setting from the App.config/Web.config
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="settingName">
+      </param>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.SelectByEnvironmentVariable(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator,System.String)">
+      <summary>
+            Selects the current environment using an environment variable from the current process
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="valueName">
+      </param>
+    </member>
+    <member name="M:MassTransit.Advanced.EnvironmentExtensions.SelectByMachineName(MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator)">
+      <summary>
+            Selects the current environment using the local machine name
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="T:MassTransit.Builders.BusBuilder">
+      <summary>
+            A BusBuilder is the base interface for building service, and includes things like
+            control bus, subscription bus, and other limited-functionality bus instances
+            </summary>
+    </member>
+    <member name="M:MassTransit.Builders.BusBuilder.Build">
+      <summary>
+            Builds the bus instance
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Builders.BusBuilder.AddPostCreateAction(System.Action{MassTransit.ServiceBus})">
+      <summary>
+            Adds an action to be performed after bus creation to adjust settings, etc.
+            but before the bus is started.
+            </summary>
+      <param name="postCreateAction">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.BusBuilder.AddBusServiceConfigurator(MassTransit.BusServiceConfigurators.BusServiceConfigurator)">
+      <summary>
+            Adds a bus service that will be started and stopped with the service bus 
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.BusBuilder.Match``1(System.Action{``0})">
+      <summary>
+            Used to match a builder with a specific type, to allow customization of class properties
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="callback">
+      </param>
+    </member>
+    <member name="P:MassTransit.Builders.BusBuilder.Settings">
+      <summary>
+            The settings to creating the bus, including address, etc.
+            </summary>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.Build">
+      <summary>
+            Create the endpoint factory
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.SetDefaultSerializer(MassTransit.Serialization.IMessageSerializer)">
+      <summary>
+            Sets the default serializer used for endpoints
+            </summary>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.SetDefaultTransactionTimeout(System.TimeSpan)">
+      <summary>
+            Sets the default transaction timeout for transactional queue operations
+            </summary>
+      <param name="transactionTimeout">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.SetCreateMissingQueues(System.Boolean)">
+      <summary>
+            Sets the flag indicating that missing queues should be created
+            </summary>
+      <param name="createMissingQueues">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.SetCreateTransactionalQueues(System.Boolean)">
+      <summary>
+            When creating queues, attempt to create transactional queues if available
+            </summary>
+      <param name="createTransactionalQueues">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.SetPurgeOnStartup(System.Boolean)">
+      <summary>
+            Specifies if the input queue should be purged on startup
+            </summary>
+      <param name="purgeOnStartup">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.AddEndpointBuilder(System.Uri,MassTransit.Builders.EndpointBuilder)">
+      <summary>
+            Provides a configured endpoint builder for the specified URI
+            </summary>
+      <param name="uri">
+      </param>
+      <param name="endpointBuilder">
+      </param>
+    </member>
+    <member name="M:MassTransit.Builders.EndpointFactoryBuilder.AddTransportFactory(MassTransit.Transports.ITransportFactory)">
+      <summary>
+            Adds a transport factory to the builder
+            </summary>
+      <param name="transportFactory">
+      </param>
+    </member>
+    <member name="T:MassTransit.Builders.ServiceBusBuilder">
+      <summary>
+            A ServiceBusBuilder includes everything for configuring a complete service bus instance,
+            and is an extension of the BusBuilder (which can only build a limited, dependent bus)
+            </summary>
+    </member>
+    <member name="M:MassTransit.Builders.ServiceBusBuilder.UseControlBus(MassTransit.IControlBus)">
+      <summary>
+            Specifies a control bus to associate with the service bus once created
+            </summary>
+      <param name="controlBus">
+      </param>
+    </member>
+    <member name="M:MassTransit.Advanced.AdvancedBusConfiguratorExtensions.SetConcurrentReceiverLimit(MassTransit.BusConfigurators.ServiceBusConfigurator,System.Int32)">
+      <summary>
+            Sets the number of concurrent receive threads that can execute simultaneously. In many cases, such as when
+            using non-transactional transports, this can lead to very-bad-things(TM)
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="concurrentReceiverLimit">
+      </param>
+    </member>
+    <member name="M:MassTransit.Advanced.AdvancedBusConfiguratorExtensions.SetReceiveTimeout(MassTransit.BusConfigurators.ServiceBusConfigurator,System.TimeSpan)">
+      <summary>
+            Sets the receive timeout on the service bus endpoint receiver. Settings this to a lower value has limited
+            benefit other than in unit testing to reduce bus disposal time
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="receiveTimeout">
+      </param>
+    </member>
+    <member name="T:MassTransit.BusServiceLayer">
+      <summary>
+            The layer of the service, which controls the order in which it is started and stopped
+            </summary>
+    </member>
+    <member name="F:MassTransit.BusServiceLayer.Network">
+      <summary>
+            The lowest level, and includes things that sit just above transports
+            </summary>
+    </member>
+    <member name="F:MassTransit.BusServiceLayer.Session">
+      <summary>
+            The next level, which includes subscription, timeout, health, and other services that must
+            be running before the application can start.
+            </summary>
+    </member>
+    <member name="F:MassTransit.BusServiceLayer.Presentation">
+      <summary>
+            The next level, which includes services that sit on top of the session services but not yet
+            application level services, such as the distributor and workers
+            </summary>
+    </member>
+    <member name="F:MassTransit.BusServiceLayer.Application">
+      <summary>
+            The highest level, which includes an application level services, such as subscriptions
+            </summary>
+    </member>
+    <member name="T:MassTransit.IConsumerFactory`1">
+      <summary>
+            Maps an instance of a consumer to one or more Consume methods for the specified message type
+            
+            The whole purpose for this interface is to allow the creator of the consumer to manage the lifecycle
+            of the consumer, along with anything else that needs to be managed by the factory, container, etc.
+            </summary>
+      <typeparam name="TConsumer">The Consumer type</typeparam>
+    </member>
+    <member name="M:MassTransit.IConsumerFactory`1.GetConsumer``1(MassTransit.IConsumeContext{``0},MassTransit.Pipeline.InstanceHandlerSelector{`0,``0})">
+      <summary>
+            Returns the Consume actions for the Consumer that should handle the specified message type
+            </summary>
+      <typeparam name="TMessage">The type of message being handled</typeparam>
+      <param name="context">The context of the message being handled</param>
+      <param name="selector">The selector to obtain the handlers from the consumer instance</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.IInboundMessageInterceptor">
+      <summary>
+            Implementations can be added to the inbound message pipeline to intercept
+            messages before they are delivered to any consumers.
+            </summary>
+    </member>
+    <member name="M:MassTransit.IInboundMessageInterceptor.PreDispatch(MassTransit.IConsumeContext)">
+      <summary>
+            Called before the message is dispatched to the next handler in the pipeline
+            </summary>
+      <param name="context">The context of the message being dispatched</param>
+    </member>
+    <member name="M:MassTransit.IInboundMessageInterceptor.PostDispatch(MassTransit.IConsumeContext)">
+      <summary>
+            Calls after the message has been dispatched through the pipeline
+            </summary>
+      <param name="context">The context of the message being dispatched</param>
+    </member>
+    <member name="T:MassTransit.Configuration.IServiceBusEnvironment">
+      <summary>
+            Environments are used to execute environment specific configuration based
+            on the selection of an active environment by some external configuration.
+            </summary>
+    </member>
+    <member name="M:MassTransit.Configuration.IServiceBusEnvironment.Configure(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+      <summary>
+            Called by MassTransit when the implementation class name matches the environment
+            name that is specified.
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="T:MassTransit.Configurators.ValidationResult">
+      <summary>
+            Reports information about the configuration before configuring
+            so that corrections can be made without allocating resources, etc.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Configurators.ValidationResult.Disposition">
+      <summary>
+            The disposition of the result, any Failure items will prevent
+            the configuration from completing.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Configurators.ValidationResult.Message">
+      <summary>
+            The message associated with the result
+            </summary>
+    </member>
+    <member name="P:MassTransit.Configurators.ValidationResult.Key">
+      <summary>
+            The key associated with the result (chained if configurators are nested)
+            </summary>
+    </member>
+    <member name="P:MassTransit.Configurators.ValidationResult.Value">
+      <summary>
+            The value associated with the result
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurationExtensions.ConfigureEndpoint``1(``0,System.String)">
+      <summary>
+            Returns a configurator for the specified endpoint URI
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="uriString">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurationExtensions.ConfigureEndpoint``1(``0,System.Uri)">
+      <summary>
+            Returns a configurator for the specified endpoint URI
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="uri">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurationExtensions.ConfigureEndpoint``1(``0,System.String,System.Action{MassTransit.EndpointConfigurators.EndpointConfigurator})">
+      <summary>
+            Configures the endpoint for the specified endpoint URI
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="uriString">
+      </param>
+      <param name="configureCallback">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurationExtensions.ConfigureEndpoint``1(``0,System.Uri,System.Action{MassTransit.EndpointConfigurators.EndpointConfigurator})">
+      <summary>
+            Configures the endpoint for the specified URI
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="uri">
+      </param>
+      <param name="configureCallback">
+      </param>
+    </member>
+    <member name="M:MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator.Add(System.String,System.Func{MassTransit.Configuration.IServiceBusEnvironment})">
+      <summary>
+            Add an environment to the configuration
+            </summary>
+      <param name="environmentName">The name of the environment</param>
+      <param name="environmentFactory">The factory to create the environment class instance</param>
+    </member>
+    <member name="M:MassTransit.EnvironmentConfigurators.EnvironmentsConfigurator.Select(System.String)">
+      <summary>
+            Selects the current environment, which determines the environment class(es) that will be executed.
+            </summary>
+      <param name="environmentName">The name of the current environment</param>
+    </member>
+    <member name="M:MassTransit.HandlerSubscriptionExtensions.Handler``1(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,System.Action{``0})">
+      <summary>
+            Subscribes a message handler (which can be any delegate of the message type,
+            such as a class instance method, a delegate, or a lambda expression)
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="configurator">
+      </param>
+      <param name="handler">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.HandlerSubscriptionExtensions.SubscribeHandler``1(MassTransit.IServiceBus,System.Action{``0})">
+      <summary>
+            Adds a message handler to the service bus for handling a specific type of message
+            </summary>
+      <typeparam name="T">The message type to handle, often inferred from the callback specified</typeparam>
+      <param name="bus">
+      </param>
+      <param name="handler">The callback to invoke when messages of the specified type arrive on the service bus</param>
+    </member>
+    <member name="M:MassTransit.HandlerSubscriptionExtensions.SubscribeContextHandler``1(MassTransit.IServiceBus,System.Action{MassTransit.IConsumeContext{``0}})">
+      <summary>
+            Adds a message handler to the service bus for handling a specific type of message
+            </summary>
+      <typeparam name="T">The message type to handle, often inferred from the callback specified</typeparam>
+      <param name="bus">
+      </param>
+      <param name="handler">The callback to invoke when messages of the specified type arrive on the service bus</param>
+    </member>
+    <member name="M:MassTransit.HandlerSubscriptionExtensions.SubscribeHandler``1(MassTransit.IServiceBus,System.Action{``0},System.Predicate{``0})">
+      <summary>
+            Adds a message handler to the service bus for handling a specific type of message
+            </summary>
+      <typeparam name="T">The message type to handle, often inferred from the callback specified</typeparam>
+      <param name="bus">
+      </param>
+      <param name="handler">The callback to invoke when messages of the specified type arrive on the service bus</param>
+      <param name="condition">
+      </param>
+    </member>
+    <member name="M:MassTransit.HandlerSubscriptionExtensions.SubscribeHandlerSelector``1(MassTransit.IServiceBus,MassTransit.Pipeline.HandlerSelector{``0})">
+      <summary>
+            Adds a message handler to the service bus for handling a specific type of message
+            </summary>
+      <typeparam name="T">The message type to handle, often inferred from the callback specified</typeparam>
+      <param name="bus">
+      </param>
+      <param name="handler">The callback to invoke when messages of the specified type arrive on the service bus</param>
+    </member>
+    <member name="M:MassTransit.InstanceSubscriptionExtensions.Instance(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,System.Object)">
+      <summary>
+            Subscribes an object instance to the bus
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="instance">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.InstanceSubscriptionExtensions.SubscribeInstance(MassTransit.IServiceBus,System.Object)">
+      <summary>
+            Connects any consumers for the component to the message dispatcher
+            </summary>
+      <param name="bus">
+      </param>
+      <param name="instance">
+      </param>
+    </member>
+    <member name="M:MassTransit.InstanceSubscriptionExtensions.SubscribeInstance``1(MassTransit.IServiceBus,``0)">
+      <summary>
+            Connects any consumers for the component to the message dispatcher
+            </summary>
+      <typeparam name="T">The consumer type</typeparam>
+      <param name="bus">
+      </param>
+      <param name="instance">
+      </param>
+    </member>
+    <member name="M:MassTransit.SubscriptionBuilders.SubscriptionBusServiceBuilder.AddSubscriptionBuilder(MassTransit.SubscriptionBuilders.SubscriptionBuilder)">
+      <summary>
+            Add a subscription builder to the service so that it is subscribed when
+            the bus is started.
+            </summary>
+      <param name="builder">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryDefaultSettingsConfigurator.SetDefaultSerializer(MassTransit.Serialization.IMessageSerializer)">
+      <summary>
+            Sets the default serializer used for endpoints
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryDefaultSettingsConfigurator.SetDefaultTransactionTimeout(System.TimeSpan)">
+      <summary>
+            Sets the default transaction timeout for transactional queue operations
+            </summary>
+      <param name="transactionTimeout">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryDefaultSettingsConfigurator.SetCreateMissingQueues(System.Boolean)">
+      <summary>
+            Sets the flag indicating that missing queues should be created
+            </summary>
+      <param name="createMissingQueues">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryDefaultSettingsConfigurator.SetCreateTransactionalQueues(System.Boolean)">
+      <summary>
+            When creating queues, attempt to create transactional queues if available
+            </summary>
+      <param name="createTransactionalQueues">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryDefaultSettingsConfigurator.SetPurgeOnStartup(System.Boolean)">
+      <summary>
+            Specifies if the input queue should be purged on startup
+            </summary>
+      <param name="purgeOnStartup">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ControlBusConfigurator.ReceiveFrom(System.Uri)">
+      <summary>
+            Specify the endpoint from which messages should be read
+            </summary>
+      <param name="uri">The uri of the endpoint</param>
+    </member>
+    <member name="T:MassTransit.EndpointConfigurators.EndpointConfigurator">
+      <summary>
+            Configure the endpoint
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.UseSerializer(MassTransit.Serialization.IMessageSerializer)">
+      <summary>
+            Specify a serializer for this endpoint (overrides the default)
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.SetErrorAddress(System.Uri)">
+      <summary>
+            Overrides the default error address with a new error address
+            </summary>
+      <param name="uri">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.SetTransportFactory(System.Func{MassTransit.Transports.ITransportFactory,MassTransit.Transports.ITransportSettings,MassTransit.Transports.IDuplexTransport})">
+      <summary>
+            Overrides the transport factory when the error transport is created, to modify the behavior
+            </summary>
+      <param name="transportFactory">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.SetErrorTransportFactory(System.Func{MassTransit.Transports.ITransportFactory,MassTransit.Transports.ITransportSettings,MassTransit.Transports.IOutboundTransport})">
+      <summary>
+            Overrides the transport factory when the error transport is created, to modify the behavior
+            </summary>
+      <param name="errorTransportFactory">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.PurgeExistingMessages">
+      <summary>
+            Remove any existing messages from the endpoint when it is created
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.CreateTransactional">
+      <summary>
+            Creates the endpoint as transactional if it needs to be created
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.CreateIfMissing">
+      <summary>
+            Creates the endpoint if it is missing
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.SetTransactionTimeout(System.TimeSpan)">
+      <summary>
+            Sets the transaction timeout for the endpoint
+            </summary>
+      <param name="timeout">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointConfigurator.SetIsolationLevel(System.Transactions.IsolationLevel)">
+      <summary>
+            Sets the isolation level for the endpoint if it is transactional
+            </summary>
+      <param name="isolationLevel">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.EndpointConfigurators.EndpointFactoryConfigurator">
+      <summary>
+            Allows for the configuration of the EndpointFactory through the use of an EndpointFactoryConfigurator
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryConfigurator.CreateEndpointFactory">
+      <summary>
+            Creates the endpoint factory with the configuration
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryConfigurator.UseEndpointFactoryBuilder(System.Func{MassTransit.EndpointConfigurators.IEndpointFactoryDefaultSettings,MassTransit.Builders.EndpointFactoryBuilder})">
+      <summary>
+            Overrides the default EndpointResolver builder with another builder
+            </summary>
+      <param name="endpointFactoryBuilderFactory">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfigurators.EndpointFactoryConfigurator.AddEndpointFactoryConfigurator(MassTransit.EndpointConfigurators.EndpointFactoryBuilderConfigurator)">
+      <summary>
+            Adds an endpoint configurator to the endpoint resolver builder
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.UseBusBuilder(System.Func{MassTransit.Configuration.BusSettings,MassTransit.Builders.BusBuilder})">
+      <summary>
+            Specifies the builder factory to use when the service is invoked
+            </summary>
+      <param name="builderFactory">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.AddSubscriptionCoordinatorConfigurator(MassTransit.SubscriptionConfigurators.SubscriptionRouterBuilderConfigurator)">
+      <summary>
+            Adds a configurator to the subscription coordinator builder
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.AddBusConfigurator(MassTransit.BusConfigurators.BusBuilderConfigurator)">
+      <summary>
+            Adds a configurator for the service bus builder to the configurator
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.ReceiveFrom(System.Uri)">
+      <summary>
+            Specify the endpoint from which messages should be read
+            </summary>
+      <param name="uri">The uri of the endpoint</param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.SetNetwork(System.String)">
+      <summary>
+            Sets the network key for subscriptions
+            </summary>
+      <param name="network">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.BeforeConsumingMessage(System.Action)">
+      <summary>
+            Specifies an action to call before a message is consumed
+            </summary>
+      <param name="beforeConsume">
+      </param>
+    </member>
+    <member name="M:MassTransit.BusConfigurators.ServiceBusConfigurator.AfterConsumingMessage(System.Action)">
+      <summary>
+            Specifies an action to call after a message is consumed
+            </summary>
+      <param name="afterConsume">
+      </param>
+    </member>
+    <member name="M:MassTransit.ControlBusConfigurationExtensions.UseControlBus(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+      <summary>
+            Create a control bus using the default settings and associate it with the ServiceBus being configured.
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.ControlBusConfigurationExtensions.UseControlBus(MassTransit.BusConfigurators.ServiceBusConfigurator,System.Action{MassTransit.BusConfigurators.ControlBusConfigurator})">
+      <summary>
+            Create a control bus, associate it with the ServiceBus being configured, and allow for customization using
+            the specified method.
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="configure">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfiguratorExtensions.UseSerializer``1(MassTransit.EndpointConfigurators.EndpointConfigurator)">
+      <summary>
+            Specify a serializer for this endpoint (overrides the default)
+            </summary>
+      <typeparam name="TSerializer">
+      </typeparam>
+    </member>
+    <member name="M:MassTransit.EndpointConfiguratorExtensions.UseSerializer(MassTransit.EndpointConfigurators.EndpointConfigurator,System.Type)">
+      <summary>
+            Specify a serializer for this endpoint (overrides the default)
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="serializerType">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfiguratorExtensions.DiscardFaultingMessages(MassTransit.EndpointConfigurators.EndpointConfigurator)">
+      <summary>
+            Specifies a null transport for error messages
+            </summary>
+      <param name="configurator">
+      </param>
+    </member>
+    <member name="M:MassTransit.EndpointConfiguratorExtensions.SetErrorAddress(MassTransit.EndpointConfigurators.EndpointConfigurator,System.String)">
+      <summary>
+            Overrides the default error address with a new error address
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.SerializerConfigurationExtensions.SetDefaultSerializer``1(MassTransit.EndpointConfigurators.EndpointFactoryConfigurator)">
+      <summary>
+            Sets the default message serializer for endpoints
+            </summary>
+      <typeparam name="TSerializer">
+      </typeparam>
+      <param name="configurator">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.SerializerConfigurationExtensions.SetDefaultSerializer``1(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+      <summary>
+            Sets the default message serializer for endpoints
+            </summary>
+      <typeparam name="TSerializer">
+      </typeparam>
+      <param name="configurator">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.SerializerConfigurationExtensions.SetDefaultSerializer``1(``0,System.Type)">
+      <summary>
+            Sets the default message serializer for endpoints
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="serializerType">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.SerializerConfigurationExtensions.SetDefaultSerializer``1(``0,MassTransit.Serialization.IMessageSerializer)">
+      <summary>
+            Sets the default message serializer for endpoints
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="serializer">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.ServiceBusConfiguratorExtensions.ReceiveFrom(MassTransit.BusConfigurators.ServiceBusConfigurator,System.String)">
+      <summary>
+            Specify the endpoint from which messages should be read
+            </summary>
+      <param name="configurator">
+      </param>
+      <param name="uriString">The uri of the endpoint</param>
+    </member>
+    <member name="T:MassTransit.ServiceBusFactory">
+      <summary>
+            The starting point to configure and create a service bus instance
+            </summary>
+    </member>
+    <member name="M:MassTransit.BusServiceConfigurators.BusServiceConfigurator.Create(MassTransit.IServiceBus)">
+      <summary>
+            Creates the service
+            </summary>
+      <param name="bus">
+      </param>
+      <returns>The instance of the service</returns>
+    </member>
+    <member name="P:MassTransit.BusServiceConfigurators.BusServiceConfigurator.ServiceType">
+      <summary>
+            Returns the type of the service created by the configurator
+            </summary>
+    </member>
+    <member name="T:MassTransit.SubscriptionConfigurators.SubscriptionConfigurator`1">
+      <summary>
+            The base configuration interface for a subscription
+            </summary>
+    </member>
+    <member name="T:MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator">
+      <summary>
+            The configuration scope for subscriptions on the bus
+            </summary>
+    </member>
+    <member name="T:MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfiguratorImpl">
+      <summary>
+            Handles the configuration of subscriptions as part of the bus
+            
+            </summary>
+    </member>
+    <member name="M:MassTransit.TransactionConfigurationExtensions.SetDefaultTransactionTimeout``1(``0,System.TimeSpan)">
+      <summary>
+            Sets the default transaction timeout for transactional transports
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="configurator">
+      </param>
+      <param name="timeout">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.IMessageContext">
+      <summary>
+            The base message context, including all the message headers
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.MessageId">
+      <summary>
+            The transport id of the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.MessageType">
+      <summary>
+            The type of the message in FullName, Assembly format
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.ContentType">
+      <summary>
+            The content type of the message from the transport
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.RequestId">
+      <summary>
+            The request identifier this message is either a request or a response
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.ConversationId">
+      <summary>
+            The conversation identifier is a higher-level identifier for trace/correlation of conversations
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.CorrelationId">
+      <summary>
+            If the message is CorrelatedBy, this header contains the string version of the correlation identifier
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.SourceAddress">
+      <summary>
+            The address from which this message originated
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.InputAddress">
+      <summary>
+            The address from which this message was most recently read
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.DestinationAddress">
+      <summary>
+            The address to which the message was originally sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.ResponseAddress">
+      <summary>
+            The address where responses to this message should be sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.FaultAddress">
+      <summary>
+            The address where faults generated by consumers of this message should be sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.Network">
+      <summary>
+            Identifies a specific network to which this message belongs and is used to filter
+            out messages that might be from un-trusted networks
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.ExpirationTime">
+      <summary>
+            The expiration time of the message, if set, otherwise null
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.RetryCount">
+      <summary>
+            The number of times this message has been delivered to the consumer
+            </summary>
+    </member>
+    <member name="P:MassTransit.IMessageContext.Headers">
+      <summary>
+            Key/value headers that are application-specific
+            </summary>
+    </member>
+    <member name="T:MassTransit.IConsumeContext">
+      <summary>
+            The consumer context can be used by message consumers to retrieve out-of-band information
+            related to a message
+            </summary>
+    </member>
+    <member name="M:MassTransit.IConsumeContext.TryGetContext``1(MassTransit.IConsumeContext{``0}@)">
+      <summary>
+            Retrieves a specified message type from the consumer context, if available
+            </summary>
+      <typeparam name="T">The message type requested</typeparam>
+      <param name="context">The message context for the requested message type</param>
+      <returns>True if the message type is available, otherwise false.</returns>
+    </member>
+    <member name="M:MassTransit.IConsumeContext.Respond``1(``0,System.Action{MassTransit.ISendContext{``0}})">
+      <summary>
+            Respond to the current message, sending directly to the ResponseAddress if specified
+            otherwise publishing the message
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="message">The message to send in response</param>
+      <param name="contextCallback">The context action for specifying additional context information</param>
+    </member>
+    <member name="P:MassTransit.IConsumeContext.Bus">
+      <summary>
+            The bus on which the message was received
+            </summary>
+    </member>
+    <member name="P:MassTransit.IConsumeContext.Endpoint">
+      <summary>
+            The endpoint from which the message was received
+            </summary>
+    </member>
+    <member name="M:MassTransit.IConsumeContext`1.RetryLater">
+      <summary>
+            Send the message to the end of the input queue so that it can be processed again later
+            </summary>
+    </member>
+    <member name="M:MassTransit.IConsumeContext`1.GenerateFault(System.Exception)">
+      <summary>
+            Sends the message to either the fault address if specified or publishes the fault
+            </summary>
+    </member>
+    <member name="M:MassTransit.IReceiveContext.SetContentType(System.String)">
+      <summary>
+            Set the content type that was indicated by the transport message header
+            </summary>
+      <param name="value">
+      </param>
+    </member>
+    <member name="M:MassTransit.Context.ReceiveContext.Respond``1(``0,System.Action{MassTransit.ISendContext{``0}})">
+      <summary>
+            Respond to the current inbound message with either a send to the ResponseAddress or a
+            Publish on the bus that received the message
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="message">The message to send/publish</param>
+      <param name="contextCallback">The action to setup the context on the outbound message</param>
+    </member>
+    <member name="P:MassTransit.Context.ReceiveContext.Endpoint">
+      <summary>
+            The endpoint from which the message was received
+            </summary>
+    </member>
+    <member name="P:MassTransit.Context.ReceiveContext.Bus">
+      <summary>
+            The bus on which the message was received
+            </summary>
+    </member>
+    <member name="M:MassTransit.ISendContext.SerializeTo(System.IO.Stream)">
+      <summary>
+            Serializes the message to the stream
+            </summary>
+      <param name="stream">The target stream for the serialized message</param>
+    </member>
+    <member name="M:MassTransit.ISendContext.TryGetContext``1(MassTransit.IBusPublishContext{``0}@)">
+      <summary>
+            Determines if the send context can be converted to the requested type
+            </summary>
+      <typeparam name="T">The requested type</typeparam>
+      <param name="context">The resulting context that was created for the requested message type</param>
+      <returns>True if the message can be assigned to the requested type, otherwise false</returns>
+    </member>
+    <member name="M:MassTransit.ISendContext.NotifySend(MassTransit.IEndpointAddress)">
+      <summary>
+            Called when the send context has been used to send a message to an endpoint
+            </summary>
+      <param name="address">The address to which the message was sent</param>
+    </member>
+    <member name="P:MassTransit.ISendContext.Id">
+      <summary>
+            The identifier for this message publish/send
+            </summary>
+    </member>
+    <member name="P:MassTransit.ISendContext.DeclaringMessageType">
+      <summary>
+            The original message type that was sent/published
+            </summary>
+    </member>
+    <member name="M:MassTransit.ISendContext`1.SetReceiveContext(MassTransit.IReceiveContext)">
+      <summary>
+            Sets the receive context that the send was created in for tracing
+            </summary>
+      <param name="receiveContext">
+      </param>
+    </member>
+    <member name="M:MassTransit.IPublishContext`1.IfNoSubscribers(System.Action)">
+      <summary>
+            Defines an action to be called if there are no subscribers for the message
+            </summary>
+      <param name="callback">The action to call if there are no subscribers registered</param>
+    </member>
+    <member name="M:MassTransit.IPublishContext`1.ForEachSubscriber(System.Action{MassTransit.IEndpointAddress})">
+      <summary>
+            Defines an action to be called for each subscriber of the message
+            </summary>
+      <param name="callback">The action to call for each subscriber, including the endpoint address of the destination endpoint</param>
+    </member>
+    <member name="M:MassTransit.IBusPublishContext`1.NotifyNoSubscribers">
+      <summary>
+            Called if there are no subscribers for the message
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="message">
+      </param>
+    </member>
+    <member name="M:MassTransit.IBusPublishContext`1.WasEndpointAlreadySent(MassTransit.IEndpointAddress)">
+      <summary>
+            Determines if the endpoint was already sent to during this publish
+            </summary>
+      <param name="address">The address of the endpoint to check</param>
+      <returns>True if the message was already sent to the specified endpoint address</returns>
+    </member>
+    <member name="T:MassTransit.Context.ContextStorage">
+      <summary>
+            The default context provider using thread local storage
+            </summary>
+    </member>
+    <member name="T:MassTransit.IBusService">
+      <summary>
+            A bus service is an extension to the service bus, and is used to create services that
+            add functionality to the service bus, such as subscription managers, distributors, etc.
+            
+            This interface should not be used in most situations and is typically an internal
+            use thing.
+            </summary>
+    </member>
+    <member name="M:MassTransit.IBusService.Start(MassTransit.IServiceBus)">
+      <summary>
+            Called when the service is being started, which is after the service bus has been started.
+            </summary>
+      <param name="bus">
+      </param>
+    </member>
+    <member name="M:MassTransit.IBusService.Stop">
+      <summary>
+            Called when the ServiceBus is being disposed, to allow any resources or subscriptions
+            to be released.
+            </summary>
+    </member>
+    <member name="T:MassTransit.IConsumer">
+      <summary>
+            Marker interface used to assist identification in IoC containers.
+            Not to be used directly.
+            </summary>
+      <remarks>
+            Not to be used directly by application code. Is an internal artifact only.
+            </remarks>
+    </member>
+    <member name="T:MassTransit.Consumes`1">
+      <summary>
+      </summary>
+      <typeparam name="TMessage">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Consumes`1.All">
+      <summary>
+            Declares a Consume method for the message type TMessage which is called
+            whenever a a message is received of the specified type.
+            </summary>
+    </member>
+    <member name="T:MassTransit.Consumes`1.Selected">
+      <summary>
+            Declares a selective consumer method for the message type TMessage. In addition
+            to the Consume(TMessage) method, an additional Accept method is used to allow
+            the consumer object to accept or ignore the message before it is delivered to
+            the consumer.
+            </summary>
+    </member>
+    <member name="T:MassTransit.Consumes`1.Context">
+      <summary>
+            Declares a Consume method for the message type TMessage wrapped in the 
+            consume context
+            </summary>
+    </member>
+    <member name="T:MassTransit.Consumes`1.For`1">
+      <summary>
+            Called by the framework when a message is available to be consumed that
+            matches the correlationId of the consumer object instance (exposed by the
+            CorrelationId property). This is called by a framework thread, so care
+            should be used when accessing any shared objects.
+            </summary>
+      <typeparam name="TCorrelationId">The type of the CorrelationId to match</typeparam>
+    </member>
+    <member name="T:MassTransit.CorrelatedBy`1">
+      <summary>
+              Used to identify a message as correlated so that the CorrelationId can be returned
+            </summary>
+      <typeparam name="TKey">The type of the CorrelationId used</typeparam>
+    </member>
+    <member name="P:MassTransit.CorrelatedBy`1.CorrelationId">
+      <summary>
+              Returns the CorrelationId for the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.Id">
+      <summary>
+            The trace identifier for this message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.StartTime">
+      <summary>
+            The date/time the message was received from the transport
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.Duration">
+      <summary>
+            The amount of time spent processing the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.MessageId">
+      <summary>
+            The transport id of the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.MessageType">
+      <summary>
+            The type of the message in FullName, Assembly format
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.ContentType">
+      <summary>
+            The content type of the message from the transport
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.SourceAddress">
+      <summary>
+            The address from which this message originated
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.InputAddress">
+      <summary>
+            The address from which this message was most recently read
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.DestinationAddress">
+      <summary>
+            The address to which the message was originally sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.ResponseAddress">
+      <summary>
+            The address where responses to this message should be sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.FaultAddress">
+      <summary>
+            The address where faults generated by consumers of this message should be sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.Network">
+      <summary>
+            Identifies a specific network to which this message belongs and is used to filter
+            out messages that might be from un-trusted networks
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.ExpirationTime">
+      <summary>
+            The expiration time of the message, if set, otherwise null
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetail.RetryCount">
+      <summary>
+            The number of times this message has been delivered to the consumer
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetailImpl.Duration">
+      <summary>
+            The amount of time spent processing the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetailImpl.Id">
+      <summary>
+            The trace identifier for this message receive
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.MessageTraceDetailImpl.StartTime">
+      <summary>
+            The date/time the message was received from the transport
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceivedMessageTraceDetail.Receivers">
+      <summary>
+            The receivers that processed the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceivedMessageTraceDetail.SentMessages">
+      <summary>
+            The messages that were sent while the message was being received
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceiverTraceDetail.MessageType">
+      <summary>
+            The message type consumed by the receiver
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceiverTraceDetail.ReceiverType">
+      <summary>
+            The type of receiver that consumed the message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceiverTraceDetail.CorrelationId">
+      <summary>
+            Correlation information related to the receiver (saga Id, etc.)
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceiverTraceDetail.StartTime">
+      <summary>
+            The time the receiver started processing the message, relative to the receive time
+            </summary>
+    </member>
+    <member name="P:MassTransit.Diagnostics.ReceiverTraceDetail.Duration">
+      <summary>
+            The time at which the receiver was done processing the message
+            </summary>
+    </member>
+    <member name="T:MassTransit.Diagnostics.GetMessageTraceListImpl">
+      <summary>
+            Returns the trace history from the diagnostics service
+            </summary>
+    </member>
+    <member name="T:MassTransit.Diagnostics.SentMessageTraceDetail">
+      <summary>
+            A message that was sent while a message was being received
+            </summary>
+    </member>
+    <member name="T:MassTransit.IOutboundMessageInterceptor">
+      <summary>
+            Implementations can be added to the outbound message pipeline to intercept
+            messages before they are delivered to any endpoints.
+            </summary>
+    </member>
+    <member name="M:MassTransit.IOutboundMessageInterceptor.PreDispatch(MassTransit.ISendContext)">
+      <summary>
+            Called before the message is dispatched to the next handler in the pipeline
+            </summary>
+      <param name="context">The context of the message being dispatched</param>
+    </member>
+    <member name="M:MassTransit.IOutboundMessageInterceptor.PostDispatch(MassTransit.ISendContext)">
+      <summary>
+            Calls after the message has been dispatched through the pipeline
+            </summary>
+      <param name="context">The context of the message being dispatched</param>
+    </member>
+    <member name="T:MassTransit.Pipeline.Inspectors.PipelineInspectorBase`1">
+      <summary>
+            Base class for pipeline inspectors
+            </summary>
+    </member>
+    <member name="T:MassTransit.Pipeline.HandlerSelector`1">
+      <summary>
+            Given a message, returns the handler for that message, or null if the message
+            should be ignored.
+            </summary>
+      <typeparam name="TMessage">The message type</typeparam>
+      <param name="context">The consume context of the message</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.HandlerSelector">
+      <summary>
+            Helpers for creating HandlerSelectors
+            </summary>
+    </member>
+    <member name="T:MassTransit.Pipeline.MultipleHandlerSelector`1">
+      <summary>
+            Returns zero to many handlers for the message, aligns with the pipeline sink requirements
+            </summary>
+      <typeparam name="TMessage">
+      </typeparam>
+      <param name="context">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.MultipleHandlerSelector">
+      <summary>
+            A static class to create delegates easily
+            </summary>
+    </member>
+    <member name="M:MassTransit.Pipeline.MultipleHandlerSelector.ForHandler``1(MassTransit.Pipeline.HandlerSelector{``0})">
+      <summary>
+            Creates a MultipleHandlerSelector for the selector 
+            </summary>
+      <typeparam name="TMessage">The message type of the handler</typeparam>
+      <param name="selector">The selector to promote to a MultipleHandlerSelector</param>
+      <returns>A MultipleHandlerSelector delegate for the specified message type</returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.IPipelineSink`1">
+      <summary>
+            Implemented by all classes that can be inserted into the pipeline
+            </summary>
+      <typeparam name="T">The message type passed by this sink</typeparam>
+    </member>
+    <member name="M:MassTransit.Pipeline.IPipelineSink`1.Enumerate(`0)">
+      <summary>
+            Passes a message through the pipeline returning all consumers for the message
+            so that it can be dispatched to those consumers. The message does not actually dispatch
+            in the pipeline, the consumers Consume method is called.
+            </summary>
+      <param name="context">
+      </param>
+      <returns>An enumerable of consumers for the message</returns>
+    </member>
+    <member name="M:MassTransit.Pipeline.IPipelineSink`1.Inspect(MassTransit.Pipeline.IPipelineInspector)">
+      <summary>
+            Walks the pipeline from the current sink forward, calling back to the inspector for each
+            sink in the pipeline.
+            DING: Visitor Pattern merit badge awarded
+            </summary>
+      <param name="inspector">The inspector to call back to for each sink</param>
+      <returns>True if the inspection should continue, false to stop</returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.ContextConsumerMessageSink`2">
+      <summary>
+            Routes messages to instances of subscribed components. A new instance of the component
+            is created from the container for each message received.
+            </summary>
+      <typeparam name="TComponent">The component type to handle the message</typeparam>
+      <typeparam name="TMessage">The message to handle</typeparam>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.RequestMessageRouter`2">
+      <summary>
+            Maintains a dictionary of valid values for the specified string expression
+            </summary>
+      <typeparam name="TMessage">The type of the message to be routed</typeparam>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.RequestResponse.Configurators.RequestConfigurator`1">
+      <summary>
+            Configures a request and the associated response handler behavior
+            </summary>
+      <typeparam name="TRequest">The message type of the request</typeparam>
+      <typeparam name="TKey">The correlation key for the request and response messages</typeparam>
+    </member>
+    <member name="M:MassTransit.RequestResponse.Configurators.RequestConfigurator`1.Handle``1(System.Action{``0})">
+      <summary>
+            Configures a handler to be called if a response of the specified type
+            is received. Once received, the request completes by default unless
+            overridden by calling Continue on the request.
+            </summary>
+      <typeparam name="TResponse">The message type of the response</typeparam>
+      <param name="handler">The handler to call with the response message</param>
+    </member>
+    <member name="M:MassTransit.RequestResponse.Configurators.RequestConfigurator`1.HandleTimeout(System.TimeSpan,System.Action)">
+      <summary>
+            Specifies a timeout period after which the request should be cancelled
+            </summary>
+      <param name="timeout">The timeout period</param>
+      <param name="timeoutCallback">
+      </param>
+    </member>
+    <member name="M:MassTransit.RequestResponse.Configurators.RequestConfigurator`1.SetTimeout(System.TimeSpan)">
+      <summary>
+            Specifies a timeout period after which the request should be cancelled and
+            a TimeoutException should be thrown
+            </summary>
+      <param name="timeout">The timeout period</param>
+    </member>
+    <member name="P:MassTransit.RequestResponse.Configurators.RequestConfigurator`1.Request">
+      <summary>
+            The request message that was sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.RequestResponse.Configurators.RequestConfigurator`1.RequestId">
+      <summary>
+            Returns the identifier assigned to this request
+            </summary>
+    </member>
+    <member name="M:MassTransit.RequestResponse.IRequest.Wait">
+      <summary>
+            Wait for the request to complete. If the timeout expires, the request
+            completes and the timeout callback is called.
+            </summary>
+      <returns>True if the request completed before the timeout expired</returns>
+    </member>
+    <member name="M:MassTransit.RequestResponse.IRequest.Wait(System.TimeSpan)">
+      <summary>
+            Wait for the request to complete. If the timeout expires, the request
+            completes and the timeout callback is called.
+            </summary>
+      <param name="timeout">The timeout for the request</param>
+      <returns>True if the request completed before the timeout expired</returns>
+    </member>
+    <member name="M:MassTransit.RequestResponse.IRequest.BeginAsync(System.AsyncCallback,System.Object)">
+      <summary>
+            Begins the request as an asynchronous operation
+            </summary>
+      <param name="callback">
+      </param>
+      <param name="state">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:MassTransit.RequestResponse.IRequest.RequestId">
+      <summary>
+            Identifies the request for matching up request/response messages
+            </summary>
+    </member>
+    <member name="T:MassTransit.Saga.Pipeline.CorrelationExpressionToSagaIdVisitor`2">
+      <summary>
+            Determines if a message property is compared to the CorrelationId of the saga and if so
+            returns an expression that can be used to return that id
+            </summary>
+      <typeparam name="TSaga">
+      </typeparam>
+      <typeparam name="TMessage">
+      </typeparam>
+    </member>
+    <member name="M:MassTransit.SendExtensions.Send``1(MassTransit.IEndpoint,``0)">
+      <summary>
+            Send a message to an endpoint
+            </summary>
+      <typeparam name="T">The message type</typeparam>
+      <param name="endpoint">The destination endpoint</param>
+      <param name="message">The message to send</param>
+    </member>
+    <member name="M:MassTransit.SendExtensions.Send``1(MassTransit.IEndpoint,``0,System.Action{MassTransit.ISendContext{``0}})">
+      <summary>
+            Send a message to an endpoint
+            </summary>
+      <typeparam name="T">The message type</typeparam>
+      <param name="endpoint">The destination endpoint</param>
+      <param name="message">The message to send</param>
+      <param name="contextCallback">A callback method to modify the send context for the message</param>
+    </member>
+    <member name="T:MassTransit.Fault`1">
+      <summary>
+            A fault is a system-generated message that is published when an exception occurs while processing a message.
+            </summary>
+      <typeparam name="TMessage">The type of message that threw the exception</typeparam>
+    </member>
+    <member name="M:MassTransit.Fault`1.#ctor(`0,System.Exception)">
+      <summary>
+            Creates a new fault message for the failed message
+            </summary>
+      <param name="ex">The exception thrown by the message consumer</param>
+      <param name="message">The message that was being processed when the exception was thrown</param>
+    </member>
+    <member name="P:MassTransit.Fault`1.FailedMessage">
+      <summary>
+            The message that failed to be consumed
+            </summary>
+    </member>
+    <member name="P:MassTransit.Fault`1.Messages">
+      <summary>
+            Messages associated with the exception
+            </summary>
+    </member>
+    <member name="P:MassTransit.Fault`1.OccurredAt">
+      <summary>
+            When the exception occurred
+            </summary>
+    </member>
+    <member name="P:MassTransit.Fault`1.StackTrace">
+      <summary>
+            A stack trace related to the exception
+            </summary>
+    </member>
+    <member name="T:MassTransit.Fault`2">
+      <summary>
+            A fault is a system-generated message that is published when an exception occurs while processing a message.
+            </summary>
+      <typeparam name="TMessage">
+      </typeparam>
+      <typeparam name="TKey">
+      </typeparam>
+    </member>
+    <member name="M:MassTransit.Fault`2.#ctor(`0,System.Exception)">
+      <summary>
+            Creates a new Fault message for the failed correlated message
+            </summary>
+      <param name="ex">
+      </param>
+      <param name="message">
+      </param>
+    </member>
+    <member name="T:MassTransit.Pipeline.ISubscriptionEvent">
+      <summary>
+            Notifies when changes to the subscribed message types changes in the pipeline
+            </summary>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.MessageRouter`1">
+      <summary>
+            Routes a message to all of the connected message sinks without modification
+            </summary>
+    </member>
+    <member name="M:MassTransit.SagaSubscriptionConfiguratorExtensions.Saga``1(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,MassTransit.Saga.ISagaRepository{``0})">
+      <summary>
+            Configure a saga subscription
+            </summary>
+      <typeparam name="TSaga">
+      </typeparam>
+      <param name="configurator">
+      </param>
+      <param name="sagaRepository">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.SagaSubscriptionConfiguratorExtensions.SubscribeSaga``1(MassTransit.IServiceBus,MassTransit.Saga.ISagaRepository{``0})">
+      <summary>
+            Connects the saga to the service bus
+            </summary>
+      <typeparam name="TSaga">The consumer type</typeparam>
+      <param name="bus">
+      </param>
+      <param name="sagaRepository">
+      </param>
+    </member>
+    <member name="T:MassTransit.Serialization.IMessageSerializer">
+      <summary>
+            Message Serialization Methods 
+            </summary>
+    </member>
+    <member name="M:MassTransit.Serialization.IMessageSerializer.Serialize``1(System.IO.Stream,MassTransit.ISendContext{``0})">
+      <summary>
+            Serialize the message to the stream
+            </summary>
+      <typeparam name="T">The implicit type of the message to serialize</typeparam>
+      <param name="stream">
+      </param>
+      <param name="context">
+      </param>
+    </member>
+    <member name="M:MassTransit.Serialization.IMessageSerializer.Deserialize(MassTransit.IReceiveContext)">
+      <summary>
+            Deserialize a message from the stream
+            </summary>
+      <param name="context">
+      </param>
+      <returns>An object that was deserialized</returns>
+    </member>
+    <member name="P:MassTransit.Serialization.IMessageSerializer.ContentType">
+      <summary>
+            The content type that identifies the message serializer
+            </summary>
+    </member>
+    <member name="T:MassTransit.Saga.ISagaRepository`1">
+      <summary>
+            A saga repository is used by the service bus to dispatch messages to sagas
+            </summary>
+      <typeparam name="TSaga">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Saga.ISaga">
+      <summary>
+            Defines a component as a saga
+            </summary>
+    </member>
+    <member name="T:MassTransit.Saga.Orchestrates`1">
+      <summary>
+            Specifies that a class implementing ISaga consumes TMessage as part of the saga
+            </summary>
+      <typeparam name="TMessage">The type of message to consume</typeparam>
+    </member>
+    <member name="T:MassTransit.Saga.InitiatedBy`1">
+      <summary>
+            Specifies that the message type TMessage starts a new saga. 
+            </summary>
+      <typeparam name="TMessage">
+      </typeparam>
+    </member>
+    <member name="M:MassTransit.Subscriptions.Coordinator.SubscriptionObserver.OnComplete">
+      <summary>
+            Called when the observation is complete and we should go away
+            </summary>
+    </member>
+    <member name="T:MassTransit.Services.Timeout.Messages.CancelTimeout">
+      <summary>
+            Used by the Timeout Service, cancels the scheduled timeout with the specified CorrelationId
+            </summary>
+    </member>
+    <member name="P:MassTransit.Services.Timeout.Messages.CancelTimeout.CorrelationId">
+      <summary>
+            Gets the correlation id.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Services.Timeout.Messages.CancelTimeout.Tag">
+      <summary>
+            Gets or sets the tag.
+            </summary>
+      <value>
+            The tag.
+            </value>
+    </member>
+    <member name="P:MassTransit.Services.Timeout.Messages.TimeoutMessageBase.Tag">
+      <summary>
+            The tag associated with the timeout message
+            This is mainly because we can't publish type-specific messages yet. 
+            We really want to be able to schedule a timeout and specify a message type
+            to publish on the timeout, but that is going to be tough to handle (period).
+            </summary>
+    </member>
+    <member name="P:MassTransit.Services.Timeout.Messages.TimeoutMessageBase.TimeoutAt">
+      <summary>
+            The time (in UTC) when the timeout expires
+            </summary>
+    </member>
+    <member name="P:MassTransit.Services.Timeout.Messages.TimeoutMessageBase.CorrelationId">
+      <summary>
+            The CorrelationId to use when publishing the timeout message
+            </summary>
+    </member>
+    <member name="T:MassTransit.Subscriptions.IUnsubscribeAction">
+      <summary>
+            Used to wrap an UnsubscribeAction in a disposable block
+            </summary>
+    </member>
+    <member name="M:MassTransit.Subscriptions.IUnsubscribeAction.Add(MassTransit.UnsubscribeAction)">
+      <summary>
+            Add additional actions to the unsubscribe action
+            </summary>
+      <param name="action">
+      </param>
+    </member>
+    <member name="M:MassTransit.Subscriptions.ISubscriptionReference.OnStop">
+      <summary>
+            Called when the bus is being stopped
+            </summary>
+    </member>
+    <member name="P:MassTransit.Subscriptions.Messages.PeerSubscription.PeerId">
+      <summary>
+            The instance of the client that created the subscription
+            </summary>
+    </member>
+    <member name="P:MassTransit.Subscriptions.Messages.PeerSubscription.MessageNumber">
+      <summary>
+            The message number sent by this client
+            </summary>
+    </member>
+    <member name="P:MassTransit.Subscriptions.Messages.PeerSubscriptionMessage.PeerId">
+      <summary>
+            The instance of the client that created the subscription
+            </summary>
+    </member>
+    <member name="P:MassTransit.Subscriptions.Messages.PeerSubscriptionMessage.MessageNumber">
+      <summary>
+            The message number sent by this client
+            </summary>
+    </member>
+    <member name="T:MassTransit.Subscriptions.SubscriptionBusService">
+      <summary>
+            Manages the subscription and un subscription of message consumers to the
+            service bus as part of the bus lifecycle.
+            
+            As a bus service, once the bus is started and operational, this service 
+            will get started. At this point, any registered consumers and sagas will
+            be subscribed to the bus. 
+            
+            When stop is called, those subscriptions will be removed unless the
+            registration information indicated that the subscription is meant to be
+            persistent, and not removed on service shutdown.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Configurators.TestConfiguratorResult.Disposition">
+      <summary>
+            The disposition of the result, any Failure items will prevent
+            the configuration from completing.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Configurators.TestConfiguratorResult.Key">
+      <summary>
+            The key associated with the result (chained if configurators are nested)
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Configurators.TestConfiguratorResult.Message">
+      <summary>
+            The message associated with the result
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Configurators.TestConfiguratorResult.Value">
+      <summary>
+            The value associated with the result
+            </summary>
+    </member>
+    <member name="M:MassTransit.Testing.TestInstance.Execute">
+      <summary>
+            Execute the test actions
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.TestInstance.Received">
+      <summary>
+            Messages that were received by any endpoint during the execution of the test
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.TestInstance.Sent">
+      <summary>
+            Messages that were send by any endpoint during the execution of the test
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.TestInstance.Skipped">
+      <summary>
+            Messages that were not received by any handler, consumer, or instance during the execution of the test
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.TestInstance.Published">
+      <summary>
+            Messages that were published by an bus (does not mean they were actually sent, just published)
+            </summary>
+    </member>
+    <member name="M:MassTransit.Testing.ScenarioBuilders.BusScenarioBuilder.ConfigureBus(System.Action{MassTransit.BusConfigurators.ServiceBusConfigurator})">
+      <summary>
+            Configure any bus-specific items as part of building the test scenario
+            </summary>
+      <param name="configureCallback">
+      </param>
+    </member>
+    <member name="M:MassTransit.Testing.ScenarioBuilders.BusScenarioBuilder.ConfigureSubscriptions(System.Action{MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator})">
+      <summary>
+            Configure the subscriptions for a test using this scenario
+            </summary>
+      <param name="configureCallback">
+      </param>
+    </member>
+    <member name="T:MassTransit.IEndpointCache">
+      <summary>
+            The endpoint factory methods used to retrieve objects implementing IEndpoint from Uris
+            </summary>
+    </member>
+    <member name="M:MassTransit.IEndpointCache.GetEndpoint(System.Uri)">
+      <summary>
+            Returns an IEndpoint for the Uri specified. If the endpoint has not yet been created,
+            the factory will attempt to create an endpoint for the Uri.
+            </summary>
+      <param name="uri">The Uri to resolve to an endpoint</param>
+      <returns>An IEndpoint instance</returns>
+    </member>
+    <member name="P:MassTransit.Testing.Subjects.ConsumerTestSubject`1.Received">
+      <summary>
+            The messages that were received by the handler
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Subjects.SagaTestSubject`1.Received">
+      <summary>
+            The messages that were received by the handler
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Subjects.SagaTestSubject`1.Created">
+      <summary>
+            The sagas that were created during the test
+            </summary>
+    </member>
+    <member name="M:MassTransit.Transports.IEndpointFactory.CreateEndpoint(System.Uri)">
+      <summary>
+            Creates a new endpoint for the specified URI
+            </summary>
+      <param name="uri">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Transports.IEndpointFactory.AddTransportFactory(MassTransit.Transports.ITransportFactory)">
+      <summary>
+            Adds a transport factory to the endpoint factory
+            </summary>
+      <param name="factory">
+      </param>
+    </member>
+    <member name="T:MassTransit.IEndpoint">
+      <summary>
+            IEndpoint is implemented by an endpoint. An endpoint is an addressable location on the network.
+            </summary>
+    </member>
+    <member name="M:MassTransit.IEndpoint.Send``1(MassTransit.ISendContext{``0})">
+      <summary>
+            Send to the endpoint
+            </summary>
+      <typeparam name="T">The type of the message to send</typeparam>
+      <param name="context">
+      </param>
+    </member>
+    <member name="M:MassTransit.IEndpoint.Receive(System.Func{MassTransit.IReceiveContext,System.Action{MassTransit.IReceiveContext}},System.TimeSpan)">
+      <summary>
+            Receive from the endpoint by passing a function that can preview the message and if the caller
+            chooses to accept it, return a method that will consume the message.
+            
+            Returns after the specified timeout if no message is available.
+            </summary>
+      <param name="receiver">The function to preview/consume the message</param>
+      <param name="timeout">The time to wait for a message to be available</param>
+    </member>
+    <member name="P:MassTransit.IEndpoint.Address">
+      <summary>
+            The address of the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpoint.InboundTransport">
+      <summary>
+            The inbound transport for the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpoint.OutboundTransport">
+      <summary>
+            The outbound transport for the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpoint.ErrorTransport">
+      <summary>
+            The transport where faulting messages (poison messages) are sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpoint.Serializer">
+      <summary>
+            The message serializer being used by the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.Testing.Subjects.HandlerTestSubject`1.Received">
+      <summary>
+            The messages that were received by the handler
+            </summary>
+    </member>
+    <member name="T:MassTransit.Saga.ISagaPolicy`2">
+      <summary>
+            A saga policy defines how the pipeline should handle messages when being routed 
+            to the saga. Checks are made for the existence of a saga, whether the message should
+            create a new saga, or otherwise
+            </summary>
+      <typeparam name="TSaga">The saga that will handle the message</typeparam>
+      <typeparam name="TMessage">The message that will be handled by the saga</typeparam>
+    </member>
+    <member name="M:MassTransit.Saga.ISagaPolicy`2.CanCreateInstance(MassTransit.IConsumeContext{`1})">
+      <summary>
+            Determines if the message is able to create a new instance of the saga
+            </summary>
+      <param name="context">The consumer context of the message</param>
+      <returns>True if a new instance of the saga can be created, otherwise false</returns>
+    </member>
+    <member name="M:MassTransit.Saga.ISagaPolicy`2.CreateInstance(MassTransit.IConsumeContext{`1},System.Guid)">
+      <summary>
+            Creates a new instance of the saga using the data in the message context
+            </summary>
+      <param name="context">The consumer context of the message</param>
+      <param name="sagaId">
+      </param>
+      <returns>A newly created saga instance</returns>
+    </member>
+    <member name="M:MassTransit.Saga.ISagaPolicy`2.GetNewSagaId(MassTransit.IConsumeContext{`1})">
+      <summary>
+            Returns the saga id that should be used for a newly created saga instance, based on the policy
+            </summary>
+      <param name="context">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Saga.ISagaPolicy`2.CanUseExistingInstance(MassTransit.IConsumeContext{`1})">
+      <summary>
+            Determines if the message can be delivered to an existing saga instance
+            </summary>
+      <param name="context">The consumer context of the message</param>
+      <returns>True if the message can be delivered to the saga instance, otherwise false</returns>
+    </member>
+    <member name="M:MassTransit.Saga.ISagaPolicy`2.CanRemoveInstance(`0)">
+      <summary>
+            Determines if the saga instance can be removed, using the saga configuration information
+            </summary>
+      <param name="instance">The saga instance to check</param>
+      <returns>True if the saga instance can be removed, otherwise false</returns>
+    </member>
+    <member name="T:MassTransit.IServiceBus">
+      <summary>
+              The base service bus interface
+            </summary>
+    </member>
+    <member name="M:MassTransit.IServiceBus.Publish``1(``0,System.Action{MassTransit.IPublishContext{``0}})">
+      <summary>
+              Publishes a message to all subscribed consumers for the message type
+            </summary>
+      <typeparam name="T">The type of the message</typeparam>
+      <param name="message">The messages to be published</param>
+      <param name="contextCallback">
+      </param>
+    </member>
+    <member name="M:MassTransit.IServiceBus.Configure(System.Func{MassTransit.Pipeline.IInboundPipelineConfigurator,MassTransit.UnsubscribeAction})">
+      <summary>
+              Not sure this is going to make it, but trying a new approach.
+            </summary>
+      <param name="configure">
+      </param>
+    </member>
+    <member name="P:MassTransit.IServiceBus.Endpoint">
+      <summary>
+              The endpoint from which messages are received
+            </summary>
+    </member>
+    <member name="T:MassTransit.Transports.ConnectionHandler`1">
+      <summary>
+            Wraps the management of a connection to apply reconnect and retry strategies
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Transports.IDuplexTransport">
+      <summary>
+            A duplex transport binds an inbound and outbound transport into a single transport capable of
+            bi-directional communication.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.Address">
+      <summary>
+            The address of the endpoint/transport
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.CreateIfMissing">
+      <summary>
+            The transport should be created if it was not found
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.IsolationLevel">
+      <summary>
+            The isolation level to use with the transaction if a transactional transport is used
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.PurgeExistingMessages">
+      <summary>
+            If the transport should purge any existing messages before reading from the queue
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.RequireTransactional">
+      <summary>
+            if the transactional queue is requested and required it will throw an exception if the queue 
+            exists and is not transactional
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.TransactionTimeout">
+      <summary>
+            The timeout for the transaction if System.Transactions is supported
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.ITransportSettings.Transactional">
+      <summary>
+            True if the endpoint should be transactional. If Transactional is true and the endpoint already
+            exists and is not transactional, an exception will be thrown.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.Address">
+      <summary>
+            The address of the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.Transactional">
+      <summary>
+            True if the endpoint should be transactional. If Transactional is true and the endpoint already
+            exists and is not transactional, an exception will be thrown.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.RequireTransactional">
+      <summary>
+            if the transactional queue is requested and required it will throw an exception if the queue 
+            exists and is not transactional
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.TransactionTimeout">
+      <summary>
+            The timeout for the transaction if System.Transactions is supported
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.IsolationLevel">
+      <summary>
+            The isolation level to use with the transaction if a transactional transport is used
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.CreateIfMissing">
+      <summary>
+            The transport should be created if it was not found
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.TransportSettings.PurgeExistingMessages">
+      <summary>
+            If the transport should purge any existing messages before reading from the queue
+            </summary>
+    </member>
+    <member name="M:MassTransit.EndpointCacheExtensions.GetEndpoint(MassTransit.IEndpointCache,System.String)">
+      <summary>
+            Returns an IEndpoint for the Uri string specified. If the endpoint has not yet been created,
+            the factory will attempt to create an endpoint for the Uri string.
+            </summary>
+      <param name="cache">
+      </param>
+      <param name="uriString">The Uri string to resolve to an endpoint (will be checked for valid Uri syntax)</param>
+      <returns>An IEndpoint instance</returns>
+    </member>
+    <member name="P:MassTransit.Transports.IEndpointSettings.ErrorAddress">
+      <summary>
+            The address of the endpoint where invalid messages should be moved
+            </summary>
+    </member>
+    <member name="P:MassTransit.Transports.IEndpointSettings.Serializer">
+      <summary>
+            The serializer to use for messages on the endpoint
+            </summary>
+    </member>
+    <member name="M:MassTransit.Services.HealthMonitoring.HealthClient.#ctor(System.Int32)">
+      <summary>
+            Constructs a new HealthClient object
+            </summary>
+      <param name="intervalInSeconds">The heartbeat interval in seconds</param>
+    </member>
+    <member name="T:MassTransit.UnsubscribeAction">
+      <summary>
+              The action to call to unsubscribe a previously subscribed consumer
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.UnregisterAction">
+      <summary>
+              The action to call to unregister a previously registered component
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.IControlBus">
+      <summary>
+              Extends the IServiceBus interface to include additional methods for
+              services that extend the service bus
+            </summary>
+    </member>
+    <member name="T:MassTransit.ServiceBus">
+      <summary>
+            A service bus is used to attach message handlers (services) to endpoints, as well as
+            communicate with other service bus instances in a distributed application
+            </summary>
+    </member>
+    <member name="M:MassTransit.ServiceBus.#ctor(MassTransit.IEndpoint,MassTransit.IEndpointCache)">
+      <summary>
+            Creates an instance of the ServiceBus, which implements IServiceBus. This is normally
+            not called and should be created using the ServiceBusConfigurator to ensure proper defaults
+            and operation.
+            </summary>
+    </member>
+    <member name="M:MassTransit.ServiceBus.Publish``1(``0,System.Action{MassTransit.IPublishContext{``0}})">
+      <summary>
+            Publishes a message to all subscribed consumers for the message type
+            </summary>
+      <typeparam name="T">The type of the message</typeparam>
+      <param name="message">The messages to be published</param>
+      <param name="contextCallback">The callback to perform operations on the context</param>
+    </member>
+    <member name="P:MassTransit.ServiceBus.Endpoint">
+      <summary>
+            The endpoint associated with this instance
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.CheckConvention">
+      <summary>
+              Check class for verifying the condition of items included in interface contracts
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.LocalizationRequiredAttribute">
+      <summary>
+            Indicates that marked element should be localized or not.
+            </summary>
+    </member>
+    <member name="M:MassTransit.Util.LocalizationRequiredAttribute.#ctor(System.Boolean)">
+      <summary>
+            Initializes a new instance of the <see cref="T:MassTransit.Util.LocalizationRequiredAttribute" /> class.
+            </summary>
+      <param name="required">
+        <c>true</c> if a element should be localized; otherwise, <c>false</c>.</param>
+    </member>
+    <member name="M:MassTransit.Util.LocalizationRequiredAttribute.Equals(System.Object)">
+      <summary>
+            Returns whether the value of the given object is equal to the current <see cref="T:MassTransit.Util.LocalizationRequiredAttribute" />.
+            </summary>
+      <param name="obj">The object to test the value equality of. </param>
+      <returns>
+        <c>true</c> if the value of the given object is equal to that of the current; otherwise, <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:MassTransit.Util.LocalizationRequiredAttribute.GetHashCode">
+      <summary>
+            Returns the hash code for this instance.
+            </summary>
+      <returns>A hash code for the current <see cref="T:MassTransit.Util.LocalizationRequiredAttribute" />.</returns>
+    </member>
+    <member name="P:MassTransit.Util.LocalizationRequiredAttribute.Required">
+      <summary>
+            Gets a value indicating whether a element should be localized.
+            <value><c>true</c> if a element should be localized; otherwise, <c>false</c>.</value></summary>
+    </member>
+    <member name="T:MassTransit.Util.StringFormatMethodAttribute">
+      <summary>
+            Indicates that marked method builds string by format pattern and (optional) arguments. 
+            Parameter, which contains format string, should be given in constructor.
+            The format string should be in <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])" /> -like form
+            </summary>
+    </member>
+    <member name="M:MassTransit.Util.StringFormatMethodAttribute.#ctor(System.String)">
+      <summary>
+            Initializes new instance of StringFormatMethodAttribute
+            </summary>
+      <param name="formatParameterName">Specifies which parameter of an annotated method should be treated as format-string</param>
+    </member>
+    <member name="P:MassTransit.Util.StringFormatMethodAttribute.FormatParameterName">
+      <summary>
+            Gets format parameter name
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.InvokerParameterNameAttribute">
+      <summary>
+            Indicates that the function argument should be string literal and match one  of the parameters of the caller function.
+            For example, <see cref="T:System.ArgumentNullException" /> has such parameter.
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.AssertionMethodAttribute">
+      <summary>
+            Indicates that the marked method is assertion method, i.e. it halts control flow if one of the conditions is satisfied. 
+            To set the condition, mark one of the parameters with <see cref="T:MassTransit.Util.AssertionConditionAttribute" /> attribute
+            </summary>
+      <seealso cref="T:MassTransit.Util.AssertionConditionAttribute" />
+    </member>
+    <member name="T:MassTransit.Util.AssertionConditionAttribute">
+      <summary>
+            Indicates the condition parameter of the assertion method. 
+            The method itself should be marked by <see cref="T:MassTransit.Util.AssertionMethodAttribute" /> attribute.
+            The mandatory argument of the attribute is the assertion type.
+            </summary>
+      <seealso cref="T:MassTransit.Util.AssertionConditionType" />
+    </member>
+    <member name="M:MassTransit.Util.AssertionConditionAttribute.#ctor(MassTransit.Util.AssertionConditionType)">
+      <summary>
+            Initializes new instance of AssertionConditionAttribute
+            </summary>
+      <param name="conditionType">Specifies condition type</param>
+    </member>
+    <member name="P:MassTransit.Util.AssertionConditionAttribute.ConditionType">
+      <summary>
+            Gets condition type
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.AssertionConditionType">
+      <summary>
+            Specifies assertion type. If the assertion method argument satisifes the condition, then the execution continues. 
+            Otherwise, execution is assumed to be halted
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.AssertionConditionType.IS_TRUE">
+      <summary>
+            Indicates that the marked parameter should be evaluated to true
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.AssertionConditionType.IS_FALSE">
+      <summary>
+            Indicates that the marked parameter should be evaluated to false
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.AssertionConditionType.IS_NULL">
+      <summary>
+            Indicates that the marked parameter should be evaluated to null value
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.AssertionConditionType.IS_NOT_NULL">
+      <summary>
+            Indicates that the marked parameter should be evaluated to not null value
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.TerminatesProgramAttribute">
+      <summary>
+            Indicates that the marked method unconditionally terminates control flow execution.
+            For example, it could unconditionally throw exception
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.CanBeNullAttribute">
+      <summary>
+            Indicates that the value of marked element could be <c>null</c> sometimes, so the check for <c>null</c> is necessary before its usage
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.NotNullAttribute">
+      <summary>
+            Indicates that the value of marked element could never be <c>null</c></summary>
+    </member>
+    <member name="T:MassTransit.Util.CannotApplyEqualityOperatorAttribute">
+      <summary>
+            Indicates that the value of marked type (or its derivatives) cannot be compared using '==' or '!=' operators.
+            There is only exception to compare with <c>null</c>, it is permitted
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.BaseTypeRequiredAttribute">
+      <summary>
+            When applied to target attribute, specifies a requirement for any type which is marked with 
+            target attribute to implement or inherit specific type or types
+            </summary>
+      <example>
+        <code>
+            [BaseTypeRequired(typeof(IComponent)] // Specify requirement
+            public class ComponentAttribute : Attribute 
+            {}
+            
+            [Component] // ComponentAttribute requires implementing IComponent interface
+            public class MyComponent : IComponent
+            {}
+            </code>
+      </example>
+    </member>
+    <member name="M:MassTransit.Util.BaseTypeRequiredAttribute.#ctor(System.Type[])">
+      <summary>
+            Initializes new instance of BaseTypeRequiredAttribute
+            </summary>
+      <param name="baseTypes">Specifies which types are required</param>
+    </member>
+    <member name="P:MassTransit.Util.BaseTypeRequiredAttribute.BaseTypes">
+      <summary>
+            Gets enumerations of specified base types
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.UsedImplicitlyAttribute">
+      <summary>
+            Indicates that the marked symbol is used implicitly (e.g. via reflection, in external library),
+            so this symbol will not be marked as unused (as well as by other usage inspections)
+            </summary>
+    </member>
+    <member name="P:MassTransit.Util.UsedImplicitlyAttribute.TargetFlags">
+      <summary>
+            Gets value indicating what is meant to be used
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.MeansImplicitUseAttribute">
+      <summary>
+            Should be used on attributes and causes ReSharper to not mark symbols marked with such attributes as unused (as well as by other usage inspections)
+            </summary>
+    </member>
+    <member name="P:MassTransit.Util.MeansImplicitUseAttribute.TargetFlags">
+      <summary>
+            Gets value indicating what is meant to be used
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.ImplicitUseKindFlags.Access">
+      <summary>
+            Only entity marked with attribute considered used
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.ImplicitUseKindFlags.Assign">
+      <summary>
+            Indicates implicit assignment to a member
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.ImplicitUseKindFlags.Instantiated">
+      <summary>
+            Indicates implicit instantiation of a type
+            </summary>
+    </member>
+    <member name="T:MassTransit.Util.ImplicitUseTargetFlags">
+      <summary>
+            Specify what is considered used implicitly when marked with <see cref="T:MassTransit.Util.MeansImplicitUseAttribute" /> or <see cref="T:MassTransit.Util.UsedImplicitlyAttribute" /></summary>
+    </member>
+    <member name="F:MassTransit.Util.ImplicitUseTargetFlags.Members">
+      <summary>
+            Members of entity marked with attribute are considered used
+            </summary>
+    </member>
+    <member name="F:MassTransit.Util.ImplicitUseTargetFlags.WithMembers">
+      <summary>
+            Entity marked with attribute and all its members considered used
+            </summary>
+    </member>
+    <member name="M:MassTransit.Distributor.IWorkerSelectionStrategy`1.HasAvailableWorker(System.Collections.Generic.IEnumerable{MassTransit.Distributor.WorkerDetails},`0)">
+      <summary>
+              Using the list of candidate workers, indicates if one is available.
+            </summary>
+      <param name="candidates">The list of candidates to process</param>
+      <param name="message">The message in question</param>
+      <returns>
+        <c>True</c> if there are acceptable candidates, <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:MassTransit.Distributor.IWorkerSelectionStrategy`1.SelectWorker(System.Collections.Generic.IEnumerable{MassTransit.Distributor.WorkerDetails},`0)">
+      <summary>
+              Using the list of candidate workers, find the best candidate available.
+            </summary>
+      <param name="candidates">The list of candidates to process</param>
+      <param name="message">The message in question</param>
+      <returns>
+        <c>null</c> if no candidates are acceptable, otherwise the best
+              acceptable candidate for the message</returns>
+    </member>
+    <member name="T:MassTransit.Distributor.WorkerPendingMessageTracker`1">
+      <summary>
+            Keeps track of messages that were not accepted due to worker load in order to provide a pending message count
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Distributor.WorkerSettings">
+      <summary>
+            These settings are used to configure a distributed consumer if the default
+            settings are not sufficient.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Distributor.WorkerSettings.PendingLimit">
+      <summary>
+            A recommended limit of pending messages for this worker. This is not a hard limit,
+            the queue depth may at times exceed this value.
+            </summary>
+    </member>
+    <member name="P:MassTransit.Distributor.WorkerSettings.InProgressLimit">
+      <summary>
+            A recommended limit of concurrent messages being consumed by the worker. This too is not a hard
+            limit, just a recommendation that will most likely be enforced but not guaranteed.
+            </summary>
+    </member>
+    <member name="T:MassTransit.Distributor.Messages.Distributed`1">
+      <summary>
+              Wraps a message type as a distributed message so that it can be sent separately from the actual
+              message being processed. We intentionally make sure it is not assignable to TMessage, because we don't
+              want it getting downgraded to a consumer of TMessage.
+            </summary>
+      <typeparam name="TMessage">The message type being distributed</typeparam>
+    </member>
+    <member name="M:MassTransit.Distributor.ExtensionsForDistributor.UseDistributorFor``1(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+      <summary>
+            Implements a distributor-to-worker pattern for the given message type. 
+            </summary>
+      <typeparam name="T">The type of message to use the distributor</typeparam>
+      <param name="configurator">Service bus to implement the distributor</param>
+    </member>
+    <member name="M:MassTransit.Distributor.ExtensionsForDistributor.UseDistributorFor``2(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+      <summary>
+            Implements a distributor-to-worker pattern for the given message type. 
+            </summary>
+      <typeparam name="TMessage">The type of to use the distributor</typeparam>
+      <typeparam name="TSelectionStrategy">The <code>IWorkerSelectionStrategy</code> used to pick 
+            which worker node to send a message</typeparam>
+      <param name="configurator">Service bus to implement the distributor</param>
+    </member>
+    <member name="M:MassTransit.Distributor.ExtensionsForDistributor.UseDistributorFor``1(MassTransit.BusConfigurators.ServiceBusConfigurator,MassTransit.Distributor.IWorkerSelectionStrategy{``0})">
+      <summary>
+            Implements a distributor-to-worker pattern for the given message type. 
+            </summary>
+      <typeparam name="TMessage">The type of to use the distributor</typeparam>
+      <param name="configurator">Service bus to implement the distributor</param>
+      <param name="workerSelectionStrategy">The <code>IWorkerSelectionStrategy</code> 
+            used to pick which worker node to send a message</param>
+    </member>
+    <member name="T:MassTransit.Distributor.Messages.Workload`1">
+      <summary>
+            Presents the workload of a worker to interested consumers
+            </summary>
+      <typeparam name="T">The type of message being handled</typeparam>
+    </member>
+    <member name="P:MassTransit.Distributor.Messages.Workload`1.Pending">
+      <summary>
+            The number of messages pending for consumption by this worker
+            </summary>
+    </member>
+    <member name="P:MassTransit.Distributor.Messages.Workload`1.PendingLimit">
+      <summary>
+            The maximum number of messages that should be pending for this worker in the queue
+            </summary>
+    </member>
+    <member name="P:MassTransit.Distributor.Messages.Workload`1.InProgress">
+      <summary>
+            The number of messages currently being processed by this worker
+            </summary>
+    </member>
+    <member name="P:MassTransit.Distributor.Messages.Workload`1.InProgressLimit">
+      <summary>
+            The maximum number of messages that can be processed at a time by this worker
+            </summary>
+    </member>
+    <member name="T:MassTransit.Distributor.Messages.WorkerAvailable`1">
+      <summary>
+            Published by workers that can process a message of type T
+            </summary>
+      <typeparam name="T">The type of message that can be processed.</typeparam>
+    </member>
+    <member name="T:MassTransit.IEndpointAddress">
+      <summary>
+            Identifies an endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpointAddress.Uri">
+      <summary>
+            The URI used to access the endpoint
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpointAddress.IsLocal">
+      <summary>
+            True if the endpoint is local to this machine
+            </summary>
+    </member>
+    <member name="P:MassTransit.IEndpointAddress.IsTransactional">
+      <summary>
+            Was transactional requested by the Uri
+            </summary>
+    </member>
+    <member name="T:MassTransit.Serialization.Custom.ISerializerContext">
+      <summary>
+            The serializer context is passed through all of the serializers to provide a central context for
+            dispatching to the appropriate serializer for each type encountered without using a static class
+            </summary>
+    </member>
+    <member name="M:MassTransit.Serialization.Custom.ISerializerContext.GetPrefix(System.String,System.String)">
+      <summary>
+            Returns the namespace prefix to use for the specified element
+            </summary>
+      <param name="localName">The name of the element being added to the XML document</param>
+      <param name="ns">The namespace that defines the type for the element</param>
+      <returns>A prefix to use when writing the element to the XML stream</returns>
+    </member>
+    <member name="M:MassTransit.Serialization.Custom.ISerializerContext.MapType(System.Type,System.Type,System.Object)">
+      <summary>
+            Returns the type for a property if the property type is to be overridden by the serializer
+            </summary>
+      <param name="declaringType">The type containing the property</param>
+      <param name="propertyType">The type of the property</param>
+      <param name="value">The value to use to obtain the type, if necessary</param>
+      <returns>The property type, or the overriding type</returns>
+    </member>
+    <member name="M:MassTransit.Serialization.Custom.ISerializerContext.WriteNamespaceInformationToXml(System.Xml.XmlWriter)">
+      <summary>
+            Writes any namespace information that was collected to the document element attribute
+            </summary>
+      <param name="writer">The XmlWriter to use for writing the attributes</param>
+    </member>
+    <member name="M:MassTransit.Serialization.Custom.ISerializerContext.SerializeObject(System.String,System.Type,System.Object)">
+      <summary>
+            Delegates the serialization of an obj
+            </summary>
+      <param name="localName">The name of the element in the XML document</param>
+      <param name="type">The type of object to serialize</param>
+      <param name="value">The actual object to serialize</param>
+      <returns>An enumeration of continuations to actually write the XML</returns>
+    </member>
+    <member name="T:MassTransit.Services.Subscriptions.Server.SubscriptionSaga">
+      <summary>
+              Manages the lifecycle of a subscription through the system
+            </summary>
+    </member>
+    <member name="M:MassTransit.ServiceBusExtensions.IsAllowedMessageType(System.Type)">
+      <summary>
+            Returns true if the specified type is an allowed message type
+            </summary>
+      <param name="type">The type to inspect</param>
+      <returns>True if the message can be sent, otherwise false</returns>
+    </member>
+    <member name="M:MassTransit.ServiceBusExtensions.GetMessageTypes(System.Type)">
+      <summary>
+            Returns all the message types that are available for the specified type. This will
+            return any base classes or interfaces implemented by the type that are allowed
+            message types.
+            </summary>
+      <param name="type">The type to inspect</param>
+      <returns>An enumeration of valid message types implemented by the specified type</returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.CorrelatedMessageSinkRouter`3">
+      <summary>
+            Routes a message to all of the connected message sinks without modification
+            </summary>
+      <typeparam name="TMessage">The type of the message to be routed</typeparam>
+      <typeparam name="TKey">The correlation key type</typeparam>
+      <typeparam name="T">The input type of the router</typeparam>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.ConsumerMessageSink`2">
+      <summary>
+            Routes messages to instances of subscribed components. A new instance of the component
+            is created from the container for each message received.
+            </summary>
+      <typeparam name="TConsumer">The component type to handle the message</typeparam>
+      <typeparam name="TMessage">The message to handle</typeparam>
+    </member>
+    <member name="T:MassTransit.Util.RegistrationList`1">
+      <summary>
+              A locked list implementation of IRegistrationList
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:MassTransit.Pipeline.MessagePipelineExtensions.Dispatch``1(MassTransit.Pipeline.IInboundMessagePipeline,``0)">
+      <summary>
+            Dispatch a message through the pipeline
+            </summary>
+      <param name="pipeline">The pipeline instance</param>
+      <param name="message">The message to dispatch</param>
+    </member>
+    <member name="M:MassTransit.Pipeline.MessagePipelineExtensions.Dispatch``1(MassTransit.Pipeline.IInboundMessagePipeline,``0,System.Func{``0,System.Boolean})">
+      <summary>
+            Dispatch a message through the pipeline. If the message will be consumed, the accept function
+            is called to allow the endpoint to acknowledge the message reception if applicable
+            </summary>
+      <param name="pipeline">The pipeline instance</param>
+      <param name="message">The message to dispatch</param>
+      <param name="acknowledge">The function to call if the message will be consumed by the pipeline</param>
+    </member>
+    <member name="M:MassTransit.Pipeline.MessagePipelineExtensions.ConnectConsumer``1(MassTransit.Pipeline.IInboundMessagePipeline)">
+      <summary>
+            Subscribe a component type to the pipeline that is resolved from the container for each message
+            </summary>
+      <typeparam name="TComponent">
+      </typeparam>
+      <param name="pipeline">The pipeline to configure</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Pipeline.MessagePipelineExtensions.ConnectConsumer``1(MassTransit.Pipeline.IInboundMessagePipeline,System.Func{``0})">
+      <summary>
+            Subscribe a component type to the pipeline that is resolved from the container for each message
+            </summary>
+      <typeparam name="TConsumer">
+      </typeparam>
+      <param name="pipeline">The pipeline to configure</param>
+      <param name="consumerFactory">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:MassTransit.Pipeline.MessagePipelineExtensions.ConnectInstance``1(MassTransit.Pipeline.IInboundMessagePipeline,``0)">
+      <summary>
+            Subscribe a component to the pipeline that handles every message
+            </summary>
+      <typeparam name="TComponent">
+      </typeparam>
+      <param name="pipeline">The pipeline to configure</param>
+      <param name="instance">The instance that will handle the messages</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.CorrelatedMessageRouter`3">
+      <summary>
+            Splits a message path based on the correlation information in the message
+            </summary>
+      <typeparam name="TMessage">The type of the message to be routed</typeparam>
+      <typeparam name="TKey">They key type for the message</typeparam>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.EndpointMessageSink`1">
+      <summary>
+            A message sink that sends to an endpoint
+            </summary>
+      <typeparam name="TMessage">
+      </typeparam>
+    </member>
+    <member name="T:MassTransit.Pipeline.Sinks.SelectedConsumerMessageSink`2">
+      <summary>
+            Routes messages to instances of subscribed components. A new instance of the component
+            is created from the container for each message received.
+            </summary>
+      <typeparam name="TConsumer">The component type to handle the message</typeparam>
+      <typeparam name="TMessage">The message to handle</typeparam>
+    </member>
+    <member name="T:MassTransit.Serialization.MessageEnvelopeBase">
+      <summary>
+              A base message envelope for transports that support enveloped messages
+              This does not include the binary formatter, since it is retained for
+              legacy support as a pure object formatter with no envelope
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.SourceAddress">
+      <summary>
+              The source where the message originated
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.DestinationAddress">
+      <summary>
+              The destination where the message was originally sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.MessageId">
+      <summary>
+              A transport specific message identifier if appropriate
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.RequestId">
+      <summary>
+            The request identifier
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.ConversationId">
+      <summary>
+              A higher-level conversation identifier that goes above any type of saga or request/response
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.CorrelationId">
+      <summary>
+              A correlation identifier for the message, if a saga or correlated message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.ResponseAddress">
+      <summary>
+              The destination to use for replies to this message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.FaultAddress">
+      <summary>
+              The destination to send any faults caused by this message
+              If not specified, faults are either sent to the ResponseAddress address
+              If this nor ResponseAddress is specified, faults are published
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.Network">
+      <summary>
+              Identifies a specific network to which this message belongs and is used to filter
+              out messages that might be from untrusted networks
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.RetryCount">
+      <summary>
+              The number of times the message has been retried by a consumer
+              Starts at zero and is incremented every time the message is scheduled for retry
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.ExpirationTime">
+      <summary>
+              The message envelope base for the binary serializer?
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.MessageEnvelopeBase.MessageType">
+      <summary>
+              The type of the message, including the full name and assembly
+            </summary>
+    </member>
+    <member name="T:MassTransit.Serialization.BinaryMessageSerializer">
+      <summary>
+            The binary message serializer used the .NET BinaryFormatter to serialize
+            message content. 
+            </summary>
+    </member>
+    <member name="T:MassTransit.Serialization.XmlMessageEnvelope">
+      <summary>
+              The envelope that is used to wrap messages serialized using Xml
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.SourceAddress">
+      <summary>
+              The source where the message originated
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.DestinationAddress">
+      <summary>
+              The destination where the message was originally sent
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.MessageId">
+      <summary>
+              A transport specific message identifier if appropriate
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.RequestId">
+      <summary>
+            The request identifier
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.ConversationId">
+      <summary>
+              A higher-level conversation identifier that goes above any type of saga or request/response
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.CorrelationId">
+      <summary>
+              A correlation identifier for the message, if a saga or correlated message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.ResponseAddress">
+      <summary>
+              The destination to use for replies to this message
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.FaultAddress">
+      <summary>
+              The destination to send any faults caused by this message
+              If not specified, faults are either sent to the ResponseAddress address
+              If this nor ResponseAddress is specified, faults are published
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.Network">
+      <summary>
+              Identifies a specific network to which this message belongs and is used to filter
+              out messages that might be from untrusted networks
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.RetryCount">
+      <summary>
+              The number of times the message has been retried by a consumer
+              Starts at zero and is incremented every time the message is scheduled for retry
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.ExpirationTime">
+      <summary>
+              The message envelope base for the binary serializer?
+            </summary>
+    </member>
+    <member name="P:MassTransit.Serialization.XmlMessageEnvelope.MessageType">
+      <summary>
+              The type of the message, including the full name and assembly
+            </summary>
+    </member>
+  </members>
+</doc>

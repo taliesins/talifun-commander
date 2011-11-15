@@ -66,6 +66,9 @@
     <Compile Include="AudioFormats\IAudioSettings.cs" />
     <Compile Include="AudioFormats\Mp3Settings.cs" />
     <Compile Include="AudioFormats\VorbisSettings.cs" />
+    <Compile Include="Configuration\VideoConversionElement.Serialization.cs" >
+      <DependentUpon>VideoConversionElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkFlow\Mp4WorkFlow.cs" />
     <Compile Include="Configuration\VideoConversionElement.Validation.cs">
       <DependentUpon>VideoConversionElement.cs</DependentUpon>

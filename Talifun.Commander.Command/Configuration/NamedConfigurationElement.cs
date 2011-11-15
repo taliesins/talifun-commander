@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
-using MassTransit.Serialization;
 using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
@@ -139,7 +134,6 @@ namespace Talifun.Commander.Command.Configuration
 			SetObjectData(info, context);
 		}
 
-
 		public void SetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			if (info == null)
@@ -147,52 +141,15 @@ namespace Talifun.Commander.Command.Configuration
 
 			foreach (ConfigurationProperty property in Properties)
 			{
-				//All because Masstransit has set WriteArrayAttribute = false in XmlMessageSerializer
-				Object value = null;
-				if (typeof(IEnumerable).IsAssignableFrom(property.Type))
+				try
 				{
-					try
-					{
-						value = info.GetValue(property.Name, property.Type);	
-					} 
-					catch(SerializationException exception)
-					{
-						if (exception.Message == string.Format("Member '{0}' was not found.", property.Name))
-						{
-							value = Activator.CreateInstance(property.Type);
-						}
-						else
-						{
-							throw;
-						}
-					} catch(Exception exception)
-					{
-						if (exception.Message == string.Format("Cannot deserialize JSON object into type '{0}'.", property.Type.FullName))
-						{
-							value = Activator.CreateInstance(property.Type);
-
-							var itemType = (property.Type.GetInterfaces()
-								.Where(iType => iType.IsGenericType && iType.GetGenericTypeDefinition() == typeof (IEnumerable<>))
-								.Select(iType => iType.GetGenericArguments()[0]))
-								.FirstOrDefault();
-
-							var itemValue = info.GetValue(property.Name, itemType);
-
-							var method = property.Type.GetMethod("Add");
-							method.Invoke(value, new object[] {itemValue});
-						}
-						else
-						{
-							throw;	
-						}
-					}
+					var value = info.GetValue(property.Name, property.Type);
+					base[property] = value;
 				}
-				else
+				catch(Exception exception)
 				{
-					value = info.GetValue(property.Name, property.Type);	
+					throw;
 				}
-				
-				base[property] = value;
 			}
 		}
 

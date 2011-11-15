@@ -5,6 +5,7 @@ using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FileMatcher;
+using Talifun.Commander.Command.FileMatcher.MessageHandlers;
 
 namespace Talifun.Commander.Command
 {
@@ -41,6 +42,14 @@ namespace Talifun.Commander.Command
 				x.SetConcurrentConsumerLimit(4);
 				x.UseSagaDistributorFor<TestConfigurationSaga>();
 				x.UseSagaDistributorFor<FileMatcherSaga>();
+				x.Subscribe((subscriber)=>
+				{
+				    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
+					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>();
+					subscriber.Consumer<ProcessFileMatchesMessageHandler>();
+					subscriber.Consumer<MoveProcessedFileIntoCompletedDirectoryMessageHandler>();
+					subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
+				});
 			});
 		}
 

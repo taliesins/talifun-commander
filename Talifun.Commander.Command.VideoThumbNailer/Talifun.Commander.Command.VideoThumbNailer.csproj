@@ -58,6 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\VideoThumbnailerElement.Serialization.cs" >
+      <DependentUpon>VideoThumbnailerElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\VideoThumbnailerElement.Validation.cs">
       <DependentUpon>VideoThumbnailerElement.cs</DependentUpon>
     </Compile>

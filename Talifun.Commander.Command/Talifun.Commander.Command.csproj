@@ -82,6 +82,15 @@
     <Compile Include="CommanderStoppedEventArgs.cs" />
     <Compile Include="CommanderStoppedEventHandler.cs" />
     <Compile Include="CommandServiceBase.cs" />
+    <Compile Include="Configuration\FileMatchElement.Serialization.cs" >
+      <DependentUpon>FileMatchElement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FolderElement.Serialization.cs" >
+      <DependentUpon>FolderElement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ProjectElement.Serialization.cs" >
+      <DependentUpon>ProjectElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Esb\BusDriver.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />

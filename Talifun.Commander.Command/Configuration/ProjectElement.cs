@@ -36,12 +36,6 @@ namespace Talifun.Commander.Command.Configuration
             }
         }
 
-		public ProjectElement(SerializationInfo info, StreamingContext context)
-			: this()
-		{
-			SetObjectData(info, context);
-		}
-
         /// <summary>
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>

@@ -60,6 +60,9 @@
   <ItemGroup>
     <Compile Include="AntiVirusSaga.cs" />
     <Compile Include="AntiVirusService.cs" />
+    <Compile Include="Configuration\AntiVirusElement.Serialization.cs" >
+      <DependentUpon>AntiVirusElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Esb\Request\AntiVirusCheckCancelMessageHandler.cs" />
     <Compile Include="Esb\Request\AntiVirusCheckRequestMessageHandler.cs" />
     <Compile Include="Esb\Request\AntiVirusCheckTestConfigurationRequestMessageHandler.cs" />

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -39,12 +38,6 @@ namespace Talifun.Commander.Command.Configuration
 		public FolderElement()
 		{
 			Setting = FolderConfiguration.Instance;	
-		}
-
-		public FolderElement(SerializationInfo info, StreamingContext context)
-			: this()
-		{
-			SetObjectData(info, context);
 		}
 
         /// <summary>

@@ -62,6 +62,9 @@
     <Compile Include="AudioFormats\IAudioFormatsExtensions.cs" />
     <Compile Include="AudioFormats\IAudioSettings.cs" />
     <Compile Include="AudioFormats\VorbisSettings.cs" />
+    <Compile Include="Configuration\AudioConversionElement.Serialization.cs" >
+      <DependentUpon>AudioConversionElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>

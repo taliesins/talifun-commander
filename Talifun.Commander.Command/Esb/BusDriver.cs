@@ -79,6 +79,7 @@ namespace Talifun.Commander.Command.Esb
 		{
 			SubscriptionBus = ServiceBusFactory.New(x =>
 			{
+				x.UseJsonSerializer();
 				x.ReceiveFrom(SubscriptionServiceUri);
 				x.SetConcurrentConsumerLimit(1);
 			});

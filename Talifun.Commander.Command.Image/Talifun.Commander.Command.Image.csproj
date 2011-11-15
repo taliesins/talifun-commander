@@ -58,6 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ImageConversionElement.Serialization.cs" >
+      <DependentUpon>ImageConversionElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\ImageConversionElement.Validation.cs">
       <DependentUpon>ImageConversionElement.cs</DependentUpon>
     </Compile>

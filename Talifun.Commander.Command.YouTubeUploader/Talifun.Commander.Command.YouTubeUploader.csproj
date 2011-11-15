@@ -71,6 +71,9 @@
   <ItemGroup>
     <Compile Include="Configuration\YouTubeUploaderConfiguration.cs" />
     <Compile Include="Configuration\YouTubeUploaderElement.cs" />
+    <Compile Include="Configuration\YouTubeUploaderElement.Serialization.cs" >
+      <DependentUpon>YouTubeUploaderElement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\YouTubeUploaderElement.Validation.cs">
       <DependentUpon>YouTubeUploaderElement.cs</DependentUpon>
     </Compile>

@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -32,12 +31,6 @@ namespace Talifun.Commander.Command.Configuration
 		public FileMatchElement()
 		{
 			Setting = FileMatchConfiguration.Instance;	
-		}
-
-		public FileMatchElement(SerializationInfo info, StreamingContext context)
-			: this()
-		{
-			SetObjectData(info, context);
 		}
 
         /// <summary>
