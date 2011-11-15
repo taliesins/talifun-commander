@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -139,16 +140,20 @@ namespace Talifun.Commander.Command.Configuration
 			if (info == null)
 				throw new System.ArgumentNullException("info");
 
+			var infoHash = new Dictionary<string, object>();
+
+			var enumerator = info.GetEnumerator();
+			for (; enumerator.MoveNext();)
+			{
+				infoHash.Add(enumerator.Name, enumerator.Value);
+			}
+
 			foreach (ConfigurationProperty property in Properties)
 			{
-				try
+				object value;
+				if (infoHash.TryGetValue(property.Name, out value))
 				{
-					var value = info.GetValue(property.Name, property.Type);
 					base[property] = value;
-				}
-				catch(Exception exception)
-				{
-					throw;
 				}
 			}
 		}
