@@ -42,7 +42,7 @@ namespace Talifun.Commander.Command.AntiVirus
 					if (!Directory.Exists(errorProcessingPath))
                     {
                         throw new Exception(
-                            string.Format(Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+							string.Format(Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
 								project.Name,
 								Settings.ElementCollectionSettingName,
 								Settings.ElementSettingName, 
@@ -64,7 +64,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
                 			if (string.IsNullOrEmpty(virusScannerPath))
                 			{
-                				throw new Exception(string.Format(Command.Properties.Resource.ErrorMessageAppSettingRequired, AntiVirusConfiguration.Instance.McAfeePathSettingName));
+								throw new Exception(string.Format(Commander.Command.Properties.Resource.ErrorMessageAppSettingRequired, AntiVirusConfiguration.Instance.McAfeePathSettingName));
                 			}
                 		}
                 		break;
@@ -84,7 +84,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
                 throw new Exception(
                     string.Format(
-					Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+					Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
 						project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
             }
         }

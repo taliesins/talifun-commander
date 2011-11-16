@@ -82,33 +82,33 @@
     <Compile Include="CommanderStoppedEventArgs.cs" />
     <Compile Include="CommanderStoppedEventHandler.cs" />
     <Compile Include="CommandServiceBase.cs" />
-    <Compile Include="Configuration\FileMatchElement.Serialization.cs" >
+    <Compile Include="Configuration\FileMatchElement.Serialization.cs">
       <DependentUpon>FileMatchElement.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\FolderElement.Serialization.cs" >
+    <Compile Include="Configuration\FolderElement.Serialization.cs">
       <DependentUpon>FolderElement.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\ProjectElement.Serialization.cs" >
+    <Compile Include="Configuration\ProjectElement.Serialization.cs">
       <DependentUpon>ProjectElement.cs</DependentUpon>
     </Compile>
     <Compile Include="Esb\BusDriver.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />
-    <Compile Include="FileMatcher\MessageHandlers\CreateTempDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\MessageHandlers\DeleteTempDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\MessageHandlers\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\MessageHandlers\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\MessageHandlers\ProcessFileMatchesMessageHandler.cs" />
-    <Compile Include="FileMatcher\Messages\ProcessedFileMatchesMessage.cs" />
-    <Compile Include="FileMatcher\Messages\ProcessFileMatchesMessage.cs" />
-    <Compile Include="FileMatcher\Messages\MovedProcessedFileIntoCompletedDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\MoveProcessedFileIntoCompletedDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\DeletedTempDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\DeleteTempDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\MovedFileToBeProcessedIntoTempDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\CreateTempDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\MoveFileToBeProcessedIntoTempDirectoryMessage.cs" />
-    <Compile Include="FileMatcher\Messages\CreatedTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\CreateTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\ProcessFileMatchesMessageHandler.cs" />
+    <Compile Include="FileMatcher\Response\ProcessedFileMatchesMessage.cs" />
+    <Compile Include="FileMatcher\Request\ProcessFileMatchesMessage.cs" />
+    <Compile Include="FileMatcher\Response\MovedProcessedFileIntoCompletedDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Request\MoveProcessedFileIntoCompletedDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Response\DeletedTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Request\DeleteTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Response\MovedFileToBeProcessedIntoTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Request\CreateTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Request\MoveFileToBeProcessedIntoTempDirectoryMessage.cs" />
+    <Compile Include="FileMatcher\Response\CreatedTempDirectoryMessage.cs" />
     <Compile Include="FolderWatcher\Messages\FileFinishedChangingMessage.cs" />
     <Compile Include="FileMatcher\FileMatcherSaga.cs" />
     <Compile Include="Esb\IBusDriver.cs" />
@@ -189,8 +189,8 @@
     <Compile Include="Esb\Events\ICommandCompletedMessage.cs" />
     <Compile Include="Esb\Events\ICommandStartedMessage.cs" />
     <Compile Include="Esb\ServiceInstance.cs" />
-    <Compile Include="ConfigurationChecker\Messages\ResponseTestConfigurationMessage.cs" />
-    <Compile Include="ConfigurationChecker\Messages\RequestTestConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Response\ResponseTestConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Request\RequestTestConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\ConfigurationCheckerSaga.cs" />
     <Compile Include="FileExtensions.cs" />
     <Compile Include="ICommandConfiguration.cs" />

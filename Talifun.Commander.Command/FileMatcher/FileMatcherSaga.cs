@@ -4,7 +4,8 @@ using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.FileMatcher.Messages;
+using Talifun.Commander.Command.FileMatcher.Request;
+using Talifun.Commander.Command.FileMatcher.Response;
 using Talifun.Commander.Command.FolderWatcher.Messages;
 
 namespace Talifun.Commander.Command.FileMatcher

@@ -5,7 +5,6 @@ using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FileMatcher;
-using Talifun.Commander.Command.FileMatcher.MessageHandlers;
 
 namespace Talifun.Commander.Command
 {
