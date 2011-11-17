@@ -55,7 +55,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                 }
                 else
                 {
-					TryCreateTestFile(new DirectoryInfo(outPutPath));
+					(new DirectoryInfo(outPutPath)).TryCreateTestFile();
                 }
 
             	var workingPath = audioConversionSetting.GetWorkingPathOrDefault();
@@ -73,12 +73,12 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     }
                     else
                     {
-						TryCreateTestFile(new DirectoryInfo(workingPath));
+						(new DirectoryInfo(workingPath)).TryCreateTestFile();
                     }
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
+					(new DirectoryInfo(Path.GetTempPath())).TryCreateTestFile();
                 }
 
             	var errorProcessingPath = audioConversionSetting.GetErrorProcessingPathOrDefault();
@@ -96,7 +96,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
                     }
                     else
                     {
-						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
+						(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
                     }
                 }
 

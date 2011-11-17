@@ -46,7 +46,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 				}
 				else
 				{
-					TryCreateTestFile(new DirectoryInfo(outPutPath));
+					(new DirectoryInfo(outPutPath)).TryCreateTestFile();
 				}
 
 				var workingPath = youTubeUploaderSetting.GetWorkingPathOrDefault();
@@ -64,12 +64,12 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 					}
 					else
 					{
-						TryCreateTestFile(new DirectoryInfo(workingPath));
+						(new DirectoryInfo(workingPath)).TryCreateTestFile();
 					}
 				}
 				else
 				{
-					TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
+					(new DirectoryInfo(Path.GetTempPath())).TryCreateTestFile();
 				}
 
 				var errorProcessingPath = youTubeUploaderSetting.GetErrorProcessingPathOrDefault();
@@ -87,7 +87,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 					}
 					else
 					{
-						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
+						(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
 					}
 				}
 

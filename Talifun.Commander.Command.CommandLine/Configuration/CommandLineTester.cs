@@ -59,7 +59,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                 }
                 else
                 {
-					TryCreateTestFile(new DirectoryInfo(outPutPath));
+					(new DirectoryInfo(outPutPath)).TryCreateTestFile();
                 }
 
 				var workingPath = commandLineSetting.GetWorkingPathOrDefault();
@@ -77,12 +77,12 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                     }
                     else
                     {
-						TryCreateTestFile(new DirectoryInfo(workingPath));
+						(new DirectoryInfo(workingPath)).TryCreateTestFile();
                     }
                 }
                 else
                 {
-                    TryCreateTestFile(new DirectoryInfo(Path.GetTempPath()));
+					(new DirectoryInfo(Path.GetTempPath())).TryCreateTestFile();
                 }
 
             	var errorProcessingPath = commandLineSetting.GetErrorProcessingPathOrDefault();
@@ -100,7 +100,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
                     }
                     else
                     {
-						TryCreateTestFile(new DirectoryInfo(errorProcessingPath));
+						(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
                     }
                 }
 

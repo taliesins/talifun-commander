@@ -3,7 +3,7 @@ using Talifun.Commander.Command.Esb.Response;
 
 namespace Talifun.Commander.Command.AntiVirus.CommandTester
 {
-	public class AntiVirusTestConfigurationResponseHandler : CommandTestConfigurationResponseMessageHandlerBase<AntiVirusTestConfigurationResponseMessage>
+	public class AntiVirusConfigurationTestResponseHandler : CommandConfigurationTestResponseMessageHandlerBase<AntiVirusTestConfigurationResponseMessage>
 	{
 	}
 }

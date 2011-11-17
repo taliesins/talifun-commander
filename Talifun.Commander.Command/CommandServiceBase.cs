@@ -4,7 +4,8 @@ using Talifun.Commander.Command.Esb;
 
 namespace Talifun.Commander.Command
 {
-	public abstract class CommandServiceBase<TCommandSaga, TCommandTesterSaga> : ICommandService where TCommandSaga : SagaStateMachine<TCommandSaga>, ISaga
+	public abstract class CommandServiceBase<TCommandSaga, TCommandTesterSaga> : ICommandService 
+		where TCommandSaga : SagaStateMachine<TCommandSaga>, ISaga
 		where TCommandTesterSaga : SagaStateMachine<TCommandTesterSaga>, ISaga
 	{
 		private ISagaRepository<TCommandSaga> _commandSagaRepository;

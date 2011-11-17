@@ -33,6 +33,10 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.YouTubeUploader", "Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj", "{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Specification", "Talifun.Commander.Specification\Talifun.Commander.Specification.csproj", "{C27414CA-59C0-40D8-B0C5-46458F78B399}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Tests", "Talifun.Commander.Tests\Talifun.Commander.Tests.csproj", "{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -294,6 +298,36 @@ Global
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}.Release|x86.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.ASP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.ASP|Mixed Platforms.Build.0 = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.ASP|x86.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C27414CA-59C0-40D8-B0C5-46458F78B399}.Release|x86.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.ASP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.ASP|Mixed Platforms.Build.0 = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.ASP|x86.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
