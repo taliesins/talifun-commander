@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.CommandLine.Configuration
@@ -7,6 +8,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
     public sealed partial class CommandLineElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty commandPath = new ConfigurationProperty("commandPath", typeof(string), "", ConfigurationPropertyOptions.IsRequired);
@@ -39,6 +41,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         /// Gets or sets the command path to use. e.g. c:\bin\test.exe
         /// </summary>
         [ConfigurationProperty("commandPath", DefaultValue = "", IsRequired = true)]
+		[JsonProperty]
         public string CommandPath
         {
             get { return ((string)base[commandPath]); }
@@ -49,6 +52,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         /// Gets or sets if the command path should be checked for its existance
         /// </summary>
         [ConfigurationProperty("checkCommandPathExists", DefaultValue = true, IsRequired = false)]
+		[JsonProperty]
         public bool CheckCommandPathExists
         {
             get { return ((bool)base[checkCommandPathExists]); }
@@ -70,6 +74,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
         /// {%OutputFilePath%}
         /// </remarks>
         [ConfigurationProperty("args", DefaultValue = "", IsRequired = false)]
+		[JsonProperty]
         public string Args
         {
             get { return ((string)base[args]); }

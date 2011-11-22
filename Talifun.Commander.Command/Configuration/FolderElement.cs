@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace Talifun.Commander.Command.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
 	public sealed partial class FolderElement : NamedConfigurationElement
     {
         private static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
@@ -44,6 +46,7 @@ namespace Talifun.Commander.Command.Configuration
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
         [ConfigurationProperty("name", DefaultValue=null, IsRequired = true, IsKey=true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public override string Name
         {
             get { return ((string)base[name]); }
@@ -57,6 +60,7 @@ namespace Talifun.Commander.Command.Configuration
         /// There should only be one watcher per a folder branch.
         /// </remarks>
         [ConfigurationProperty("folderToWatch", DefaultValue=null, IsRequired = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string FolderToWatch
         {
             get { return ((string)base[folderToWatch]); }
@@ -74,6 +78,7 @@ namespace Talifun.Commander.Command.Configuration
         /// The wildcard filter to use for files. E.g. *.txt
         /// </summary>
         [ConfigurationProperty("fileNameFilter", DefaultValue = "")]
+		[JsonProperty]
         public string Filter
         {
             get { return ((string)base[fileNameFilter]); }
@@ -84,6 +89,7 @@ namespace Talifun.Commander.Command.Configuration
         /// The amount of time to wait, in milliseconds, without file activity before assuming that changes are complete.
         /// </summary>
         [ConfigurationProperty("pollTime", DefaultValue=3000)]
+		[JsonProperty]
         public int PollTime
         {
             get { return ((int)base[pollTime]); }
@@ -98,6 +104,7 @@ namespace Talifun.Commander.Command.Configuration
         /// unexpected results may occur.
         /// </remarks>
         [ConfigurationProperty("includeSubdirectories", DefaultValue = false)]
+		[JsonProperty]
         public bool IncludeSubdirectories
         {
             get { return ((bool)base[includeSubdirectories]); }
@@ -115,6 +122,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// the windows temp directory will be used to process files.
         /// </remarks>
         [ConfigurationProperty("workingPath", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
@@ -137,6 +145,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// not moving files to the completed path once they have been successfully processed.
         /// </remarks>
         [ConfigurationProperty("completedPath", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string CompletedPath
         {
             get { return ((string)base[completedPath]); }
@@ -154,11 +163,12 @@ namespace Talifun.Commander.Command.Configuration
         /// </summary>
         /// <value>A <see cref="ProviderSettingsCollection" /> containing the configuration elements associated with this configuration section.</value>
         [ConfigurationProperty("fileMatches", DefaultValue = null, IsDefaultCollection = true)]
+		[JsonProperty]
         public FileMatchElementCollection FileMatches
         {
             get { return ((FileMatchElementCollection)base[fileMatches]); }
+			set { SetPropertyValue(value, fileMatches, "FileMatches"); }
         }
-
 
         /// <summary>
         /// Gets the collection of configuration properties contained by this configuration element.

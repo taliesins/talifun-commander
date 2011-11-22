@@ -73,7 +73,7 @@ namespace Talifun.Commander.Tests
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("a Cancel Command Message");
+ testRunner.Given("a \"Cancel Command\" message");
 #line 8
  testRunner.When("the message is serialized");
 #line 9
@@ -92,7 +92,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
 this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.Given("a Request Command Message");
+ testRunner.Given("a \"Request Command\" message");
 #line 14
  testRunner.When("the message is serialized");
 #line 15
@@ -111,7 +111,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 19
- testRunner.Given("a Request Command Configuration Test Message");
+ testRunner.Given("a \"Request Command Configuration Test\" message");
 #line 20
  testRunner.When("the message is serialized");
 #line 21

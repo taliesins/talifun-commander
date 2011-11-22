@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.VideoThumbnailer;
 
 namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
     public sealed partial class VideoThumbnailerElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty imageType = new ConfigurationProperty("imageType", typeof(ImageType), ImageType.JPG, ConfigurationPropertyOptions.None);
@@ -41,6 +42,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         /// Gets or sets the image output type to use for the thumbnail.
         /// </summary>
         [ConfigurationProperty("imageType", DefaultValue = ImageType.JPG, IsRequired = false)]
+		[JsonProperty]
         public ImageType ImageType
         {
             get { return ((ImageType)base[imageType]); }
@@ -51,6 +53,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         /// Gets or sets the image width for the thumbnail.
         /// </summary>
         [ConfigurationProperty("width", DefaultValue = null, IsRequired = true)]
+		[JsonProperty]
         public int Width
         {
             get { return ((int)base[width]); }
@@ -61,6 +64,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         /// Gets or sets the image height for the thumbnail.
         /// </summary>
         [ConfigurationProperty("height", DefaultValue = null, IsRequired = true)]
+		[JsonProperty]
         public int Height
         {
             get { return ((int)base[height]); }
@@ -72,6 +76,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         /// percentage where possible.
         /// </summary>
         [ConfigurationProperty("time", IsRequired = false)]
+		[JsonProperty]
         public TimeSpan Time
         {
             get { return ((TimeSpan)base[time]); }
@@ -82,6 +87,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
         /// Gets or sets the percentage into the video the thumbnail should be taken.
         /// </summary>
         [ConfigurationProperty("timePercentage", IsRequired = false)]
+		[JsonProperty]
         public int TimePercentage
         {
             get { return ((int)base[timePercentage]); }

@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.Image.Configuration
@@ -7,6 +8,7 @@ namespace Talifun.Commander.Command.Image.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
     public sealed partial class ImageConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty width = new ConfigurationProperty("width", typeof(int), 0, ConfigurationPropertyOptions.None);
@@ -54,6 +56,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Images 
         /// </summary>
         [ConfigurationProperty("width", DefaultValue = null, IsRequired = false)]
+		[JsonProperty]
         public int Width
         {
             get { return ((int)base[width]); }
@@ -64,6 +67,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Gets or sets the image height, in pixels, to generate when using this photo style.
         /// </summary>
         [ConfigurationProperty("height", DefaultValue = null, IsRequired = false)]
+		[JsonProperty]
         public int Height
         {
             get { return ((int)base[height]); }
@@ -75,6 +79,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// </summary>
         /// <value>The name.</value>
         [ConfigurationProperty("resizeMode", DefaultValue = ResizeMode.None, IsRequired = true)]
+		[JsonProperty]
         public ResizeMode ResizeMode
         {
             get { return ((ResizeMode)base[resizeMode]); }
@@ -85,6 +90,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Gets or sets the Gravity.
         /// </summary>
         [ConfigurationProperty("gravity", DefaultValue = Gravity.Center, IsRequired = false)]
+		[JsonProperty]
         public Gravity Gravity
         {
             get { return ((Gravity)base[gravity]); }
@@ -97,6 +103,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// result in images with a transparent background if this is supported by the output format.
         /// </summary>
 		[ConfigurationProperty("backgroundColor", DefaultValue = "#00FFFFFF", IsRequired = false)]
+		[JsonProperty]
         public string BackgroundColor
         {
             get { return ((string)base[backgroundColor]); }
@@ -108,6 +115,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// using an image format that supports lossy compression (such as JPG or PNG)
         /// </summary>
         [ConfigurationProperty("quality", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int Quality
         {
             get { return ((int)base[quality]); }
@@ -121,6 +129,7 @@ namespace Talifun.Commander.Command.Image.Configuration
         /// Original uses the source format for its output format
         /// </remarks>
         [ConfigurationProperty("resizeImageType", DefaultValue = ResizeImageType.Original, IsRequired = false)]
+		[JsonProperty]
         public ResizeImageType ResizeImageType
         {
             get { return ((ResizeImageType)base[resizeImageType]); }
@@ -132,6 +141,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 		/// watermarked.
 		/// </summary>       
 		[ConfigurationProperty("watermarkPath", DefaultValue = "", IsRequired = false)]
+		[JsonProperty]
 		public string WatermarkPath
 		{
 			get { return ((string)base[watermarkPath]); }
@@ -142,6 +152,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 		/// Gets or sets the gravity to use when placing watermark overlay.
 		/// </summary>
 		[ConfigurationProperty("watermarkGravity", DefaultValue = Gravity.SouthEast, IsRequired = false)]
+		[JsonProperty]
 		public Gravity WatermarkGravity
 		{
 			get { return ((Gravity)base[watermarkGravity]); }
@@ -152,6 +163,7 @@ namespace Talifun.Commander.Command.Image.Configuration
 		/// Gets or sets the dissolve levels to use when placing watermark overlay.
 		/// </summary>
 		[ConfigurationProperty("watermarkDissolveLevels", DefaultValue = 15, IsRequired = false)]
+		[JsonProperty]
 		public int WatermarkDissolveLevels
 		{
 			get { return ((int)base[watermarkDissolveLevels]); }

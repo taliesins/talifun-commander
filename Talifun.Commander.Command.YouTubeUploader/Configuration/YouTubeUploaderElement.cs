@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.YouTubeUploader.Configuration
@@ -7,6 +8,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 	/// <summary>
 	/// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
 	/// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
 	public sealed partial class YouTubeUploaderElement : CommandConfigurationBase
 	{
 		private static readonly ConfigurationProperty googleUsername = new ConfigurationProperty("googleUsername", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
@@ -37,6 +39,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		/// Gets or sets the Google Username to be used when requesting a security token.
 		/// </summary>       
 		[ConfigurationProperty("googleUsername", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string GoogleUsername
 		{
 			get { return ((string)base[googleUsername]); }
@@ -47,6 +50,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		/// Gets or sets the Google Password to be used when requesting a security token.
 		/// </summary>       
 		[ConfigurationProperty("googlePassword", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string GooglePassword
 		{
 			get { return ((string)base[googlePassword]); }
@@ -57,6 +61,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		/// Gets or sets the YouTube Username to use when sending a request.
 		/// </summary>       
 		[ConfigurationProperty("youTubeUsername", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string YouTubeUsername
 		{
 			get { return ((string)base[youTubeUsername]); }
@@ -67,6 +72,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		/// Gets or sets the developer key to use when sending a request.
 		/// </summary>       
 		[ConfigurationProperty("developerKey", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string DeveloperKey
 		{
 			get { return ((string)base[developerKey]); }
@@ -77,6 +83,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		/// Gets or sets the application name to use when sending a request.
 		/// </summary>       
 		[ConfigurationProperty("applicationName", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string ApplicationName
 		{
 			get { return ((string)base[applicationName]); }

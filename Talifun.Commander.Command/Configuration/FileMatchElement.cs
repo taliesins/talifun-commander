@@ -1,11 +1,13 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace Talifun.Commander.Command.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
 	public sealed partial class FileMatchElement : NamedConfigurationElement
     {
         private static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
@@ -37,6 +39,7 @@ namespace Talifun.Commander.Command.Configuration
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
         [ConfigurationProperty("name", DefaultValue=null, IsRequired = true, IsKey=true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public override string Name
         {
             get { return ((string)base[name]); }
@@ -50,6 +53,7 @@ namespace Talifun.Commander.Command.Configuration
         /// If this is left blank then it will be assumed that it matches.
         /// </remarks>
         [ConfigurationProperty("expression", DefaultValue = "", IsRequired = false)]
+		[JsonProperty]
         public string Expression
         {
             get { return ((string)base[expression]); }
@@ -60,6 +64,7 @@ namespace Talifun.Commander.Command.Configuration
         /// The conversion type to use.
         /// </summary>
         [ConfigurationProperty("conversionType", DefaultValue = null, IsRequired = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string ConversionType
         {
             get { return ((string)base[conversionType]); }
@@ -70,6 +75,7 @@ namespace Talifun.Commander.Command.Configuration
         /// The key name to use for the command settings.
         /// </summary>
         [ConfigurationProperty("commandSettingsKey", DefaultValue = null, IsRequired = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string CommandSettingsKey
         {
             get { return ((string)base[commandSettingsKey]); }
@@ -81,6 +87,7 @@ namespace Talifun.Commander.Command.Configuration
         /// in this fileMatches element.
         /// </summary>
         [ConfigurationProperty("stopProcessing", DefaultValue = false, IsRequired = false)]
+		[JsonProperty]
         public bool StopProcessing
         {
             get { return ((bool)base[stopProcessing]); }

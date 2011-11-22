@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
@@ -12,13 +10,8 @@ namespace Talifun.Commander.Command.Configuration
     /// Defines an abstract base class for configuration elements that can be contained within sections that derive from
     /// <see cref="ConfigurationElementCollection" />.
     /// </summary>
-	public abstract class NamedConfigurationElement : ConfigurationElement, INotifyPropertyChanged, INotifyPropertyChanging, ISerializable
+	public abstract class NamedConfigurationElement : ConfigurationElement, INotifyPropertyChanged, INotifyPropertyChanging
     {
-		public NamedConfigurationElement()
-		{
-
-		}
-
     	public ISettingConfiguration Setting { get; protected set; }
 
         /// <summary>
@@ -128,44 +121,5 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			get { return base.IsModified(); }
 		}
-
-		#region ISerializable Members
-		public NamedConfigurationElement(SerializationInfo info, StreamingContext context)
-		{
-			SetObjectData(info, context);
-		}
-
-		public void SetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			if (info == null)
-				throw new System.ArgumentNullException("info");
-
-			var infoHash = new Dictionary<string, object>();
-
-			var enumerator = info.GetEnumerator();
-			for (; enumerator.MoveNext();)
-			{
-				infoHash.Add(enumerator.Name, enumerator.Value);
-			}
-
-			foreach (ConfigurationProperty property in Properties)
-			{
-				object value;
-				if (infoHash.TryGetValue(property.Name, out value))
-				{
-					base[property] = value;
-				}
-			}
-		}
-
-		public void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			foreach (ConfigurationProperty property in Properties)
-			{
-				info.AddValue(property.Name, base[property], property.Type);
-			}
-		}
-
-		#endregion
     }
 }

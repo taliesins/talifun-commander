@@ -1,45 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Reflection;
+using Newtonsoft.Json;
 
 namespace Talifun.Commander.Command.Configuration
 {
+	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public partial class ProjectElement : NamedConfigurationElement
     {
-		private readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
+		private static readonly string[] _excludedElements = new[] { "project", "folder", "fileMatch" };
 
-        protected ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
-        protected readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-        protected readonly ConfigurationProperty folders = new ConfigurationProperty("folders", typeof(FolderElementCollection), new FolderElementCollection(), ConfigurationPropertyOptions.None);
+		protected static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
+        protected static readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+        protected static readonly ConfigurationProperty folders = new ConfigurationProperty("folders", typeof(FolderElementCollection), new FolderElementCollection(), ConfigurationPropertyOptions.None);
         
+		/// <summary>
+        /// Initializes the <see cref="FileMatchElement"/> class.
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+		static ProjectElement()
+        {
+			var container = CommandContainer.Instance.Container;
+
+			var elementCollectionConfigurationProperties = container.GetExportedValues<CurrentConfigurationElementCollection>()
+				.Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
+
+			properties.Add(name);
+			properties.Add(folders);
+
+			foreach (var elementCollectionConfigurationProperty in elementCollectionConfigurationProperties)
+			{
+				properties.Add(elementCollectionConfigurationProperty.CreateNewConfigurationProperty());
+			}
+        }
+
         /// <summary>
         /// Initializes the <see cref="ProjectElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         public ProjectElement()
         {
-			Setting = ProjectConfiguration.Instance;	
-
-            var container = CommandContainer.Instance.Container;
-
-        	var elementCollectionConfigurationProperties = container.GetExportedValues<CurrentConfigurationElementCollection>()
-        		.Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
-  
-            properties.Add(name);
-            properties.Add(folders);
-
-            foreach (var elementCollectionConfigurationProperty in elementCollectionConfigurationProperties)
-            {
-                properties.Add(elementCollectionConfigurationProperty.CreateNewConfigurationProperty());
-            }
+			Setting = ProjectConfiguration.Instance;
         }
 
         /// <summary>
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
         [ConfigurationProperty("name", DefaultValue = null, IsRequired = true, IsKey = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public override string Name
         {
             get { return ((string)base[name]); }
@@ -52,11 +65,14 @@ namespace Talifun.Commander.Command.Configuration
         /// </summary>
         /// <value>A <see cref="ProviderSettingsCollection" /> containing the configuration elements associated with this configuration section.</value>
         [ConfigurationProperty("folders", DefaultValue = null, IsDefaultCollection = true)]
+		[JsonProperty]
         public FolderElementCollection Folders
         {
             get { return ((FolderElementCollection)base[folders]); }
+			set { SetPropertyValue(value, folders, "Folders"); }
         }
 
+		
 		public List<CurrentConfigurationElementCollection> CommandPlugins
 		{
 			get
@@ -73,6 +89,36 @@ namespace Talifun.Commander.Command.Configuration
 					.ToList();
 
 				return commandConfigurations;
+			}
+		}
+
+		[JsonProperty(TypeNameHandling = TypeNameHandling.All)]
+		private ExpandoObject CommandPluginProperties
+		{
+			get
+			{
+				var commandConfigurations = properties.Cast<ConfigurationProperty>()
+					.Where(x =>
+					       x != name
+					       && x != folders
+					       && x.Type != typeof (ProjectElementCollection)
+					       && x.Type != typeof (FileMatchElementCollection)
+					);
+
+				var commandPluginProperties = new ExpandoObject();
+				foreach (var configurationProperty in commandConfigurations)
+				{
+					((IDictionary<string, object>)commandPluginProperties).Add(configurationProperty.Name, base[configurationProperty]);
+				}
+				
+				return commandPluginProperties;
+			}
+			set
+			{
+				foreach (var commandPluginProperty in value)
+				{
+					base[commandPluginProperty.Key] = commandPluginProperty.Value;
+				}
 			}
 		}
 

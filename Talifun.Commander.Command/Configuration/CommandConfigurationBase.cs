@@ -1,8 +1,10 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace Talifun.Commander.Command.Configuration
 {
+	[JsonObject(MemberSerialization.OptIn)]
     public abstract class CommandConfigurationBase : NamedConfigurationElement, ICommandConfiguration
     {
         protected static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
@@ -29,6 +31,7 @@ namespace Talifun.Commander.Command.Configuration
         /// Gets or sets the name of the configuration element represented by this instance.
         /// </summary>
         [ConfigurationProperty("name", DefaultValue = null, IsRequired = true, IsKey = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public override string Name
         {
             get { return ((string)base[name]); }
@@ -39,6 +42,7 @@ namespace Talifun.Commander.Command.Configuration
         /// Gets or sets the path where processed file will be saved to.
         /// </summary>
         [ConfigurationProperty("outPutPath", DefaultValue = null, IsRequired = true)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string OutPutPath
         {
             get { return ((string)base[outPutPath]); }
@@ -63,6 +67,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// the windows temp directory will be used to process files.
 		/// </remarks>
         [ConfigurationProperty("workingPath", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string WorkingPath
         {
             get { return ((string)base[workingPath]); }
@@ -85,6 +90,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// the files that cannot be processed are just deleted
 		/// </remarks>    
         [ConfigurationProperty("errorProcessingPath", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string ErrorProcessingPath
         {
             get { return ((string)base[errorProcessingPath]); }
@@ -101,6 +107,7 @@ namespace Talifun.Commander.Command.Configuration
         /// </summary>
         /// <remarks>This is the string.Format to apply to the outputted filename.</remarks>
         [ConfigurationProperty("fileNameFormat", DefaultValue = "")]
+		[JsonProperty]
         public string FileNameFormat
         {
             get { return ((string)base[fileNameFormat]); }

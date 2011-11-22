@@ -56,79 +56,78 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 
 		private void Consume(AntiVirusConfigurationTestRequestMessage message)
 		{
-			var responseMessage = new AntiVirusTestConfigurationResponseMessage();
+			var responseMessage = new AntiVirusTestConfigurationResponseMessage()
+			{
+			    CorrelationId = message.CorrelationId
+			};
 
 			try
 			{
-				var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName,
-				                                                                            message.Project);
+				var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName, message.Project);
 				var antiVirusSettings = commandSettings.Settings;
 
 				var antiVirusSettingsKeys = new Dictionary<string, FileMatchElement>();
 
-				if (antiVirusSettings.Count <= 0)
+				if (antiVirusSettings.Count > 0)
 				{
-					return;
-				}
-
-				for (var i = 0; i < antiVirusSettings.Count; i++)
-				{
-					var antiVirusSetting = antiVirusSettings[i];
-
-					var errorProcessingPath = antiVirusSetting.GetErrorProcessingPathOrDefault();
-
-					if (!string.IsNullOrEmpty(errorProcessingPath))
+					for (var i = 0; i < antiVirusSettings.Count; i++)
 					{
-						if (!Directory.Exists(errorProcessingPath))
-						{
-							throw new Exception(
-								string.Format(Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
-								              message.Project.Name,
-								              Settings.ElementCollectionSettingName,
-								              Settings.ElementSettingName,
-								              antiVirusSetting.Name,
-								              errorProcessingPath));
-						}
-						else
-						{
-							(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
-						}
-					}
+						var antiVirusSetting = antiVirusSettings[i];
 
-					switch (antiVirusSetting.VirusScannerType)
-					{
-						case VirusScannerType.McAfee:
-						case VirusScannerType.NotSpecified:
+						var errorProcessingPath = antiVirusSetting.GetErrorProcessingPathOrDefault();
+
+						if (!string.IsNullOrEmpty(errorProcessingPath))
+						{
+							if (!Directory.Exists(errorProcessingPath))
 							{
-								var virusScannerPath = message.AppSettings[AntiVirusConfiguration.Instance.McAfeePathSettingName];
-
-								if (string.IsNullOrEmpty(virusScannerPath))
-								{
-									throw new Exception(string.Format(Commander.Command.Properties.Resource.ErrorMessageAppSettingRequired,
-									                                  AntiVirusConfiguration.Instance.McAfeePathSettingName));
-								}
+								throw new Exception(
+									string.Format(Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+									              message.Project.Name,
+									              Settings.ElementCollectionSettingName,
+									              Settings.ElementSettingName,
+									              antiVirusSetting.Name,
+									              errorProcessingPath));
 							}
-							break;
+							else
+							{
+								(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
+							}
+						}
+
+						switch (antiVirusSetting.VirusScannerType)
+						{
+							case VirusScannerType.McAfee:
+							case VirusScannerType.NotSpecified:
+								{
+									var virusScannerPath = message.AppSettings[AntiVirusConfiguration.Instance.McAfeePathSettingName];
+
+									if (string.IsNullOrEmpty(virusScannerPath))
+									{
+										throw new Exception(string.Format(Commander.Command.Properties.Resource.ErrorMessageAppSettingRequired,
+										                                  AntiVirusConfiguration.Instance.McAfeePathSettingName));
+									}
+								}
+								break;
+						}
+
+						antiVirusSettingsKeys.Remove(antiVirusSetting.Name);
 					}
 
-					antiVirusSettingsKeys.Remove(antiVirusSetting.Name);
-				}
-
-				if (antiVirusSettingsKeys.Count > 0)
-				{
-					FileMatchElement fileMatch = null;
-					foreach (var value in antiVirusSettingsKeys.Values)
+					if (antiVirusSettingsKeys.Count > 0)
 					{
-						fileMatch = value;
-						break;
+						FileMatchElement fileMatch = null;
+						foreach (var value in antiVirusSettingsKeys.Values)
+						{
+							fileMatch = value;
+							break;
+						}
+
+						throw new Exception(
+							string.Format(
+								Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+								message.Project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
 					}
-
-					throw new Exception(
-						string.Format(
-							Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
-							message.Project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
 				}
-
 			}
 			catch (Exception exception)
 			{

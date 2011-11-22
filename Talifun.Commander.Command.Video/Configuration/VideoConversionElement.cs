@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.Video.Configuration
@@ -7,6 +8,7 @@ namespace Talifun.Commander.Command.Video.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
     public sealed partial class VideoConversionElement : CommandConfigurationBase
     {
 		private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
@@ -76,6 +78,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// Gets or sets the audio conversion type to use.
 		/// </summary>
 		[ConfigurationProperty("audioConversionType", DefaultValue = AudioConversionType.NotSpecified)]
+		[JsonProperty]
 		public AudioConversionType AudioConversionType
 		{
 			get { return ((AudioConversionType)base[audioConversionType]); }
@@ -92,6 +95,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 32000
         /// </summary>
         [ConfigurationProperty("audioBitRate", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int AudioBitRate
         {
             get { return ((int)base[audioBitRate]); }
@@ -107,6 +111,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 22050
         /// </summary>
         [ConfigurationProperty("audioFrequency", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int AudioFrequency
         {
             get { return ((int)base[audioFrequency]); }
@@ -120,6 +125,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// 2 (Stero)
         /// </summary>
         [ConfigurationProperty("audioChannels", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int AudioChannel
         {
             get { return ((int)base[audioChannels]); }
@@ -130,6 +136,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// Gets or sets the video conversion type to use.
 		/// </summary>
 		[ConfigurationProperty("videoConversionType", DefaultValue = VideoConversionType.NotSpecified)]
+		[JsonProperty]
 		public VideoConversionType VideoConversionType
 		{
 			get { return ((VideoConversionType)base[videoConversionType]); }
@@ -140,6 +147,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets if deinterlace should be used when encoding video.
         /// </summary>
         [ConfigurationProperty("deinterlace", DefaultValue = false, IsRequired = false)]
+		[JsonProperty]
         public bool Deinterlace
         {
             get { return ((bool)base[deinterlace]); }
@@ -150,6 +158,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the width of the video output.
         /// </summary>
         [ConfigurationProperty("width", DefaultValue = 0, IsRequired = true)]
+		[JsonProperty]
         public int Width
         {
             get { return ((int)base[width]); }
@@ -160,6 +169,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the height of the video output.
         /// </summary>
         [ConfigurationProperty("height", DefaultValue = 0, IsRequired = true)]
+		[JsonProperty]
         public int Height
         {
             get { return ((int)base[height]); }
@@ -170,6 +180,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the video bit rate of the video output.
         /// </summary>
         [ConfigurationProperty("videoBitRate", DefaultValue = 0, IsRequired = true)]
+		[JsonProperty]
         public int VideoBitRate
         {
             get { return ((int)base[videoBitRate]); }
@@ -180,6 +191,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the frame rate of the video output.
         /// </summary>
         [ConfigurationProperty("frameRate", DefaultValue = 0, IsRequired = true)]
+		[JsonProperty]
         public int FrameRate
         {
             get { return ((int)base[frameRate]); }
@@ -190,6 +202,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Gets or sets the video bit rate of the video output.
         /// </summary>
         [ConfigurationProperty("aspectRatio", DefaultValue = AspectRatio.NotSpecified, IsRequired = false)]
+		[JsonProperty]
         public AspectRatio AspectRatio
         {
             get { return ((AspectRatio)base[aspectRatio]); }
@@ -201,6 +214,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting MaxVideoBitRate > VideoBitRate
         /// </summary>
         [ConfigurationProperty("maxVideoBitRate", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int MaxVideoBitRate
         {
             get { return ((int)base[maxVideoBitRate]); }
@@ -212,6 +226,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting BufferSize > MaxVideoBitRate > VideoBitRate
         /// </summary>
         [ConfigurationProperty("bufferSize", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int BufferSize
         {
             get { return ((int)base[bufferSize]); }
@@ -223,6 +238,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting KeyFrameInterval = 10 * FrameRate
         /// </summary>
         [ConfigurationProperty("keyFrameInterval", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int KeyFrameInterval
         {
             get { return ((int)base[keyFrameInterval]); }
@@ -234,6 +250,7 @@ namespace Talifun.Commander.Command.Video.Configuration
         /// Recommend setting MinKeyFrameInterval = FrameRate
         /// </summary>
         [ConfigurationProperty("minKeyframeInterval", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int MinKeyFrameInterval
         {
             get { return ((int)base[minKeyFrameInterval]); }
@@ -245,6 +262,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// watermarked.
 		/// </summary>       
 		[ConfigurationProperty("watermarkPath", DefaultValue = "")]
+		[JsonProperty]
 		public string WatermarkPath
 		{
 			get { return ((string)base[watermarkPath]); }
@@ -255,6 +273,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// Gets or sets the gravity to use when placing watermark overlay.
 		/// </summary>
 		[ConfigurationProperty("videoConversionType", DefaultValue = Gravity.SouthEast)]
+		[JsonProperty]
 		public Gravity WatermarkGravity
 		{
 			get { return ((Gravity)base[watermarkGravity]); }
@@ -265,6 +284,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// Gets or sets the padding to use for x/width.
 		/// </summary>
 		[ConfigurationProperty("watermarkWidthPadding", DefaultValue = 10, IsRequired = false)]
+		[JsonProperty]
 		public int WatermarkWidthPadding
 		{
 			get { return ((int)base[watermarkWidthPadding]); }
@@ -275,6 +295,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// Gets or sets the padding to use for y/height.
 		/// </summary>
 		[ConfigurationProperty("watermarkHeightPadding", DefaultValue = 10, IsRequired = false)]
+		[JsonProperty]
 		public int WatermarkHeightPadding
 		{
 			get { return ((int)base[watermarkHeightPadding]); }
@@ -286,6 +307,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// added to the beginning.
 		/// </summary>       
 		[ConfigurationProperty("introPath", DefaultValue = "")]
+		[JsonProperty]
 		public string IntroPath
 		{
 			get { return ((string)base[introPath]); }
@@ -297,6 +319,7 @@ namespace Talifun.Commander.Command.Video.Configuration
 		/// added to the end.
 		/// </summary>       
 		[ConfigurationProperty("outtroPath", DefaultValue = "")]
+		[JsonProperty]
 		public string OuttroPath
 		{
 			get { return ((string)base[outtroPath]); }

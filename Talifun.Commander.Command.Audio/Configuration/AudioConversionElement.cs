@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using Talifun.Commander.Command.Audio.InternalMessages;
 using Talifun.Commander.Command.Configuration;
 
@@ -8,6 +9,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
     /// </summary>
+	[JsonObject(MemberSerialization.OptIn)]
     public sealed partial class AudioConversionElement : CommandConfigurationBase
     {
         private static readonly ConfigurationProperty audioConversionType = new ConfigurationProperty("audioConversionType", typeof(AudioConversionType), AudioConversionType.NotSpecified, ConfigurationPropertyOptions.None);
@@ -36,6 +38,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// Gets or sets the conversion type to use.
         /// </summary>
         [ConfigurationProperty("audioConversionType", DefaultValue = AudioConversionType.NotSpecified, IsRequired = false)]
+		[JsonProperty]
         public AudioConversionType AudioConversionType
         {
             get { return ((AudioConversionType)base[audioConversionType]); }
@@ -52,6 +55,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 32000
         /// </summary>
         [ConfigurationProperty("audioBitRate", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int BitRate
         {
             get { return ((int)base[audioBitRate]); }
@@ -67,6 +71,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 22050
         /// </summary>
         [ConfigurationProperty("audioFrequency", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int Frequency
         {
             get { return ((int)base[audioFrequency]); }
@@ -80,6 +85,7 @@ namespace Talifun.Commander.Command.Audio.Configuration
         /// 2 (Stero)
         /// </summary>
         [ConfigurationProperty("audioChannels", DefaultValue = 0, IsRequired = false)]
+		[JsonProperty]
         public int Channel
         {
             get { return ((int)base[audioChannels]); }

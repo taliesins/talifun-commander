@@ -82,15 +82,6 @@
     <Compile Include="CommanderStoppedEventArgs.cs" />
     <Compile Include="CommanderStoppedEventHandler.cs" />
     <Compile Include="CommandServiceBase.cs" />
-    <Compile Include="Configuration\FileMatchElement.Serialization.cs">
-      <DependentUpon>FileMatchElement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\FolderElement.Serialization.cs">
-      <DependentUpon>FolderElement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\ProjectElement.Serialization.cs">
-      <DependentUpon>ProjectElement.cs</DependentUpon>
-    </Compile>
     <Compile Include="Esb\BusDriver.cs" />
     <Compile Include="Esb\ICommandMessenger.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />
@@ -320,6 +311,7 @@
     <Reference Include="MassTransit">
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Newtonsoft.Json.dll</HintPath>

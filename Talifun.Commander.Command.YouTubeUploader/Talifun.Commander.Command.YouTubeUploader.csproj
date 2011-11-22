@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\NLog.dll</HintPath>
@@ -71,9 +75,6 @@
   <ItemGroup>
     <Compile Include="Configuration\YouTubeUploaderConfiguration.cs" />
     <Compile Include="Configuration\YouTubeUploaderElement.cs" />
-    <Compile Include="Configuration\YouTubeUploaderElement.Serialization.cs" >
-      <DependentUpon>YouTubeUploaderElement.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\YouTubeUploaderElement.Validation.cs">
       <DependentUpon>YouTubeUploaderElement.cs</DependentUpon>
     </Compile>

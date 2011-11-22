@@ -1,6 +1,8 @@
 ﻿using MassTransit.Distributor;
 using MassTransit.Saga;
+using MassTransit;
 using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.Esb.Response;
 
 namespace Talifun.Commander.Command
 {
@@ -47,6 +49,13 @@ namespace Talifun.Commander.Command
 			{
 				x.UseSagaDistributorFor<TCommandSaga>();
 				x.UseSagaDistributorFor<TCommandTesterSaga>();
+				x.Subscribe(subscriber =>
+				{
+					subscriber.Handler<ICommandConfigurationTestResponseMessage>(handler =>
+					{
+						var t = handler.CorrelationId;
+					});
+				});
 			});
 		}
 

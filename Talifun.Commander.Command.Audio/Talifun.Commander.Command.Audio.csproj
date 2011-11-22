@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -62,9 +66,6 @@
     <Compile Include="AudioFormats\IAudioFormatsExtensions.cs" />
     <Compile Include="AudioFormats\IAudioSettings.cs" />
     <Compile Include="AudioFormats\VorbisSettings.cs" />
-    <Compile Include="Configuration\AudioConversionElement.Serialization.cs" >
-      <DependentUpon>AudioConversionElement.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>

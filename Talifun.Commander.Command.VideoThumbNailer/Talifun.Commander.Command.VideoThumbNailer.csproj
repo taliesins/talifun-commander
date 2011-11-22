@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -58,9 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\VideoThumbnailerElement.Serialization.cs" >
-      <DependentUpon>VideoThumbnailerElement.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\VideoThumbnailerElement.Validation.cs">
       <DependentUpon>VideoThumbnailerElement.cs</DependentUpon>
     </Compile>
