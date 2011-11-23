@@ -17,9 +17,9 @@ using Talifun.Commander.Command.Properties;
 namespace Talifun.Commander.Command.ConfigurationChecker
 {
 	[Serializable]
-	public class TestConfigurationSaga : SagaStateMachine<TestConfigurationSaga>, ISaga
+	public class ConfigurationCheckerSaga : SagaStateMachine<ConfigurationCheckerSaga>, ISaga
 	{
-		static TestConfigurationSaga()
+		static ConfigurationCheckerSaga()
 		{
 			Define(() =>
 			{
@@ -40,7 +40,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 
 		public static Event<RequestTestConfigurationMessage> TestConfigurationEvent { get; set; }
 
-		public TestConfigurationSaga(Guid correlationId)
+		public ConfigurationCheckerSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}

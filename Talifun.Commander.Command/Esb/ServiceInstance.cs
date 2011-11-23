@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using Magnum.Extensions;
 using MassTransit;
 using MassTransit.BusConfigurators;
 
@@ -20,6 +22,14 @@ namespace Talifun.Commander.Command.Esb
 
 				configurator(x);
 			});
+
+			//Give enough time for bus to get subscribed with the SubscriptionService 
+			//TODO: this is hideous
+			Thread.Yield();
+			Thread.Sleep(50.Milliseconds());
+			Thread.Yield();
+			Thread.Sleep(50.Milliseconds());
+			Thread.Yield();
 		}
 
 		public IServiceBus DataBus { get; private set; }

@@ -69,6 +69,16 @@
     </Compile>
     <Compile Include="MessageSerialization\MessageRegistry.cs" />
     <Compile Include="MessageSerialization\MessageSerialization.Steps.cs" />
+    <Compile Include="MessageSubscriptions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageSubscriptions.feature</DependentUpon>
+    </Compile>
+    <Compile Include="MessageSubscriptions\IResponseMessage.cs" />
+    <Compile Include="MessageSubscriptions\MessageSubscriptions.Steps.cs" />
+    <Compile Include="MessageSubscriptions\RequestMessage.cs" />
+    <Compile Include="MessageSubscriptions\RequestMessageHandler.cs" />
+    <Compile Include="MessageSubscriptions\ResponseMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageSerialization\CommandCancelMessageTestDouble.cs" />
     <Compile Include="MessageSerialization\CommandRequestMessageTestDouble.cs" />
@@ -88,6 +98,10 @@
     <None Include="MessageSerialization.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MessageSerialization.feature.cs</LastGenOutput>
+    </None>
+    <None Include="MessageSubscriptions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MessageSubscriptions.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -134,7 +134,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 				responseMessage.Exception = exception;
 			}
 
-			Bus.Publish(responseMessage); 
+			Bus.Context().Respond(responseMessage); 
 		}
 	}
 }
