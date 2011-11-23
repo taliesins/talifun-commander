@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.Composition.Hosting;
 using MassTransit;
-using MassTransit.Distributor;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.ConfigurationChecker;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Command.Esb.Response;
 using Talifun.Commander.Command.FileMatcher;
 
 namespace Talifun.Commander.Command
@@ -13,8 +11,6 @@ namespace Talifun.Commander.Command
 	public class CommanderService
 	{
 		public const string CommandManagerBusName = "CommandManager";
-		public const string ConfigurationCheckerBusName = "ConfigurationChecker1";
-		public const string FileMatcherBusName = "FileMatcher1";
 		private ISagaRepository<ConfigurationCheckerSaga> _testConfigurationSagaRepository;
 		private ISagaRepository<FileMatcherSaga> _fileMatcherSagaRepository;
 
@@ -28,26 +24,15 @@ namespace Talifun.Commander.Command
 				commandService.Start();
 			}
 
-			BusDriver.Instance.AddBus(ConfigurationCheckerBusName, string.Format("loopback://localhost/{0}", ConfigurationCheckerBusName), x =>
-			{
-				x.ImplementSagaDistributorWorker(_testConfigurationSagaRepository);
-			});
-
-			BusDriver.Instance.AddBus(FileMatcherBusName, string.Format("loopback://localhost/{0}", FileMatcherBusName), x =>
-			{
-				x.ImplementSagaDistributorWorker(_fileMatcherSagaRepository);
-			});
-	
 			BusDriver.Instance.AddBus(CommandManagerBusName, string.Format("loopback://localhost/{0}", CommandManagerBusName), x =>
 			{
-				x.SetConcurrentConsumerLimit(4);
-				x.UseSagaDistributorFor<ConfigurationCheckerSaga>();
-				x.UseSagaDistributorFor<FileMatcherSaga>();
 				x.Subscribe((subscriber)=>{
 					//subscriber.Handler<ICommandConfigurationTestResponseMessage>(handler =>
 					//{
 					//    var t = handler.CorrelationId;
 					//});
+				    subscriber.Saga(_testConfigurationSagaRepository);
+					subscriber.Saga(_fileMatcherSagaRepository);
 				    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
 					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>();
 					subscriber.Consumer<ProcessFileMatchesMessageHandler>();
@@ -64,8 +49,6 @@ namespace Talifun.Commander.Command
 				commandService.Stop();
 			}
 
-			BusDriver.Instance.RemoveBus(ConfigurationCheckerBusName);
-			BusDriver.Instance.RemoveBus(FileMatcherBusName);
 			BusDriver.Instance.RemoveBus(CommandManagerBusName);
 			_testConfigurationSagaRepository = null;
 		}

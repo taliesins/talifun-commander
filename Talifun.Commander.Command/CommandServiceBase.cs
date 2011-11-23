@@ -1,4 +1,4 @@
-﻿using MassTransit.Distributor;
+﻿using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Esb;
 
@@ -18,42 +18,22 @@ namespace Talifun.Commander.Command
 			get { return Settings.ElementSettingName; }
 		}
 
-		public virtual string CommandSagaBusName
-		{
-			get { return string.Format("{0}_command", Settings.ElementSettingName); }
-		}
-
-		public virtual string CommandTesterSagaBusName
-		{
-			get { return string.Format("{0}_command_tester", Settings.ElementSettingName); }
-		}
-
 		public void Start()
 		{
 			_commandSagaRepository = SetupSagaRepository<TCommandSaga>();
 			_commandTesterSagaRepository = SetupSagaRepository<TCommandTesterSaga>();
 
-			BusDriver.Instance.AddBus(CommandSagaBusName, string.Format("loopback://localhost/{0}", CommandSagaBusName), x =>
-			{
-				x.ImplementSagaDistributorWorker(_commandSagaRepository);
-			});
-
-			BusDriver.Instance.AddBus(CommandTesterSagaBusName, string.Format("loopback://localhost/{0}", CommandTesterSagaBusName), x =>
-			{
-				x.ImplementSagaDistributorWorker(_commandTesterSagaRepository);
-			});
-
 			BusDriver.Instance.AddBus(BusName, string.Format("loopback://localhost/{0}", BusName), x =>
 			{
-				x.UseSagaDistributorFor<TCommandSaga>();
-				x.UseSagaDistributorFor<TCommandTesterSaga>();
+				x.Subscribe((subscriber)=> {
+					subscriber.Saga(_commandSagaRepository);
+					subscriber.Saga(_commandTesterSagaRepository);
+				});
 			});
 		}
 
 		public void Stop()
 		{
-			BusDriver.Instance.RemoveBus(CommandSagaBusName);
-			BusDriver.Instance.RemoveBus(CommandTesterSagaBusName);
 			BusDriver.Instance.RemoveBus(BusName);
 		}
 

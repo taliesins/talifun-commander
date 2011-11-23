@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using MassTransit;
 using MassTransit.RequestResponse.Configurators;
 using Talifun.Commander.Command.Esb;
@@ -26,6 +27,11 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 			_requesterBus = BusDriver.Instance.AddBus(RequesterName, string.Format("loopback://localhost/{0}", RequesterName), x =>
 			{
 			});
+
+			_responderBus = BusDriver.Instance.AddBus(ResponderName, string.Format("loopback://localhost/{0}", ResponderName), x =>
+			{
+			});
+
 		}
 
 		[AfterScenario("ServiceBus")]
@@ -42,18 +48,21 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				_requesterBus = null;
 				BusDriver.Instance.RemoveBus(RequesterName);
 			}
+
+			Thread.Sleep(50);
+			Thread.Yield();
+			Thread.Sleep(50);
+			Thread.Yield();
 		}
 
 		[Given(@"a request message handler")]
 		public void GivenARequestMessageHandler()
 		{
-			_responderBus = BusDriver.Instance.AddBus(ResponderName, string.Format("loopback://localhost/{0}", ResponderName), x =>
-			{
-				x.Subscribe(subscriber =>
-				{
-					subscriber.Consumer<RequestMessageHandler>();
-				});
-			});
+			_responderBus.SubscribeConsumer<RequestMessageHandler>();
+			Thread.Sleep(50);
+			Thread.Yield();
+			Thread.Sleep(50);
+			Thread.Yield();
 		}
 
 		[Given(@"a response message listener")]
@@ -65,6 +74,7 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				{
 					_responseMessageReceived = true;
 				});
+				x.SetTimeout(new TimeSpan(0,0,0,5));
 			};
 		}
 
@@ -77,6 +87,7 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				{
 					_responseMessageReceived = true;
 				});
+				x.SetTimeout(new TimeSpan(0, 0, 0, 5));
 			};
 		}
 
@@ -88,6 +99,7 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				CorrelationId = Guid.NewGuid(),
 				TheQuestion = "Question"
 			};
+
 
 			_requesterBus.PublishRequest(requestMessage, _listener);
 		}

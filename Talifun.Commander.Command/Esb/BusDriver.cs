@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Magnum.Extensions;
 using MassTransit;
 using MassTransit.BusConfigurators;
 using MassTransit.Configurators;
@@ -65,8 +64,6 @@ namespace Talifun.Commander.Command.Esb
 			ServiceBusFactory.ConfigureDefaultSettings(x =>
 			{
 				x.SetEndpointCache(EndpointCache);
-				x.SetConcurrentConsumerLimit(1);
-				x.SetReceiveTimeout(50.Milliseconds());
 				x.EnableAutoStart();
 			});
 		}
@@ -85,7 +82,6 @@ namespace Talifun.Commander.Command.Esb
 			{
 				x.UseJsonSerializer();
 				x.ReceiveFrom(SubscriptionServiceUri);
-				x.SetConcurrentConsumerLimit(1);
 			});
 
 			_subscriptionClientSagaRepository = SetupSagaRepository<SubscriptionClientSaga>();
