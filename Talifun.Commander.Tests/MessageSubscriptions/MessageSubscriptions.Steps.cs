@@ -20,13 +20,28 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 
 		private bool _responseMessageReceived;
 
+		[BeforeScenario("ServiceBus")]
+		public void BeforeScenario()
+		{
+			_requesterBus = BusDriver.Instance.AddBus(RequesterName, string.Format("loopback://localhost/{0}", RequesterName), x =>
+			{
+			});
+		}
+
 		[AfterScenario("ServiceBus")]
 		public void AfterScenario()
 		{
-			_responderBus = null;
-			_requesterBus = null;
-			BusDriver.Instance.RemoveBus(ResponderName);
-			BusDriver.Instance.RemoveBus(RequesterName);
+			if (_responderBus != null)
+			{
+				_responderBus = null;
+				BusDriver.Instance.RemoveBus(ResponderName);	
+			}
+
+			if (_requesterBus != null)
+			{
+				_requesterBus = null;
+				BusDriver.Instance.RemoveBus(RequesterName);
+			}
 		}
 
 		[Given(@"a request message handler")]
@@ -44,10 +59,6 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		[Given(@"a response message listener")]
 		public void GivenAResponseMessageListener()
 		{
-			_requesterBus = BusDriver.Instance.AddBus(RequesterName, string.Format("loopback://localhost/{0}", RequesterName), x =>
-			{
-			});
-
 			_listener = x =>
 			{
 				x.Handle<ResponseMessage>(message =>
@@ -60,10 +71,6 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		[Given(@"a response message interface listener")]
 		public void GivenAResponseMessageInterfaceListener()
 		{
-			_requesterBus = BusDriver.Instance.AddBus(RequesterName, string.Format("loopback://localhost/{0}", RequesterName), x =>
-			{
-			});
-
 			_listener = x =>
 			{
 				x.Handle<IResponseMessage>(message =>
