@@ -91,7 +91,6 @@
     <Compile Include="FileMatcher\Request\ExecuteNextCommandMessage.cs" />
     <Compile Include="FileMatcher\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\ProcessFileMatchesMessageHandler.cs" />
     <Compile Include="FileMatcher\Response\ProcessedFileMatchesMessage.cs" />
     <Compile Include="FileMatcher\Request\ProcessFileMatchesMessage.cs" />
     <Compile Include="FileMatcher\Response\MovedProcessedFileIntoCompletedDirectoryMessage.cs" />

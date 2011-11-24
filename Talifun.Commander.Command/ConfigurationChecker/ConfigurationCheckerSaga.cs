@@ -7,7 +7,6 @@ using System.Linq;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
-using MassTransit.Util;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.ConfigurationChecker.Request;
 using Talifun.Commander.Command.ConfigurationChecker.Response;
@@ -41,7 +40,6 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 
 		public static Event<RequestTestConfigurationMessage> TestConfigurationEvent { get; set; }
 
-		[UsedImplicitly]
 		public ConfigurationCheckerSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;

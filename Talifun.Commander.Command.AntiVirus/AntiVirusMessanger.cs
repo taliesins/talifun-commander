@@ -5,7 +5,6 @@ using Talifun.Commander.Command.AntiVirus.CommandTester.Request;
 using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Command.Esb.Request;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
@@ -16,7 +15,7 @@ namespace Talifun.Commander.Command.AntiVirus
 			get { return AntiVirusConfiguration.Instance; }
 		}
 
-		public ICommandCancelMessage CreateCancelMessage(Guid correlationId)
+		public object CreateCancelMessage(Guid correlationId)
 		{
 			return new AntiVirusCancelMessage
 			       	{
@@ -24,7 +23,7 @@ namespace Talifun.Commander.Command.AntiVirus
 			       	};
 		}
 
-		public ICommandRequestMessage CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
+		public object CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
 		{
 			return new AntiVirusRequestMessage
 			       	{

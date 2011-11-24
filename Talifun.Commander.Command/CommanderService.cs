@@ -32,7 +32,6 @@ namespace Talifun.Commander.Command
 					subscriber.Saga(_fileMatcherSagaRepository);
 				    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
 					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>();
-					subscriber.Consumer<ProcessFileMatchesMessageHandler>();
 					subscriber.Consumer<MoveProcessedFileIntoCompletedDirectoryMessageHandler>();
 					subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
 				});

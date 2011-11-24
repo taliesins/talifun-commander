@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Esb.Request;
 
 namespace Talifun.Commander.Command.Esb
 {
@@ -13,8 +12,8 @@ namespace Talifun.Commander.Command.Esb
 	public interface ICommandMessenger
 	{
 		ISettingConfiguration Settings { get; }
-		ICommandCancelMessage CreateCancelMessage(Guid correlationId);
-		ICommandRequestMessage CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch);
+		object CreateCancelMessage(Guid correlationId);
+		object CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch);
 		object CreateTestConfigurationRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project);
 	}
 }
