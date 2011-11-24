@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition.Hosting;
+using System.Threading;
 using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
@@ -27,10 +28,6 @@ namespace Talifun.Commander.Command
 			BusDriver.Instance.AddBus(CommandManagerBusName, string.Format("loopback://localhost/{0}", CommandManagerBusName), x =>
 			{
 				x.Subscribe((subscriber)=>{
-					//subscriber.Handler<ICommandConfigurationTestResponseMessage>(handler =>
-					//{
-					//    var t = handler.CorrelationId;
-					//});
 				    subscriber.Saga(_testConfigurationSagaRepository);
 					subscriber.Saga(_fileMatcherSagaRepository);
 				    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
@@ -40,6 +37,13 @@ namespace Talifun.Commander.Command
 					subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
 				});
 			});
+
+			//Give the exchange some time to register correctly
+			Thread.Yield();
+			Thread.Sleep(50);
+			Thread.Yield();
+			Thread.Sleep(50);
+			Thread.Yield();
 		}
 
 		public void Stop()

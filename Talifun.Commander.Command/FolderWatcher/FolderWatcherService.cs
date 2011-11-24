@@ -12,9 +12,6 @@ namespace Talifun.Commander.Command.FolderWatcher
 {
 	public class FolderWatcherService : IFolderWatcherService, IDisposable
 	{
-// ReSharper disable MemberCanBePrivate.Global
-		public const string FolderWatcherServiceBusName = "FolderWatcher";
-// ReSharper restore MemberCanBePrivate.Global
 		private readonly IEnhancedFileSystemWatcherFactory _enhancedFileSystemWatcherFactory;
 		private readonly List<IEnhancedFileSystemWatcher> _enhancedFileSystemWatchers = new List<IEnhancedFileSystemWatcher>();
 		private FileFinishedChangingEventHandler _fileFinishedChangingEvent;
@@ -27,10 +24,6 @@ namespace Talifun.Commander.Command.FolderWatcher
 
 		public void Start()
 		{
-			BusDriver.Instance.AddBus(FolderWatcherServiceBusName, string.Format("loopback://localhost/{0}", FolderWatcherServiceBusName), x =>
-			{
-			});
-
 			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
 			{
 				enhancedFileSystemWatcher.Start();
@@ -43,7 +36,6 @@ namespace Talifun.Commander.Command.FolderWatcher
 			{
 				enhancedFileSystemWatcher.Stop();
 			}
-			BusDriver.Instance.RemoveBus(FolderWatcherServiceBusName);
 		}
 
 		private CommanderSection CommanderSettings
@@ -88,7 +80,7 @@ namespace Talifun.Commander.Command.FolderWatcher
 				Folder = (FolderElement)e.UserState
 			};
 
-			BusDriver.Instance.GetBus(FolderWatcherServiceBusName).Publish(fileFinishedChangingMessage);
+			BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName).Publish(fileFinishedChangingMessage);
 		}
 
         #region IDisposable Members

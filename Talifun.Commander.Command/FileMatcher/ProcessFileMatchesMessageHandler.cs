@@ -36,10 +36,19 @@ namespace Talifun.Commander.Command.FileMatcher
 			const RegexOptions regxOptions = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Singleline;
 			var fileMatchSettings = message.FileMatches;
 
-			for (var i = 0; i < fileMatchSettings.Count; i++)
+			for (var i = fileMatchSettings.Count-1; i >= 0; i--)
 			{
 				var workingFilePath = new FileInfo(message.WorkingFilePath);
 				var fileMatch = fileMatchSettings[i];
+
+				//If the file no longer exists, it assumed that there should be no more processing
+				//e.g. anti-virus may delete file so, we will do no more processing
+				//e.g. video process was unable to process file so it was moved to error processing folder
+				if (!workingFilePath.Exists)
+				{
+					fileMatchSettings.Clear();
+					break;
+				}
 
 				var fileNameMatched = true;
 				if (!string.IsNullOrEmpty(fileMatch.Expression))
@@ -47,21 +56,22 @@ namespace Talifun.Commander.Command.FileMatcher
 					fileNameMatched = Regex.IsMatch(workingFilePath.Name, fileMatch.Expression, regxOptions);
 				}
 
-				if (!fileNameMatched) continue;
+				if (!fileNameMatched)
+				{
+					fileMatchSettings.RemoveAt(i);
+					continue;
+				}
 
 				ProcessFileMatch(workingFilePath, fileMatch);
 
-				//If the file no longer exists, it assumed that there should be no more processing
-				//e.g. anti-virus may delete file so, we will do no more processing
-				//e.g. video process was unable to process file so it was moved to error processing folder
 				if (!workingFilePath.Exists || fileMatch.StopProcessing)
 				{
+					fileMatchSettings.Clear();
 					break;
 				}
 
-				//Make sure that processing on file has stopped
-				workingFilePath.WaitForFileToUnlock(10, 500);
-				workingFilePath.Refresh();
+				fileMatchSettings.RemoveAt(i);
+				break;
 			}
 
 			var processedFileMatchesMessage = new ProcessedFileMatchesMessage()

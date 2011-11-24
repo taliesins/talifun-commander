@@ -2,6 +2,8 @@
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
+using Talifun.Commander.Command.AntiVirus.Command.Request;
+using Talifun.Commander.Command.AntiVirus.Command.Response;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
@@ -12,6 +14,14 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		{
 			Define(() =>
 			{
+				Initially(
+					When(AntiVirusRequestEvent)
+						.Then((saga, message) =>
+						{
+							saga.Consume(message);
+						})
+						.Complete()
+					);
 			});
 		}
 
@@ -22,12 +32,26 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		public static State Completed { get; set; }
 		// ReSharper restore UnusedMember.Global
 
+		public static Event<AntiVirusRequestMessage> AntiVirusRequestEvent { get; set; }
+
 		public AntiVirusSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
 
-		public Guid CorrelationId { get; private set; }
-		public IServiceBus Bus { get; set; }
+		public virtual Guid CorrelationId { get; private set; }
+		public virtual IServiceBus Bus { get; set; }
+
+		private void Consume(AntiVirusRequestMessage message)
+		{
+			var responseMessage = new AntiVirusResponseMessage()
+			{
+				CorrelationId = message.CorrelationId,
+				FileMatch = message.FileMatch,
+				WorkingFilePath = message.WorkingFilePath
+			};
+
+			Bus.Publish(responseMessage);
+		}
 	}
 }

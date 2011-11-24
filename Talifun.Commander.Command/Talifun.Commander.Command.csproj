@@ -88,6 +88,7 @@
     <Compile Include="Esb\EndpointCacheProxy.cs" />
     <Compile Include="FileMatcher\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="FileMatcher\Request\ExecuteNextCommandMessage.cs" />
     <Compile Include="FileMatcher\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\ProcessFileMatchesMessageHandler.cs" />

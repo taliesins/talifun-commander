@@ -7,6 +7,7 @@ using System.Linq;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
+using MassTransit.Util;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.ConfigurationChecker.Request;
 using Talifun.Commander.Command.ConfigurationChecker.Response;
@@ -40,27 +41,28 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 
 		public static Event<RequestTestConfigurationMessage> TestConfigurationEvent { get; set; }
 
+		[UsedImplicitly]
 		public ConfigurationCheckerSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
 
-		public Guid CorrelationId { get; private set; }
-		public IServiceBus Bus { get; set; }
+		public virtual Guid CorrelationId { get; private set; }
+		public virtual IServiceBus Bus { get; set; }
 
 		#region Test Configuration
 
-		protected virtual ExportProvider Container
+		private ExportProvider Container
 		{
 			get { return CurrentConfiguration.Container; }
 		}
 
-		protected virtual CommanderSection CommanderSettings
+		private CommanderSection CommanderSettings
 		{
 			get { return CurrentConfiguration.CommanderSettings; }
 		}
 
-		protected virtual AppSettingsSection AppSettings
+		private AppSettingsSection AppSettings
 		{
 			get { return CurrentConfiguration.AppSettings; }
 		}
@@ -83,7 +85,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 			Bus.Publish(responseTestConfigurationMessage);
 		}
 
-		public ICommandMessenger GetCommandMessenger(string conversionType)
+		private ICommandMessenger GetCommandMessenger(string conversionType)
 		{
 			var commandConfigurationTesters = Container.GetExportedValues<ICommandMessenger>();
 			var commandConfigurationTester = commandConfigurationTesters
@@ -93,7 +95,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 			return commandConfigurationTester;
 		}
 
-		public void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
+		private void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
 		{
 			//We only want to check the sections if they are used, otherwise it will complain about
 			//sections missing even if we aren't using them.

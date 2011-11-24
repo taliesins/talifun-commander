@@ -43,8 +43,8 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 			CorrelationId = correlationId;
 		}
 
-		public Guid CorrelationId { get; private set; }
-		public IServiceBus Bus { get; set; }
+		public virtual Guid CorrelationId { get; private set; }
+		public virtual IServiceBus Bus { get; set; }
 
 		private ISettingConfiguration Settings
 		{

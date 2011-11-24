@@ -24,11 +24,15 @@ namespace Talifun.Commander.Command.AntiVirus
 			       	};
 		}
 
-		public ICommandRequestMessage CreateRequestMessage(Guid correlationId)
+		public ICommandRequestMessage CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
 		{
 			return new AntiVirusRequestMessage
 			       	{
-						CorrelationId = correlationId
+						CorrelationId = correlationId,
+			       		AppSettings = appSettings,
+			       		Project = project,
+						WorkingFilePath = workingFilePath,
+						FileMatch = fileMatch
 			       	};
 		}
 

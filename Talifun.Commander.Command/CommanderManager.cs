@@ -62,7 +62,10 @@ namespace Talifun.Commander.Command
 				RaiseAsynchronousOnCommanderStartedEvent(commanderStartedEventArgs);
 			});
 
-			var requestTestConfigurationMessage = new RequestTestConfigurationMessage();
+			var requestTestConfigurationMessage = new RequestTestConfigurationMessage()
+			                                      	{
+			                                      		CorrelationId = Guid.NewGuid()
+			                                      	};
 			bus.Publish(requestTestConfigurationMessage);
         }
 
