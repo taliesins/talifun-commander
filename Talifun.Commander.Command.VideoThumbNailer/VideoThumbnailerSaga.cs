@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.VideoThumbnailer;
 using Talifun.Commander.Command.VideoThumbNailer.Configuration;
@@ -30,7 +31,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
         public override void Run(ICommandSagaProperties properties)
         {
             var videoThumbnailerSetting = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoThumbnailerSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -48,7 +49,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 
                 if (thumbnailCreationSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
+					workingFilePath.MoveCompletedFileToOutputFolder(videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -57,7 +58,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }

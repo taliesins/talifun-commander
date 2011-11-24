@@ -1,30 +1,12 @@
 ﻿using System;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.Esb.Events
 {
 	[Serializable]
-	public abstract class CommandProgressMessageBase : ICommandProgressMessage
+	public abstract class CommandProgressMessageBase : CorrelatedMessageBase<ICommandProgressMessage>, ICommandProgressMessage
 	{
-		public Guid CorrelationId { get; set; }
-
-		public bool Equals(ICommandProgressMessage obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.CorrelationId.Equals(CorrelationId);
-		}
-
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != typeof(ICommandProgressMessage)) return false;
-			return Equals((ICommandProgressMessage)obj);
-		}
-
-		public override int GetHashCode()
-		{
-			return CorrelationId.GetHashCode();
-		}
+		public string WorkingFilePath { get; set; }
+		public FileMatchElement FileMatch { get; set; }
 	}
 }

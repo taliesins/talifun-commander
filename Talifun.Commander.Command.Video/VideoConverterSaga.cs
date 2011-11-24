@@ -143,7 +143,7 @@ namespace Talifun.Commander.Command.Video
     	public override void Run(ICommandSagaProperties properties)
         {
             var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -160,7 +160,7 @@ namespace Talifun.Commander.Command.Video
 
                 if (encodeSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
+                    workingFilePath.MoveCompletedFileToOutputFolder(videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -169,7 +169,7 @@ namespace Talifun.Commander.Command.Video
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }

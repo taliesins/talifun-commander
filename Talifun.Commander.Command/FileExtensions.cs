@@ -7,6 +7,60 @@ namespace Talifun.Commander.Command
 {
 	public static class FileExtensions
 	{
+		public static void MoveCompletedFileToOutputFolder(this FileInfo workingFilePath, string fileNameFormat, string outPutPath)
+		{
+			var filename = workingFilePath.Name;
+
+			if (!string.IsNullOrEmpty(fileNameFormat))
+			{
+				filename = string.Format(fileNameFormat, filename);
+			}
+
+			var outputFilePath = new FileInfo(Path.Combine(outPutPath, filename));
+			if (outputFilePath.Exists)
+			{
+				outputFilePath.Delete();
+			}
+
+			workingFilePath.MoveTo(outputFilePath.FullName);
+		}
+
+		public static void Cleanup(this DirectoryInfo workingDirectoryPath)
+		{
+			if (workingDirectoryPath.Exists)
+			{
+				workingDirectoryPath.RetryDelete(5, true);
+			}
+		}
+
+		public static void RetryDelete(this DirectoryInfo directory, int retry, bool recursively)
+		{
+			var delay = 0;
+
+			for (var i = 0; i < retry; i++)
+			{
+				try
+				{
+					directory.Delete(recursively);
+					return;
+				}
+				catch (DirectoryNotFoundException)
+				{
+					throw;
+				}
+				catch (IOException)
+				{
+					delay += 100;
+					if (i == retry) throw;
+				}
+
+				Thread.Sleep(delay);
+			}
+
+			//We will never get here
+			throw new IOException(string.Format(Resource.ErrorMessageUnableToDeleteDirectory, directory));
+		}
+
 		public static void TryCreateTestFile(this DirectoryInfo directory)
 		{
 			var fileInfo = new FileInfo(Path.Combine(directory.FullName, "~test~.file"));

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.FileMatcher;
 
@@ -22,7 +23,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
         public override void Run(ICommandSagaProperties properties)
         {
             var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -46,7 +47,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
                 if (!fileVirusFree)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
+					workingFilePath.MoveCompletedFileToOutputFolder(antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -55,7 +56,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Talifun.Commander.Command.Audio
     	public override void Run(ICommandSagaProperties properties)
         {
             var audioConversionSetting = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, audioConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -56,7 +56,7 @@ namespace Talifun.Commander.Command.Audio
 
                 if (encodeSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, audioConversionSetting.FileNameFormat, audioConversionSetting.GetOutPutPathOrDefault());
+					workingFilePath.MoveCompletedFileToOutputFolder(audioConversionSetting.FileNameFormat, audioConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace Talifun.Commander.Command.Audio
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }

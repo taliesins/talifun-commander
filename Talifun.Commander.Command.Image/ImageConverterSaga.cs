@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.Image.Configuration;
 
@@ -44,7 +45,7 @@ namespace Talifun.Commander.Command.Image
         public override void Run(ICommandSagaProperties properties)
         {
             var imageConversionSetting = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, imageConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -63,7 +64,7 @@ namespace Talifun.Commander.Command.Image
 
                 if (encodeSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
+                    workingFilePath.MoveCompletedFileToOutputFolder(imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -72,7 +73,7 @@ namespace Talifun.Commander.Command.Image
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }

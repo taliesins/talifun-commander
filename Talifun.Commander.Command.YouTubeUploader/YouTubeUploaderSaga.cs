@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.YouTubeUploader.Configuration;
 
@@ -34,7 +35,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 		public override void Run(ICommandSagaProperties properties)
 		{
 			var youTubeUploaderSetting = GetSettings<YouTubeUploaderElementCollection, YouTubeUploaderElement>(properties);
-			var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var workingDirectoryPath = GetWorkingDirectoryPath(properties, youTubeUploaderSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
 			try
@@ -52,7 +53,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 
 				if (youTubeUploadSuccessful)
 				{
-					MoveCompletedFileToOutputFolder(workingFilePath, youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
+					workingFilePath.MoveCompletedFileToOutputFolder(youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
 				}
 				else
 				{
@@ -61,7 +62,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 			}
 			finally
 			{
-				Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
 			}
 		}
 	}

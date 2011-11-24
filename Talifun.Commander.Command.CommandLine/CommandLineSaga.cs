@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Talifun.Commander.Command.CommandLine.Configuration;
 using Talifun.Commander.Command.FileMatcher;
 
@@ -35,7 +36,7 @@ namespace Talifun.Commander.Command.CommandLine
         public override void Run(ICommandSagaProperties properties)
         {
             var commandLineSetting = GetSettings<CommandLineElementCollection, CommandLineElement>(properties);
-            var uniqueProcessingNumber = UniqueIdentifier();
+			var uniqueProcessingNumber = Guid.NewGuid().ToString();
             var workingDirectoryPath = GetWorkingDirectoryPath(properties, commandLineSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
@@ -52,7 +53,7 @@ namespace Talifun.Commander.Command.CommandLine
 
                 if (commandSucessful)
                 {
-                    MoveCompletedFileToOutputFolder(workingFilePath, commandLineSetting.FileNameFormat, commandLineSetting.GetOutPutPathOrDefault());
+                    workingFilePath.MoveCompletedFileToOutputFolder(commandLineSetting.FileNameFormat, commandLineSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
@@ -61,7 +62,7 @@ namespace Talifun.Commander.Command.CommandLine
             }
             finally
             {
-                Cleanup(workingDirectoryPath);
+				workingDirectoryPath.Cleanup();
             }
         }
     }
