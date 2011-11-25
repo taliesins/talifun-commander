@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using Google.GData.Client;
@@ -11,11 +10,11 @@ using Talifun.Commander.Command.YouTubeUploader.Properties;
 
 namespace Talifun.Commander.Command.YouTubeUploader
 {
-	public class YouTubeUploaderCommand : ICommand<YouTubeUploaderSettings>
+	public class YouTubeUploaderCommand : ICommand<IYouTubeUploaderSettings>
 	{
 		private Logger _logger = LogManager.GetCurrentClassLogger();
 
-		public bool Run(YouTubeUploaderSettings settings, System.Configuration.AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IYouTubeUploaderSettings settings, System.Configuration.AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
 			outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
 			if (outPutFilePath.Exists)

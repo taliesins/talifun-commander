@@ -79,6 +79,7 @@
     <Compile Include="Configuration\VideoThumbnailerElement.cs" />
     <Compile Include="Configuration\VideoThumbnailerElementCollection.cs" />
     <Compile Include="ImageType.cs" />
+    <Compile Include="IThumbnailerSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>

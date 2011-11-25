@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command.Esb.Events
 	[Serializable]
 	public abstract class CommandProgressMessageBase : CorrelatedMessageBase<ICommandProgressMessage>, ICommandProgressMessage
 	{
-		public string WorkingFilePath { get; set; }
+		public string InputFilePath { get; set; }
 		public FileMatchElement FileMatch { get; set; }
 	}
 }

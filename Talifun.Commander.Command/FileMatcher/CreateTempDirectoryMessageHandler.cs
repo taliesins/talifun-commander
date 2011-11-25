@@ -11,7 +11,7 @@ namespace Talifun.Commander.Command.FileMatcher
 	{
 		public void Consume(CreateTempDirectoryMessage message)
 		{
-			var fileInfo = new FileInfo(message.FilePath);
+			var fileInfo = new FileInfo(message.InputFilePath);
 			if (fileInfo.Exists)
 			{
 				fileInfo.WaitForFileToUnlock(10, 500);

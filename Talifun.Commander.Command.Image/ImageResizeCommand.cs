@@ -9,11 +9,11 @@ using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.Image
 {
-    public class ImageResizeCommand : ICommand<ImageResizeSettings>
+    public class ImageResizeCommand : ICommand<IImageResizeSettings>
     {
-        #region ICommand<ResizeSettings> Members
+        #region ICommand<IResizeSettings> Members
 
-		private string WatermarkArguments(ImageResizeSettings settings, string outPutFilePath)
+		private string WatermarkArguments(IImageResizeSettings settings, string outPutFilePath)
 		{
 			var watermarkArguments = string.Empty;
 
@@ -33,7 +33,7 @@ namespace Talifun.Commander.Command.Image
 			return watermarkArguments;
 		}
 
-		private string ThumbnailArguments(ImageResizeSettings settings, string inputFilePath, string outPutFilePath)
+		private string ThumbnailArguments(IImageResizeSettings settings, string inputFilePath, string outPutFilePath)
 		{
 			var backgroundColour = settings.BackgroundColour;
 			if (!string.IsNullOrEmpty(backgroundColour))
@@ -136,7 +136,7 @@ namespace Talifun.Commander.Command.Image
 			return commandArguments;
 		}
 
-		public bool Run(ImageResizeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IImageResizeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
             switch (settings.ResizeImageType)

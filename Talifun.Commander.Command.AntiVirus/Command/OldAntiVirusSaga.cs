@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Talifun.Commander.Command.AntiVirus.Configuration;
+using Talifun.Commander.Command.AntiVirus.Properties;
 using Talifun.Commander.Command.FileMatcher;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
@@ -15,44 +16,48 @@ namespace Talifun.Commander.Command.AntiVirus.Command
             }
         }
 
-        public McAfeeSettings GetMcAfeeSettings(AntiVirusElement antiVirus)
-        {
-            return new McAfeeSettings();
-        }
+		private IAntiVirusSettings GetCommandSettings(AntiVirusElement antiVirusSetting)
+		{
+			switch (antiVirusSetting.VirusScannerType)
+			{
+				case VirusScannerType.NotSpecified:
+				case VirusScannerType.McAfee:
+					return new McAfeeSettings();
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVirusScannerType);
+			}
+		}
 
-        public override void Run(ICommandSagaProperties properties)
+		private ICommand<IAntiVirusSettings> GetCommand(IAntiVirusSettings antiVirusSetting)
+		{
+			return new McAfeeCommand();
+		}
+
+    	public override void Run(ICommandSagaProperties properties)
         {
-            var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
+			var commandElement = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                
 
-                var fileVirusFree = false;
+            	var commandSettings = GetCommandSettings(commandElement);
+				var command = GetCommand(commandSettings);
 
-                switch (antiVirusSetting.VirusScannerType)
-                {
-                    case VirusScannerType.NotSpecified:
-                    case VirusScannerType.McAfee:
-                        var mcAfeeSettings = GetMcAfeeSettings(antiVirusSetting);
-                        var mcAfeeCommand = new McAfeeCommand();
-						fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
-                        break;
-                }
+				var fileVirusFree = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (!fileVirusFree)
                 {
-					inputFilePath.MoveCompletedFileToOutputFolder(antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, antiVirusSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

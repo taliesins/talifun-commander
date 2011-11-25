@@ -27,18 +27,17 @@ namespace Talifun.Commander.Command.FileMatcher
 			{
 				Initially(
 					When(FileFinishedChangingEvent)
-						.TransitionTo(WaitingForCreateTempDirectory)
-						.Then((saga, message) =>
+						.Then((saga, message)=>
 						{
-							saga.FilePath = message.FilePath;
+							saga.InputFilePath = message.FilePath;
 							saga.Folder = message.Folder;
-						    var createTempDirectoryMessage = new CreateTempDirectoryMessage
-						    {
-						      	CorrelationId = message.CorrelationId,
-								FilePath = saga.FilePath,
-								WorkingPath = saga.Folder.GetWorkingPathOrDefault()
-						    };
-							saga.Bus.Publish(createTempDirectoryMessage);
+						})
+						.TransitionTo(WaitingForCreateTempDirectory)
+						.Publish((saga, message) => new CreateTempDirectoryMessage
+						{
+						    CorrelationId = message.CorrelationId,
+							InputFilePath = saga.InputFilePath,
+							WorkingPath = saga.Folder.GetWorkingPathOrDefault()
 						})
 					);
 
@@ -53,7 +52,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.Publish((saga, message) => new MoveFileToBeProcessedIntoTempDirectoryMessage
 						{
 							CorrelationId = message.CorrelationId,
-							FilePath = saga.FilePath,
+							FilePath = saga.InputFilePath,
 							WorkingFilePath = saga.WorkingFilePath
 						})
 				);
@@ -148,7 +147,7 @@ namespace Talifun.Commander.Command.FileMatcher
 
 		public virtual Guid CorrelationId { get; private set; }
 		public virtual IServiceBus Bus { get; set; }
-		public virtual string FilePath { get; set; }
+		public virtual string InputFilePath { get; set; }
 		public virtual FolderElement Folder { get; set; }
 		public virtual string WorkingFilePath { get; set; }
 		public virtual FileMatchElementCollection FileMatchesToExecute { get; set; }

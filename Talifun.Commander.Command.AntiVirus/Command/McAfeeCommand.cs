@@ -7,13 +7,13 @@ using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
-    public class McAfeeCommand : ICommand<McAfeeSettings>
+    public class McAfeeCommand : ICommand<IAntiVirusSettings>
     {
         const string AllFixedOptions = @"/Quiet /AllOle /Archive /Packers /Mime /Primary Clean /Secondary Delete /LowPriority";
 
         #region ICommand<McAfeeCommand,McAfeeSettings> Members
 
-		public bool Run(McAfeeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IAntiVirusSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
             if (outPutFilePath.Exists)

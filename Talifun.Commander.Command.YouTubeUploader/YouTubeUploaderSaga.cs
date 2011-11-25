@@ -15,7 +15,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 			}
 		}
 
-		private YouTubeUploaderSettings GetYouTubeUploaderSettings(YouTubeUploaderElement youTubeUploader)
+		private IYouTubeUploaderSettings GetCommandSettings(YouTubeUploaderElement youTubeUploader)
 		{
 			return new YouTubeUploaderSettings()
 			{
@@ -32,32 +32,35 @@ namespace Talifun.Commander.Command.YouTubeUploader
 			};
 		}
 
+		private ICommand<IYouTubeUploaderSettings> GetCommand(IYouTubeUploaderSettings youTubeUploaderSettings)
+		{
+			return new YouTubeUploaderCommand();
+		}
+
 		public override void Run(ICommandSagaProperties properties)
 		{
-			var youTubeUploaderSetting = GetSettings<YouTubeUploaderElementCollection, YouTubeUploaderElement>(properties);
+			var commandElement = GetSettings<YouTubeUploaderElementCollection, YouTubeUploaderElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, youTubeUploaderSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
 			try
 			{
 				workingDirectoryPath.Create();
 
 				var output = string.Empty;
-				
-				var youTubeUploadSuccessful = false;
 
-				var youTubeUploaderSettings = GetYouTubeUploaderSettings(youTubeUploaderSetting);
-				var youTubeUploaderCommand = new YouTubeUploaderCommand();
-				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
+				var commandSettings = GetCommandSettings(commandElement);
+				var command = GetCommand(commandSettings);
+				var youTubeUploadSuccessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
 				if (youTubeUploadSuccessful)
 				{
-					inputFilePath.MoveCompletedFileToOutputFolder(youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
 				}
 				else
 				{
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, youTubeUploaderSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
 				}
 			}
 			finally

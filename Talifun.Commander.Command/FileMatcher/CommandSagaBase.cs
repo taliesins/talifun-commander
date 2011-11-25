@@ -29,16 +29,14 @@ namespace Talifun.Commander.Command.FileMatcher
 			workingFilePath.MoveTo(outputFilePath.FullName);
         }
 
-
-
-        public E GetSettings<C, E>(ICommandSagaProperties properties)
+        public E GetSettings<C, E>(ProjectElement project, FileMatchElement fileMatch)
             where C : CurrentConfigurationElementCollection<E> 
             where E : NamedConfigurationElement, new()
         {
-            var commandSettings = new ProjectElementCommand<C>(Settings.ElementCollectionSettingName, properties.Project);
+			var commandSettings = new ProjectElementCommand<C>(Settings.ElementCollectionSettingName, project);
             var settings = commandSettings.Settings;
 
-            var commandSettingsKey = properties.FileMatch.CommandSettingsKey;
+			var commandSettingsKey = fileMatch.CommandSettingsKey;
 
             var setting = settings[commandSettingsKey];
             if (setting == null)

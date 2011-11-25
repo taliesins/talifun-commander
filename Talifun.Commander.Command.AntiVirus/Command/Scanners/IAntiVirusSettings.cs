@@ -1,6 +1,6 @@
 ﻿namespace Talifun.Commander.Command.AntiVirus
 {
-    public class AntiVirusSettings
+    public interface IAntiVirusSettings
     {
 
     }

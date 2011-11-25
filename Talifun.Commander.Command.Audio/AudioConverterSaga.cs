@@ -18,7 +18,7 @@ namespace Talifun.Commander.Command.Audio
             }
         }
 
-		private IAudioSettings GetAudioSettings(AudioConversionElement audioConversionSetting)
+		private IAudioSettings GetCommandSettings(AudioConversionElement audioConversionSetting)
 		{
 			switch (audioConversionSetting.AudioConversionType)
 			{
@@ -36,12 +36,17 @@ namespace Talifun.Commander.Command.Audio
 			}
 		}
 
+		private ICommand<IAudioSettings> GetCommand(IAudioSettings audioSettings)
+		{
+			return new AudioCommand();
+		}
+
     	public override void Run(ICommandSagaProperties properties)
         {
-            var audioConversionSetting = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties);
+			var commandElement = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, audioConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -49,19 +54,18 @@ namespace Talifun.Commander.Command.Audio
 
                 var output = string.Empty;
                 
+            	var commandSettings = GetCommandSettings(commandElement);
+            	var command = GetCommand(commandSettings);
 
-            	var audioSettings = GetAudioSettings(audioConversionSetting);
-
-            	var audioCommand = new AudioCommand();
-				var encodeSucessful = audioCommand.Run(audioSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
+				var encodeSucessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (encodeSucessful)
                 {
-					inputFilePath.MoveCompletedFileToOutputFolder(audioConversionSetting.FileNameFormat, audioConversionSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, audioConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

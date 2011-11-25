@@ -79,6 +79,7 @@
     <Compile Include="Gravity.cs" />
     <Compile Include="Configuration\ImageConversionElement.cs" />
     <Compile Include="Configuration\ImageConversionElementCollection.cs" />
+    <Compile Include="IImageResizeSettings.cs" />
     <Compile Include="ImageConverterSaga.cs" />
     <Compile Include="ImageResizeCommand.cs" />
     <Compile Include="ImageResizeSettings.cs" />

@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Esb.Request
 	{
 		public ProjectElement Project { get; set; }
 		public Dictionary<string, string> AppSettings { get; set; }
-		public string WorkingFilePath { get; set; }
+		public string InputFilePath { get; set; }
 		public FileMatchElement FileMatch { get; set; }
 	}
 }

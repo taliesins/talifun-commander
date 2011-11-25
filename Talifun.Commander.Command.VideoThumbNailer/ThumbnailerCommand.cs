@@ -7,13 +7,13 @@ using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.VideoThumbnailer
 {
-    public class ThumbnailerCommand : ICommand<ThumbnailerSettings>
+    public class ThumbnailerCommand : ICommand<IThumbnailerSettings>
     {
 		const string AllFixedOptions = @"-f image2 -vframes 1";
 
         #region ICommand<ThumbnailerCommand,ThumbnailerSettings> Members
 
-		public bool Run(ThumbnailerSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IThumbnailerSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
 

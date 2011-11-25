@@ -30,7 +30,7 @@ namespace Talifun.Commander.Command.AntiVirus
 						CorrelationId = correlationId,
 			       		AppSettings = appSettings,
 			       		Project = project,
-						WorkingFilePath = workingFilePath,
+						InputFilePath = workingFilePath,
 						FileMatch = fileMatch
 			       	};
 		}

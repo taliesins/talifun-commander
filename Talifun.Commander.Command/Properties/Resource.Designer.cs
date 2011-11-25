@@ -203,7 +203,7 @@ namespace Talifun.Commander.Command.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Timeout waiting for lock - RaiseOnCommandErrorEvent.
+        ///   Looks up a localized string similar to Timeout waiting for lock - RaiseOnCommanderStartedEvent.
         /// </summary>
         public static string ErrorMessageRaiseOnCommandErrorEventTimeoutWaitingForLock {
             get {

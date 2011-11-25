@@ -15,7 +15,7 @@ namespace Talifun.Commander.Command.CommandLine
             }
         }
 
-        private CommandLineParameters GetCommandLineParameters(CommandLineElement commandLine)
+        private ICommandLineParameters GetCommandSettings(CommandLineElement commandLine)
         {
             var args = commandLine.Args
                 .Replace("{%Name%}", commandLine.Name)
@@ -33,32 +33,36 @@ namespace Talifun.Commander.Command.CommandLine
             return commandLineSettings;
         }
 
+		private ICommand<ICommandLineParameters> GetCommand(ICommandLineParameters commandLineSettings)
+		{
+			return new CommandLineCommand();
+		}
+
         public override void Run(ICommandSagaProperties properties)
         {
-            var commandLineSetting = GetSettings<CommandLineElementCollection, CommandLineElement>(properties);
+			var commandElement = GetSettings<CommandLineElementCollection, CommandLineElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandLineSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                
 
-                var commandLineParameters = GetCommandLineParameters(commandLineSetting);
-                var commandLineCommand = new CommandLineCommand();
+				var commandSettings = GetCommandSettings(commandElement);
+				var command = GetCommand(commandSettings);
 
-				var commandSucessful = commandLineCommand.Run(commandLineParameters, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
+				var commandSuccessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
-                if (commandSucessful)
+                if (commandSuccessful)
                 {
-                    inputFilePath.MoveCompletedFileToOutputFolder(commandLineSetting.FileNameFormat, commandLineSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandLineSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

@@ -70,6 +70,12 @@
     <Compile Include="Command\AntiVirusRequestMessageHandler.cs" />
     <Compile Include="CommandTester\AntiVirusTestConfigurationRequestMessageHandler.cs" />
     <Compile Include="Command\OldAntiVirusSaga.cs" />
+    <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />
+    <Compile Include="Command\Request\DeleteTempDirectoryMessage.cs" />
+    <Compile Include="Command\Request\MoveProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Command\Response\CreatedTempDirectoryMessage.cs" />
+    <Compile Include="Command\Response\DeletedTempDirectoryMessage.cs" />
+    <Compile Include="Command\Response\MovedProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Configuration\AntiVirusElement.Validation.cs">
       <DependentUpon>AntiVirusElement.cs</DependentUpon>
     </Compile>
@@ -94,7 +100,7 @@
     <Compile Include="Command\Request\AntiVirusRequestMessage.cs" />
     <Compile Include="CommandTester\Request\AntiVirusConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\AntiVirusTestConfigurationResponseMessageHandler.cs" />
-    <Compile Include="Command\Scanners\AntiVirusSettings.cs" />
+    <Compile Include="Command\Scanners\IAntiVirusSettings.cs" />
     <Compile Include="Configuration\AntiVirusConfiguration.cs" />
     <Compile Include="Command\McAfeeCommand.cs" />
     <Compile Include="Command\Scanners\McAfeeSettings.cs" />

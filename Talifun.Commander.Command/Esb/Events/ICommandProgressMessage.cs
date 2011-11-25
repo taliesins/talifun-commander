@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command.Esb.Events
 	[InheritedExport]
 	public interface ICommandProgressMessage : IEquatable<ICommandProgressMessage>, ICommandIdentifier
 	{
-		string WorkingFilePath { get; }
+		string InputFilePath { get; }
 		FileMatchElement FileMatch { get; }
 	}
 }

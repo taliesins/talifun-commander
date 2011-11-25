@@ -3,7 +3,7 @@ using Talifun.Commander.Command.VideoThumbNailer;
 
 namespace Talifun.Commander.Command.VideoThumbnailer
 {
-    public class ThumbnailerSettings
+    public class ThumbnailerSettings : IThumbnailerSettings
     {
         /// <summary>
         /// The out image type to use

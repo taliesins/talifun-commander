@@ -70,7 +70,7 @@ namespace Talifun.Commander.Command.Video
 			return watermarkSettings;
 		}
 
-		private IContainerSettings GetContainerSettings(VideoConversionElement videoConversionSetting)
+		private IContainerSettings GetCommandSettings(VideoConversionElement videoConversionSetting)
 		{
 			if (videoConversionSetting.VideoConversionType == VideoConversionType.NotSpecified)
 			{
@@ -142,29 +142,29 @@ namespace Talifun.Commander.Command.Video
 
     	public override void Run(ICommandSagaProperties properties)
         {
-            var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
+			var commandElement = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, videoConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                
-				var containerSettings = GetContainerSettings(videoConversionSetting);
 
-				var videoCommand = GetCommand(containerSettings);
-				var encodeSucessful = videoCommand.Run(containerSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
+				var commandSettings = GetCommandSettings(commandElement);
+				var command = GetCommand(commandSettings);
 
-                if (encodeSucessful)
+				var encodeSuccessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
+
+                if (encodeSuccessful)
                 {
-                    inputFilePath.MoveCompletedFileToOutputFolder(videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, videoConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

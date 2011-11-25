@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command.Esb.Response
 	[InheritedExport]
 	public interface ICommandResponseMessage : ICommandIdentifier
 	{
-		string WorkingFilePath { get; }
+		string InputFilePath { get; }
 		FileMatchElement FileMatch { get; }
 	}
 }

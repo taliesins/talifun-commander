@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command.Esb.Events
 	[InheritedExport]
 	public interface ICommandCompletedMessage : IEquatable<ICommandCompletedMessage>, ICommandIdentifier
 	{
-		string WorkingFilePath { get; }
+		string InputFilePath { get; }
 		FileMatchElement FileMatch { get; }
 	}
 }

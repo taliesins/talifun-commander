@@ -6,7 +6,7 @@ namespace Talifun.Commander.Command.Esb.Events
 	[Serializable]
 	public abstract class CommandStartedMessageBase : CorrelatedMessageBase<ICommandStartedMessage>, ICommandStartedMessage
 	{
-		public string WorkingFilePath { get; set; }
+		public string InputFilePath { get; set; }
 		public FileMatchElement FileMatch { get; set; }
 	}
 }

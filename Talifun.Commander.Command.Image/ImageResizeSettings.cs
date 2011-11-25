@@ -1,6 +1,6 @@
 ﻿namespace Talifun.Commander.Command.Image
 {
-    public class ImageResizeSettings
+    public class ImageResizeSettings : IImageResizeSettings
     {
         /// <summary>
         /// The out image type to use

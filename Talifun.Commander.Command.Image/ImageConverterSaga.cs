@@ -15,7 +15,7 @@ namespace Talifun.Commander.Command.Image
             }
         }
 
-        private ImageResizeSettings GetImageResizeSettings(ImageConversionElement imageConversion)
+        private IImageResizeSettings GetCommandSettings(ImageConversionElement imageConversion)
         {
             var imageResizeSettings = new ImageResizeSettings
                                           {
@@ -42,12 +42,17 @@ namespace Talifun.Commander.Command.Image
             return imageResizeSettings;
         }
 
+		private ICommand<IImageResizeSettings> GetCommand(IImageResizeSettings commandLineSettings)
+		{
+			return new ImageResizeCommand();
+		}
+
         public override void Run(ICommandSagaProperties properties)
         {
-            var imageConversionSetting = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties);
+			var commandElement = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, imageConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -55,21 +60,18 @@ namespace Talifun.Commander.Command.Image
 
                 var output = string.Empty;
                 
+				var commandSettings = GetCommandSettings(commandElement);
+            	var command = GetCommand(commandSettings);
 
-                var encodeSucessful = false;
+				var encodeSuccessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
-                var imageResizeSettings = GetImageResizeSettings(imageConversionSetting);
-                var imageResizeCommand = new ImageResizeCommand();
-
-				encodeSucessful = imageResizeCommand.Run(imageResizeSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
-
-                if (encodeSucessful)
+                if (encodeSuccessful)
                 {
-                    inputFilePath.MoveCompletedFileToOutputFolder(imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, imageConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

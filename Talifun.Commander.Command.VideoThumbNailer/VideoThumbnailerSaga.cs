@@ -16,7 +16,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer
             }
         }
 
-        private ThumbnailerSettings GetThumbnailerSettings(VideoThumbnailerElement videoThumbnailer)
+        private IThumbnailerSettings GetCommandSettings(VideoThumbnailerElement videoThumbnailer)
         {
             return new ThumbnailerSettings()
                        {
@@ -28,12 +28,17 @@ namespace Talifun.Commander.Command.VideoThumbNailer
                        };
         }
 
+		private ICommand<IThumbnailerSettings> GetCommand(IThumbnailerSettings thumbnailerSettings)
+		{
+			return new ThumbnailerCommand();
+		}
+
         public override void Run(ICommandSagaProperties properties)
         {
-            var videoThumbnailerSetting = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties);
+			var commandElement = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties.Project, properties.FileMatch);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
-			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, videoThumbnailerSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
@@ -41,20 +46,18 @@ namespace Talifun.Commander.Command.VideoThumbNailer
 
                 var output = string.Empty;
                 
+				var commandSettings = GetCommandSettings(commandElement);
+            	var command = GetCommand(commandSettings);
 
-                var thumbnailCreationSucessful = false;
+				var thumbnailCreationSuccessful = command.Run(commandSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
-                var thumbnailerSettings = GetThumbnailerSettings(videoThumbnailerSetting);
-                var thumbnailerCommand = new ThumbnailerCommand();
-				thumbnailCreationSucessful = thumbnailerCommand.Run(thumbnailerSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
-
-                if (thumbnailCreationSucessful)
+                if (thumbnailCreationSuccessful)
                 {
-					inputFilePath.MoveCompletedFileToOutputFolder(videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(commandElement.FileNameFormat, commandElement.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, videoThumbnailerSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandElement.GetErrorProcessingPathOrDefault());
                 }
             }
             finally
