@@ -150,7 +150,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 			commandMessage.AppSettings = AppSettings;
 			commandMessage.InputFilePath = InputFilePath;
-			commandMessage.OutputDirectoryPath = OutPutFilePath;
+			commandMessage.WorkingDirectoryPath = WorkingDirectoryPath;
 			commandMessage.Settings = commandSettings;
 			return commandMessage;
 		}

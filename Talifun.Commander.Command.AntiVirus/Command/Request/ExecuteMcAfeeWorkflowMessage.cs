@@ -8,6 +8,6 @@ namespace Talifun.Commander.Command.AntiVirus.Command.Request
 		public IAntiVirusSettings Settings { get; set; }
 		public IDictionary<string, string> AppSettings { get; set; }
 		public string InputFilePath { get; set; }
-		public string OutputDirectoryPath { get; set; }
+		public string WorkingDirectoryPath { get; set; }
 	}
 }

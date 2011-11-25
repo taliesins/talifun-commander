@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		public void Consume(ExecuteMcAfeeWorkflowMessage message)
 		{
 			var inputFilePath = new FileInfo(message.InputFilePath);
-			var outPutFilePath = new FileInfo(Path.Combine(message.OutputDirectoryPath, inputFilePath.Name));
+			var outPutFilePath = new FileInfo(Path.Combine(message.WorkingDirectoryPath, inputFilePath.Name));
 			if (outPutFilePath.Exists)
 			{
 				outPutFilePath.Delete();
@@ -26,7 +26,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			inputFilePath.CopyTo(outPutFilePath.FullName);
 
 			var commandPath = message.AppSettings[AntiVirusConfiguration.Instance.McAfeePathSettingName];
-			var workingDirectory = message.OutputDirectoryPath;
+			var workingDirectory = message.WorkingDirectoryPath;
 			var commandArguments = @"/target """ + outPutFilePath.FullName + @""" " + AllFixedOptions;
 
 			var commandLineExecutor = new CommandLineExecutor();
