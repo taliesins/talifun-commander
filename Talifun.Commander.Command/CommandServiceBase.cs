@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using MassTransit.BusConfigurators;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Esb;
 
@@ -18,6 +19,8 @@ namespace Talifun.Commander.Command
 			get { return Settings.ElementSettingName; }
 		}
 
+		public abstract void Configure(ServiceBusConfigurator serviceBusConfigurator);
+
 		public void Start()
 		{
 			_commandSagaRepository = SetupSagaRepository<TCommandSaga>();
@@ -29,6 +32,7 @@ namespace Talifun.Commander.Command
 					subscriber.Saga(_commandSagaRepository);
 					subscriber.Saga(_commandTesterSagaRepository);
 				});
+				Configure(x);
 			});
 		}
 

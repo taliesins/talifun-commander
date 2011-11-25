@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using MassTransit;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FileMatcher.Request;
@@ -18,7 +17,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			}
 
 			var fileName = fileInfo.Name;
-			var uniqueDirectoryName = "master." + fileName + "." + Guid.NewGuid();
+			var uniqueDirectoryName = "master." + fileName + "." + message.CorrelationId;
 
 			var workingDirectoryPath = !string.IsNullOrEmpty(message.WorkingPath) ?
 				new DirectoryInfo(Path.Combine(message.WorkingPath, uniqueDirectoryName))

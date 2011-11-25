@@ -7,9 +7,9 @@ namespace Talifun.Commander.Command
 {
 	public static class FileExtensions
 	{
-		public static DirectoryInfo GetWorkingDirectoryPath(this FileInfo inputFilePath, string conversionType, string workingPath, string uniqueProcessingNumber)
+		public static DirectoryInfo GetWorkingDirectoryPath(this FileInfo inputFilePath, string prefix, string workingPath, string uniqueProcessingNumber)
 		{
-			var uniqueDirectoryName = conversionType + "." + inputFilePath.Name + "." + uniqueProcessingNumber;
+			var uniqueDirectoryName = prefix + "." + inputFilePath.Name + "." + uniqueProcessingNumber;
 
 			DirectoryInfo workingDirectoryPath = null;
 			if (!string.IsNullOrEmpty(workingPath))

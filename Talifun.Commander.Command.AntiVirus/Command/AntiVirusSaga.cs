@@ -38,7 +38,9 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
-							InputFilePath = saga.InputFilePath
+							Prefix = AntiVirusConfiguration.Instance.ConversionType,
+							InputFilePath = saga.InputFilePath,
+							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
 					);
 
