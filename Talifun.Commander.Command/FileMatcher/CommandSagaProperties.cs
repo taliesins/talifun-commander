@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.FileMatcher
@@ -8,6 +8,6 @@ namespace Talifun.Commander.Command.FileMatcher
     	public string InputFilePath { get; set; }
         public ProjectElement Project { get; set; }
         public FileMatchElement FileMatch { get; set; }
-		public AppSettingsSection AppSettings { get; set; }
+		public Dictionary<string, string> AppSettings { get; set; }
     }
 }

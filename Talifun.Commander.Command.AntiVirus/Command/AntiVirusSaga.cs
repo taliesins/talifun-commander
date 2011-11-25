@@ -7,7 +7,6 @@ using Talifun.Commander.Command.AntiVirus.Command.Request;
 using Talifun.Commander.Command.AntiVirus.Command.Response;
 using Talifun.Commander.Command.Configuration;
 
-
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
 	[Serializable]

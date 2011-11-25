@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -136,7 +135,7 @@ namespace Talifun.Commander.Command.Image
 			return commandArguments;
 		}
 
-		public bool Run(IImageResizeSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IImageResizeSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
             switch (settings.ResizeImageType)
@@ -166,7 +165,7 @@ namespace Talifun.Commander.Command.Image
 			var workingDirectory = outputDirectoryPath.FullName;
 
 			var thumbnailArguments = ThumbnailArguments(settings, inputFilePath.FullName, outPutFilePath.FullName);
-            var convertPath = appSettings.Settings[ImageConversionConfiguration.Instance.ConvertPathSettingName].Value;
+            var convertPath = appSettings[ImageConversionConfiguration.Instance.ConvertPathSettingName];
 			var thumbnailOutput = string.Empty;
 			
             var commandLineExecutor = new CommandLineExecutor();
@@ -176,7 +175,7 @@ namespace Talifun.Commander.Command.Image
 			if (result && !string.IsNullOrEmpty(settings.WatermarkPath))
 			{
 				var watermarkArguments = WatermarkArguments(settings, outPutFilePath.FullName);
-				var compositePath = appSettings.Settings[ImageConversionConfiguration.Instance.CompositePathSettingName].Value;
+				var compositePath = appSettings[ImageConversionConfiguration.Instance.CompositePathSettingName];
 				var watermarkOutput = string.Empty;
 
 				result = commandLineExecutor.Execute(workingDirectory, compositePath, watermarkArguments, out watermarkOutput);

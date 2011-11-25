@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.Video.AudioFormats;
 using Talifun.Commander.Command.Video.Configuration;
@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.Video.WorkFlow
 {
 	public class TwoPassWorkFlow : ICommand<IContainerSettings>
     {
-		public bool Run(IContainerSettings settings, AppSettingsSection appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IContainerSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
 			var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command.Video.WorkFlow
 			var firstPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 1 {2} {3} \"{4}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForFirstPass(), "-an", outPutFilePath.FullName);
 			var secondPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 2 {2} {3} {4} \"{5}\"", inputFilePath.FullName, logFilePath.FullName, settings.Video.GetOptionsForSecondPass(), settings.Audio.GetOptions(), settings.Watermark.GetOptions(), outPutFilePath.FullName);
 
-            var fFMpegCommandPath = appSettings.Settings[VideoConversionConfiguration.Instance.FFMpegPathSettingName].Value;
+            var fFMpegCommandPath = appSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
             var workingDirectory = outputDirectoryPath.FullName;
 
             var firstPassOutput = string.Empty;
