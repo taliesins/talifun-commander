@@ -63,8 +63,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 
 			try
 			{
-				var commandSettings = new ProjectElementCommand<AntiVirusElementCollection>(Settings.ElementCollectionSettingName, message.Project);
-				var antiVirusSettings = commandSettings.Settings;
+				var antiVirusSettings = message.Configuration;
 
 				var antiVirusSettingsKeys = new Dictionary<string, FileMatchElement>();
 
@@ -82,7 +81,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 							{
 								throw new Exception(
 									string.Format(Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
-									              message.Project.Name,
+									              message.ProjectName,
 									              Settings.ElementCollectionSettingName,
 									              Settings.ElementSettingName,
 									              antiVirusSetting.Name,
@@ -125,7 +124,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 						throw new Exception(
 							string.Format(
 								Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
-								message.Project.Name, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
+								message.ProjectName, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
 					}
 				}
 			}

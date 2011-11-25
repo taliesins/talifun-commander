@@ -20,8 +20,9 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<CommandLineElementCollection>(Settings.ElementCollectionSettingName, project);
-            var commandLineSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<CommandLineElementCollection>(Settings.ElementCollectionSettingName);
+
+			var commandLineSettings = configuration;
 
             var commandLineSettingsKeys = new Dictionary<string, FileMatchElement>();
 

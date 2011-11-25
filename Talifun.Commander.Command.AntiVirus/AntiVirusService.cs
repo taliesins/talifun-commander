@@ -6,9 +6,9 @@ namespace Talifun.Commander.Command.AntiVirus
 {
 	public class AntiVirusService : CommandServiceBase<AntiVirusSaga, AntiVirusTesterSaga>
 	{
-		public override ISettingConfiguration Settings
+		static AntiVirusService()
 		{
-			get { return AntiVirusConfiguration.Instance; }
+			Settings = AntiVirusConfiguration.Instance;
 		}
 	}
 }

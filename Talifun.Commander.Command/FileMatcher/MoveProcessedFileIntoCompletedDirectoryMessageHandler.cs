@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			};
 
 			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
-			bus.Publish(movedProcessedFileIntoCompletedDirectoryMessage, x => { });
+			bus.Publish(movedProcessedFileIntoCompletedDirectoryMessage);
 		}
 	}
 }

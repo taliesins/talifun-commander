@@ -39,11 +39,13 @@ namespace Talifun.Commander.Command.AntiVirus
 
 		public object CreateTestConfigurationRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project)
 		{
+			var configuration = project.GetElementCollection<AntiVirusElementCollection>(Settings.ElementCollectionSettingName);
 			return new AntiVirusConfigurationTestRequestMessage
 			       	{
 						CorrelationId = correlationId,
 			       		AppSettings = appSettings,
-			       		Project = project
+						ProjectName = project.Name,
+						Configuration = configuration
 			       	};
 		}
 	}

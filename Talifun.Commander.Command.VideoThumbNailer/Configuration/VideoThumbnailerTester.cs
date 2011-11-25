@@ -19,8 +19,9 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoThumbnailerElementCollection>(Settings.ElementCollectionSettingName, project);
-            var videoThumbnailerSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<VideoThumbnailerElementCollection>(Settings.ElementCollectionSettingName);
+
+			var videoThumbnailerSettings = configuration;
 
             var videoThumbnailerSettingsKeys = new Dictionary<string, FileMatchElement>();
 

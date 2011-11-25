@@ -23,13 +23,13 @@ namespace Talifun.Commander.Command.Configuration
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
 		static ProjectElement()
         {
+			properties.Add(name);
+			properties.Add(folders);
+
 			var container = CommandContainer.Instance.Container;
 
 			var elementCollectionConfigurationProperties = container.GetExportedValues<CurrentConfigurationElementCollection>()
 				.Where(x => !_excludedElements.Contains(x.Setting.ElementSettingName));
-
-			properties.Add(name);
-			properties.Add(folders);
 
 			foreach (var elementCollectionConfigurationProperty in elementCollectionConfigurationProperties)
 			{
@@ -91,7 +91,7 @@ namespace Talifun.Commander.Command.Configuration
 		}
 
 		[JsonProperty(TypeNameHandling = TypeNameHandling.All)]
-		public ExpandoObject CommandPluginProperties
+		private ExpandoObject CommandPluginProperties
 		{
 			get
 			{
@@ -144,6 +144,11 @@ namespace Talifun.Commander.Command.Configuration
         {
             return (T) base[commandConfiguration];
         }
+
+		public T GetElementCollection<T>(string elementCollectionSettingName) where T : CurrentConfigurationElementCollection
+		{
+			return (T)base[elementCollectionSettingName];
+		}
 
         public ConfigurationProperty GetConfigurationProperty(string configurationPropertyName)
         {

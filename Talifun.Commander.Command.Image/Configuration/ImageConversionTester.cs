@@ -84,8 +84,9 @@ namespace Talifun.Commander.Command.Image.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<ImageConversionElementCollection>(Settings.ElementCollectionSettingName, project);
-            var imageConversionSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<ImageConversionElementCollection>(Settings.ElementCollectionSettingName);
+
+			var imageConversionSettings = configuration;
 
             var imageConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
 

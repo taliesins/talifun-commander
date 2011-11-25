@@ -19,8 +19,9 @@ namespace Talifun.Commander.Command.Video.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<VideoConversionElementCollection>(Settings.ElementCollectionSettingName, project);
-            var videoConversionSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<VideoConversionElementCollection>(Settings.ElementCollectionSettingName);
+
+			var videoConversionSettings = configuration;
 
             var videoConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
 

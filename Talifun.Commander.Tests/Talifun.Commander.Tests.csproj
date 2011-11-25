@@ -46,6 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Rhino.Mocks">
       <HintPath>..\References\RhinoMocks\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -60,6 +61,7 @@
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\References\SpecFlow\lib\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageSerialization.feature.cs">
@@ -67,9 +69,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="MessageSerialization\ElementCollectionTestDouble.cs" />
+    <Compile Include="MessageSerialization\ElementConfiguration.cs" />
     <Compile Include="MessageSerialization\MessageRegistry.cs" />
     <Compile Include="MessageSerialization\MessageSerialization.Steps.cs" />
-    <Compile Include="MessageSerialization\NamedConfigurationElementTestDouble.cs" />
+    <Compile Include="MessageSerialization\ElementTestDouble.cs" />
     <Compile Include="MessageSubscriptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

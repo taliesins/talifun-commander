@@ -11,9 +11,9 @@ namespace Talifun.Commander.Command
 		private ISagaRepository<TCommandSaga> _commandSagaRepository;
 		private ISagaRepository<TCommandTesterSaga> _commandTesterSagaRepository;
 
-		public abstract ISettingConfiguration Settings { get; }
+		public static ISettingConfiguration Settings { get; protected set; }
 
-		public virtual string BusName
+		public static string BusName
 		{
 			get { return Settings.ElementSettingName; }
 		}

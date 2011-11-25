@@ -66,13 +66,16 @@
     <Compile Include="Command\AntiVirusSaga.cs" />
     <Compile Include="AntiVirusService.cs" />
     <Compile Include="CommandTester\AntiVirusTesterSaga.cs" />
-    <Compile Include="Command\AntiVirusCancelMessageHandler.cs" />
-    <Compile Include="Command\OldAntiVirusSaga.cs" />
+    <Compile Include="Command\ExecuteMcAfeeWorkflowMessageHandler.cs" />
     <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />
     <Compile Include="Command\Request\DeleteTempDirectoryMessage.cs" />
+    <Compile Include="Command\Request\IExecuteAntiVirusWorkflowMessage.cs" />
+    <Compile Include="Command\Request\ExecuteMcAfeeWorkflowMessage.cs" />
     <Compile Include="Command\Request\MoveProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Command\Response\CreatedTempDirectoryMessage.cs" />
     <Compile Include="Command\Response\DeletedTempDirectoryMessage.cs" />
+    <Compile Include="Command\Response\ExecutedMcAfeeWorkflowMessage.cs" />
+    <Compile Include="Command\Response\IExecutedAntiVirusWorkflowMessage.cs" />
     <Compile Include="Command\Response\MovedProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Configuration\AntiVirusElement.Validation.cs">
       <DependentUpon>AntiVirusElement.cs</DependentUpon>
@@ -98,7 +101,6 @@
     <Compile Include="CommandTester\Request\AntiVirusConfigurationTestRequestMessage.cs" />
     <Compile Include="Command\Scanners\IAntiVirusSettings.cs" />
     <Compile Include="Configuration\AntiVirusConfiguration.cs" />
-    <Compile Include="Command\McAfeeCommand.cs" />
     <Compile Include="Command\Scanners\McAfeeSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">

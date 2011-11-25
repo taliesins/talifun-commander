@@ -21,12 +21,6 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			{
 				Initially(
 					When(AntiVirusRequestEvent)
-						.Publish((saga, message) => new AntiVirusStartedMessage
-						{
-							CorrelationId = message.CorrelationId,
-							InputFilePath = message.InputFilePath,
-							FileMatch = message.FileMatch
-						})
 						.Then((saga, message) =>
 						{
 							saga.AppSettings = message.AppSettings;
@@ -34,10 +28,16 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							saga.FileMatch = message.FileMatch;
 							saga.InputFilePath = message.InputFilePath;
 						})
+						.Publish((saga, message) => new AntiVirusStartedMessage
+						{
+							CorrelationId = saga.CorrelationId,
+							InputFilePath = saga.InputFilePath,
+							FileMatch = saga.FileMatch
+						})
 						.TransitionTo(WaitingForCreateTempDirectory)
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							InputFilePath = saga.InputFilePath
 						})
 					);
@@ -49,11 +49,27 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 							saga.WorkingPath = message.WorkingPath;
 						})
-						.TransitionTo(WaitingForCommandToExecute)
+						.TransitionTo(WaitingForExecuteAntiVirusWorkflow)
 						.Then((saga, message)=>
 						{
-						    var commandMessage = saga.GetCommandMessage();
+						    var commandMessage = saga.GetAntiVirusWorkflowMessage();
 							saga.Bus.Publish(message.GetType(), commandMessage);
+						})
+				);
+
+				During(
+					WaitingForExecuteAntiVirusWorkflow,
+					When(ExecutedAntiVirusWorkflow)
+						.Then((saga, message)=>
+						{
+						    saga.OutPutFilePath = message.OutPutFilePath;
+						})
+						.TransitionTo(WaitingForMoveProcessedFileIntoOutputDirectory)
+						.Publish((saga, message) => new MoveProcessedFileIntoOutputDirectoryMessage()
+						{
+							CorrelationId = saga.CorrelationId,
+							OutputPath = saga.OutPutFilePath,
+							WorkingFilePath = saga.WorkingPath
 						})
 				);
 
@@ -63,7 +79,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.TransitionTo(WaitingForDeleteTempDirectory)
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							WorkingPath = saga.WorkingPath
 						})
 				);
@@ -73,13 +89,13 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(DeletedTempDirectory)
 						.Publish((saga, message) => new AntiVirusResponseMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
@@ -107,6 +123,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingPath { get; set; }
+		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
 		public static Event<AntiVirusRequestMessage> AntiVirusRequestEvent { get; set; }
@@ -120,13 +137,15 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 		#region Run command
 
-		public static State WaitingForCommandToExecute { get; set; }
+		public static State WaitingForExecuteAntiVirusWorkflow { get; set; }
+		public static Event<IExecutedAntiVirusWorkflowMessage> ExecutedAntiVirusWorkflow { get; set; }
+		//public static Event<Fault<IExecuteAntiVirusWorkflowMessage, Guid>> ExecuteAntiVirusWorkflowFailed { get; set; }
 
-		private object GetCommandMessage()
+		private IExecuteAntiVirusWorkflowMessage GetAntiVirusWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
-
-			return null;
+			var commandMessage = GetCommandMessage(commandSettings);
+			return commandMessage;
 		}
 
 		private IAntiVirusSettings GetCommandSettings(AntiVirusElement antiVirusSetting)
@@ -141,9 +160,9 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			}
 		}
 
-		private ICommand<IAntiVirusSettings> GetCommand(IAntiVirusSettings antiVirusSetting)
+		private IExecuteAntiVirusWorkflowMessage GetCommandMessage(IAntiVirusSettings antiVirusSetting)
 		{
-			return new McAfeeCommand();
+			return new ExecuteMcAfeeWorkflowMessage();
 		}
 		#endregion
 

@@ -28,14 +28,14 @@ namespace Talifun.Commander.Command.FileMatcher
 
 			var workingFilePath = Path.Combine(workingDirectoryPath.FullName, fileName);
 
-			var tempDirectoryCreatedMessage = new CreatedTempDirectoryMessage()
+			var createdTempDirectoryMessage = new CreatedTempDirectoryMessage()
 			{
 				CorrelationId = message.CorrelationId,
 				WorkingFilePath = workingFilePath
 			};
 
 			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
-			bus.Publish(tempDirectoryCreatedMessage, x=>{});
+			bus.Publish(createdTempDirectoryMessage);
 		}
 	}
 }

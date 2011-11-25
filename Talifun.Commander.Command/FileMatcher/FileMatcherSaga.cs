@@ -35,7 +35,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.TransitionTo(WaitingForCreateTempDirectory)
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
-						    CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							InputFilePath = saga.InputFilePath,
 							WorkingPath = saga.Folder.GetWorkingPathOrDefault()
 						})
@@ -51,7 +51,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.TransitionTo(WaitingForMoveFileToBeProcessedIntoTempDirectory)
 						.Publish((saga, message) => new MoveFileToBeProcessedIntoTempDirectoryMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							FilePath = saga.InputFilePath,
 							WorkingFilePath = saga.WorkingFilePath
 						})
@@ -67,7 +67,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.TransitionTo(WaitingForPluginsToProcess)
 						.Publish((saga, message) => new ProcessFileMatchesMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath,
 							FileMatches = saga.FileMatchesToExecute
 						})
@@ -100,7 +100,7 @@ namespace Talifun.Commander.Command.FileMatcher
 							saga.FileMatchesToExecute.Remove(message.FileMatch.Name);
 							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
 							{
-								CorrelationId = message.CorrelationId
+								CorrelationId = saga.CorrelationId
 							});
 						}),
 					When(ProcessedFileMatches)
@@ -119,7 +119,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.TransitionTo(WaitingForDeleteTempDirectory)
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath
 						})
 				);

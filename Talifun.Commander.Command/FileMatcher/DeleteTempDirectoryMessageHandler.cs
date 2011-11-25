@@ -22,7 +22,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			};
 
 			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
-			bus.Publish(deletedTempDirectoryMessage, x => { });
+			bus.Publish(deletedTempDirectoryMessage);
 		}
 	}
 }

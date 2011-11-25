@@ -6,19 +6,24 @@ using Talifun.Commander.Command.Configuration;
 namespace Talifun.Commander.Tests.MessageSerialization
 {
 	[JsonObject(MemberSerialization.OptIn)]
-	public sealed class NamedConfigurationElementTestDouble : NamedConfigurationElement
+	public sealed class ElementTestDouble : NamedConfigurationElement
 	{
 		private static ConfigurationPropertyCollection properties = new ConfigurationPropertyCollection();
 		private static readonly ConfigurationProperty name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 
 		/// <summary>
-		/// Initializes the <see cref="NamedConfigurationElementTestDouble"/> class.
+		/// Initializes the <see cref="ElementTestDouble"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static NamedConfigurationElementTestDouble()
+		static ElementTestDouble()
         {
-            properties.Add(name);
+            properties.Add(name);	
         }
+
+		public ElementTestDouble()
+		{
+			Setting = ElementConfiguration.Instance;	
+		}
 
 		/// <summary>
 		/// Gets or sets the name of the configuration element represented by this instance.

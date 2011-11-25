@@ -19,8 +19,9 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
 		{
-			var commandSettings = new ProjectElementCommand<YouTubeUploaderElementCollection>(Settings.ElementCollectionSettingName, project);
-			var youTubeUploaderSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<YouTubeUploaderElementCollection>(Settings.ElementCollectionSettingName);
+
+			var youTubeUploaderSettings = configuration;
 
 			var youTubeUploaderSettingsKeys = new Dictionary<string, FileMatchElement>();
 

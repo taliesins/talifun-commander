@@ -75,7 +75,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 			return new CommandConfigurationTestRequestMessageTestDouble
 			{
 				CorrelationId = Guid.NewGuid(),
-				Project = project,
+				ProjectName = project.Name,
 				AppSettings = appSettings.Settings.ToDictionary()
 			};
 		}

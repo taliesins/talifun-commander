@@ -171,7 +171,6 @@
     <Compile Include="Configuration\ProjectConfiguration.cs" />
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
-    <Compile Include="Configuration\ProjectElementCommand.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
     <Compile Include="Esb\Events\PluginCompletedMessageBase.cs" />
     <Compile Include="Esb\Events\IPluginProgressMessage.cs" />
@@ -194,7 +193,6 @@
     <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
     <Compile Include="Esb\Request\ICancelMessage.cs" />
-    <Compile Include="Esb\Request\ICancelMessageHandler.cs" />
     <Compile Include="Esb\Request\IPluginRequestMessage.cs" />
     <Compile Include="Esb\Request\IConfigurationTestRequestMessage.cs" />
     <Compile Include="Esb\Response\PluginResponseMessageBase.cs" />

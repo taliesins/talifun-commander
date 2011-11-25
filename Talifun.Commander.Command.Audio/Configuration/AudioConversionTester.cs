@@ -19,8 +19,9 @@ namespace Talifun.Commander.Command.Audio.Configuration
 
 		public override void CheckProjectConfiguration(AppSettingsSection appSettings, ProjectElement project)
         {
-            var commandSettings = new ProjectElementCommand<AudioConversionElementCollection>(Settings.ElementCollectionSettingName, project);
-            var audioConversionSettings = commandSettings.Settings;
+			var configuration = project.GetElementCollection<AudioConversionElementCollection>(Settings.ElementCollectionSettingName);
+
+			var audioConversionSettings = configuration;
 
             var audioConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
 
