@@ -19,7 +19,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			var createdTempDirectoryMessage = new CreatedTempDirectoryMessage()
 			{
 				CorrelationId = message.CorrelationId,
-				WorkingPath = workingDirectoryPath.FullName
+				WorkingDirectoryPath = workingDirectoryPath.FullName
 			};
 
 			var bus = BusDriver.Instance.GetBus(AntiVirusService.BusName);

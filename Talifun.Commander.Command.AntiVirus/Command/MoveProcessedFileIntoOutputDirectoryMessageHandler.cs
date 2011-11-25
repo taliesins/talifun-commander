@@ -13,7 +13,9 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			var outputPath = new FileInfo(message.OutputPath);
 			outputPath.WaitForFileToUnlock(10, 500);
 			outputPath.Refresh();
-			outputPath.MoveTo(message.WorkingFilePath);
+
+			var workingFilePath = Path.Combine(message.WorkingDirectoryPath, outputPath.Name);
+			outputPath.MoveTo(workingFilePath);
 
 			var movedProcessedFileIntoOutputDirectoryMessage = new MovedProcessedFileIntoOutputDirectoryMessage()
 			{

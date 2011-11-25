@@ -49,13 +49,13 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(CreatedTempDirectory)
 						.Then((saga, message) =>
 						{
-							saga.WorkingPath = message.WorkingPath;
+							saga.WorkingDirectoryPath = message.WorkingDirectoryPath;
 						})
 						.TransitionTo(WaitingForExecuteAntiVirusWorkflow)
 						.Then((saga, message)=>
 						{
 						    var commandMessage = saga.GetAntiVirusWorkflowMessage();
-							saga.Bus.Publish(message.GetType(), commandMessage);
+							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
 				);
 
@@ -71,7 +71,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 							CorrelationId = saga.CorrelationId,
 							OutputPath = saga.OutPutFilePath,
-							WorkingFilePath = saga.WorkingPath
+							WorkingDirectoryPath = saga.WorkingDirectoryPath
 						})
 				);
 
@@ -82,7 +82,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
-							WorkingPath = saga.WorkingPath
+							WorkingPath = saga.WorkingDirectoryPath
 						})
 				);
 
@@ -124,7 +124,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		public virtual AntiVirusElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
-		public virtual string WorkingPath { get; set; }
+		public virtual string WorkingDirectoryPath { get; set; }
 		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
@@ -147,6 +147,11 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		{
 			var commandSettings = GetCommandSettings(Configuration);
 			var commandMessage = GetCommandMessage(commandSettings);
+
+			commandMessage.AppSettings = AppSettings;
+			commandMessage.InputFilePath = InputFilePath;
+			commandMessage.OutputDirectoryPath = OutPutFilePath;
+			commandMessage.Settings = commandSettings;
 			return commandMessage;
 		}
 
