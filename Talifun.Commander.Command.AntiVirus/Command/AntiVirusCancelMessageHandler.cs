@@ -4,7 +4,7 @@ using Talifun.Commander.Command.Esb.Request;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
-	public class AntiVirusCancelMessageHandler : ICommandCancelMessageHandler<AntiVirusCancelMessage>
+	public class AntiVirusCancelMessageHandler : ICancelMessageHandler<AntiVirusCancelMessage>
 	{
 		public void Consume(AntiVirusCancelMessage message)
 		{

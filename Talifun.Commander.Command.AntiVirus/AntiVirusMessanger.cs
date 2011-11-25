@@ -25,13 +25,13 @@ namespace Talifun.Commander.Command.AntiVirus
 
 		public object CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
 		{
-			var commandElement = project.GetElement<AntiVirusElement>(fileMatch, Settings.ElementCollectionSettingName);
+			var configuration = project.GetElement<AntiVirusElement>(fileMatch, Settings.ElementCollectionSettingName);
 
 			return new AntiVirusRequestMessage
 			       	{
 						CorrelationId = correlationId,
 			       		AppSettings = appSettings,
-						Configuration = commandElement,
+						Configuration = configuration,
 						InputFilePath = workingFilePath,
 						FileMatch = fileMatch
 			       	};

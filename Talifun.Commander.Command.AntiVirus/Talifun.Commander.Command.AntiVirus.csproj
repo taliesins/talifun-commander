@@ -67,8 +67,6 @@
     <Compile Include="AntiVirusService.cs" />
     <Compile Include="CommandTester\AntiVirusTesterSaga.cs" />
     <Compile Include="Command\AntiVirusCancelMessageHandler.cs" />
-    <Compile Include="Command\AntiVirusRequestMessageHandler.cs" />
-    <Compile Include="CommandTester\AntiVirusTestConfigurationRequestMessageHandler.cs" />
     <Compile Include="Command\OldAntiVirusSaga.cs" />
     <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />
     <Compile Include="Command\Request\DeleteTempDirectoryMessage.cs" />
@@ -94,12 +92,10 @@
     <Compile Include="Command\Events\AntiVirusProgressMessage.cs" />
     <Compile Include="Command\Events\AntiVirusStartedMessage.cs" />
     <Compile Include="Command\Response\AntiVirusResponseMessage.cs" />
-    <Compile Include="Command\AntiVirusResponseMessageHandler.cs" />
     <Compile Include="CommandTester\Response\AntiVirusTestConfigurationResponseMessage.cs" />
     <Compile Include="Command\Request\AntiVirusCancelMessage.cs" />
     <Compile Include="Command\Request\AntiVirusRequestMessage.cs" />
     <Compile Include="CommandTester\Request\AntiVirusConfigurationTestRequestMessage.cs" />
-    <Compile Include="CommandTester\AntiVirusTestConfigurationResponseMessageHandler.cs" />
     <Compile Include="Command\Scanners\IAntiVirusSettings.cs" />
     <Compile Include="Configuration\AntiVirusConfiguration.cs" />
     <Compile Include="Command\McAfeeCommand.cs" />

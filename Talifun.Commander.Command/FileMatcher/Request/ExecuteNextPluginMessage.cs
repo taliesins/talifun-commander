@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.FileMatcher.Request
 {
-	public class ExecuteNextCommandMessage : CorrelatedMessageBase<ExecuteNextCommandMessage>
+	public class ExecuteNextPluginMessage : CorrelatedMessageBase<ExecuteNextPluginMessage>
 	{
 	}
 }

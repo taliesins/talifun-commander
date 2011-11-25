@@ -3,7 +3,7 @@ using Talifun.Commander.Command.Esb.Request;
 
 namespace Talifun.Commander.Command.AntiVirus.Command.Request
 {
-	public class AntiVirusRequestMessage : CommandRequestMessageBase<AntiVirusElement>
+	public class AntiVirusRequestMessage : PluginRequestMessageBase<AntiVirusElement>
 	{
 	}
 }

@@ -80,9 +80,9 @@ namespace Talifun.Commander.Tests.MessageSerialization
 			};
 		}
 
-		private static CommandRequestMessageTestDouble GetRequestCommandMessage()
+		private static PluginRequestMessageTestDouble GetRequestCommandMessage()
 		{
-			return new CommandRequestMessageTestDouble
+			return new PluginRequestMessageTestDouble
 			{
 				CorrelationId = Guid.NewGuid()
 			};

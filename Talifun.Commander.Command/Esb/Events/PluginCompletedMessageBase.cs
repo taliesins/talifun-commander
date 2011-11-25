@@ -1,10 +1,10 @@
 ﻿using System;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Esb.Response
+namespace Talifun.Commander.Command.Esb.Events
 {
 	[Serializable]
-	public abstract class CommandResponseMessageBase : CorrelatedMessageBase<ICommandResponseMessage>, ICommandResponseMessage
+	public abstract class PluginCompletedMessageBase : CorrelatedMessageBase<IPluginCompletedMessage>, IPluginCompletedMessage
 	{
 		public string InputFilePath { get; set; }
 		public FileMatchElement FileMatch { get; set; }

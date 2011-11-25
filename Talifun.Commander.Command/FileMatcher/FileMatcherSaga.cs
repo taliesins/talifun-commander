@@ -64,7 +64,7 @@ namespace Talifun.Commander.Command.FileMatcher
 					    {
 							saga.FileMatchesToExecute = saga.GetFileMatchesToExecute();      		
 					    })
-						.TransitionTo(WaitingForCommandsToProcess)
+						.TransitionTo(WaitingForPluginsToProcess)
 						.Publish((saga, message) => new ProcessFileMatchesMessage
 						{
 							CorrelationId = message.CorrelationId,
@@ -74,31 +74,31 @@ namespace Talifun.Commander.Command.FileMatcher
 				);
 
 				During(
-					WaitingForCommandsToProcess,
-					When(StartCommandExecution)
+					WaitingForPluginsToProcess,
+					When(StartPluginExecution)
 						.Then((saga, message) =>
 						{
-							saga.RaiseEvent(ExecuteNextCommand, new ExecuteNextCommandMessage
+							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
 							{
 							    CorrelationId = message.CorrelationId
 							});
 						}),
-					When(ExecuteNextCommand)
-						.TransitionTo(WaitingForCommandToExecute)
+					When(ExecuteNextPlugin)
+						.TransitionTo(WaitingForPluginToExecute)
 						.Then((saga, message) =>
 						{
-							saga.ExecuteCommand(message);    		
+							saga.ExecutePlugin(message);    		
 						})
 					);
 
 				During(
-					WaitingForCommandToExecute,
-					When(CommandResponse)
-						.TransitionTo(WaitingForCommandsToProcess)
+					WaitingForPluginToExecute,
+					When(PluginResponse)
+						.TransitionTo(WaitingForPluginsToProcess)
 						.Then((saga, message) =>
 						{
 							saga.FileMatchesToExecute.Remove(message.FileMatch.Name);
-							saga.RaiseEvent(ExecuteNextCommand, new ExecuteNextCommandMessage
+							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
 							{
 								CorrelationId = message.CorrelationId
 							});
@@ -189,16 +189,16 @@ namespace Talifun.Commander.Command.FileMatcher
 
 #region Process file matches
 
-		public static State WaitingForCommandsToProcess { get; set; }
-		public static Event<ProcessFileMatchesMessage> StartCommandExecution { get; set; }
-		public static Event<ExecuteNextCommandMessage> ExecuteNextCommand { get; set; }
+		public static State WaitingForPluginsToProcess { get; set; }
+		public static Event<ProcessFileMatchesMessage> StartPluginExecution { get; set; }
+		public static Event<ExecuteNextPluginMessage> ExecuteNextPlugin { get; set; }
 
-		public static State WaitingForCommandToExecute { get; set; }
-		public static Event<ICommandResponseMessage> CommandResponse { get; set; }
-		//public static Event<Fault<ICommandResponseMessage, Guid>> CommandResponseFailed { get; set; }
+		public static State WaitingForPluginToExecute { get; set; }
+		public static Event<IPluginResponseMessage> PluginResponse { get; set; }
+		//public static Event<Fault<IPluginResponseMessage, Guid>> PluginResponseFailed { get; set; }
 		public static Event<ProcessedFileMatchesMessage> ProcessedFileMatches { get; set; }
 		
-		private void ExecuteCommand(ExecuteNextCommandMessage message)
+		private void ExecutePlugin(ExecuteNextPluginMessage message)
 		{
 			var workingFilePath = new FileInfo(WorkingFilePath);
 
@@ -227,9 +227,9 @@ namespace Talifun.Commander.Command.FileMatcher
 			var project = GetCurrentProject(fileMatchToExecute);
 
 			var commandConfigurationTester = GetCommandMessenger(fileMatchToExecute.ConversionType);
-			var requestMessage = commandConfigurationTester.CreateRequestMessage(Guid.NewGuid(), AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
+			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(Guid.NewGuid(), AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
 
-			Bus.Publish(requestMessage.GetType(), requestMessage);
+			Bus.Publish(pluginRequestMessage.GetType(), pluginRequestMessage);
 		}
 
 		private ICommandMessenger GetCommandMessenger(string conversionType)

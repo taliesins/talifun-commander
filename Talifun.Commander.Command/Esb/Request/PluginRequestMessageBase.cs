@@ -5,7 +5,7 @@ using Talifun.Commander.Command.Configuration;
 namespace Talifun.Commander.Command.Esb.Request
 {
 	[Serializable]
-	public abstract class CommandRequestMessageBase<T> : CorrelatedMessageBase<ICommandRequestMessage>, ICommandRequestMessage where T : NamedConfigurationElement
+	public abstract class PluginRequestMessageBase<T> : CorrelatedMessageBase<IPluginRequestMessage>, IPluginRequestMessage where T : NamedConfigurationElement
 	{
 		public Dictionary<string, string> AppSettings { get; set; }
 		public T Configuration { get; set; }

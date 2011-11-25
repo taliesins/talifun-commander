@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.AntiVirus.Command.Events
 {
-	public class AntiVirusStartedMessage : CommandStartedMessageBase
+	public class AntiVirusStartedMessage : PluginStartedMessageBase
 	{
 	}
 }

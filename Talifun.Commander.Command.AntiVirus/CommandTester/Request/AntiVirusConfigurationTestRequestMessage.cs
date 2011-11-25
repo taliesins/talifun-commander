@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.AntiVirus.CommandTester.Request
 {
-	public class AntiVirusConfigurationTestRequestMessage : CommandConfigurationTestRequestMessageBase
+	public class AntiVirusConfigurationTestRequestMessage : ConfigurationTestRequestMessageBase
 	{
 	}
 }

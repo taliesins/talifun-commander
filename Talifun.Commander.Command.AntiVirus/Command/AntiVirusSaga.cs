@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.AntiVirus.Command.Events;
 using Talifun.Commander.Command.AntiVirus.Command.Request;
 using Talifun.Commander.Command.AntiVirus.Command.Response;
+using Talifun.Commander.Command.AntiVirus.Configuration;
+using Talifun.Commander.Command.AntiVirus.Properties;
 using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
@@ -26,9 +29,10 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						})
 						.Then((saga, message) =>
 						{
+							saga.AppSettings = message.AppSettings;
+							saga.Configuration = message.Configuration;
 							saga.FileMatch = message.FileMatch;
 							saga.InputFilePath = message.InputFilePath;
-							saga.Consume(message);
 						})
 						.TransitionTo(WaitingForCreateTempDirectory)
 						.Publish((saga, message) => new CreateTempDirectoryMessage
@@ -38,23 +42,20 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						})
 					);
 
-				//During(
-				//    WaitingForCreateTempDirectory,
-				//    When(CreatedTempDirectory)
-				//        .Then((saga, message) =>
-				//        {
-				//            saga.WorkingPath = message.WorkingPath;
-				//        })
-				//        .TransitionTo(WaitingForMoveFileToBeProcessedIntoTempDirectory)
-				//        .Publish((saga, message) => new MoveFileToBeProcessedIntoTempDirectoryMessage
-				//        {
-				//            CorrelationId = message.CorrelationId,
-				//            FilePath = saga.FilePath,
-				//            WorkingFilePath = saga.InputFilePath
-				//        })
-				//);
-
-
+				During(
+					WaitingForCreateTempDirectory,
+					When(CreatedTempDirectory)
+						.Then((saga, message) =>
+						{
+							saga.WorkingPath = message.WorkingPath;
+						})
+						.TransitionTo(WaitingForCommandToExecute)
+						.Then((saga, message)=>
+						{
+						    var commandMessage = saga.GetCommandMessage();
+							saga.Bus.Publish(message.GetType(), commandMessage);
+						})
+				);
 
 				During(
 					WaitingForMoveProcessedFileIntoOutputDirectory,
@@ -70,6 +71,12 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 				During(
 					WaitingForDeleteTempDirectory,
 					When(DeletedTempDirectory)
+						.Publish((saga, message) => new AntiVirusResponseMessage
+						{
+							CorrelationId = message.CorrelationId,
+							InputFilePath = saga.InputFilePath,
+							FileMatch = saga.FileMatch
+						})
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{
 							CorrelationId = message.CorrelationId,
@@ -95,6 +102,8 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 		public virtual Guid CorrelationId { get; private set; }
 		public virtual IServiceBus Bus { get; set; }
+		public virtual IDictionary<string, string> AppSettings { get; set; }
+		public virtual AntiVirusElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingPath { get; set; }
@@ -109,6 +118,35 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		//public static Event<Fault<CreateTempDirectoryMessage, Guid>> CreateTempDirectoryFailed { get; set; }
 		#endregion
 
+		#region Run command
+
+		public static State WaitingForCommandToExecute { get; set; }
+
+		private object GetCommandMessage()
+		{
+			var commandSettings = GetCommandSettings(Configuration);
+
+			return null;
+		}
+
+		private IAntiVirusSettings GetCommandSettings(AntiVirusElement antiVirusSetting)
+		{
+			switch (antiVirusSetting.VirusScannerType)
+			{
+				case VirusScannerType.NotSpecified:
+				case VirusScannerType.McAfee:
+					return new McAfeeSettings();
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVirusScannerType);
+			}
+		}
+
+		private ICommand<IAntiVirusSettings> GetCommand(IAntiVirusSettings antiVirusSetting)
+		{
+			return new McAfeeCommand();
+		}
+		#endregion
+
 		#region Move Processed File To Original Directory
 		public static State WaitingForMoveProcessedFileIntoOutputDirectory { get; set; }
 		public static Event<MovedProcessedFileIntoOutputDirectoryMessage> MovedProcessedFileIntoOutputDirectory { get; set; }
@@ -120,20 +158,5 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		public static Event<DeletedTempDirectoryMessage> DeletedTempDirectory { get; set; }
 		//public static Event<Fault<DeleteTempDirectoryMessage, Guid>> DeleteTempDirectoryFailed { get; set; }
 		#endregion
-
-
-		private void Consume(AntiVirusRequestMessage message)
-		{
-
-
-
-			var responseMessage = new AntiVirusResponseMessage()
-			{
-				CorrelationId = message.CorrelationId,
-				FileMatch = FileMatch,
-				InputFilePath = InputFilePath
-			};
-			Bus.Publish(responseMessage);
-		}
 	}
 }

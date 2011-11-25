@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Tests.MessageSerialization
 {
-	public class CommandCancelMessageTestDouble : CommandCancelMessageBase
+	public class CommandCancelMessageTestDouble : CancelMessageBase
 	{
 	}
 }

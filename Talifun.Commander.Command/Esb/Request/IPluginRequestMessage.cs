@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.Composition;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.Esb.Response
+namespace Talifun.Commander.Command.Esb.Request
 {
 	[InheritedExport]
-	public interface ICommandResponseMessage : ICommandIdentifier
+	public interface IPluginRequestMessage : ICommandIdentifier
 	{
 		string InputFilePath { get; }
 		FileMatchElement FileMatch { get; }

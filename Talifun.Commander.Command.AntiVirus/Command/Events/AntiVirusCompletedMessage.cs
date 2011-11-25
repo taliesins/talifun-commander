@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.AntiVirus.Command.Events
 {
-	public class AntiVirusCompletedMessage : CommandCompletedMessageBase
+	public class AntiVirusCompletedMessage : PluginCompletedMessageBase
 	{
 	}
 }

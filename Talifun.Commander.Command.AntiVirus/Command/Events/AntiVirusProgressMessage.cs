@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.AntiVirus.Command.Events
 {
-	public class AntiVirusProgressMessage : CommandProgressMessageBase
+	public class AntiVirusProgressMessage : PluginProgressMessageBase
 	{
 	}
 }

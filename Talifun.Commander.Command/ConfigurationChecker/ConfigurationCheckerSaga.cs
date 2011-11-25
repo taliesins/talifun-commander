@@ -143,7 +143,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 					
 					Bus.PublishRequest(testConfigurationRequestMessage.GetType(), testConfigurationRequestMessage, x =>
 					{
-						x.Handle<ICommandConfigurationTestResponseMessage>(response =>
+						x.Handle<IConfigurationTestResponseMessage>(response =>
 						{
 							if (response.Exception != null)
 							{

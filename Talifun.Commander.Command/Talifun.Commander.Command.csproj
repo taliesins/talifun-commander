@@ -88,7 +88,7 @@
     <Compile Include="Esb\EndpointCacheProxy.cs" />
     <Compile Include="FileMatcher\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\DeleteTempDirectoryMessageHandler.cs" />
-    <Compile Include="FileMatcher\Request\ExecuteNextCommandMessage.cs" />
+    <Compile Include="FileMatcher\Request\ExecuteNextPluginMessage.cs" />
     <Compile Include="FileMatcher\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\Response\ProcessedFileMatchesMessage.cs" />
@@ -173,12 +173,12 @@
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ProjectElementCommand.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
-    <Compile Include="Esb\Events\CommandCompletedMessageBase.cs" />
-    <Compile Include="Esb\Events\ICommandProgressMessage.cs" />
-    <Compile Include="Esb\Events\CommandProgressMessageBase.cs" />
-    <Compile Include="Esb\Events\CommandStartedMessageBase.cs" />
-    <Compile Include="Esb\Events\ICommandCompletedMessage.cs" />
-    <Compile Include="Esb\Events\ICommandStartedMessage.cs" />
+    <Compile Include="Esb\Events\PluginCompletedMessageBase.cs" />
+    <Compile Include="Esb\Events\IPluginProgressMessage.cs" />
+    <Compile Include="Esb\Events\PluginProgressMessageBase.cs" />
+    <Compile Include="Esb\Events\PluginStartedMessageBase.cs" />
+    <Compile Include="Esb\Events\IPluginCompletedMessage.cs" />
+    <Compile Include="Esb\Events\IPluginStartedMessage.cs" />
     <Compile Include="Esb\ServiceInstance.cs" />
     <Compile Include="ConfigurationChecker\Response\ResponseTestConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\Request\RequestTestConfigurationMessage.cs" />
@@ -193,18 +193,15 @@
     <Compile Include="FileMatcher\ICommandSagaProperties.cs" />
     <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
-    <Compile Include="Esb\Request\ICommandCancelMessage.cs" />
-    <Compile Include="Esb\Request\ICommandCancelMessageHandler.cs" />
-    <Compile Include="Esb\Request\ICommandRequestMessage.cs" />
-    <Compile Include="Esb\Request\ICommandRequestMessageHandler.cs" />
-    <Compile Include="Esb\Request\ICommandConfigurationTestRequestMessage.cs" />
-    <Compile Include="Esb\Request\ICommandConfigurationTestRequestMessageHandler.cs" />
-    <Compile Include="Esb\Response\CommandResponseMessageBase.cs" />
-    <Compile Include="Esb\Response\CommandResponseMessageHandlerBase.cs" />
-    <Compile Include="Esb\Response\CommandConfigurationTestResponseMessageBase.cs" />
-    <Compile Include="Esb\Request\CommandCancelMessageBase.cs" />
-    <Compile Include="Esb\Request\CommandRequestMessageBase.cs" />
-    <Compile Include="Esb\Request\CommandConfigurationTestRequestMessageBase.cs" />
+    <Compile Include="Esb\Request\ICancelMessage.cs" />
+    <Compile Include="Esb\Request\ICancelMessageHandler.cs" />
+    <Compile Include="Esb\Request\IPluginRequestMessage.cs" />
+    <Compile Include="Esb\Request\IConfigurationTestRequestMessage.cs" />
+    <Compile Include="Esb\Response\PluginResponseMessageBase.cs" />
+    <Compile Include="Esb\Response\ConfigurationTestResponseMessageBase.cs" />
+    <Compile Include="Esb\Request\CancelMessageBase.cs" />
+    <Compile Include="Esb\Request\PluginRequestMessageBase.cs" />
+    <Compile Include="Esb\Request\ConfigurationTestRequestMessageBase.cs" />
     <Compile Include="ISettingConfiguration.cs" />
     <Compile Include="NameValueCollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -213,14 +210,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Esb\Response\ICommandCompletedMessageHandler.cs" />
-    <Compile Include="Esb\Response\ICommandProgressMessageHandler.cs" />
-    <Compile Include="Esb\Response\ICommandStartedMessageHandler.cs" />
-    <Compile Include="Esb\Response\ICommandConfigurationTestResponseMessageHandler.cs" />
-    <Compile Include="Esb\Response\CommandConfigurationTestResponseMessageHandlerBase.cs" />
-    <Compile Include="Esb\Response\ICommandResponseMessage.cs" />
-    <Compile Include="Esb\Response\ICommandResponseMessageHandler.cs" />
-    <Compile Include="Esb\Response\ICommandConfigurationTestResponseMessage.cs" />
+    <Compile Include="Esb\Events\IPluginCompletedMessageHandler.cs" />
+    <Compile Include="Esb\Events\IPluginProgressMessageHandler.cs" />
+    <Compile Include="Esb\Events\IPluginStartedMessageHandler.cs" />
+    <Compile Include="Esb\Response\IPluginResponseMessage.cs" />
+    <Compile Include="Esb\Response\IConfigurationTestResponseMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
