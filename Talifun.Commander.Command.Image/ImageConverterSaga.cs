@@ -49,7 +49,8 @@ namespace Talifun.Commander.Command.Image
 
         public override void Run(ICommandSagaProperties properties)
         {
-			var commandElement = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties.Project, properties.FileMatch);
+			var commandElement = properties.Project.GetElement<ImageConversionElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
+
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);

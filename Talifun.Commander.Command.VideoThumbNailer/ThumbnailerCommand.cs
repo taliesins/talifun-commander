@@ -13,7 +13,7 @@ namespace Talifun.Commander.Command.VideoThumbnailer
 
         #region ICommand<ThumbnailerCommand,ThumbnailerSettings> Members
 
-		public bool Run(IThumbnailerSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IThumbnailerSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
 

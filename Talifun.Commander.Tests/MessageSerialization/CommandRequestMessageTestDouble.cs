@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Tests.MessageSerialization
 {
-	public class CommandRequestMessageTestDouble : CommandRequestMessageBase
+	public class CommandRequestMessageTestDouble : CommandRequestMessageBase<NamedConfigurationElementTestDouble>
 	{
 	}
 }

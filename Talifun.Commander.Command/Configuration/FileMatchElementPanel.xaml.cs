@@ -74,7 +74,7 @@ namespace Talifun.Commander.Command.Configuration
 			{
 				var collectionSettingName = configurationElementCollection.Setting.ElementCollectionSettingName;
 				var configurationProperty = project.GetConfigurationProperty(collectionSettingName);
-				var commandElementCollection = project.GetCommandConfiguration<CurrentConfigurationElementCollection>(configurationProperty);
+				var commandElementCollection = project.GetElementCollection<CurrentConfigurationElementCollection>(configurationProperty);
 				var conversionType = commandElementCollection.Setting.ConversionType;
 				var commandSettingKeys = new List<string>();
 				for (var i = 0; i < commandElementCollection.Count; i++)

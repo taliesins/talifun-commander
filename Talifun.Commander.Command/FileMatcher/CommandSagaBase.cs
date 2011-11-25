@@ -1,8 +1,6 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using NLog;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.FileMatcher
 {
@@ -27,21 +25,6 @@ namespace Talifun.Commander.Command.FileMatcher
 			}
 
 			workingFilePath.MoveTo(outputFilePath.FullName);
-        }
-
-        public E GetSettings<C, E>(ProjectElement project, FileMatchElement fileMatch)
-            where C : CurrentConfigurationElementCollection<E> 
-            where E : NamedConfigurationElement, new()
-        {
-			var commandSettings = new ProjectElementCommand<C>(Settings.ElementCollectionSettingName, project);
-            var settings = commandSettings.Settings;
-
-			var commandSettingsKey = fileMatch.CommandSettingsKey;
-
-            var setting = settings[commandSettingsKey];
-            if (setting == null)
-                throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageFileMatchNoMatchingConversionSettingsKey, commandSettingsKey, Settings.ElementCollectionSettingName));
-            return setting;
         }
     }
 }

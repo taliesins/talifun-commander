@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.Video.AudioFormats;
@@ -142,7 +143,8 @@ namespace Talifun.Commander.Command.Video
 
     	public override void Run(ICommandSagaProperties properties)
         {
-			var commandElement = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties.Project, properties.FileMatch);
+			var commandElement = properties.Project.GetElement<VideoConversionElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
+
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);

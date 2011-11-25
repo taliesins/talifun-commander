@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Linq;
-using System.Reflection;
 using Newtonsoft.Json;
+using Talifun.Commander.Command.Properties;
 
 namespace Talifun.Commander.Command.Configuration
 {
@@ -93,7 +91,7 @@ namespace Talifun.Commander.Command.Configuration
 		}
 
 		[JsonProperty(TypeNameHandling = TypeNameHandling.All)]
-		private ExpandoObject CommandPluginProperties
+		public ExpandoObject CommandPluginProperties
 		{
 			get
 			{
@@ -122,13 +120,27 @@ namespace Talifun.Commander.Command.Configuration
 			}
 		}
 
-        public void AddCommandConfiguration(ConfigurationProperty commandConfiguration)
+		public T GetElement<T>(FileMatchElement fileMatch, string elementCollectionSettingName) where T : NamedConfigurationElement
+		{
+			var commandElementCollection = (CurrentConfigurationElementCollection)base[elementCollectionSettingName];
+			var commandElement = commandElementCollection[fileMatch.CommandSettingsKey];
+
+			if (commandElement == null)
+			{
+				throw new ConfigurationErrorsException(string.Format(Resource.ErrorMessageFileMatchNoMatchingConversionSettingsKey,
+				                                                     fileMatch.CommandSettingsKey, elementCollectionSettingName));
+			}
+
+			return (T)commandElement;
+		}
+
+        public void AddElementCollection(ConfigurationProperty elementCollectionConfigurationProperty)
         {
-            if (properties.Contains(commandConfiguration.Name)) return;
-            properties.Add(commandConfiguration);
+            if (properties.Contains(elementCollectionConfigurationProperty.Name)) return;
+            properties.Add(elementCollectionConfigurationProperty);
         }
 
-        public T GetCommandConfiguration<T>(ConfigurationProperty commandConfiguration) where T : class
+		public T GetElementCollection<T>(ConfigurationProperty commandConfiguration) where T : CurrentConfigurationElementCollection
         {
             return (T) base[commandConfiguration];
         }

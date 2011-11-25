@@ -11,7 +11,7 @@ namespace Talifun.Commander.Command.Video.WorkFlow
 {
 	public class OnePassWorkFlow : ICommand<IContainerSettings>
 	{
-		public bool Run(IContainerSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IContainerSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
 			var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
 			outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));

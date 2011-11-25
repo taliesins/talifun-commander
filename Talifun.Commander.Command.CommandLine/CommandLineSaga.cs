@@ -40,7 +40,8 @@ namespace Talifun.Commander.Command.CommandLine
 
         public override void Run(ICommandSagaProperties properties)
         {
-			var commandElement = GetSettings<CommandLineElementCollection, CommandLineElement>(properties.Project, properties.FileMatch);
+			var commandElement = properties.Project.GetElement<CommandLineElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
+
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);

@@ -34,9 +34,9 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 		}
 
     	public override void Run(ICommandSagaProperties properties)
-        {
-			var commandElement = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties.Project, properties.FileMatch);
-			var uniqueProcessingNumber = Guid.NewGuid().ToString();
+    	{
+    		var commandElement = properties.Project.GetElement<AntiVirusElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
+    		var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 

@@ -135,7 +135,7 @@ namespace Talifun.Commander.Command.Image
 			return commandArguments;
 		}
 
-		public bool Run(IImageResizeSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IImageResizeSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             var extension = "";
             switch (settings.ResizeImageType)

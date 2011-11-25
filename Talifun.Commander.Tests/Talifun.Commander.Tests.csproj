@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="MessageSerialization\MessageRegistry.cs" />
     <Compile Include="MessageSerialization\MessageSerialization.Steps.cs" />
+    <Compile Include="MessageSerialization\NamedConfigurationElementTestDouble.cs" />
     <Compile Include="MessageSubscriptions.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

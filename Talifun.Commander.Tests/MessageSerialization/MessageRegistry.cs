@@ -36,7 +36,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 		private static void AddAntiVirusSetting(ProjectElement project)
 		{
 			var configurationProperty = project.GetConfigurationProperty(AntiVirusConfiguration.Instance.ElementCollectionSettingName);
-			var commandElementCollection = project.GetCommandConfiguration<AntiVirusElementCollection>(configurationProperty);
+			var commandElementCollection = project.GetElementCollection<AntiVirusElementCollection>(configurationProperty);
 
 			var element = new AntiVirusElement
 			{

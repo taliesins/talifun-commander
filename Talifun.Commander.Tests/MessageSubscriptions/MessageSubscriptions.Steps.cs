@@ -49,10 +49,8 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				BusDriver.Instance.RemoveBus(RequesterName);
 			}
 
-			Thread.Sleep(50);
-			Thread.Yield();
-			Thread.Sleep(50);
-			Thread.Yield();
+			BusDriver.Instance.SubscriptionService.Stop();
+			BusDriver.Instance.SubscriptionService.Start();
 		}
 
 		[Given(@"a request message handler")]

@@ -39,7 +39,8 @@ namespace Talifun.Commander.Command.YouTubeUploader
 
 		public override void Run(ICommandSagaProperties properties)
 		{
-			var commandElement = GetSettings<YouTubeUploaderElementCollection, YouTubeUploaderElement>(properties.Project, properties.FileMatch);
+			var commandElement = properties.Project.GetElement<YouTubeUploaderElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
+
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);

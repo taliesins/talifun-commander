@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.AntiVirus
 
         #region ICommand<McAfeeCommand,McAfeeSettings> Members
 
-		public bool Run(IAntiVirusSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IAntiVirusSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
         {
             outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, inputFilePath.Name));
             if (outPutFilePath.Exists)

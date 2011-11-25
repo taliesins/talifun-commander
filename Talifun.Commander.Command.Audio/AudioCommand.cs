@@ -9,7 +9,7 @@ namespace Talifun.Commander.Command.Audio
 {
 	public class AudioCommand : ICommand<IAudioSettings>
 	{
-		public bool Run(IAudioSettings settings, Dictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
+		public bool Run(IAudioSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
 		{
 			var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + "." + settings.FileNameExtension;
 			outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));

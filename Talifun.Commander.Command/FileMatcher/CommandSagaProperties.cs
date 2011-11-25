@@ -8,6 +8,6 @@ namespace Talifun.Commander.Command.FileMatcher
     	public string InputFilePath { get; set; }
         public ProjectElement Project { get; set; }
         public FileMatchElement FileMatch { get; set; }
-		public Dictionary<string, string> AppSettings { get; set; }
+		public IDictionary<string, string> AppSettings { get; set; }
     }
 }
