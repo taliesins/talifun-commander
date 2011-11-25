@@ -40,27 +40,28 @@ namespace Talifun.Commander.Command.Audio
         {
             var audioConversionSetting = GetSettings<AudioConversionElementCollection, AudioConversionElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, audioConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, audioConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
+                
 
             	var audioSettings = GetAudioSettings(audioConversionSetting);
 
             	var audioCommand = new AudioCommand();
-				var encodeSucessful = audioCommand.Run(audioSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				var encodeSucessful = audioCommand.Run(audioSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (encodeSucessful)
                 {
-					workingFilePath.MoveCompletedFileToOutputFolder(audioConversionSetting.FileNameFormat, audioConversionSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(audioConversionSetting.FileNameFormat, audioConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, audioConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, audioConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

@@ -36,28 +36,28 @@ namespace Talifun.Commander.Command.YouTubeUploader
 		{
 			var youTubeUploaderSetting = GetSettings<YouTubeUploaderElementCollection, YouTubeUploaderElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-			var workingDirectoryPath = GetWorkingDirectoryPath(properties, youTubeUploaderSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, youTubeUploaderSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
 			try
 			{
 				workingDirectoryPath.Create();
 
 				var output = string.Empty;
-				FileInfo workingFilePath = null;
-
+				
 				var youTubeUploadSuccessful = false;
 
 				var youTubeUploaderSettings = GetYouTubeUploaderSettings(youTubeUploaderSetting);
 				var youTubeUploaderCommand = new YouTubeUploaderCommand();
-				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				youTubeUploadSuccessful = youTubeUploaderCommand.Run(youTubeUploaderSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
 				if (youTubeUploadSuccessful)
 				{
-					workingFilePath.MoveCompletedFileToOutputFolder(youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(youTubeUploaderSetting.FileNameFormat, youTubeUploaderSetting.GetOutPutPathOrDefault());
 				}
 				else
 				{
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, youTubeUploaderSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, youTubeUploaderSetting.GetErrorProcessingPathOrDefault());
 				}
 			}
 			finally

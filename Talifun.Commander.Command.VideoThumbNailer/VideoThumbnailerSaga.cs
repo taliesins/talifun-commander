@@ -32,28 +32,29 @@ namespace Talifun.Commander.Command.VideoThumbNailer
         {
             var videoThumbnailerSetting = GetSettings<VideoThumbnailerElementCollection, VideoThumbnailerElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoThumbnailerSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, videoThumbnailerSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
+                
 
                 var thumbnailCreationSucessful = false;
 
                 var thumbnailerSettings = GetThumbnailerSettings(videoThumbnailerSetting);
                 var thumbnailerCommand = new ThumbnailerCommand();
-                thumbnailCreationSucessful = thumbnailerCommand.Run(thumbnailerSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				thumbnailCreationSucessful = thumbnailerCommand.Run(thumbnailerSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (thumbnailCreationSucessful)
                 {
-					workingFilePath.MoveCompletedFileToOutputFolder(videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(videoThumbnailerSetting.FileNameFormat, videoThumbnailerSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, videoThumbnailerSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, videoThumbnailerSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

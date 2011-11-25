@@ -144,27 +144,27 @@ namespace Talifun.Commander.Command.Video
         {
             var videoConversionSetting = GetSettings<VideoConversionElementCollection, VideoConversionElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, videoConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, videoConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
-
+                
 				var containerSettings = GetContainerSettings(videoConversionSetting);
 
 				var videoCommand = GetCommand(containerSettings);
-				var encodeSucessful = videoCommand.Run(containerSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				var encodeSucessful = videoCommand.Run(containerSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (encodeSucessful)
                 {
-                    workingFilePath.MoveCompletedFileToOutputFolder(videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(videoConversionSetting.FileNameFormat, videoConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, videoConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, videoConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

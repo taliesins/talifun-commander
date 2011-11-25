@@ -46,29 +46,30 @@ namespace Talifun.Commander.Command.Image
         {
             var imageConversionSetting = GetSettings<ImageConversionElementCollection, ImageConversionElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, imageConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, imageConversionSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
+                
 
                 var encodeSucessful = false;
 
                 var imageResizeSettings = GetImageResizeSettings(imageConversionSetting);
                 var imageResizeCommand = new ImageResizeCommand();
 
-                encodeSucessful = imageResizeCommand.Run(imageResizeSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				encodeSucessful = imageResizeCommand.Run(imageResizeSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (encodeSucessful)
                 {
-                    workingFilePath.MoveCompletedFileToOutputFolder(imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(imageConversionSetting.FileNameFormat, imageConversionSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, imageConversionSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, imageConversionSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

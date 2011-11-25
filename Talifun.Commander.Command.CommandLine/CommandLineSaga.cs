@@ -37,27 +37,28 @@ namespace Talifun.Commander.Command.CommandLine
         {
             var commandLineSetting = GetSettings<CommandLineElementCollection, CommandLineElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, commandLineSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandLineSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
+                
 
                 var commandLineParameters = GetCommandLineParameters(commandLineSetting);
                 var commandLineCommand = new CommandLineCommand();
 
-                var commandSucessful = commandLineCommand.Run(commandLineParameters, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+				var commandSucessful = commandLineCommand.Run(commandLineParameters, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
 
                 if (commandSucessful)
                 {
-                    workingFilePath.MoveCompletedFileToOutputFolder(commandLineSetting.FileNameFormat, commandLineSetting.GetOutPutPathOrDefault());
+                    inputFilePath.MoveCompletedFileToOutputFolder(commandLineSetting.FileNameFormat, commandLineSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, commandLineSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, commandLineSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

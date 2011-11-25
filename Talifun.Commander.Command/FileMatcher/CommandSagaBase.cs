@@ -29,22 +29,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			workingFilePath.MoveTo(outputFilePath.FullName);
         }
 
-        public DirectoryInfo GetWorkingDirectoryPath(ICommandSagaProperties properties, string workingPath, string uniqueProcessingNumber)
-        {
-            var uniqueDirectoryName = Settings.ConversionType + "." + properties.InputFilePath + "." + uniqueProcessingNumber;
 
-            DirectoryInfo workingDirectoryPath = null;
-            if (!string.IsNullOrEmpty(workingPath))
-            {
-                workingDirectoryPath = new DirectoryInfo(Path.Combine(workingPath, uniqueDirectoryName));
-            }
-            else
-            {
-                workingDirectoryPath = new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
-            }
-
-            return workingDirectoryPath;
-        }
 
         public E GetSettings<C, E>(ICommandSagaProperties properties)
             where C : CurrentConfigurationElementCollection<E> 

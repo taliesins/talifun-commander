@@ -24,14 +24,15 @@ namespace Talifun.Commander.Command.AntiVirus.Command
         {
             var antiVirusSetting = GetSettings<AntiVirusElementCollection, AntiVirusElement>(properties);
 			var uniqueProcessingNumber = Guid.NewGuid().ToString();
-            var workingDirectoryPath = GetWorkingDirectoryPath(properties, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
+			var inputFilePath = new FileInfo(properties.InputFilePath);
+			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, antiVirusSetting.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 
             try
             {
                 workingDirectoryPath.Create();
 
                 var output = string.Empty;
-                FileInfo workingFilePath = null;
+                
 
                 var fileVirusFree = false;
 
@@ -41,17 +42,17 @@ namespace Talifun.Commander.Command.AntiVirus.Command
                     case VirusScannerType.McAfee:
                         var mcAfeeSettings = GetMcAfeeSettings(antiVirusSetting);
                         var mcAfeeCommand = new McAfeeCommand();
-                        fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, new FileInfo(properties.InputFilePath), workingDirectoryPath, out workingFilePath, out output);
+						fileVirusFree = mcAfeeCommand.Run(mcAfeeSettings, properties.AppSettings, inputFilePath, workingDirectoryPath, out inputFilePath, out output);
                         break;
                 }
 
                 if (!fileVirusFree)
                 {
-					workingFilePath.MoveCompletedFileToOutputFolder(antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
+					inputFilePath.MoveCompletedFileToOutputFolder(antiVirusSetting.FileNameFormat, antiVirusSetting.GetOutPutPathOrDefault());
                 }
                 else
                 {
-					HandleError(properties, uniqueProcessingNumber, workingFilePath, output, antiVirusSetting.GetErrorProcessingPathOrDefault());
+					HandleError(properties, uniqueProcessingNumber, inputFilePath, output, antiVirusSetting.GetErrorProcessingPathOrDefault());
                 }
             }
             finally

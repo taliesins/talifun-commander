@@ -7,6 +7,23 @@ namespace Talifun.Commander.Command
 {
 	public static class FileExtensions
 	{
+		public static DirectoryInfo GetWorkingDirectoryPath(this FileInfo inputFilePath, string conversionType, string workingPath, string uniqueProcessingNumber)
+		{
+			var uniqueDirectoryName = conversionType + "." + inputFilePath.Name + "." + uniqueProcessingNumber;
+
+			DirectoryInfo workingDirectoryPath = null;
+			if (!string.IsNullOrEmpty(workingPath))
+			{
+				workingDirectoryPath = new DirectoryInfo(Path.Combine(workingPath, uniqueDirectoryName));
+			}
+			else
+			{
+				workingDirectoryPath = new DirectoryInfo(Path.Combine(Path.GetTempPath(), uniqueDirectoryName));
+			}
+
+			return workingDirectoryPath;
+		}
+
 		public static void MoveCompletedFileToOutputFolder(this FileInfo workingFilePath, string fileNameFormat, string outPutPath)
 		{
 			var filename = workingFilePath.Name;
