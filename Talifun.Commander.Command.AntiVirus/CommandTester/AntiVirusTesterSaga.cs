@@ -58,7 +58,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 		{
 			var responseMessage = new AntiVirusTestConfigurationResponseMessage()
 			{
-			    CorrelationId = message.CorrelationId
+			    CorrelationId = message.ParentCorrelationId
 			};
 
 			try

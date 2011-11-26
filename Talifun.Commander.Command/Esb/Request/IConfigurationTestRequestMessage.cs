@@ -8,6 +8,7 @@ namespace Talifun.Commander.Command.Esb.Request
 	public interface IConfigurationTestRequestMessage : ICommandIdentifier
 	{
 		Guid CorrelationId { get; }
+		Guid ParentCorrelationId { get; }
 		Dictionary<string, string> AppSettings { get; }
 	}
 }

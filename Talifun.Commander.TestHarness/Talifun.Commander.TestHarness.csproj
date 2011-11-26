@@ -277,6 +277,7 @@ if '$(PlatformName)' == 'x86'  goto :standard
 goto :undefinedPlatformName
 
 :standard
+copy "$(SolutionDir)References\echo.exe" "$(TargetDir)echo.exe"
 copy "$(SolutionDir)References\flvtool2.exe" "$(TargetDir)flvtool2.exe"
 copy "$(SolutionDir)References\$(PlatformName)\ffmpeg.exe" "$(TargetDir)ffmpeg.exe"
 copy "$(SolutionDir)References\$(PlatformName)\qt-faststart.exe" "$(TargetDir)qt-faststart.exe"
@@ -286,6 +287,7 @@ copy "$(SolutionDir)References\$(PlatformName)\vcomp100.dll" "$(TargetDir)vcomp1
 goto :exit
 
 :undefinedPlatformName
+copy "$(SolutionDir)References\echo.exe" "$(TargetDir)echo.exe"
 copy "$(SolutionDir)References\flvtool2.exe" "$(TargetDir)flvtool2.exe"
 copy "$(SolutionDir)References\x86\ffmpeg.exe" "$(TargetDir)ffmpeg.exe"
 copy "$(SolutionDir)References\x86\qt-faststart.exe" "$(TargetDir)qt-faststart.exe"

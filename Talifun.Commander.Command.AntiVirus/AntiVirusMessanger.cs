@@ -15,21 +15,23 @@ namespace Talifun.Commander.Command.AntiVirus
 			get { return AntiVirusConfiguration.Instance; }
 		}
 
-		public object CreateCancelMessage(Guid correlationId)
+		public object CreateCancelMessage(Guid correlationId, Guid parentCorrelationId)
 		{
 			return new AntiVirusCancelMessage
 			       	{
-						CorrelationId = correlationId
+						CorrelationId = correlationId,
+						ParentCorrelationId = parentCorrelationId
 			       	};
 		}
 
-		public object CreateRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
+		public object CreateRequestMessage(Guid correlationId, Guid parentCorrelationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
 		{
 			var configuration = project.GetElement<AntiVirusElement>(fileMatch, Settings.ElementCollectionSettingName);
 
 			return new AntiVirusRequestMessage
 			       	{
 						CorrelationId = correlationId,
+						ParentCorrelationId = parentCorrelationId,
 			       		AppSettings = appSettings,
 						Configuration = configuration,
 						InputFilePath = workingFilePath,
@@ -37,12 +39,13 @@ namespace Talifun.Commander.Command.AntiVirus
 			       	};
 		}
 
-		public object CreateTestConfigurationRequestMessage(Guid correlationId, Dictionary<string, string> appSettings, ProjectElement project)
+		public object CreateTestConfigurationRequestMessage(Guid correlationId, Guid parentCorrelationId, Dictionary<string, string> appSettings, ProjectElement project)
 		{
 			var configuration = project.GetElementCollection<AntiVirusElementCollection>(Settings.ElementCollectionSettingName);
 			return new AntiVirusConfigurationTestRequestMessage
 			       	{
 						CorrelationId = correlationId,
+						ParentCorrelationId = parentCorrelationId,
 			       		AppSettings = appSettings,
 						ProjectName = project.Name,
 						Configuration = configuration

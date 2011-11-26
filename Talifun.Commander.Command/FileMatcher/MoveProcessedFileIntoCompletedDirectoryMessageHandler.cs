@@ -10,19 +10,20 @@ namespace Talifun.Commander.Command.FileMatcher
 	{
 		public void Consume(MoveProcessedFileIntoCompletedDirectoryMessage message)
 		{
-			var workingFilePath = new FileInfo(message.WorkingFilePath);
-			if (!string.IsNullOrEmpty(message.CompletedPath) && workingFilePath.Exists)
+			var inputFilePath = new FileInfo(message.WorkingFilePath);
+			if (!string.IsNullOrEmpty(message.CompletedPath) && inputFilePath.Exists)
 			{
-				var completedFilePath = new FileInfo(Path.Combine(message.CompletedPath, workingFilePath.Name));
-				if (completedFilePath.Exists)
+				var outputFilePath = new FileInfo(Path.Combine(message.CompletedPath, inputFilePath.Name));
+				if (outputFilePath.Exists)
 				{
-					completedFilePath.Delete();
+					outputFilePath.Delete();
 				}
 
 				//Make sure that processing on file has stopped
-				workingFilePath.WaitForFileToUnlock(10, 500);
-				workingFilePath.Refresh();
-				workingFilePath.MoveTo(completedFilePath.FullName);
+				inputFilePath.WaitForFileToUnlock(10, 500);
+				inputFilePath.Refresh();
+
+				inputFilePath.MoveTo(outputFilePath.FullName);
 			}
 
 			var movedProcessedFileIntoCompletedDirectoryMessage = new MovedProcessedFileIntoCompletedDirectoryMessage()

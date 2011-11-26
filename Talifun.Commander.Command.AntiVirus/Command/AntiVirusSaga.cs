@@ -23,6 +23,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(AntiVirusRequestEvent)
 						.Then((saga, message) =>
 						{
+							saga.ParentCorrelationId = message.ParentCorrelationId;
 							saga.AppSettings = message.AppSettings;
 							saga.Configuration = message.Configuration;
 							saga.FileMatch = message.FileMatch;
@@ -30,7 +31,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						})
 						.Publish((saga, message) => new AntiVirusStartedMessage
 						{
-							CorrelationId = saga.CorrelationId,
+							CorrelationId = saga.ParentCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
@@ -70,8 +71,8 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Publish((saga, message) => new MoveProcessedFileIntoOutputDirectoryMessage()
 						{
 							CorrelationId = saga.CorrelationId,
-							OutputPath = saga.OutPutFilePath,
-							WorkingDirectoryPath = saga.WorkingDirectoryPath
+							OutputFilePath = saga.OutPutFilePath,
+							OutPutPath = saga.Configuration.OutPutPath
 						})
 				);
 
@@ -89,19 +90,20 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 				During(
 					WaitingForDeleteTempDirectory,
 					When(DeletedTempDirectory)
-						.Publish((saga, message) => new AntiVirusResponseMessage
-						{
-							CorrelationId = saga.CorrelationId,
-							InputFilePath = saga.InputFilePath,
-							FileMatch = saga.FileMatch
-						})
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{
-							CorrelationId = saga.CorrelationId,
+							CorrelationId = saga.ParentCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
 						.Complete()
+						.Publish((saga, message) => new AntiVirusResponseMessage
+						    {
+						      	CorrelationId = saga.ParentCorrelationId,
+						      	InputFilePath = saga.InputFilePath,
+						      	FileMatch = saga.FileMatch
+						    }
+						)
 				);
 			});
 		}
@@ -120,6 +122,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 		public virtual Guid CorrelationId { get; private set; }
 		public virtual IServiceBus Bus { get; set; }
+		public virtual Guid ParentCorrelationId { get; set; }
 		public virtual IDictionary<string, string> AppSettings { get; set; }
 		public virtual AntiVirusElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
@@ -148,6 +151,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			var commandSettings = GetCommandSettings(Configuration);
 			var commandMessage = GetCommandMessage(commandSettings);
 
+			commandMessage.CorrelationId = CorrelationId;
 			commandMessage.AppSettings = AppSettings;
 			commandMessage.InputFilePath = InputFilePath;
 			commandMessage.WorkingDirectoryPath = WorkingDirectoryPath;

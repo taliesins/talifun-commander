@@ -7,6 +7,7 @@ namespace Talifun.Commander.Command.Esb.Request
 	[Serializable]
 	public abstract class ConfigurationTestRequestMessageBase<T> : CorrelatedMessageBase<IConfigurationTestRequestMessage>, IConfigurationTestRequestMessage where T : CurrentConfigurationElementCollection
 	{
+		public Guid ParentCorrelationId { get; set; }
 		public Dictionary<string, string> AppSettings { get; set; }
 		public string ProjectName { get; set; }
 		public T Configuration { get; set; }

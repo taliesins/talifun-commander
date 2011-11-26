@@ -139,7 +139,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 					var fileMatch = fileMatches[j];
 
 					var commandConfigurationTester = GetCommandMessenger(fileMatch.ConversionType);
-					var testConfigurationRequestMessage = commandConfigurationTester.CreateTestConfigurationRequestMessage(Guid.NewGuid(), appSettings.Settings.ToDictionary(), project);
+					var testConfigurationRequestMessage = commandConfigurationTester.CreateTestConfigurationRequestMessage(Guid.NewGuid(), CorrelationId, appSettings.Settings.ToDictionary(), project);
 					
 					Bus.PublishRequest(testConfigurationRequestMessage.GetType(), testConfigurationRequestMessage, x =>
 					{

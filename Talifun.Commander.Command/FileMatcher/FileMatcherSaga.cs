@@ -80,7 +80,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						{
 							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
 							{
-							    CorrelationId = message.CorrelationId
+								CorrelationId = saga.CorrelationId
 							});
 						}),
 					When(ExecuteNextPlugin)
@@ -107,7 +107,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						.TransitionTo(WaitingForMoveProcessedFileIntoCompletedDirectory)
 						.Publish((saga, message) => new MoveProcessedFileIntoCompletedDirectoryMessage
 						{
-							CorrelationId = message.CorrelationId,
+							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath,
 							CompletedPath = saga.Folder.GetCompletedPathOrDefault()
 						})
@@ -211,9 +211,9 @@ namespace Talifun.Commander.Command.FileMatcher
 			{
 				//Transition to ProcessedFileMatches
 				var processedFileMatchesMessage = new ProcessedFileMatchesMessage
-				              	{
-									CorrelationId = message.CorrelationId
-				              	};
+				{
+					CorrelationId = CorrelationId
+				};
 
 				RaiseEvent(ProcessedFileMatches, processedFileMatchesMessage);
 				return;
@@ -227,7 +227,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			var project = GetCurrentProject(fileMatchToExecute);
 
 			var commandConfigurationTester = GetCommandMessenger(fileMatchToExecute.ConversionType);
-			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(Guid.NewGuid(), AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
+			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(Guid.NewGuid(), CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
 
 			Bus.Publish(pluginRequestMessage.GetType(), pluginRequestMessage);
 		}

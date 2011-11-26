@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using MassTransit;
+using Talifun.Commander.Command.AntiVirus.Command.Request;
+using Talifun.Commander.Command.AntiVirus.Command.Response;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Command.FileMatcher.Request;
-using Talifun.Commander.Command.FileMatcher.Response;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
@@ -10,7 +10,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 	{
 		public void Consume(DeleteTempDirectoryMessage message)
 		{
-			var workingDirectoryPath = new FileInfo(message.WorkingFilePath).Directory;
+			var workingDirectoryPath = new DirectoryInfo(message.WorkingPath);
 			if (workingDirectoryPath.Exists)
 			{
 				workingDirectoryPath.Delete(true);

@@ -10,12 +10,22 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 	{
 		public void Consume(MoveProcessedFileIntoOutputDirectoryMessage message)
 		{
-			var outputPath = new FileInfo(message.OutputPath);
-			outputPath.WaitForFileToUnlock(10, 500);
-			outputPath.Refresh();
+			var inputFilePath = new FileInfo(message.OutputFilePath);
+			inputFilePath.WaitForFileToUnlock(10, 500);
+			inputFilePath.Refresh();
 
-			var workingFilePath = Path.Combine(message.WorkingDirectoryPath, outputPath.Name);
-			outputPath.MoveTo(workingFilePath);
+			var outputFilePath = new FileInfo(Path.Combine(message.OutPutPath, inputFilePath.Name));
+
+			if (outputFilePath.Exists)
+			{
+				outputFilePath.Delete();
+			}
+
+			//Make sure that processing on file has stopped
+			inputFilePath.WaitForFileToUnlock(10, 500);
+			inputFilePath.Refresh();
+
+			inputFilePath.MoveTo(outputFilePath.FullName);
 
 			var movedProcessedFileIntoOutputDirectoryMessage = new MovedProcessedFileIntoOutputDirectoryMessage()
 			{

@@ -35,6 +35,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 			if (filePassed)
 			{
+				outPutFilePath.Refresh();
 				filePassed = outPutFilePath.Exists;
 			}
 
