@@ -4,6 +4,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Threading;
+using Magnum;
 using MassTransit;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.ConfigurationChecker.Request;
@@ -64,7 +65,7 @@ namespace Talifun.Commander.Command
 
 			var requestTestConfigurationMessage = new RequestTestConfigurationMessage()
 			                                      	{
-			                                      		CorrelationId = Guid.NewGuid()
+			                                      		CorrelationId = CombGuid.Generate()
 			                                      	};
 			bus.Publish(requestTestConfigurationMessage);
         }

@@ -4,10 +4,10 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Magnum;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
-using MassTransit.Util;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Esb.Response;
@@ -139,7 +139,6 @@ namespace Talifun.Commander.Command.FileMatcher
 		public static State Completed { get; set; }
 		// ReSharper restore UnusedMember.Global
 
-		[UsedImplicitly]
 		public FileMatcherSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
@@ -227,7 +226,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			var project = GetCurrentProject(fileMatchToExecute);
 
 			var commandConfigurationTester = GetCommandMessenger(fileMatchToExecute.ConversionType);
-			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(Guid.NewGuid(), CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
+			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(CombGuid.Generate(), CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
 
 			Bus.Publish(pluginRequestMessage.GetType(), pluginRequestMessage);
 		}

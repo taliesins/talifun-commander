@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Magnum;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.Video.AudioFormats;
 using Talifun.Commander.Command.Video.Configuration;
@@ -145,7 +146,7 @@ namespace Talifun.Commander.Command.Video
         {
 			var commandElement = properties.Project.GetElement<VideoConversionElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
 
-			var uniqueProcessingNumber = Guid.NewGuid().ToString();
+			var uniqueProcessingNumber = CombGuid.Generate().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 

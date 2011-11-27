@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Magnum;
 using MassTransit;
 using MassTransit.RequestResponse.Configurators;
 using Talifun.Commander.Command.Esb;
@@ -94,7 +95,7 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		{
 			var requestMessage = new RequestMessage
 			{
-				CorrelationId = Guid.NewGuid(),
+				CorrelationId = CombGuid.Generate(),
 				TheQuestion = "Question"
 			};
 

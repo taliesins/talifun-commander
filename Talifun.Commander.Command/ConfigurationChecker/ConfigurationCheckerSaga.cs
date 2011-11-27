@@ -4,6 +4,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using Magnum;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
@@ -139,7 +140,7 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 					var fileMatch = fileMatches[j];
 
 					var commandConfigurationTester = GetCommandMessenger(fileMatch.ConversionType);
-					var testConfigurationRequestMessage = commandConfigurationTester.CreateTestConfigurationRequestMessage(Guid.NewGuid(), CorrelationId, appSettings.Settings.ToDictionary(), project);
+					var testConfigurationRequestMessage = commandConfigurationTester.CreateTestConfigurationRequestMessage(CombGuid.Generate(), CorrelationId, appSettings.Settings.ToDictionary(), project);
 					
 					Bus.PublishRequest(testConfigurationRequestMessage.GetType(), testConfigurationRequestMessage, x =>
 					{

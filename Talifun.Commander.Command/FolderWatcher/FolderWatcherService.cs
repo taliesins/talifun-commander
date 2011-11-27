@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Magnum;
 using MassTransit;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
@@ -75,7 +76,7 @@ namespace Talifun.Commander.Command.FolderWatcher
 
 			var fileFinishedChangingMessage = new FileFinishedChangingMessage
 			{
-				CorrelationId = Guid.NewGuid(),
+				CorrelationId = CombGuid.Generate(),
 				FilePath = e.FilePath,
 				Folder = (FolderElement)e.UserState
 			};

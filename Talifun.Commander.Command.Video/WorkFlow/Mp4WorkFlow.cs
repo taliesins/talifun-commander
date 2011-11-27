@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Magnum;
 using Talifun.Commander.Command.Video.Configuration;
 using Talifun.Commander.Command.Video.Containers;
 using Talifun.Commander.Executor.CommandLine;
@@ -15,7 +16,7 @@ namespace Talifun.Commander.Command.Video.WorkFlow
 			if (result && !outPutFilePath.Exists)
 			{
 				var tempPath = outPutFilePath.FullName;
-				var tempFilePath = new FileInfo(outPutFilePath.FullName + "." + Guid.NewGuid().ToString());
+				var tempFilePath = new FileInfo(outPutFilePath.FullName + "." + CombGuid.Generate().ToString());
 				if (tempFilePath.Exists)
 				{
 					tempFilePath.Delete();

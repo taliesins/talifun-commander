@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Magnum;
 using Talifun.Commander.Command.Audio.AudioFormats;
 using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Command.Audio.InternalMessages;
@@ -45,7 +46,7 @@ namespace Talifun.Commander.Command.Audio
         {
 			var commandElement = properties.Project.GetElement<AudioConversionElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
 
-			var uniqueProcessingNumber = Guid.NewGuid().ToString();
+			var uniqueProcessingNumber = CombGuid.Generate().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 

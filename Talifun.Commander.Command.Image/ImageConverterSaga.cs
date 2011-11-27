@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Magnum;
 using Talifun.Commander.Command.FileMatcher;
 using Talifun.Commander.Command.Image.Configuration;
 
@@ -51,7 +52,7 @@ namespace Talifun.Commander.Command.Image
         {
 			var commandElement = properties.Project.GetElement<ImageConversionElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
 
-			var uniqueProcessingNumber = Guid.NewGuid().ToString();
+			var uniqueProcessingNumber = CombGuid.Generate().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 

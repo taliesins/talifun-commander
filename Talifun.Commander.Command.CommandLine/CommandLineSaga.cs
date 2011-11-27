@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Magnum;
 using Talifun.Commander.Command.CommandLine.Configuration;
 using Talifun.Commander.Command.FileMatcher;
 
@@ -42,7 +43,7 @@ namespace Talifun.Commander.Command.CommandLine
         {
 			var commandElement = properties.Project.GetElement<CommandLineElement>(properties.FileMatch, Settings.ElementCollectionSettingName);
 
-			var uniqueProcessingNumber = Guid.NewGuid().ToString();
+			var uniqueProcessingNumber = CombGuid.Generate().ToString();
 			var inputFilePath = new FileInfo(properties.InputFilePath);
 			var workingDirectoryPath = inputFilePath.GetWorkingDirectoryPath(Settings.ConversionType, commandElement.GetWorkingPathOrDefault(), uniqueProcessingNumber);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using Magnum;
 using Talifun.Commander.Command;
 using Talifun.Commander.Command.AntiVirus;
 using Talifun.Commander.Command.AntiVirus.Configuration;
@@ -29,7 +30,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 		{
 			return new CommandCancelMessageTestDouble
 			{
-				CorrelationId = Guid.NewGuid()
+				CorrelationId = CombGuid.Generate()
 			};
 		}
 
@@ -74,7 +75,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 
 			return new CommandConfigurationTestRequestMessageTestDouble
 			{
-				CorrelationId = Guid.NewGuid(),
+				CorrelationId = CombGuid.Generate(),
 				ProjectName = project.Name,
 				AppSettings = appSettings.Settings.ToDictionary()
 			};
@@ -84,7 +85,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 		{
 			return new PluginRequestMessageTestDouble
 			{
-				CorrelationId = Guid.NewGuid()
+				CorrelationId = CombGuid.Generate()
 			};
 		}
 	}
