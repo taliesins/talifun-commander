@@ -35,7 +35,6 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.TransitionTo(WaitingForCreateTempDirectory)
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
@@ -43,6 +42,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							InputFilePath = saga.InputFilePath,
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
+						.TransitionTo(WaitingForCreateTempDirectory)
 					);
 
 				During(
@@ -52,12 +52,12 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 							saga.WorkingDirectoryPath = message.WorkingDirectoryPath;
 						})
-						.TransitionTo(WaitingForExecuteAntiVirusWorkflow)
 						.Then((saga, message)=>
 						{
 						    var commandMessage = saga.GetAntiVirusWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
+						.TransitionTo(WaitingForExecuteAntiVirusWorkflow)
 				);
 
 				During(
@@ -67,24 +67,24 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
 						})
-						.TransitionTo(WaitingForMoveProcessedFileIntoOutputDirectory)
 						.Publish((saga, message) => new MoveProcessedFileIntoOutputDirectoryMessage()
 						{
 							CorrelationId = saga.CorrelationId,
 							OutputFilePath = saga.OutPutFilePath,
 							OutPutPath = saga.Configuration.OutPutPath
 						})
+						.TransitionTo(WaitingForMoveProcessedFileIntoOutputDirectory)
 				);
 
 				During(
 					WaitingForMoveProcessedFileIntoOutputDirectory,
 					When(MovedProcessedFileIntoOutputDirectory)
-						.TransitionTo(WaitingForDeleteTempDirectory)
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							WorkingPath = saga.WorkingDirectoryPath
 						})
+						.TransitionTo(WaitingForDeleteTempDirectory)
 				);
 
 				During(
@@ -96,7 +96,6 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Complete()
 						.Publish((saga, message) => new AntiVirusResponseMessage
 						    {
 						      	CorrelationId = saga.ParentCorrelationId,
@@ -104,6 +103,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						      	FileMatch = saga.FileMatch
 						    }
 						)
+						.Complete()
 				);
 			});
 		}

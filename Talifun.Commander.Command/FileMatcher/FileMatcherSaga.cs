@@ -32,13 +32,13 @@ namespace Talifun.Commander.Command.FileMatcher
 							saga.InputFilePath = message.FilePath;
 							saga.Folder = message.Folder;
 						})
-						.TransitionTo(WaitingForCreateTempDirectory)
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							InputFilePath = saga.InputFilePath,
 							WorkingPath = saga.Folder.GetWorkingPathOrDefault()
 						})
+						.TransitionTo(WaitingForCreateTempDirectory)
 					);
 
 				During(
@@ -48,13 +48,13 @@ namespace Talifun.Commander.Command.FileMatcher
 						{
 						    saga.WorkingFilePath = message.WorkingFilePath;
 						})
-						.TransitionTo(WaitingForMoveFileToBeProcessedIntoTempDirectory)
 						.Publish((saga, message) => new MoveFileToBeProcessedIntoTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							FilePath = saga.InputFilePath,
 							WorkingFilePath = saga.WorkingFilePath
 						})
+						.TransitionTo(WaitingForMoveFileToBeProcessedIntoTempDirectory)
 				);
 
 				During(
@@ -64,13 +64,13 @@ namespace Talifun.Commander.Command.FileMatcher
 					    {
 							saga.FileMatchesToExecute = saga.GetFileMatchesToExecute();      		
 					    })
-						.TransitionTo(WaitingForPluginsToProcess)
 						.Publish((saga, message) => new ProcessFileMatchesMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath,
 							FileMatches = saga.FileMatchesToExecute
 						})
+						.TransitionTo(WaitingForPluginsToProcess)
 				);
 
 				During(
@@ -84,17 +84,16 @@ namespace Talifun.Commander.Command.FileMatcher
 							});
 						}),
 					When(ExecuteNextPlugin)
-						.TransitionTo(WaitingForPluginToExecute)
 						.Then((saga, message) =>
 						{
 							saga.ExecutePlugin(message);    		
 						})
+						.TransitionTo(WaitingForPluginToExecute)
 					);
 
 				During(
 					WaitingForPluginToExecute,
 					When(PluginResponse)
-						.TransitionTo(WaitingForPluginsToProcess)
 						.Then((saga, message) =>
 						{
 							saga.FileMatchesToExecute.Remove(message.FileMatch.Name);
@@ -102,26 +101,27 @@ namespace Talifun.Commander.Command.FileMatcher
 							{
 								CorrelationId = saga.CorrelationId
 							});
-						}),
+						})
+						.TransitionTo(WaitingForPluginsToProcess),
 					When(ProcessedFileMatches)
-						.TransitionTo(WaitingForMoveProcessedFileIntoCompletedDirectory)
 						.Publish((saga, message) => new MoveProcessedFileIntoCompletedDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath,
 							CompletedPath = saga.Folder.GetCompletedPathOrDefault()
 						})
+						.TransitionTo(WaitingForMoveProcessedFileIntoCompletedDirectory)
 				);
 
 				During(
 					WaitingForMoveProcessedFileIntoCompletedDirectory,
 					When(MovedProcessedFileIntoCompletedDirectory)
-						.TransitionTo(WaitingForDeleteTempDirectory)
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
 							WorkingFilePath = saga.WorkingFilePath
 						})
+						.TransitionTo(WaitingForDeleteTempDirectory)
 				);
 
 				During(
