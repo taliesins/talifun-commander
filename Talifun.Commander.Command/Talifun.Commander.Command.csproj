@@ -82,12 +82,20 @@
     <Compile Include="CommanderStoppedEventArgs.cs" />
     <Compile Include="CommanderStoppedEventHandler.cs" />
     <Compile Include="CommandServiceBase.cs" />
+    <Compile Include="ConfigurationChecker\Response\TestedAllProjectConfigurationsMessage.cs" />
+    <Compile Include="ConfigurationChecker\Request\TestProjectConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Response\TestedProjectConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\TestProjectConfigurationMessageHandler.cs" />
     <Compile Include="Esb\BusDriver.cs" />
+    <Compile Include="Esb\SerialWorkflowStep.cs" />
     <Compile Include="Esb\ICommandMessenger.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />
     <Compile Include="Esb\EndpointCacheProxy.cs" />
+    <Compile Include="Esb\ParallelWorkflowStep.cs" />
     <Compile Include="FileMatcher\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="Esb\IWorkflowRequester.cs" />
+    <Compile Include="Esb\IWorkflowResponder.cs" />
     <Compile Include="FileMatcher\Request\ExecuteNextPluginMessage.cs" />
     <Compile Include="FileMatcher\MoveFileToBeProcessedIntoTempDirectoryMessageHandler.cs" />
     <Compile Include="FileMatcher\MoveProcessedFileIntoCompletedDirectoryMessageHandler.cs" />
@@ -179,8 +187,8 @@
     <Compile Include="Esb\Events\IPluginCompletedMessage.cs" />
     <Compile Include="Esb\Events\IPluginStartedMessage.cs" />
     <Compile Include="Esb\ServiceInstance.cs" />
-    <Compile Include="ConfigurationChecker\Response\ResponseTestConfigurationMessage.cs" />
-    <Compile Include="ConfigurationChecker\Request\RequestTestConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Response\TestedConfigurationMessage.cs" />
+    <Compile Include="ConfigurationChecker\Request\TestConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\ConfigurationCheckerSaga.cs" />
     <Compile Include="FileExtensions.cs" />
     <Compile Include="ICommandConfiguration.cs" />
@@ -193,13 +201,13 @@
     <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
     <Compile Include="Esb\Request\ICancelMessage.cs" />
-    <Compile Include="Esb\Request\IPluginRequestMessage.cs" />
-    <Compile Include="Esb\Request\IConfigurationTestRequestMessage.cs" />
-    <Compile Include="Esb\Response\PluginResponseMessageBase.cs" />
-    <Compile Include="Esb\Response\ConfigurationTestResponseMessageBase.cs" />
+    <Compile Include="FileMatcher\Request\IPluginRequestMessage.cs" />
+    <Compile Include="ConfigurationChecker\Request\IConfigurationTestRequestMessage.cs" />
+    <Compile Include="FileMatcher\Response\PluginResponseMessageBase.cs" />
+    <Compile Include="ConfigurationChecker\Response\ConfigurationTestResponseMessageBase.cs" />
     <Compile Include="Esb\Request\CancelMessageBase.cs" />
-    <Compile Include="Esb\Request\PluginRequestMessageBase.cs" />
-    <Compile Include="Esb\Request\ConfigurationTestRequestMessageBase.cs" />
+    <Compile Include="FileMatcher\Request\PluginRequestMessageBase.cs" />
+    <Compile Include="ConfigurationChecker\Request\ConfigurationTestRequestMessageBase.cs" />
     <Compile Include="ISettingConfiguration.cs" />
     <Compile Include="NameValueCollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -211,8 +219,8 @@
     <Compile Include="Esb\Events\IPluginCompletedMessageHandler.cs" />
     <Compile Include="Esb\Events\IPluginProgressMessageHandler.cs" />
     <Compile Include="Esb\Events\IPluginStartedMessageHandler.cs" />
-    <Compile Include="Esb\Response\IPluginResponseMessage.cs" />
-    <Compile Include="Esb\Response\IConfigurationTestResponseMessage.cs" />
+    <Compile Include="FileMatcher\Response\IPluginResponseMessage.cs" />
+    <Compile Include="ConfigurationChecker\Response\IConfigurationTestResponseMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
@@ -334,6 +342,9 @@
     <Content Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Esb\Response\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

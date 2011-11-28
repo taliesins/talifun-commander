@@ -29,6 +29,7 @@ namespace Talifun.Commander.Command
 			{
 				x.Subscribe((subscriber)=>{
 				    subscriber.Saga(_testConfigurationSagaRepository);
+					subscriber.Consumer<TestProjectConfigurationMessageHandler>();
 					subscriber.Saga(_fileMatcherSagaRepository);
 				    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
 					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>();

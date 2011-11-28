@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
@@ -10,7 +11,6 @@ using MassTransit;
 using MassTransit.Saga;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Command.Esb.Response;
 using Talifun.Commander.Command.FileMatcher.Request;
 using Talifun.Commander.Command.FileMatcher.Response;
 using Talifun.Commander.Command.FolderWatcher.Messages;
@@ -75,40 +75,36 @@ namespace Talifun.Commander.Command.FileMatcher
 
 				During(
 					WaitingForPluginsToProcess,
-					When(StartPluginExecution)
+					When(StartPluginsExecution)
 						.Then((saga, message) =>
 						{
-							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
-							{
-								CorrelationId = saga.CorrelationId
-							});
+						    saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
+						    {
+						      	CorrelationId = saga.CorrelationId
+						    });
 						}),
 					When(ExecuteNextPlugin)
 						.Then((saga, message) =>
 						{
-							saga.ExecutePlugin(message);    		
-						})
-						.TransitionTo(WaitingForPluginToExecute)
-					);
-
-				During(
-					WaitingForPluginToExecute,
+						    saga.ExecutePlugin(message);
+						}),
 					When(PluginResponse)
 						.Then((saga, message) =>
 						{
-							saga.FileMatchesToExecute.Remove(message.FileMatch.Name);
-							saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
-							{
-								CorrelationId = saga.CorrelationId
-							});
-						})
-						.TransitionTo(WaitingForPluginsToProcess),
-					When(ProcessedFileMatches)
+						    var fileMatch = saga.FileMatchesToExecute.Where(x => x.CorrelationId == message.ResponderCorrelationId).First();
+						    fileMatch.Executed = true;
+
+						    saga.RaiseEvent(ExecuteNextPlugin, new ExecuteNextPluginMessage
+						    {
+						      	CorrelationId = saga.CorrelationId
+						    });
+						}),
+					When(CompletedPluginsExecution)
 						.Publish((saga, message) => new MoveProcessedFileIntoCompletedDirectoryMessage
 						{
-							CorrelationId = saga.CorrelationId,
-							WorkingFilePath = saga.WorkingFilePath,
-							CompletedPath = saga.Folder.GetCompletedPathOrDefault()
+						    CorrelationId = saga.CorrelationId,
+						    WorkingFilePath = saga.WorkingFilePath,
+						    CompletedPath = saga.Folder.GetCompletedPathOrDefault()
 						})
 						.TransitionTo(WaitingForMoveProcessedFileIntoCompletedDirectory)
 				);
@@ -149,7 +145,7 @@ namespace Talifun.Commander.Command.FileMatcher
 		public virtual string InputFilePath { get; set; }
 		public virtual FolderElement Folder { get; set; }
 		public virtual string WorkingFilePath { get; set; }
-		public virtual FileMatchElementCollection FileMatchesToExecute { get; set; }
+		public virtual IList<SerialWorkflowStep<FileMatchElement>> FileMatchesToExecute { get; set; }
 		public virtual bool StopProcessingFileMatches { get; set; }
 
 #region Initialise
@@ -167,18 +163,26 @@ namespace Talifun.Commander.Command.FileMatcher
 		public static Event<MovedFileToBeProcessedIntoTempDirectoryMessage> MovedFileToBeProcessedIntoTempDirectory { get; set; }
 		//public static Event<Fault<MoveFileToBeProcessedIntoTempDirectoryMessage, Guid>> MoveFileToBeProcessedIntoTempDirectoryFailed { get; set; }
 
-		private FileMatchElementCollection GetFileMatchesToExecute()
+		private IList<SerialWorkflowStep<FileMatchElement>> GetFileMatchesToExecute()
 		{
-			var fileMatchesToExecute = new FileMatchElementCollection();
+			var fileMatchesToExecute = new List<SerialWorkflowStep<FileMatchElement>>();
 			const RegexOptions regxOptions = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Singleline;
 
 			var workingFilePath = new FileInfo(WorkingFilePath);
-
+			var order = 1;
 			foreach (var fileMatch in Folder.FileMatches)
 			{
 				if (string.IsNullOrEmpty(fileMatch.Expression) || Regex.IsMatch(workingFilePath.Name, fileMatch.Expression, regxOptions))
 				{
-					fileMatchesToExecute.Add(fileMatch);
+					var value = new SerialWorkflowStep<FileMatchElement>()
+					            	{
+					            		CorrelationId = CombGuid.Generate(),
+					            		MessageInput = fileMatch,
+										Executed = false,
+										Order = order++
+					            	};
+
+					fileMatchesToExecute.Add(value);
 				}
 			}
 
@@ -189,19 +193,20 @@ namespace Talifun.Commander.Command.FileMatcher
 #region Process file matches
 
 		public static State WaitingForPluginsToProcess { get; set; }
-		public static Event<ProcessFileMatchesMessage> StartPluginExecution { get; set; }
+		public static Event<ProcessFileMatchesMessage> StartPluginsExecution { get; set; }
 		public static Event<ExecuteNextPluginMessage> ExecuteNextPlugin { get; set; }
-
-		public static State WaitingForPluginToExecute { get; set; }
 		public static Event<IPluginResponseMessage> PluginResponse { get; set; }
 		//public static Event<Fault<IPluginResponseMessage, Guid>> PluginResponseFailed { get; set; }
-		public static Event<ProcessedFileMatchesMessage> ProcessedFileMatches { get; set; }
+		public static Event<ProcessedFileMatchesMessage> CompletedPluginsExecution { get; set; }
 		
 		private void ExecutePlugin(ExecuteNextPluginMessage message)
 		{
 			var workingFilePath = new FileInfo(WorkingFilePath);
 
-			var fileMatchToExecute = FileMatchesToExecute.FirstOrDefault();
+			var fileMatchToExecute = FileMatchesToExecute
+				.Where(x=>!x.Executed)
+				.OrderBy(x=>x.Order)
+				.FirstOrDefault();
 
 			//If the file no longer exists, it assumed that there should be no more processing
 			//e.g. anti-virus may delete file so, we will do no more processing
@@ -214,19 +219,22 @@ namespace Talifun.Commander.Command.FileMatcher
 					CorrelationId = CorrelationId
 				};
 
-				RaiseEvent(ProcessedFileMatches, processedFileMatchesMessage);
+				RaiseEvent(CompletedPluginsExecution, processedFileMatchesMessage);
 				return;
 			}
 
-			if (fileMatchToExecute.StopProcessing)
+			var fileMatch = fileMatchToExecute.MessageInput;
+			var fileMatchCorrelationId = fileMatchToExecute.CorrelationId;
+
+			if (fileMatch.StopProcessing)
 			{
 				StopProcessingFileMatches = true;
 			}
 
-			var project = GetCurrentProject(fileMatchToExecute);
+			var project = GetCurrentProject(fileMatch);
 
-			var commandConfigurationTester = GetCommandMessenger(fileMatchToExecute.ConversionType);
-			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(CombGuid.Generate(), CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatchToExecute);
+			var commandConfigurationTester = GetCommandMessenger(fileMatch.ConversionType);
+			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(fileMatchCorrelationId, CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatch);
 
 			Bus.Publish(pluginRequestMessage.GetType(), pluginRequestMessage);
 		}

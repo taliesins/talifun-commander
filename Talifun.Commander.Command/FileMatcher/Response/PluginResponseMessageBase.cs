@@ -1,13 +1,12 @@
 ﻿using System;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Esb;
 
-namespace Talifun.Commander.Command.Esb.Response
+namespace Talifun.Commander.Command.FileMatcher.Response
 {
 	[Serializable]
 	public abstract class PluginResponseMessageBase : CorrelatedMessageBase<IPluginResponseMessage>, IPluginResponseMessage
 	{
-		public Guid ParentCorrelationId { get; set; }
-		public string InputFilePath { get; set; }
-		public FileMatchElement FileMatch { get; set; }
+		public Guid ResponderCorrelationId { get; set; }
 	}
 }

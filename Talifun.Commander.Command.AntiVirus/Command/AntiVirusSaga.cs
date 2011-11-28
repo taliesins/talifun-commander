@@ -23,7 +23,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(AntiVirusRequestEvent)
 						.Then((saga, message) =>
 						{
-							saga.ParentCorrelationId = message.ParentCorrelationId;
+							saga.RequestorCorrelationId = message.RequestorCorrelationId;
 							saga.AppSettings = message.AppSettings;
 							saga.Configuration = message.Configuration;
 							saga.FileMatch = message.FileMatch;
@@ -31,7 +31,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						})
 						.Publish((saga, message) => new AntiVirusStartedMessage
 						{
-							CorrelationId = saga.ParentCorrelationId,
+							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
@@ -92,15 +92,14 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(DeletedTempDirectory)
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{
-							CorrelationId = saga.ParentCorrelationId,
+							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
 						.Publish((saga, message) => new AntiVirusResponseMessage
 						    {
-						      	CorrelationId = saga.ParentCorrelationId,
-						      	InputFilePath = saga.InputFilePath,
-						      	FileMatch = saga.FileMatch
+						      	CorrelationId = saga.RequestorCorrelationId,
+								ResponderCorrelationId = saga.CorrelationId
 						    }
 						)
 						.Complete()
@@ -122,7 +121,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 
 		public virtual Guid CorrelationId { get; private set; }
 		public virtual IServiceBus Bus { get; set; }
-		public virtual Guid ParentCorrelationId { get; set; }
+		public virtual Guid RequestorCorrelationId { get; set; }
 		public virtual IDictionary<string, string> AppSettings { get; set; }
 		public virtual AntiVirusElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }

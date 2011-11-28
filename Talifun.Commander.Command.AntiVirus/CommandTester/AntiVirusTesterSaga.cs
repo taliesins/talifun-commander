@@ -58,7 +58,9 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 		{
 			var responseMessage = new AntiVirusTestConfigurationResponseMessage()
 			{
-			    CorrelationId = message.ParentCorrelationId
+			    CorrelationId = message.RequestorCorrelationId,
+				ResponderCorrelationId = message.CorrelationId,
+				Exceptions = new List<Exception>()
 			};
 
 			try
@@ -130,7 +132,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 			}
 			catch (Exception exception)
 			{
-				responseMessage.Exception = exception;
+				responseMessage.Exceptions.Add(exception);
 			}
 
 			Bus.MessageContext<AntiVirusConfigurationTestRequestMessage>().Respond(responseMessage); 

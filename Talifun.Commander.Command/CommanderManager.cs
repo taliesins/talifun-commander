@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Magnum;
 using MassTransit;
@@ -52,8 +53,13 @@ namespace Talifun.Commander.Command
         	_commanderService.Start();
 
 			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
-			bus.SubscribeHandler<ResponseTestConfigurationMessage>((message) =>
+			bus.SubscribeHandler<TestedConfigurationMessage>((message) =>
 			{
+				if (message.Exceptions.Any())
+				{
+					throw message.Exceptions.First();
+				}
+
 				IsRunning = true;
 				_folderWatcherService.Start();
 				_startOrStopSignalled = false;
@@ -63,11 +69,11 @@ namespace Talifun.Commander.Command
 				RaiseAsynchronousOnCommanderStartedEvent(commanderStartedEventArgs);
 			});
 
-			var requestTestConfigurationMessage = new RequestTestConfigurationMessage()
-			                                      	{
-			                                      		CorrelationId = CombGuid.Generate()
-			                                      	};
-			bus.Publish(requestTestConfigurationMessage);
+			var testConfigurationMessage = new TestConfigurationMessage()
+			{
+			    CorrelationId = CombGuid.Generate()
+			};
+			bus.Publish(testConfigurationMessage);
         }
 
         public void Stop()

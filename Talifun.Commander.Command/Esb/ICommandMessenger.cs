@@ -12,8 +12,8 @@ namespace Talifun.Commander.Command.Esb
 	public interface ICommandMessenger
 	{
 		ISettingConfiguration Settings { get; }
-		object CreateCancelMessage(Guid correlationId, Guid parentCorrelationId);
-		object CreateRequestMessage(Guid correlationId, Guid parentCorrelationId, Dictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch);
-		object CreateTestConfigurationRequestMessage(Guid correlationId, Guid parentCorrelationId, Dictionary<string, string> appSettings, ProjectElement project);
+		object CreateCancelMessage(Guid correlationId, Guid requestorCorrelationId);
+		object CreateRequestMessage(Guid correlationId, Guid requestorCorrelationId, IDictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch);
+		object CreateTestConfigurationRequestMessage(Guid correlationId, Guid requestorCorrelationId, IDictionary<string, string> appSettings, ProjectElement project);
 	}
 }
