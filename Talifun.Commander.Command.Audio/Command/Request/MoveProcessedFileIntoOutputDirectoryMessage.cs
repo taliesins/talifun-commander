@@ -1,7 +1,7 @@
 ﻿using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Plugins.Request;
 
-namespace Talifun.Commander.Command.AntiVirus.Command.Request
+namespace Talifun.Commander.Command.Audio.Command.Request
 {
 	public class MoveProcessedFileIntoOutputDirectoryMessage : CorrelatedMessageBase<MoveProcessedFileIntoOutputDirectoryMessage>, IMoveProcessedFileIntoOutputDirectoryMessage
 	{

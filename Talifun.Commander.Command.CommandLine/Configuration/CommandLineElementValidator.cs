@@ -10,11 +10,11 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 		public CommandLineElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageCommandLineElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects
 					.Where(x => x.CommandPlugins
 						.Where(y => y.Setting.ElementType == typeof(CommandLineElement))
 						.Cast<CommandLineElementCollection>()
-						.SelectMany(y => y.Cast<CommandLineElement>())
+						.SelectMany(y => y)
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())

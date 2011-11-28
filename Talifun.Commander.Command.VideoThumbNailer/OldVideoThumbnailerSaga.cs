@@ -7,7 +7,7 @@ using Talifun.Commander.Command.VideoThumbNailer.Configuration;
 
 namespace Talifun.Commander.Command.VideoThumbNailer
 {
-    public class VideoThumbnailerSaga : CommandSagaBase
+    public class OldVideoThumbnailerSaga : CommandSagaBase
     {
         public override ISettingConfiguration Settings
         {

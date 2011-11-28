@@ -2,9 +2,9 @@
 
 namespace Talifun.Commander.Command.Plugins.Request
 {
-	public interface IMoveProcessedFileIntoOutputDirectoryMessage : ICommandIdentifier
+	public interface IMoveProcessedFileIntoErrorDirectoryMessage : ICommandIdentifier
 	{
-		string OutputDirectoryPath { get; set; }
+		string ErrorDirectoryPath { get; set; }
 		string OutputFilePath { get; set; }
 	}
 }

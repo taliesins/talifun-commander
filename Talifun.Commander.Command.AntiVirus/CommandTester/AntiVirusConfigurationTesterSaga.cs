@@ -12,9 +12,9 @@ using Talifun.Commander.Command.Configuration;
 namespace Talifun.Commander.Command.AntiVirus.CommandTester
 {
 	[Serializable]
-	public class AntiVirusTesterSaga : SagaStateMachine<AntiVirusTesterSaga>, ISaga
+	public class AntiVirusConfigurationTesterSaga : SagaStateMachine<AntiVirusConfigurationTesterSaga>, ISaga
 	{
-		static AntiVirusTesterSaga()
+		static AntiVirusConfigurationTesterSaga()
 		{
 			Define(() =>
 			{
@@ -38,7 +38,7 @@ namespace Talifun.Commander.Command.AntiVirus.CommandTester
 
 		public static Event<AntiVirusConfigurationTestRequestMessage> TestConfigurationRequestEvent { get; set; }
 
-		public AntiVirusTesterSaga(Guid correlationId)
+		public AntiVirusConfigurationTesterSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}

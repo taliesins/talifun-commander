@@ -10,15 +10,15 @@ namespace Talifun.Commander.Command.Audio.Configuration
 		public AudioConversionElementValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageAudioConversionElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects
 					.Where(x => x.CommandPlugins
 						.Where(y => y.Setting.ElementType == typeof(AudioConversionElement))
 						.Cast<AudioConversionElementCollection>()
-						.SelectMany(y => y.Cast<AudioConversionElement>())
+						.SelectMany(y => y)
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())
-				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
+				.WithLocalizedMessage(() => Talifun.Commander.Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
         }
 	}
 }

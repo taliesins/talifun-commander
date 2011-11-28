@@ -6,7 +6,7 @@ using Talifun.Commander.Command.YouTubeUploader.Configuration;
 
 namespace Talifun.Commander.Command.YouTubeUploader
 {
-	public class YouTubeUploaderSaga : CommandSagaBase
+	public class OldYouTubeUploaderSaga : CommandSagaBase
 	{
 		public override ISettingConfiguration Settings
 		{

@@ -180,6 +180,7 @@
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
+    <Compile Include="Plugins\MoveProcessedFileIntoErrorDirectoryMessageHandlerBase.cs" />
     <Compile Include="Plugins\MoveProcessedFileIntoOutputDirectoryMessageHandlerBase.cs" />
     <Compile Include="Plugins\DeleteTempDirectoryMessageHandlerBase.cs" />
     <Compile Include="Plugins\CreateTempDirectoryMessageHandlerBase.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="FileMatcher\ICommandSagaProperties.cs" />
     <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
+    <Compile Include="Plugins\Request\IMoveProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Plugins\Request\IMoveProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Plugins\Request\IDeleteTempDirectoryMessage.cs" />
     <Compile Include="Plugins\Request\ICancelMessage.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="ISettingConfiguration.cs" />
     <Compile Include="NameValueCollectionExtensions.cs" />
     <Compile Include="Plugins\Request\ICreateTempDirectoryMessage.cs" />
+    <Compile Include="Plugins\Response\IMovedProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Plugins\Response\IMovedProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Plugins\Response\IDeletedTempDirectoryMessage.cs" />
     <Compile Include="Plugins\Response\ICreatedTempDirectoryMessage.cs" />

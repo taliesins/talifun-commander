@@ -1,6 +1,6 @@
 ﻿using Talifun.Commander.Command.Audio.Configuration;
 
-namespace Talifun.Commander.Command.Audio.AudioFormats
+namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 {
     public class Mp3Settings : IAudioSettings
     {

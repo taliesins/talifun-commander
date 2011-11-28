@@ -1,6 +1,6 @@
 ﻿using Talifun.Commander.UI;
 
-namespace Talifun.Commander.Command.Audio.InternalMessages
+namespace Talifun.Commander.Command.Audio
 {
     public enum AudioConversionType
     {

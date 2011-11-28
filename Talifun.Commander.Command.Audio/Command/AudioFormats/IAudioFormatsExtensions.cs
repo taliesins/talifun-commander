@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Talifun.Commander.Command.Audio.AudioFormats
+namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 {
 	public static class IAudioFormatsExtensions
 	{

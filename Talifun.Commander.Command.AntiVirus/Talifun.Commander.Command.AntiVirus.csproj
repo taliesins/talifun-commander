@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Magnum, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Magnum.dll</HintPath>
@@ -65,7 +69,7 @@
     <Compile Include="AntiVirusMessanger.cs" />
     <Compile Include="Command\AntiVirusSaga.cs" />
     <Compile Include="AntiVirusService.cs" />
-    <Compile Include="CommandTester\AntiVirusTesterSaga.cs" />
+    <Compile Include="CommandTester\AntiVirusConfigurationTesterSaga.cs" />
     <Compile Include="Command\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="Command\DeleteTempDirectoryMessageHandler.cs" />
     <Compile Include="Command\ExecuteMcAfeeWorkflowMessageHandler.cs" />

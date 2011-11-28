@@ -6,7 +6,7 @@ using Talifun.Commander.Command.FileMatcher;
 
 namespace Talifun.Commander.Command.CommandLine
 {
-    public class CommandLineSaga : CommandSagaBase
+    public class OldCommandLineSaga : CommandSagaBase
     {
         public override ISettingConfiguration Settings
         {

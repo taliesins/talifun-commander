@@ -1,4 +1,4 @@
-namespace Talifun.Commander.Command.Audio.AudioFormats
+namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 {
 	public interface IAudioSettings
 	{

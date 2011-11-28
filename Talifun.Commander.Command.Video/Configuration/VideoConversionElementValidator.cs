@@ -10,11 +10,11 @@ namespace Talifun.Commander.Command.Video.Configuration
 		public VideoConversionElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageVideoConversionElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects
 					.Where(x => x.CommandPlugins
 						.Where(y => y.Setting.ElementType == typeof(VideoConversionElement))
 						.Cast<VideoConversionElementCollection>()
-						.SelectMany(y => y.Cast<VideoConversionElement>())
+						.SelectMany(y => y)
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())

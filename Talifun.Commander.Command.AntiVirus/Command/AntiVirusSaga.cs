@@ -9,12 +9,15 @@ using Talifun.Commander.Command.AntiVirus.Command.Response;
 using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.AntiVirus.Properties;
 using Talifun.Commander.Command.Configuration;
+using log4net;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
 	[Serializable]
 	public class AntiVirusSaga : SagaStateMachine<AntiVirusSaga>, ISaga
 	{
+		private static readonly ILog Log = LogManager.GetLogger(typeof(AntiVirusSaga));
+
 		static AntiVirusSaga()
 		{
 			Define(() =>
@@ -28,6 +31,8 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							saga.Configuration = message.Configuration;
 							saga.FileMatch = message.FileMatch;
 							saga.InputFilePath = message.InputFilePath;
+
+							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
 						.Publish((saga, message) => new AntiVirusStartedMessage
 						{
@@ -51,6 +56,8 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Then((saga, message) =>
 						{
 							saga.WorkingDirectoryPath = message.WorkingDirectoryPath;
+
+							Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
 						})
 						.Then((saga, message)=>
 						{
@@ -66,12 +73,14 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Then((saga, message)=>
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
+
+							Log.InfoFormat("Processed antivirus workflow ({0}) - {1}", saga.CorrelationId, saga.OutPutFilePath);
 						})
 						.Publish((saga, message) => new MoveProcessedFileIntoOutputDirectoryMessage()
 						{
 							CorrelationId = saga.CorrelationId,
 							OutputFilePath = saga.OutPutFilePath,
-							OutPutPath = saga.Configuration.OutPutPath
+							OutputDirectoryPath = saga.Configuration.OutPutPath
 						})
 						.TransitionTo(WaitingForMoveProcessedFileIntoOutputDirectory)
 				);
@@ -79,6 +88,10 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 				During(
 					WaitingForMoveProcessedFileIntoOutputDirectory,
 					When(MovedProcessedFileIntoOutputDirectory)
+						.Then((saga, message) =>
+						{
+							Log.InfoFormat("Moved processed file to output directory  ({0}) - {1}", saga.CorrelationId, message.OutputFilePath);
+						})
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
@@ -90,6 +103,11 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 				During(
 					WaitingForDeleteTempDirectory,
 					When(DeletedTempDirectory)
+						.Then((saga, message) =>
+						{
+							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
+							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+						})
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,

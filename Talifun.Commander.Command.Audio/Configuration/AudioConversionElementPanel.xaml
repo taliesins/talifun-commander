@@ -6,9 +6,7 @@
              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
-             xmlns:Audio="clr-namespace:Talifun.Commander.Command.Audio"
-                                xmlns:InternalMessages="clr-namespace:Talifun.Commander.Command.Audio.InternalMessages"
-                                mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
+             xmlns:Audio="clr-namespace:Talifun.Commander.Command.Audio" mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +17,7 @@
                         MethodName="GetValues" 
                         ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="InternalMessages:AudioConversionType" />
+                    <x:Type TypeName="Audio:AudioConversionType" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
             <XmlDataProvider x:Key="audioBitRates" XPath="/audioBitRates">

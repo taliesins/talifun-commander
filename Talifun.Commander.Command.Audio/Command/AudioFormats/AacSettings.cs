@@ -1,16 +1,18 @@
 ﻿using Talifun.Commander.Command.Audio.Configuration;
 
-namespace Talifun.Commander.Command.Audio.AudioFormats
+namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 {
-	public class Ac3Settings : IAudioSettings
+	public class AacSettings : IAudioSettings
 	{
-		public Ac3Settings(AudioConversionElement audioConversion)
+		private const string AllFixedOptions = @"";
+		public AacSettings(AudioConversionElement audioConversion)
 		{
-			CodecName = "ac3";
-			FileNameExtension = "ac3";
+			CodecName = "libvo_aacenc";
+			FileNameExtension = "aac";
 			BitRate = audioConversion.BitRate;
 			Channels = audioConversion.Channel;
 			Frequency = audioConversion.Frequency;
+			Options = AllFixedOptions;
 		}
 
 		public string CodecName { get; private set; }

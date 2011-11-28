@@ -10,11 +10,11 @@ namespace Talifun.Commander.Command.Image.Configuration
 		public ImageConversionElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageImageConversionElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects
 					.Where(x => x.CommandPlugins
 						.Where(y => y.Setting.ElementType == typeof(ImageConversionElement))
 						.Cast<ImageConversionElementCollection>()
-						.SelectMany(y => y.Cast<ImageConversionElement>())
+						.SelectMany(y => y)
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())

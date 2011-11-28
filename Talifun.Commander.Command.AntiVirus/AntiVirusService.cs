@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Talifun.Commander.Command.AntiVirus
 {
-	public class AntiVirusService : CommandServiceBase<AntiVirusSaga, AntiVirusTesterSaga>
+	public class AntiVirusService : CommandServiceBase<AntiVirusSaga, AntiVirusConfigurationTesterSaga>
 	{
 		static AntiVirusService()
 		{

@@ -6,7 +6,7 @@ using Talifun.Commander.Command.Image.Configuration;
 
 namespace Talifun.Commander.Command.Image
 {
-    public class ImageConverterSaga : CommandSagaBase
+    public class OldImageConverterSaga : CommandSagaBase
     {
         public override ISettingConfiguration Settings
         {

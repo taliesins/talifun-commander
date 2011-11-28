@@ -13,7 +13,7 @@ using Talifun.Commander.Command.Video.WorkFlow;
 
 namespace Talifun.Commander.Command.Video
 {
-    public class VideoConverterSaga : CommandSagaBase
+    public class OldVideoConverterSaga : CommandSagaBase
     {
         public override ISettingConfiguration Settings
         {

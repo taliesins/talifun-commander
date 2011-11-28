@@ -10,11 +10,11 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		public YouTubeUploaderElementValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithLocalizedMessage(() => Resource.ValidatorMessageYouTubeUploaderElementNameMandatory)
-				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects.Cast<ProjectElement>()
+				.Must((name) => !CurrentConfiguration.CommanderSettings.Projects
 					.Where(x => x.CommandPlugins
 						.Where(y => y.Setting.ElementType == typeof(YouTubeUploaderElement))
 						.Cast<YouTubeUploaderElementCollection>()
-						.SelectMany(y => y.Cast<YouTubeUploaderElement>())
+						.SelectMany(y => y)
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())

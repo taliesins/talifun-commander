@@ -5,9 +5,9 @@ using Talifun.Commander.Command.Plugins.Response;
 
 namespace Talifun.Commander.Command.Plugins
 {
-	public abstract class MoveProcessedFileIntoOutputDirectoryMessageHandlerBase<TRequest, TResponse> : Consumes<TRequest>.All
-		where TRequest : class, IMoveProcessedFileIntoOutputDirectoryMessage
-		where TResponse : class, IMovedProcessedFileIntoOutputDirectoryMessage, new()
+	public abstract class MoveProcessedFileIntoErrorDirectoryMessageHandlerBase<TRequest, TResponse> : Consumes<TRequest>.All
+		where TRequest : class, IMoveProcessedFileIntoErrorDirectoryMessage
+		where TResponse : class, IMovedProcessedFileIntoErrorDirectoryMessage, new()
 	{
 		public void Consume(TRequest message)
 		{
@@ -15,7 +15,7 @@ namespace Talifun.Commander.Command.Plugins
 			inputFilePath.WaitForFileToUnlock(10, 500);
 			inputFilePath.Refresh();
 
-			var outputFilePath = new FileInfo(Path.Combine(message.OutputDirectoryPath, inputFilePath.Name));
+			var outputFilePath = new FileInfo(Path.Combine(message.ErrorDirectoryPath, inputFilePath.Name));
 
 			if (outputFilePath.Exists)
 			{
