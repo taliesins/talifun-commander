@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 
-namespace Talifun.Commander.Command.Esb.Events
+namespace Talifun.Commander.Command.Plugins.Events
 {
 	[InheritedExport]
 	public interface IPluginProgressMessageHandler

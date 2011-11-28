@@ -180,12 +180,15 @@
     <Compile Include="Configuration\ProjectElement.cs" />
     <Compile Include="Configuration\ProjectElementCollection.cs" />
     <Compile Include="Configuration\ValidationHelper.cs" />
-    <Compile Include="Esb\Events\PluginCompletedMessageBase.cs" />
-    <Compile Include="Esb\Events\IPluginProgressMessage.cs" />
-    <Compile Include="Esb\Events\PluginProgressMessageBase.cs" />
-    <Compile Include="Esb\Events\PluginStartedMessageBase.cs" />
-    <Compile Include="Esb\Events\IPluginCompletedMessage.cs" />
-    <Compile Include="Esb\Events\IPluginStartedMessage.cs" />
+    <Compile Include="Plugins\MoveProcessedFileIntoOutputDirectoryMessageHandlerBase.cs" />
+    <Compile Include="Plugins\DeleteTempDirectoryMessageHandlerBase.cs" />
+    <Compile Include="Plugins\CreateTempDirectoryMessageHandlerBase.cs" />
+    <Compile Include="Plugins\Events\PluginCompletedMessageBase.cs" />
+    <Compile Include="Plugins\Events\IPluginProgressMessage.cs" />
+    <Compile Include="Plugins\Events\PluginProgressMessageBase.cs" />
+    <Compile Include="Plugins\Events\PluginStartedMessageBase.cs" />
+    <Compile Include="Plugins\Events\IPluginCompletedMessage.cs" />
+    <Compile Include="Plugins\Events\IPluginStartedMessage.cs" />
     <Compile Include="Esb\ServiceInstance.cs" />
     <Compile Include="ConfigurationChecker\Response\TestedConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\Request\TestConfigurationMessage.cs" />
@@ -200,25 +203,31 @@
     <Compile Include="FileMatcher\ICommandSagaProperties.cs" />
     <Compile Include="ICommandService.cs" />
     <Compile Include="IExectutor.cs" />
-    <Compile Include="Esb\Request\ICancelMessage.cs" />
+    <Compile Include="Plugins\Request\IMoveProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Plugins\Request\IDeleteTempDirectoryMessage.cs" />
+    <Compile Include="Plugins\Request\ICancelMessage.cs" />
     <Compile Include="FileMatcher\Request\IPluginRequestMessage.cs" />
     <Compile Include="ConfigurationChecker\Request\IConfigurationTestRequestMessage.cs" />
     <Compile Include="FileMatcher\Response\PluginResponseMessageBase.cs" />
     <Compile Include="ConfigurationChecker\Response\ConfigurationTestResponseMessageBase.cs" />
-    <Compile Include="Esb\Request\CancelMessageBase.cs" />
+    <Compile Include="Plugins\Request\CancelMessageBase.cs" />
     <Compile Include="FileMatcher\Request\PluginRequestMessageBase.cs" />
     <Compile Include="ConfigurationChecker\Request\ConfigurationTestRequestMessageBase.cs" />
     <Compile Include="ISettingConfiguration.cs" />
     <Compile Include="NameValueCollectionExtensions.cs" />
+    <Compile Include="Plugins\Request\ICreateTempDirectoryMessage.cs" />
+    <Compile Include="Plugins\Response\IMovedProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Plugins\Response\IDeletedTempDirectoryMessage.cs" />
+    <Compile Include="Plugins\Response\ICreatedTempDirectoryMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Esb\Events\IPluginCompletedMessageHandler.cs" />
-    <Compile Include="Esb\Events\IPluginProgressMessageHandler.cs" />
-    <Compile Include="Esb\Events\IPluginStartedMessageHandler.cs" />
+    <Compile Include="Plugins\Events\IPluginCompletedMessageHandler.cs" />
+    <Compile Include="Plugins\Events\IPluginProgressMessageHandler.cs" />
+    <Compile Include="Plugins\Events\IPluginStartedMessageHandler.cs" />
     <Compile Include="FileMatcher\Response\IPluginResponseMessage.cs" />
     <Compile Include="ConfigurationChecker\Response\IConfigurationTestResponseMessage.cs" />
   </ItemGroup>
@@ -343,9 +352,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Esb\Response\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

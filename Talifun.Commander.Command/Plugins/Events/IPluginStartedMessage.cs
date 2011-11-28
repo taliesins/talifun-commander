@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Esb;
 
-namespace Talifun.Commander.Command.Esb.Events
+namespace Talifun.Commander.Command.Plugins.Events
 {
 	[InheritedExport]
 	public interface IPluginStartedMessage : IEquatable<IPluginStartedMessage>, ICommandIdentifier

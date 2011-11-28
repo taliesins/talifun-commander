@@ -1,6 +1,7 @@
 ﻿using System;
+using Talifun.Commander.Command.Esb;
 
-namespace Talifun.Commander.Command.Esb.Request
+namespace Talifun.Commander.Command.Plugins.Request
 {
 	[Serializable]
 	public abstract class CancelMessageBase : CorrelatedMessageBase<ICancelMessage>, ICancelMessage

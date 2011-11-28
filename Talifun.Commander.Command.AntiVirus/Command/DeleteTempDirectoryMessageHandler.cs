@@ -1,28 +1,17 @@
-﻿using System.IO;
-using MassTransit;
+﻿using MassTransit;
 using Talifun.Commander.Command.AntiVirus.Command.Request;
 using Talifun.Commander.Command.AntiVirus.Command.Response;
 using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.Plugins;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
-	public class DeleteTempDirectoryMessageHandler : Consumes<DeleteTempDirectoryMessage>.All
+	public class DeleteTempDirectoryMessageHandler : DeleteTempDirectoryMessageHandlerBase<DeleteTempDirectoryMessage, DeletedTempDirectoryMessage>
 	{
-		public void Consume(DeleteTempDirectoryMessage message)
+		protected override void PublishMessage(DeletedTempDirectoryMessage message)
 		{
-			var workingDirectoryPath = new DirectoryInfo(message.WorkingPath);
-			if (workingDirectoryPath.Exists)
-			{
-				workingDirectoryPath.Delete(true);
-			}
-
-			var deletedTempDirectoryMessage = new DeletedTempDirectoryMessage()
-			{
-				CorrelationId = message.CorrelationId
-			};
-
 			var bus = BusDriver.Instance.GetBus(AntiVirusService.BusName);
-			bus.Publish(deletedTempDirectoryMessage);
+			bus.Publish(message);
 		}
 	}
 }

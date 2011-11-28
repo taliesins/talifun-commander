@@ -1,4 +1,4 @@
-﻿using Talifun.Commander.Command.Esb.Events;
+﻿using Talifun.Commander.Command.Plugins.Events;
 
 namespace Talifun.Commander.Command.AntiVirus.Command.Events
 {
