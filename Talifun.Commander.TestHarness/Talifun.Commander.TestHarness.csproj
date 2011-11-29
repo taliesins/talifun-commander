@@ -226,6 +226,10 @@
       <Project>{CFFF52F1-1870-4E7D-B951-800537243A97}</Project>
       <Name>Talifun.Commander.Command.Image</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
+      <Project>{A0AACC6C-F046-4057-9CAA-A313512C4E05}</Project>
+      <Name>Talifun.Commander.Command.Video</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
       <Name>Talifun.Commander.Command</Name>

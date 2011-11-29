@@ -72,13 +72,48 @@
   <ItemGroup>
     <Compile Include="AspectRatio.cs" />
     <Compile Include="AudioConversionType.cs" />
-    <Compile Include="AudioFormats\AacSettings.cs" />
-    <Compile Include="AudioFormats\Ac3Settings.cs" />
-    <Compile Include="AudioFormats\IAudioFormatsExtensions.cs" />
-    <Compile Include="AudioFormats\IAudioSettings.cs" />
-    <Compile Include="AudioFormats\Mp3Settings.cs" />
-    <Compile Include="AudioFormats\VorbisSettings.cs" />
-    <Compile Include="WorkFlow\Mp4WorkFlow.cs" />
+    <Compile Include="CommandTester\VideoConversionConfigurationTesterSaga.cs" />
+    <Compile Include="CommandTester\Request\VideoConversionConfigurationTestRequestMessage.cs" />
+    <Compile Include="CommandTester\Response\VideoConversionConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\VideoConversionSaga.cs" />
+    <Compile Include="Command\AudioFormats\AacSettings.cs" />
+    <Compile Include="Command\AudioFormats\Ac3Settings.cs" />
+    <Compile Include="Command\AudioFormats\IAudioFormatsExtensions.cs" />
+    <Compile Include="Command\AudioFormats\IAudioSettings.cs" />
+    <Compile Include="Command\AudioFormats\Mp3Settings.cs" />
+    <Compile Include="Command\AudioFormats\VorbisSettings.cs" />
+    <Compile Include="Command\ExecuteMp4ConversionWorkflowMessageHandler.cs" />
+    <Compile Include="Command\ExecuteTwoPassConversionWorkflowMessageHandler.cs" />
+    <Compile Include="Command\ExecuteOnePassConversionWorkflowMessageHandler.cs" />
+    <Compile Include="Command\CreateTempDirectoryMessageHandler.cs" />
+    <Compile Include="Command\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="Command\Events\VideoConversionCompletedMessage.cs" />
+    <Compile Include="Command\Events\VideoConversionProgressMessage.cs" />
+    <Compile Include="Command\Events\VideoConversionStartedMessage.cs" />
+    <Compile Include="Command\ExecuteFlvConversionWorkflowMessageHandler.cs" />
+    <Compile Include="Command\MoveProcessedFileIntoErrorDirectoryMessageHandler.cs" />
+    <Compile Include="Command\MoveProcessedFileIntoOutputDirectoryMessageHandler.cs" />
+    <Compile Include="Command\Request\ExecuteTwoPassConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\ExecuteOnePassConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\ExecuteMp4ConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />
+    <Compile Include="Command\Request\DeleteTempDirectoryMessage.cs" />
+    <Compile Include="Command\Request\ExecuteFlvConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\IExecuteVideoConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\VideoConversionCancelMessage.cs" />
+    <Compile Include="Command\Request\VideoConversionRequestMessage.cs" />
+    <Compile Include="Command\Request\MoveProcessedFileIntoErrorDirectoryMessage.cs" />
+    <Compile Include="Command\Request\MoveProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Command\Response\ExecutedTwoPassConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Response\ExecutedOnePassConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Response\ExecutedMp4ConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Response\CreatedTempDirectoryMessage.cs" />
+    <Compile Include="Command\Response\DeletedTempDirectoryMessage.cs" />
+    <Compile Include="Command\Response\ExecutedFlvConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Response\IExecutedVideoConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Response\VideoConversionResponseMessage.cs" />
+    <Compile Include="Command\Response\MovedProcessedFileIntoErrorDirectoryMessage.cs" />
+    <Compile Include="Command\Response\MovedProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Configuration\VideoConversionElement.Validation.cs">
       <DependentUpon>VideoConversionElement.cs</DependentUpon>
     </Compile>
@@ -91,25 +126,23 @@
     </Compile>
     <Compile Include="Configuration\VideoConversionElementPanelDataModel.cs" />
     <Compile Include="Configuration\VideoConversionElementValidator.cs" />
-    <Compile Include="Configuration\VideoConversionTester.cs" />
     <Compile Include="Configuration\VideoConversionConfiguration.cs" />
     <Compile Include="Configuration\VideoConversionElement.cs" />
     <Compile Include="Configuration\VideoConversionElementCollection.cs" />
-    <Compile Include="Containers\AviContainerSettings.cs" />
-    <Compile Include="Containers\FlvContainerSettings.cs" />
-    <Compile Include="Containers\IContainerSettings.cs" />
-    <Compile Include="WorkFlow\FlvWorkFlow.cs" />
-    <Compile Include="Containers\Mp4ContainerSettings.cs" />
-    <Compile Include="Containers\OggContainerSettings.cs" />
-    <Compile Include="Containers\WebmContainerSettings.cs" />
+    <Compile Include="Command\Containers\AviContainerSettings.cs" />
+    <Compile Include="Command\Containers\FlvContainerSettings.cs" />
+    <Compile Include="Command\Containers\IContainerSettings.cs" />
+    <Compile Include="Command\Containers\Mp4ContainerSettings.cs" />
+    <Compile Include="Command\Containers\OggContainerSettings.cs" />
+    <Compile Include="Command\Containers\WebmContainerSettings.cs" />
     <Compile Include="Gravity.cs" />
     <Compile Include="GravityExtensions.cs" />
-    <Compile Include="Watermark\IWatermarkSettings.cs" />
-    <Compile Include="Watermark\IWatermarkSettingsExtensions.cs" />
-    <Compile Include="WorkFlow\OnePassWorkFlow.cs" />
-    <Compile Include="VideoFormats\FlvSettings.cs" />
-    <Compile Include="WorkFlow\TwoPassWorkFlow.cs" />
-    <Compile Include="VideoFormats\H264Settings.cs" />
+    <Compile Include="Command\Watermark\IWatermarkSettings.cs" />
+    <Compile Include="Command\Watermark\IWatermarkSettingsExtensions.cs" />
+    <Compile Include="Command\VideoFormats\FlvSettings.cs" />
+    <Compile Include="Command\VideoFormats\H264Settings.cs" />
+    <Compile Include="VideoConversionMessanger.cs" />
+    <Compile Include="VideoConversionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -117,13 +150,12 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="VideoConversionType.cs" />
-    <Compile Include="OldVideoConverterSaga.cs" />
-    <Compile Include="VideoFormats\IVideoSettings.cs" />
-    <Compile Include="VideoFormats\IVideoSettingsExtensions.cs" />
-    <Compile Include="VideoFormats\TheoraSettings.cs" />
-    <Compile Include="VideoFormats\VpxSettings.cs" />
-    <Compile Include="VideoFormats\XvidSettings.cs" />
-    <Compile Include="Watermark\WatermarkSettings.cs" />
+    <Compile Include="Command\VideoFormats\IVideoSettings.cs" />
+    <Compile Include="Command\VideoFormats\IVideoSettingsExtensions.cs" />
+    <Compile Include="Command\VideoFormats\TheoraSettings.cs" />
+    <Compile Include="Command\VideoFormats\VpxSettings.cs" />
+    <Compile Include="Command\VideoFormats\XvidSettings.cs" />
+    <Compile Include="Command\Watermark\WatermarkSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">

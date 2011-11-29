@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
-using Talifun.Commander.Command.Audio.Command.AudioFormats;
-using Talifun.Commander.Command.Audio.Command.Events;
-using Talifun.Commander.Command.Audio.Command.Request;
-using Talifun.Commander.Command.Audio.Command.Response;
-using Talifun.Commander.Command.Audio.Configuration;
-using Talifun.Commander.Command.Audio.Properties;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Video.Command.AudioFormats;
+using Talifun.Commander.Command.Video.Command.Containers;
+using Talifun.Commander.Command.Video.Command.Events;
+using Talifun.Commander.Command.Video.Command.Request;
+using Talifun.Commander.Command.Video.Command.Response;
+using Talifun.Commander.Command.Video.Command.VideoFormats;
+using Talifun.Commander.Command.Video.Command.Watermark;
+using Talifun.Commander.Command.Video.Configuration;
+using Talifun.Commander.Command.Video.Properties;
 using log4net;
 
-namespace Talifun.Commander.Command.Audio.Command
+namespace Talifun.Commander.Command.Video.Command
 {
 	[Serializable]
-	public class AudioConversionSaga: SagaStateMachine<AudioConversionSaga>, ISaga
+	public class VideoConversionSaga: SagaStateMachine<VideoConversionSaga>, ISaga
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(AudioConversionSaga));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(VideoConversionSaga));
 
-		static AudioConversionSaga()
+		static VideoConversionSaga()
 		{
 			Define(() =>
 			{
 				Initially(
-					When(AudioConversionRequestEvent)
+					When(VideoConversionRequestEvent)
 						.Then((saga, message) =>
 						{
 							saga.RequestorCorrelationId = message.RequestorCorrelationId;
@@ -35,7 +38,7 @@ namespace Talifun.Commander.Command.Audio.Command
 
 							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionStartedMessage
+						.Publish((saga, message) => new VideoConversionStartedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
@@ -44,7 +47,7 @@ namespace Talifun.Commander.Command.Audio.Command
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
-							Prefix = AudioConversionConfiguration.Instance.ConversionType,
+							Prefix = VideoConversionConfiguration.Instance.ConversionType,
 							InputFilePath = saga.InputFilePath,
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
@@ -65,12 +68,12 @@ namespace Talifun.Commander.Command.Audio.Command
 						    var commandMessage = saga.GetAudioConversionWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
-						.TransitionTo(WaitingForExecuteAudioConversionWorkflow)
+						.TransitionTo(WaitingForExecuteVideoConversionWorkflow)
 				);
 
 				During(
-					WaitingForExecuteAudioConversionWorkflow,
-					When(ExecutedAudioConversionWorkflow)
+					WaitingForExecuteVideoConversionWorkflow,
+					When(ExecutedVideoConversionWorkflow)
 						.Then((saga, message)=>
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
@@ -78,7 +81,7 @@ namespace Talifun.Commander.Command.Audio.Command
 
 							if (message.EncodeSuccessful)
 							{
-								Log.InfoFormat("Processed audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								Log.InfoFormat("Processed video conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 
 								var moveProcessedFileIntoOutputDirectoryMessage = new MoveProcessedFileIntoOutputDirectoryMessage()
 								{
@@ -91,7 +94,7 @@ namespace Talifun.Commander.Command.Audio.Command
 							}
 							else
 							{
-								Log.WarnFormat("Error processing audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								Log.WarnFormat("Error processing video conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 
 								var moveProcessedFileIntoErrorDirectoryMessage = new MoveProcessedFileIntoErrorDirectoryMessage()
 								{
@@ -143,13 +146,13 @@ namespace Talifun.Commander.Command.Audio.Command
 							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
 							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionCompletedMessage
+						.Publish((saga, message) => new VideoConversionCompletedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new AudioConversionResponseMessage
+						.Publish((saga, message) => new VideoConversionResponseMessage
 						    {
 						      	CorrelationId = saga.RequestorCorrelationId,
 								ResponderCorrelationId = saga.CorrelationId
@@ -167,7 +170,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public static State Completed { get; set; }
 		// ReSharper restore UnusedMember.Global
 
-		public AudioConversionSaga(Guid correlationId)
+		public VideoConversionSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
@@ -176,7 +179,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual IServiceBus Bus { get; set; }
 		public virtual Guid RequestorCorrelationId { get; set; }
 		public virtual IDictionary<string, string> AppSettings { get; set; }
-		public virtual AudioConversionElement Configuration { get; set; }
+		public virtual VideoConversionElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
@@ -184,7 +187,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
-		public static Event<AudioConversionRequestMessage> AudioConversionRequestEvent { get; set; }
+		public static Event<VideoConversionRequestMessage> VideoConversionRequestEvent { get; set; }
 		#endregion
 
 		#region Create Temp Directory
@@ -195,11 +198,11 @@ namespace Talifun.Commander.Command.Audio.Command
 
 		#region Run command
 
-		public static State WaitingForExecuteAudioConversionWorkflow { get; set; }
-		public static Event<IExecutedAudioConversionWorkflowMessage> ExecutedAudioConversionWorkflow { get; set; }
-		//public static Event<Fault<IExecuteAudioConversionWorkflowMessage, Guid>> ExecuteAudioConversionWorkflowFailed { get; set; }
+		public static State WaitingForExecuteVideoConversionWorkflow { get; set; }
+		public static Event<IExecutedVideoConversionWorkflowMessage> ExecutedVideoConversionWorkflow { get; set; }
+		//public static Event<Fault<IExecuteVideoConversionWorkflowMessage, Guid>> ExecuteVideoConversionWorkflowFailed { get; set; }
 
-		private IExecuteAudioConversionWorkflowMessage GetAudioConversionWorkflowMessage()
+		private IExecuteVideoConversionWorkflowMessage GetAudioConversionWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
 			var commandMessage = GetCommandMessage(commandSettings);
@@ -212,27 +215,123 @@ namespace Talifun.Commander.Command.Audio.Command
 			return commandMessage;
 		}
 
-		private IAudioSettings GetCommandSettings(AudioConversionElement audioConversionSetting)
+		private IAudioSettings GetAudioSettings(VideoConversionElement videoConversionSetting)
 		{
-			switch (audioConversionSetting.AudioConversionType)
+			switch (videoConversionSetting.AudioConversionType)
 			{
-				case AudioConversionType.NotSpecified:
-				case AudioConversionType.Mp3:
-					return new Mp3Settings(audioConversionSetting);
-				case AudioConversionType.Ac3:
-					return new Ac3Settings(audioConversionSetting);
 				case AudioConversionType.Aac:
-					return new AacSettings(audioConversionSetting);
+					return new AacSettings(videoConversionSetting);
+				case AudioConversionType.Mp3:
+					return new Mp3Settings(videoConversionSetting);
+				case AudioConversionType.Ac3:
+					return new Ac3Settings(videoConversionSetting);
 				case AudioConversionType.Vorbis:
-					return new VorbisSettings(audioConversionSetting);
+					return new VorbisSettings(videoConversionSetting);
 				default:
 					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
 			}
 		}
 
-		private IExecuteAudioConversionWorkflowMessage GetCommandMessage(IAudioSettings audioSetting)
+		private IVideoSettings GetVideoSettings(VideoConversionElement videoConversionSetting)
 		{
-			return new ExecuteAudioConversionWorkflowMessage();
+			switch (videoConversionSetting.VideoConversionType)
+			{
+				case VideoConversionType.Flv:
+					return new FlvSettings(videoConversionSetting);
+				case VideoConversionType.H264:
+					return new H264Settings(videoConversionSetting);
+				case VideoConversionType.Theora:
+					return new TheoraSettings(videoConversionSetting);
+				case VideoConversionType.Vpx:
+					return new VpxSettings(videoConversionSetting);
+				case VideoConversionType.Xvid:
+					return new XvidSettings(videoConversionSetting);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+			}
+		}
+
+		private IWatermarkSettings GetWatermarkSettings(VideoConversionElement videoConversionSetting)
+		{
+			var watermarkSettings = new WatermarkSettings()
+			{
+				Gravity = videoConversionSetting.WatermarkGravity,
+				Path = videoConversionSetting.WatermarkPath,
+				WidthPadding = videoConversionSetting.WatermarkWidthPadding,
+				HeightPadding = videoConversionSetting.WatermarkHeightPadding,
+			};
+
+			return watermarkSettings;
+		}
+
+		private IContainerSettings GetCommandSettings(VideoConversionElement videoConversionSetting)
+		{
+			if (videoConversionSetting.VideoConversionType == VideoConversionType.NotSpecified)
+			{
+				videoConversionSetting.VideoConversionType = VideoConversionType.H264;
+			}
+
+			if (videoConversionSetting.AudioConversionType == AudioConversionType.NotSpecified)
+			{
+				switch (videoConversionSetting.VideoConversionType)
+				{
+					case VideoConversionType.Flv:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Mp3;
+						break;
+					case VideoConversionType.H264:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Aac;
+						break;
+					case VideoConversionType.Theora:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
+						break;
+					case VideoConversionType.Vpx:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
+						break;
+					case VideoConversionType.Xvid:
+						videoConversionSetting.AudioConversionType = AudioConversionType.Ac3;
+						break;
+					default:
+						throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+				}
+			}
+
+			var watermarkSettings = GetWatermarkSettings(videoConversionSetting);
+			var videoSettings = GetVideoSettings(videoConversionSetting);
+			var audioSettings = GetAudioSettings(videoConversionSetting);
+
+			switch (videoConversionSetting.VideoConversionType)
+			{
+				case VideoConversionType.NotSpecified:
+				case VideoConversionType.Flv:
+					return new FlvContainerSettings(audioSettings, videoSettings, watermarkSettings);
+				case VideoConversionType.H264:
+					return new Mp4ContainerSettings(audioSettings, videoSettings, watermarkSettings);
+				case VideoConversionType.Theora:
+					return new OggContainerSettings(audioSettings, videoSettings, watermarkSettings);
+				case VideoConversionType.Vpx:
+					return new WebmContainerSettings(audioSettings, videoSettings, watermarkSettings);
+				case VideoConversionType.Xvid:
+					return new AviContainerSettings(audioSettings, videoSettings, watermarkSettings);
+				default:
+					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
+			}
+		}
+
+		private IExecuteVideoConversionWorkflowMessage GetCommandMessage(IContainerSettings containerSettings)
+		{
+			if (containerSettings is FlvContainerSettings)
+			{
+				return new ExecuteFlvConversionWorkflowMessage();
+			}
+
+			if (containerSettings is Mp4ContainerSettings)
+			{
+				return new ExecuteMp4ConversionWorkflowMessage();
+			}
+
+			return string.IsNullOrEmpty(containerSettings.Video.SecondPhaseOptions)
+					? (IExecuteVideoConversionWorkflowMessage)new ExecuteOnePassConversionWorkflowMessage()
+					: new ExecuteTwoPassConversionWorkflowMessage();
 		}
 		#endregion
 
