@@ -3,14 +3,78 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MassTransit;
+using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.Image.Command.ImageSettings;
+using Talifun.Commander.Command.Image.Command.Request;
+using Talifun.Commander.Command.Image.Command.Response;
 using Talifun.Commander.Command.Image.Configuration;
 using Talifun.Commander.Executor.CommandLine;
 
-namespace Talifun.Commander.Command.Image
+namespace Talifun.Commander.Command.Image.Command
 {
-    public class ImageResizeCommand : ICommand<IImageResizeSettings>
-    {
-        #region ICommand<IResizeSettings> Members
+	public class ExecuteImageConversionWorkflowMessageHandler : Consumes<ExecuteImageConversionWorkflowMessage>.All
+	{
+		public void Consume(ExecuteImageConversionWorkflowMessage message)
+		{
+			var inputFilePath = new FileInfo(message.InputFilePath);
+
+			var extension = "";
+			switch (message.Settings.ResizeImageType)
+			{
+				case ResizeImageType.JPG:
+					extension = ".jpg";
+					break;
+				case ResizeImageType.PNG:
+					extension = ".png";
+					break;
+				case ResizeImageType.GIF:
+					extension = ".gif";
+					break;
+				default:
+					extension = Path.GetExtension(inputFilePath.Name);
+					break;
+			}
+
+			var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + extension;
+			var outPutFilePath = new FileInfo(Path.Combine(message.WorkingDirectoryPath, fileName));
+			if (outPutFilePath.Exists)
+			{
+				outPutFilePath.Delete();
+			}
+
+			var output = string.Empty;
+
+			var convertPath = message.AppSettings[ImageConversionConfiguration.Instance.ConvertPathSettingName];
+			var convertArguments = ThumbnailArguments(message.Settings, inputFilePath.FullName, outPutFilePath.FullName);
+			var convertOutput = string.Empty;
+
+			var commandLineExecutor = new CommandLineExecutor();
+			var result = commandLineExecutor.Execute(message.WorkingDirectoryPath, convertPath, convertArguments, out convertOutput);
+			output += convertOutput;
+
+			if (result && !string.IsNullOrEmpty(message.Settings.WatermarkPath))
+			{
+				var compositePath = message.AppSettings[ImageConversionConfiguration.Instance.CompositePathSettingName];
+				var compositeArguments = WatermarkArguments(message.Settings, outPutFilePath.FullName);
+				var compositeOutput = string.Empty;
+
+				result = commandLineExecutor.Execute(message.WorkingDirectoryPath, compositePath, compositeArguments, out compositeOutput);
+
+				output += Environment.NewLine + compositeOutput;
+			}
+
+			var executedMcAfeeWorkflowMessage = new ExecutedImageConversionWorkflowMessage()
+			{
+				CorrelationId = message.CorrelationId,
+				EncodeSuccessful = result,
+				OutPutFilePath = outPutFilePath.FullName,
+				Output = output
+			};
+
+			var bus = BusDriver.Instance.GetBus(ImageConversionService.BusName);
+			bus.Publish(executedMcAfeeWorkflowMessage);
+		}
 
 		private string WatermarkArguments(IImageResizeSettings settings, string outPutFilePath)
 		{
@@ -135,56 +199,5 @@ namespace Talifun.Commander.Command.Image
 			return commandArguments;
 		}
 
-		public bool Run(IImageResizeSettings settings, IDictionary<string, string> appSettings, FileInfo inputFilePath, DirectoryInfo outputDirectoryPath, out FileInfo outPutFilePath, out string output)
-        {
-            var extension = "";
-            switch (settings.ResizeImageType)
-            {
-                case ResizeImageType.JPG:
-                    extension = ".jpg";
-                    break;
-                case ResizeImageType.PNG:
-                    extension = ".png";
-                    break;
-                case ResizeImageType.GIF:
-                    extension = ".gif";
-                    break;
-                default:
-                    extension = Path.GetExtension(inputFilePath.Name);
-                    break;
-            }
-
-            var fileName = Path.GetFileNameWithoutExtension(inputFilePath.Name) + extension;
-            outPutFilePath = new FileInfo(Path.Combine(outputDirectoryPath.FullName, fileName));
-
-            if (outPutFilePath.Exists)
-            {
-                outPutFilePath.Delete();
-            }
-
-			var workingDirectory = outputDirectoryPath.FullName;
-
-			var thumbnailArguments = ThumbnailArguments(settings, inputFilePath.FullName, outPutFilePath.FullName);
-            var convertPath = appSettings[ImageConversionConfiguration.Instance.ConvertPathSettingName];
-			var thumbnailOutput = string.Empty;
-			
-            var commandLineExecutor = new CommandLineExecutor();
-			var result = commandLineExecutor.Execute(workingDirectory, convertPath, thumbnailArguments, out thumbnailOutput);
-			output = thumbnailOutput;
-
-			if (result && !string.IsNullOrEmpty(settings.WatermarkPath))
-			{
-				var watermarkArguments = WatermarkArguments(settings, outPutFilePath.FullName);
-				var compositePath = appSettings[ImageConversionConfiguration.Instance.CompositePathSettingName];
-				var watermarkOutput = string.Empty;
-
-				result = commandLineExecutor.Execute(workingDirectory, compositePath, watermarkArguments, out watermarkOutput);
-				output += Environment.NewLine + watermarkOutput;
-			}
-
-			return result;
-        }
-
-        #endregion
-    }
+	}
 }

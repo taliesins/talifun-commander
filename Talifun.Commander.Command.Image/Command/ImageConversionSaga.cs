@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
-using Talifun.Commander.Command.Audio.Command.AudioFormats;
-using Talifun.Commander.Command.Audio.Command.Events;
-using Talifun.Commander.Command.Audio.Command.Request;
-using Talifun.Commander.Command.Audio.Command.Response;
-using Talifun.Commander.Command.Audio.Configuration;
-using Talifun.Commander.Command.Audio.Properties;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.Image.Command.Events;
+using Talifun.Commander.Command.Image.Command.ImageSettings;
+using Talifun.Commander.Command.Image.Command.Request;
+using Talifun.Commander.Command.Image.Command.Response;
+using Talifun.Commander.Command.Image.Configuration;
 using log4net;
 
-namespace Talifun.Commander.Command.Audio.Command
+namespace Talifun.Commander.Command.Image.Command
 {
 	[Serializable]
-	public class AudioConversionSaga: SagaStateMachine<AudioConversionSaga>, ISaga
+	public class ImageConversionSaga: SagaStateMachine<ImageConversionSaga>, ISaga
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(AudioConversionSaga));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(ImageConversionSaga));
 
-		static AudioConversionSaga()
+		static ImageConversionSaga()
 		{
 			Define(() =>
 			{
 				Initially(
-					When(AntiVirusRequestEvent)
+					When(ImageConversionRequestEvent)
 						.Then((saga, message) =>
 						{
 							saga.RequestorCorrelationId = message.RequestorCorrelationId;
@@ -35,7 +34,7 @@ namespace Talifun.Commander.Command.Audio.Command
 
 							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionStartedMessage
+						.Publish((saga, message) => new ImageConversionStartedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
@@ -44,7 +43,7 @@ namespace Talifun.Commander.Command.Audio.Command
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
-							Prefix = AudioConversionConfiguration.Instance.ConversionType,
+							Prefix = ImageConversionConfiguration.Instance.ConversionType,
 							InputFilePath = saga.InputFilePath,
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
@@ -62,15 +61,15 @@ namespace Talifun.Commander.Command.Audio.Command
 						})
 						.Then((saga, message)=>
 						{
-						    var commandMessage = saga.GetAudioConversionWorkflowMessage();
+						    var commandMessage = saga.GetImageConversionWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
-						.TransitionTo(WaitingForExecuteAudioConversionWorkflow)
+						.TransitionTo(WaitingForExecuteImageConversionWorkflow)
 				);
 
 				During(
-					WaitingForExecuteAudioConversionWorkflow,
-					When(ExecutedAudioConversionWorkflow)
+					WaitingForExecuteImageConversionWorkflow,
+					When(ExecutedImageConversionWorkflow)
 						.Then((saga, message)=>
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
@@ -143,13 +142,13 @@ namespace Talifun.Commander.Command.Audio.Command
 							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
 							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionCompletedMessage
+						.Publish((saga, message) => new ImageConversionCompletedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new AudioConversionResponseMessage
+						.Publish((saga, message) => new ImageConversionResponseMessage
 						    {
 						      	CorrelationId = saga.RequestorCorrelationId,
 								ResponderCorrelationId = saga.CorrelationId
@@ -167,7 +166,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public static State Completed { get; set; }
 		// ReSharper restore UnusedMember.Global
 
-		public AudioConversionSaga(Guid correlationId)
+		public ImageConversionSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
@@ -176,7 +175,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual IServiceBus Bus { get; set; }
 		public virtual Guid RequestorCorrelationId { get; set; }
 		public virtual IDictionary<string, string> AppSettings { get; set; }
-		public virtual AudioConversionElement Configuration { get; set; }
+		public virtual ImageConversionElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
@@ -184,7 +183,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
-		public static Event<AudioConversionRequestMessage> AntiVirusRequestEvent { get; set; }
+		public static Event<ImageConversionRequestMessage> ImageConversionRequestEvent { get; set; }
 		#endregion
 
 		#region Create Temp Directory
@@ -195,11 +194,11 @@ namespace Talifun.Commander.Command.Audio.Command
 
 		#region Run command
 
-		public static State WaitingForExecuteAudioConversionWorkflow { get; set; }
-		public static Event<IExecutedAudioConversionWorkflowMessage> ExecutedAudioConversionWorkflow { get; set; }
-		//public static Event<Fault<IExecuteAudioConversionWorkflowMessage, Guid>> ExecuteAudioConversionWorkflowFailed { get; set; }
+		public static State WaitingForExecuteImageConversionWorkflow { get; set; }
+		public static Event<IExecutedImageConversionWorkflowMessage> ExecutedImageConversionWorkflow { get; set; }
+		//public static Event<Fault<IExecuteImageConversionWorkflowMessage, Guid>> ExecuteImageConversionWorkflowFailed { get; set; }
 
-		private IExecuteAudioConversionWorkflowMessage GetAudioConversionWorkflowMessage()
+		private IExecuteImageConversionWorkflowMessage GetImageConversionWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
 			var commandMessage = GetCommandMessage(commandSettings);
@@ -212,27 +211,36 @@ namespace Talifun.Commander.Command.Audio.Command
 			return commandMessage;
 		}
 
-		private IAudioSettings GetCommandSettings(AudioConversionElement audioConversionSetting)
+		private IImageResizeSettings GetCommandSettings(ImageConversionElement imageConversion)
 		{
-			switch (audioConversionSetting.AudioConversionType)
+			var imageResizeSettings = new ImageResizeSettings
 			{
-				case AudioConversionType.NotSpecified:
-				case AudioConversionType.Mp3:
-					return new Mp3Settings(audioConversionSetting);
-				case AudioConversionType.Ac3:
-					return new Ac3Settings(audioConversionSetting);
-				case AudioConversionType.Aac:
-					return new AacSettings(audioConversionSetting);
-				case AudioConversionType.Vorbis:
-					return new VorbisSettings(audioConversionSetting);
-				default:
-					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
+				BackgroundColour = imageConversion.BackgroundColor,
+				Gravity = imageConversion.Gravity,
+				ResizeMode = imageConversion.ResizeMode,
+				ResizeImageType = imageConversion.ResizeImageType,
+				Quality = imageConversion.Quality,
+				WatermarkPath = imageConversion.WatermarkPath,
+				WatermarkDissolveLevels = imageConversion.WatermarkDissolveLevels,
+				WatermarkGravity = imageConversion.WatermarkGravity,
+			};
+
+			if (imageConversion.Height != 0)
+			{
+				imageResizeSettings.Height = imageConversion.Height;
 			}
+
+			if (imageConversion.Width != 0)
+			{
+				imageResizeSettings.Width = imageConversion.Width;
+			}
+
+			return imageResizeSettings;
 		}
 
-		private IExecuteAudioConversionWorkflowMessage GetCommandMessage(IAudioSettings audioSetting)
+		private IExecuteImageConversionWorkflowMessage GetCommandMessage(IImageResizeSettings commandLineSettings)
 		{
-			return new ExecuteAudioConversionWorkflowMessage();
+			return new ExecuteImageConversionWorkflowMessage();
 		}
 		#endregion
 

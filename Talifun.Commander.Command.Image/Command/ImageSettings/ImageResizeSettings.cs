@@ -1,4 +1,4 @@
-﻿namespace Talifun.Commander.Command.Image
+﻿namespace Talifun.Commander.Command.Image.Command.ImageSettings
 {
     public class ImageResizeSettings : IImageResizeSettings
     {

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Talifun.Commander.Command.Audio.Command.Request;
-using Talifun.Commander.Command.Audio.CommandTester.Request;
-using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.Image.Command.Request;
+using Talifun.Commander.Command.Image.CommandTester.Request;
+using Talifun.Commander.Command.Image.Configuration;
 
-namespace Talifun.Commander.Command.Audio
+namespace Talifun.Commander.Command.Image
 {
-	public class AudioConversionMessanger : ICommandMessenger
+	public class ImageConversionMessanger : ICommandMessenger
 	{
 		public ISettingConfiguration Settings
 		{
-			get { return AudioConversionConfiguration.Instance; }
+			get { return ImageConversionConfiguration.Instance; }
 		}
 
 		public object CreateCancelMessage(Guid correlationId, Guid requestorCorrelationId)
 		{
-			return new AudioConversionCancelMessage
+			return new ImageConversionCancelMessage
 			{
 				CorrelationId = correlationId,
 				ParentCorrelationId = requestorCorrelationId
@@ -26,9 +26,9 @@ namespace Talifun.Commander.Command.Audio
 
 		public object CreateRequestMessage(Guid correlationId, Guid requestorCorrelationId, IDictionary<string, string> appSettings, ProjectElement project, string workingFilePath, FileMatchElement fileMatch)
 		{
-			var configuration = project.GetElement<AudioConversionElement>(fileMatch, Settings.ElementCollectionSettingName);
+			var configuration = project.GetElement<ImageConversionElement>(fileMatch, Settings.ElementCollectionSettingName);
 
-			return new AudioConversionRequestMessage
+			return new ImageConversionRequestMessage
 			{
 				CorrelationId = correlationId,
 				RequestorCorrelationId = requestorCorrelationId,
@@ -41,8 +41,8 @@ namespace Talifun.Commander.Command.Audio
 
 		public object CreateTestConfigurationRequestMessage(Guid correlationId, Guid requestorCorrelationId, IDictionary<string, string> appSettings, ProjectElement project)
 		{
-			var configuration = project.GetElementCollection<AudioConversionElementCollection>(Settings.ElementCollectionSettingName);
-			return new AudioConversionConfigurationTestRequestMessage
+			var configuration = project.GetElementCollection<ImageConversionElementCollection>(Settings.ElementCollectionSettingName);
+			return new ImageConversionConfigurationTestRequestMessage
 			{
 				CorrelationId = correlationId,
 				RequestorCorrelationId = requestorCorrelationId,

@@ -3,7 +3,7 @@ using Talifun.Commander.Command.FileMatcher.Request;
 
 namespace Talifun.Commander.Command.Audio.Command.Request
 {
-	public class AntiVirusRequestMessage : PluginRequestMessageBase<AudioConversionElement>
+	public class AudioConversionRequestMessage : PluginRequestMessageBase<AudioConversionElement>
 	{
 	}
 }
