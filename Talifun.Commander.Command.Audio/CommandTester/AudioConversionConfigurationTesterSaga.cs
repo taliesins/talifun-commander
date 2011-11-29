@@ -66,104 +66,101 @@ namespace Talifun.Commander.Command.Audio.CommandTester
 			try
 			{
 				var audioConversionSettings = message.Configuration;
-
 				var audioConversionSettingsKeys = new Dictionary<string, FileMatchElement>();
-
-				if (audioConversionSettingsKeys.Count <= 0)
-				{
-					return;
-				}
-
-				var ffMpegPath = message.AppSettings[AudioConversionConfiguration.Instance.FFMpegPathSettingName];
-
-				if (string.IsNullOrEmpty(ffMpegPath))
-				{
-					throw new Exception(string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageAppSettingRequired, AudioConversionConfiguration.Instance.FFMpegPathSettingName));
-				}
-
-            
-				for (var i = 0; i < audioConversionSettings.Count; i++)
-				{
-					var audioConversionSetting = audioConversionSettings[i];
-
-            		var outPutPath = audioConversionSetting.GetOutPutPathOrDefault();
-
-					if (!Directory.Exists(outPutPath))
-					{
-                		throw new Exception(
-							string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
-										  message.ProjectName,
-                						  Settings.ElementCollectionSettingName,
-                						  Settings.ElementSettingName,
-                						  audioConversionSetting.Name,
-										  outPutPath));
-					}
-					else
-					{
-						(new DirectoryInfo(outPutPath)).TryCreateTestFile();
-					}
-
-            		var workingPath = audioConversionSetting.GetWorkingPathOrDefault();
-					if (!string.IsNullOrEmpty(workingPath))
-					{
-						if (!Directory.Exists(workingPath))
-						{
-                    		throw new Exception(
-								string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
-                    						  message.ProjectName,
-                    						  Settings.ElementCollectionSettingName,
-                    						  Settings.ElementSettingName,
-                    						  audioConversionSetting.Name,
-											  workingPath));
-						}
-						else
-						{
-							(new DirectoryInfo(workingPath)).TryCreateTestFile();
-						}
-					}
-					else
-					{
-						(new DirectoryInfo(Path.GetTempPath())).TryCreateTestFile();
-					}
-
-            		var errorProcessingPath = audioConversionSetting.GetErrorProcessingPathOrDefault();
-					if (!string.IsNullOrEmpty(errorProcessingPath))
-					{
-						if (!Directory.Exists(errorProcessingPath))
-						{
-                    		throw new Exception(
-								string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
-                    						  message.ProjectName,
-                    						  Settings.ElementCollectionSettingName,
-                    						  Settings.ElementSettingName,
-                    						  audioConversionSetting.Name,
-											  errorProcessingPath));
-						}
-						else
-						{
-							(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
-						}
-					}
-
-					audioConversionSettingsKeys.Remove(audioConversionSetting.Name);
-				}
 
 				if (audioConversionSettingsKeys.Count > 0)
 				{
-					FileMatchElement fileMatch = null;
-					foreach (var value in audioConversionSettingsKeys.Values)
+					var ffMpegPath = message.AppSettings[AudioConversionConfiguration.Instance.FFMpegPathSettingName];
+
+					if (string.IsNullOrEmpty(ffMpegPath))
 					{
-						fileMatch = value;
-						break;
+						throw new Exception(string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageAppSettingRequired,
+						                                  AudioConversionConfiguration.Instance.FFMpegPathSettingName));
 					}
 
-            		throw new Exception(
-            			string.Format(
-							Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
-            				message.ProjectName, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
-				}
-        
 
+					for (var i = 0; i < audioConversionSettings.Count; i++)
+					{
+						var audioConversionSetting = audioConversionSettings[i];
+
+						var outPutPath = audioConversionSetting.GetOutPutPathOrDefault();
+
+						if (!Directory.Exists(outPutPath))
+						{
+							throw new Exception(
+								string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandOutPutPathDoesNotExist,
+								              message.ProjectName,
+								              Settings.ElementCollectionSettingName,
+								              Settings.ElementSettingName,
+								              audioConversionSetting.Name,
+								              outPutPath));
+						}
+						else
+						{
+							(new DirectoryInfo(outPutPath)).TryCreateTestFile();
+						}
+
+						var workingPath = audioConversionSetting.GetWorkingPathOrDefault();
+						if (!string.IsNullOrEmpty(workingPath))
+						{
+							if (!Directory.Exists(workingPath))
+							{
+								throw new Exception(
+									string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandWorkingPathDoesNotExist,
+									              message.ProjectName,
+									              Settings.ElementCollectionSettingName,
+									              Settings.ElementSettingName,
+									              audioConversionSetting.Name,
+									              workingPath));
+							}
+							else
+							{
+								(new DirectoryInfo(workingPath)).TryCreateTestFile();
+							}
+						}
+						else
+						{
+							(new DirectoryInfo(Path.GetTempPath())).TryCreateTestFile();
+						}
+
+						var errorProcessingPath = audioConversionSetting.GetErrorProcessingPathOrDefault();
+						if (!string.IsNullOrEmpty(errorProcessingPath))
+						{
+							if (!Directory.Exists(errorProcessingPath))
+							{
+								throw new Exception(
+									string.Format(Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandErrorProcessingPathDoesNotExist,
+									              message.ProjectName,
+									              Settings.ElementCollectionSettingName,
+									              Settings.ElementSettingName,
+									              audioConversionSetting.Name,
+									              errorProcessingPath));
+							}
+							else
+							{
+								(new DirectoryInfo(errorProcessingPath)).TryCreateTestFile();
+							}
+						}
+
+						audioConversionSettingsKeys.Remove(audioConversionSetting.Name);
+					}
+
+					if (audioConversionSettingsKeys.Count > 0)
+					{
+						FileMatchElement fileMatch = null;
+						foreach (var value in audioConversionSettingsKeys.Values)
+						{
+							fileMatch = value;
+							break;
+						}
+
+						throw new Exception(
+							string.Format(
+								Talifun.Commander.Command.Properties.Resource.ErrorMessageCommandConversionSettingKeyPointsToNonExistantCommand,
+								message.ProjectName, fileMatch.Name, Settings.ElementSettingName, fileMatch.CommandSettingsKey));
+					}
+
+				}
 			}
 			catch (Exception exception)
 			{
