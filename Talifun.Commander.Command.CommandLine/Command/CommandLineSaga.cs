@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using Magnum.StateMachine;
 using MassTransit;
 using MassTransit.Saga;
-using Talifun.Commander.Command.Audio.Command.AudioFormats;
-using Talifun.Commander.Command.Audio.Command.Events;
-using Talifun.Commander.Command.Audio.Command.Request;
-using Talifun.Commander.Command.Audio.Command.Response;
-using Talifun.Commander.Command.Audio.Configuration;
-using Talifun.Commander.Command.Audio.Properties;
+using Talifun.Commander.Command.CommandLine.Command.Arguments;
+using Talifun.Commander.Command.CommandLine.Command.Events;
+using Talifun.Commander.Command.CommandLine.Command.Request;
+using Talifun.Commander.Command.CommandLine.Command.Response;
+using Talifun.Commander.Command.CommandLine.Configuration;
 using Talifun.Commander.Command.Configuration;
 using log4net;
 
-namespace Talifun.Commander.Command.Audio.Command
+namespace Talifun.Commander.Command.CommandLine.Command
 {
 	[Serializable]
-	public class AudioConversionSaga: SagaStateMachine<AudioConversionSaga>, ISaga
+	public class CommandLineSaga: SagaStateMachine<CommandLineSaga>, ISaga
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(AudioConversionSaga));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(CommandLineSaga));
 
-		static AudioConversionSaga()
+		static CommandLineSaga()
 		{
 			Define(() =>
 			{
 				Initially(
-					When(AntiVirusRequestEvent)
+					When(CommandLineRequestEvent)
 						.Then((saga, message) =>
 						{
 							saga.RequestorCorrelationId = message.RequestorCorrelationId;
@@ -35,7 +34,7 @@ namespace Talifun.Commander.Command.Audio.Command
 
 							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionStartedMessage
+						.Publish((saga, message) => new CommandLineStartedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
@@ -44,7 +43,7 @@ namespace Talifun.Commander.Command.Audio.Command
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
-							Prefix = AudioConversionConfiguration.Instance.ConversionType,
+							Prefix = CommandLineConfiguration.Instance.ConversionType,
 							InputFilePath = saga.InputFilePath,
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
@@ -62,15 +61,15 @@ namespace Talifun.Commander.Command.Audio.Command
 						})
 						.Then((saga, message)=>
 						{
-						    var commandMessage = saga.GetAudioConversionWorkflowMessage();
+							var commandMessage = saga.GetCommandLineWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
-						.TransitionTo(WaitingForExecuteAudioConversionWorkflow)
+						.TransitionTo(WaitingForExecuteCommandLineWorkflow)
 				);
 
 				During(
-					WaitingForExecuteAudioConversionWorkflow,
-					When(ExecutedAudioConversionWorkflow)
+					WaitingForExecuteCommandLineWorkflow,
+					When(ExecutedCommandLineWorkflow)
 						.Then((saga, message)=>
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
@@ -78,7 +77,7 @@ namespace Talifun.Commander.Command.Audio.Command
 
 							if (message.EncodeSuccessful)
 							{
-								Log.InfoFormat("Processed audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								Log.InfoFormat("Processed command line workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 
 								var moveProcessedFileIntoOutputDirectoryMessage = new MoveProcessedFileIntoOutputDirectoryMessage()
 								{
@@ -91,7 +90,7 @@ namespace Talifun.Commander.Command.Audio.Command
 							}
 							else
 							{
-								Log.WarnFormat("Error processing audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								Log.WarnFormat("Error processing command line workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 
 								var moveProcessedFileIntoErrorDirectoryMessage = new MoveProcessedFileIntoErrorDirectoryMessage()
 								{
@@ -143,13 +142,13 @@ namespace Talifun.Commander.Command.Audio.Command
 							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
 							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
 						})
-						.Publish((saga, message) => new AudioConversionCompletedMessage
+						.Publish((saga, message) => new CommandLineCompletedMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new AudioConversionResponseMessage
+						.Publish((saga, message) => new CommandLineResponseMessage
 						    {
 						      	CorrelationId = saga.RequestorCorrelationId,
 								ResponderCorrelationId = saga.CorrelationId
@@ -167,7 +166,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public static State Completed { get; set; }
 		// ReSharper restore UnusedMember.Global
 
-		public AudioConversionSaga(Guid correlationId)
+		public CommandLineSaga(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
@@ -176,7 +175,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual IServiceBus Bus { get; set; }
 		public virtual Guid RequestorCorrelationId { get; set; }
 		public virtual IDictionary<string, string> AppSettings { get; set; }
-		public virtual AudioConversionElement Configuration { get; set; }
+		public virtual CommandLineElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
@@ -184,7 +183,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
-		public static Event<AntiVirusRequestMessage> AntiVirusRequestEvent { get; set; }
+		public static Event<CommandLineRequestMessage> CommandLineRequestEvent { get; set; }
 		#endregion
 
 		#region Create Temp Directory
@@ -195,11 +194,11 @@ namespace Talifun.Commander.Command.Audio.Command
 
 		#region Run command
 
-		public static State WaitingForExecuteAudioConversionWorkflow { get; set; }
-		public static Event<IExecutedAudioConversionWorkflowMessage> ExecutedAudioConversionWorkflow { get; set; }
-		//public static Event<Fault<IExecuteAudioConversionWorkflowMessage, Guid>> ExecuteAudioConversionWorkflowFailed { get; set; }
+		public static State WaitingForExecuteCommandLineWorkflow { get; set; }
+		public static Event<IExecutedCommandLineWorkflowMessage> ExecutedCommandLineWorkflow { get; set; }
+		//public static Event<Fault<IExecuteCommandLineWorkflowMessage, Guid>> ExecuteCommandLineWorkflowFailed { get; set; }
 
-		private IExecuteAudioConversionWorkflowMessage GetAudioConversionWorkflowMessage()
+		private IExecuteCommandLineWorkflowMessage GetCommandLineWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
 			var commandMessage = GetCommandMessage(commandSettings);
@@ -212,27 +211,27 @@ namespace Talifun.Commander.Command.Audio.Command
 			return commandMessage;
 		}
 
-		private IAudioSettings GetCommandSettings(AudioConversionElement audioConversionSetting)
+		private ICommandLineParameters GetCommandSettings(CommandLineElement commandLine)
 		{
-			switch (audioConversionSetting.AudioConversionType)
+			var args = commandLine.Args
+				.Replace("{%Name%}", commandLine.Name)
+				.Replace("{%OutPutPath%}", commandLine.GetOutPutPathOrDefault())
+				.Replace("{%WorkingPath%}", commandLine.GetWorkingPathOrDefault())
+				.Replace("{%ErrorProcessingPath%}", commandLine.GetErrorProcessingPathOrDefault())
+				.Replace("{%FileNameFormat%}", commandLine.FileNameFormat)
+				.Replace("{%CommandPath%}", commandLine.CommandPath);
+
+			var commandLineSettings = new CommandLineParameters
 			{
-				case AudioConversionType.NotSpecified:
-				case AudioConversionType.Mp3:
-					return new Mp3Settings(audioConversionSetting);
-				case AudioConversionType.Ac3:
-					return new Ac3Settings(audioConversionSetting);
-				case AudioConversionType.Aac:
-					return new AacSettings(audioConversionSetting);
-				case AudioConversionType.Vorbis:
-					return new VorbisSettings(audioConversionSetting);
-				default:
-					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
-			}
+				CommandArguments = args,
+				CommandPath = commandLine.CommandPath
+			};
+			return commandLineSettings;
 		}
 
-		private IExecuteAudioConversionWorkflowMessage GetCommandMessage(IAudioSettings audioSetting)
+		private IExecuteCommandLineWorkflowMessage GetCommandMessage(ICommandLineParameters commandLineParameters)
 		{
-			return new ExecuteAudioConversionWorkflowMessage();
+			return new ExecuteCommandLineWorkflowMessage();
 		}
 		#endregion
 

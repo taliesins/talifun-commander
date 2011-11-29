@@ -24,9 +24,8 @@ namespace Talifun.Commander.Command.Configuration
 			if (namedConfigurationElement is FolderElement)
 			{
 				var projectElementForFolderElement = commanderSettings.Projects
-					.Cast<ProjectElement>()
-					.Where(x => x.Folders.Cast<FolderElement>()
-						.Where(y => y == namedConfigurationElement)
+					.Where(x => x.Folders
+						.Where(y => y.Name == namedConfigurationElement.Name)
 						.Any()
 					)
 					.First();
@@ -35,10 +34,9 @@ namespace Talifun.Commander.Command.Configuration
 			}
 
 			var projectElementForPlugin = commanderSettings.Projects
-				.Cast<ProjectElement>()
 				.Where(x => x.CommandPlugins
 					.SelectMany(y => y.Cast<NamedConfigurationElement>())					
-					.Where(z => z == namedConfigurationElement)
+					.Where(z => z.Name == namedConfigurationElement.Name)
 					.Any()
 				)
 				.First();
@@ -79,7 +77,5 @@ namespace Talifun.Commander.Command.Configuration
 		{
 			return GetValue("completedPath", namedConfigurationElement);
 		}
-
-	
 	}
 }

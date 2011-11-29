@@ -1,4 +1,4 @@
-﻿namespace Talifun.Commander.Command.CommandLine
+﻿namespace Talifun.Commander.Command.CommandLine.Command.Arguments
 {
     public class CommandLineParameters : ICommandLineParameters
     {

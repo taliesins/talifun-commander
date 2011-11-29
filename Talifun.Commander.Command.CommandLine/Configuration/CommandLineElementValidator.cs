@@ -18,7 +18,7 @@ namespace Talifun.Commander.Command.CommandLine.Configuration
 						.Where(y=>y.Name == name)
 						.Count() > 1)
 					.Any())
-				.WithLocalizedMessage(() => Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
+				.WithLocalizedMessage(() =>Talifun.Commander.Command.Properties.Resource.ValidatorMessageProjectElementNameHasAlreadyBeenUsed);
 
 		}
 	}

@@ -1,0 +1,17 @@
+﻿using MassTransit;
+using Talifun.Commander.Command.CommandLine.Command.Request;
+using Talifun.Commander.Command.CommandLine.Command.Response;
+using Talifun.Commander.Command.Esb;
+using Talifun.Commander.Command.Plugins;
+
+namespace Talifun.Commander.Command.CommandLine.Command
+{
+	public class MoveProcessedFileIntoErrorDirectoryMessageHandler : MoveProcessedFileIntoErrorDirectoryMessageHandlerBase<MoveProcessedFileIntoErrorDirectoryMessage, MovedProcessedFileIntoErrorDirectoryMessage>
+	{
+		protected override void PublishMessage(MovedProcessedFileIntoErrorDirectoryMessage message)
+		{
+			var bus = BusDriver.Instance.GetBus(CommandLineService.BusName);
+			bus.Publish(message);
+		}
+	}
+}

@@ -218,6 +218,10 @@
       <Project>{A2A1A16E-0821-4618-AAE4-02D2EC477101}</Project>
       <Name>Talifun.Commander.Command.Audio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
+      <Project>{3DF20FF4-076A-492C-8DF4-6C606DDE7419}</Project>
+      <Name>Talifun.Commander.Command.CommandLine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
       <Name>Talifun.Commander.Command</Name>
