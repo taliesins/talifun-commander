@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Talifun.Commander.Command.VideoThumbNailer")]
+[assembly: AssemblyTitle("Talifun.Commander.Command.VideoThumbnailer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Talifun.Commander.Command.VideoThumbNailer")]
+[assembly: AssemblyProduct("Talifun.Commander.Command.VideoThumbnailer")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -226,6 +226,10 @@
       <Project>{CFFF52F1-1870-4E7D-B951-800537243A97}</Project>
       <Name>Talifun.Commander.Command.Image</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj">
+      <Project>{261A8736-8B04-4584-B61E-7002D037100F}</Project>
+      <Name>Talifun.Commander.Command.VideoThumbnailer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
       <Project>{A0AACC6C-F046-4057-9CAA-A313512C4E05}</Project>
       <Name>Talifun.Commander.Command.Video</Name>

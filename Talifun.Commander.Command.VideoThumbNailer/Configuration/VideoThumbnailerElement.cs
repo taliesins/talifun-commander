@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
     /// <summary>
     /// Represents a configuration element within a configuration file that configures options for custom string formatting providers.

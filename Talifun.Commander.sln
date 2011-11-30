@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Video", "Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj", "{A0AACC6C-F046-4057-9CAA-A313512C4E05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.VideoThumbNailer", "Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbNailer.csproj", "{261A8736-8B04-4584-B61E-7002D037100F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.VideoThumbnailer", "Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj", "{261A8736-8B04-4584-B61E-7002D037100F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.CommandLine", "Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj", "{3DF20FF4-076A-492C-8DF4-6C606DDE7419}"
 EndProject

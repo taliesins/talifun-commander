@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
     /// <summary>
     /// Represents a configuration element containing a collection of <see cref="VideoThumbnailerElement" /> configuration elements.

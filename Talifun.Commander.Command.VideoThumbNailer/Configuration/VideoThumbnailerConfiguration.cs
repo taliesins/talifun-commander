@@ -2,7 +2,7 @@
 using System.Windows.Media.Imaging;
 using Talifun.Commander.UI;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
     public class VideoThumbnailerConfiguration : ISettingConfiguration
     {

@@ -1,4 +1,4 @@
-﻿<Configuration:ElementCollectionPanelBase x:Class="Talifun.Commander.Command.VideoThumbNailer.Configuration.VideoThumbnailerElementCollectionPanel"
+﻿<Configuration:ElementCollectionPanelBase x:Class="Talifun.Commander.Command.VideoThumbnailer.Configuration.VideoThumbnailerElementCollectionPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

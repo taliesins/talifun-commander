@@ -96,22 +96,22 @@
     </Compile>
     <Compile Include="Configuration\YouTubeUploaderElementPanelDataModel.cs" />
     <Compile Include="Configuration\YouTubeUploaderElementValidator.cs" />
-    <Compile Include="Configuration\YouTubeUploaderTester.cs" />
-    <Compile Include="IAuthenticationSettings.cs" />
-    <Compile Include="IUploadSettings.cs" />
-    <Compile Include="IYouTubeUploaderSettings.cs" />
+    <Compile Include="CommandTester\YouTubeUploaderTester.cs" />
+    <Compile Include="Command\IAuthenticationSettings.cs" />
+    <Compile Include="Command\IUploadSettings.cs" />
+    <Compile Include="Command\IYouTubeUploaderSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="UploadCompletedEventArgs.cs" />
-    <Compile Include="UploadSettings.cs" />
-    <Compile Include="AuthenticationSettings.cs" />
-    <Compile Include="YouTubeUploaderCommand.cs" />
-    <Compile Include="OldYouTubeUploaderSaga.cs" />
-    <Compile Include="YouTubeUploaderSettings.cs" />
+    <Compile Include="Command\UploadCompletedEventArgs.cs" />
+    <Compile Include="Command\UploadSettings.cs" />
+    <Compile Include="Command\AuthenticationSettings.cs" />
+    <Compile Include="Command\YouTubeUploaderCommand.cs" />
+    <Compile Include="Command\OldYouTubeUploaderSaga.cs" />
+    <Compile Include="Command\YouTubeUploaderSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">

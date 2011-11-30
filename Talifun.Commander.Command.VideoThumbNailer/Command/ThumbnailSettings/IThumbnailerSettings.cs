@@ -1,7 +1,6 @@
 using System;
-using Talifun.Commander.Command.VideoThumbNailer;
 
-namespace Talifun.Commander.Command.VideoThumbnailer
+namespace Talifun.Commander.Command.VideoThumbnailer.Command.ThumbnailSettings
 {
 	public interface IThumbnailerSettings
 	{

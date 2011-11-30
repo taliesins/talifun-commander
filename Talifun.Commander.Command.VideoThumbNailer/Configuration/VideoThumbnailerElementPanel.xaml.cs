@@ -1,6 +1,6 @@
 ﻿using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
     /// <summary>
     /// Interaction logic for VideoThumbnailerElementPanel.xaml

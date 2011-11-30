@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Talifun.Commander.Executor.FFMpeg;
 
-namespace Talifun.Commander.Command.VideoThumbNailer
+namespace Talifun.Commander.Command.VideoThumbnailer.Command
 {
     public class VideoInfo
     {

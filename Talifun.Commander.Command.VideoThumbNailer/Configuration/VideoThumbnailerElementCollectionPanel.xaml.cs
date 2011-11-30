@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.UI;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
 	/// <summary>
 	/// Interaction logic for VideoThumbnailerElementCollectionPanel.xaml

@@ -1,7 +1,7 @@
 ﻿using Talifun.Commander.Command.Properties;
 using Talifun.Commander.UI;
 
-namespace Talifun.Commander.Command.VideoThumbNailer
+namespace Talifun.Commander.Command.VideoThumbnailer
 {
     public enum ImageType
     {

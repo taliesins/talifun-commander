@@ -3,7 +3,7 @@ using System.Linq;
 using FluentValidation.Results;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.VideoThumbNailer.Configuration
+namespace Talifun.Commander.Command.VideoThumbnailer.Configuration
 {
 	public partial class VideoThumbnailerElement : IDataErrorInfo
 	{
