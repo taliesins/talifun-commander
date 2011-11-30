@@ -32,7 +32,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 							saga.FileMatch = message.FileMatch;
 							saga.InputFilePath = message.InputFilePath;
 
-							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							}
 						})
 						.Publish((saga, message) => new VideoThumbnailerStartedMessage
 						{
@@ -57,7 +60,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 						{
 							saga.WorkingDirectoryPath = message.WorkingDirectoryPath;
 
-							Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
+							}
 						})
 						.Then((saga, message)=>
 						{
@@ -77,7 +83,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 
 							if (message.ThumbnailCreationSuccessful)
 							{
-								Log.InfoFormat("Processed video thumbnailer workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								if (Log.IsInfoEnabled)
+								{
+									Log.InfoFormat("Processed video thumbnailer workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								}
 
 								var moveProcessedFileIntoOutputDirectoryMessage = new MoveProcessedFileIntoOutputDirectoryMessage()
 								{
@@ -90,7 +99,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 							}
 							else
 							{
-								Log.WarnFormat("Error processing video thumbnailer conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+								if (Log.IsInfoEnabled)
+								{
+									Log.WarnFormat("Error processing video thumbnailer conversion workflow ({0}) - {1}", saga.CorrelationId,
+									               saga.OutPut);
+								}
 
 								var moveProcessedFileIntoErrorDirectoryMessage = new MoveProcessedFileIntoErrorDirectoryMessage()
 								{
@@ -109,7 +122,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 					When(MovedProcessedFileIntoOutputDirectory)
 						.Then((saga, message)=>
 						{
-							Log.InfoFormat("Moved processed file to output directory  ({0}) - {1}", saga.CorrelationId, message.OutputFilePath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Moved processed file to output directory  ({0}) - {1}", saga.CorrelationId,
+								               message.OutputFilePath);
+							}
 						})
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
@@ -124,7 +141,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 					When(MovedProcessedFileIntoErrorDirectory)
 						.Then((saga, message) =>
 						{
-							Log.InfoFormat("Moved errored file to error directory ({0}) - {1}", saga.CorrelationId, message.OutputFilePath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Moved errored file to error directory ({0}) - {1}", saga.CorrelationId, message.OutputFilePath);
+							}
 						})
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
@@ -139,8 +159,11 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 					When(DeletedTempDirectory)
 						.Then((saga, message)=>
 						{
-							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
-							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
+								Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							}
 						})
 						.Publish((saga, message) => new VideoThumbnailerCompletedMessage
 						{

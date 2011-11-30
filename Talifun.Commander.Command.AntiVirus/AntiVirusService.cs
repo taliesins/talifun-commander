@@ -16,10 +16,10 @@ namespace Talifun.Commander.Command.AntiVirus
 		{
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
-			    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
-				subscriber.Consumer<ExecuteMcAfeeWorkflowMessageHandler>();
-				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>();
-				subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
+				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteMcAfeeWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<DeleteTempDirectoryMessageHandler>().Permanent();
 			});
 		}
 	}

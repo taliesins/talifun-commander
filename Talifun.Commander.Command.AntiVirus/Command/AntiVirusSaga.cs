@@ -32,7 +32,10 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 							saga.FileMatch = message.FileMatch;
 							saga.InputFilePath = message.InputFilePath;
 
-							Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							}
 						})
 						.Publish((saga, message) => new AntiVirusStartedMessage
 						{
@@ -57,7 +60,10 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 							saga.WorkingDirectoryPath = message.WorkingDirectoryPath;
 
-							Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
+							}
 						})
 						.Then((saga, message)=>
 						{
@@ -74,7 +80,10 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						{
 						    saga.OutPutFilePath = message.OutPutFilePath;
 
-							Log.InfoFormat("Processed antivirus workflow ({0}) - {1}", saga.CorrelationId, saga.OutPutFilePath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Processed antivirus workflow ({0}) - {1}", saga.CorrelationId, saga.OutPutFilePath);
+							}
 						})
 						.Publish((saga, message) => new MoveProcessedFileIntoOutputDirectoryMessage()
 						{
@@ -90,7 +99,11 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(MovedProcessedFileIntoOutputDirectory)
 						.Then((saga, message) =>
 						{
-							Log.InfoFormat("Moved processed file to output directory  ({0}) - {1}", saga.CorrelationId, message.OutputFilePath);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Moved processed file to output directory  ({0}) - {1}", saga.CorrelationId,
+								               message.OutputFilePath);
+							}
 						})
 						.Publish((saga, message) => new DeleteTempDirectoryMessage
 						{
@@ -105,8 +118,11 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 					When(DeletedTempDirectory)
 						.Then((saga, message) =>
 						{
-							Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
-							Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Deleted Temp Directory ({0}) - {1} ", saga.CorrelationId, saga.WorkingDirectoryPath);
+								Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+							}
 						})
 						.Publish((saga, message) => new AntiVirusCompletedMessage
 						{

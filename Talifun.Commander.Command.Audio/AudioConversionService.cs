@@ -16,11 +16,11 @@ namespace Talifun.Commander.Command.Audio
 		{
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
-			    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
-				subscriber.Consumer<ExecuteAudioConversionWorkflowMessageHandler>();
-				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>();
-				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>();
-				subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
+				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteAudioConversionWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<DeleteTempDirectoryMessageHandler>().Permanent();
 			});
 		}
 	}

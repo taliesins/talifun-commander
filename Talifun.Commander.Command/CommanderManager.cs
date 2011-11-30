@@ -46,11 +46,9 @@ namespace Talifun.Commander.Command
 			return new CommanderSectionWindow(_container, _appSettings, _commanderSettings);
 		}
 
-		public void Start()
-        {
-            if (IsRunning || _startOrStopSignalled) return;
-			_startOrStopSignalled = true;
-        	_commanderService.Start();
+		private void TheStartup(object o)
+		{
+			_commanderService.Start();
 
 			var bus = BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName);
 			bus.SubscribeHandler<TestedConfigurationMessage>((message) =>
@@ -71,9 +69,17 @@ namespace Talifun.Commander.Command
 
 			var testConfigurationMessage = new TestConfigurationMessage()
 			{
-			    CorrelationId = CombGuid.Generate()
+				CorrelationId = CombGuid.Generate()
 			};
-			bus.Publish(testConfigurationMessage);
+			bus.Publish(testConfigurationMessage);			
+		}
+
+		public void Start()
+        {
+            if (IsRunning || _startOrStopSignalled) return;
+			_startOrStopSignalled = true;
+
+			ThreadPool.QueueUserWorkItem(TheStartup);
         }
 
         public void Stop()

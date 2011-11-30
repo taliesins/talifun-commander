@@ -29,8 +29,8 @@ namespace Talifun.Commander.Command
 			BusDriver.Instance.AddBus(BusName, string.Format("loopback://localhost/{0}", BusName), x =>
 			{
 				x.Subscribe((subscriber)=> {
-					subscriber.Saga(_commandSagaRepository);
-					subscriber.Saga(_commandTesterSagaRepository);
+					subscriber.Saga(_commandSagaRepository).Permanent();
+					subscriber.Saga(_commandTesterSagaRepository).Permanent();
 				});
 				Configure(x);
 			});

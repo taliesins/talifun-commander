@@ -16,14 +16,14 @@ namespace Talifun.Commander.Command.Video
 		{
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
-			    subscriber.Consumer<CreateTempDirectoryMessageHandler>();
-				subscriber.Consumer<ExecuteFlvConversionWorkflowMessageHandler>();
-				subscriber.Consumer<ExecuteMp4ConversionWorkflowMessageHandler>();
-				subscriber.Consumer<ExecuteOnePassConversionWorkflowMessageHandler>();
-				subscriber.Consumer<ExecuteTwoPassConversionWorkflowMessageHandler>();
-				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>();
-				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>();
-				subscriber.Consumer<DeleteTempDirectoryMessageHandler>();
+				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteFlvConversionWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteMp4ConversionWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteOnePassConversionWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<ExecuteTwoPassConversionWorkflowMessageHandler>().Permanent();
+				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<DeleteTempDirectoryMessageHandler>().Permanent();
 			});
 		}
 	}
