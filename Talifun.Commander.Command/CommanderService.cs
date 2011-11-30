@@ -35,6 +35,11 @@ namespace Talifun.Commander.Command
 					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>().Permanent();
 					subscriber.Consumer<MoveProcessedFileIntoCompletedDirectoryMessageHandler>().Permanent();
 					subscriber.Consumer<DeleteTempDirectoryMessageHandler>().Permanent();
+
+					foreach (var commandService in Container.GetExportedValues<ICommandService>())
+					{
+						commandService.ConfigureCommandServiceBus(x);
+					}
 				});
 			});
 

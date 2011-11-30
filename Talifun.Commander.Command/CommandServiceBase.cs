@@ -16,7 +16,17 @@ namespace Talifun.Commander.Command
 
 		public static string BusName
 		{
-			get { return Settings.ElementSettingName; }
+			get { return CommanderService.CommandManagerBusName; }
+		}
+
+		public void ConfigureCommandServiceBus(ServiceBusConfigurator serviceBusConfigurator)
+		{
+			serviceBusConfigurator.Subscribe((subscriber) =>
+			{
+				subscriber.Saga(_commandSagaRepository).Permanent();
+				subscriber.Saga(_commandTesterSagaRepository).Permanent();
+			});
+			Configure(serviceBusConfigurator);
 		}
 
 		public abstract void Configure(ServiceBusConfigurator serviceBusConfigurator);
@@ -25,20 +35,11 @@ namespace Talifun.Commander.Command
 		{
 			_commandSagaRepository = SetupSagaRepository<TCommandSaga>();
 			_commandTesterSagaRepository = SetupSagaRepository<TCommandTesterSaga>();
-
-			BusDriver.Instance.AddBus(BusName, string.Format("loopback://localhost/{0}", BusName), x =>
-			{
-				x.Subscribe((subscriber)=> {
-					subscriber.Saga(_commandSagaRepository).Permanent();
-					subscriber.Saga(_commandTesterSagaRepository).Permanent();
-				});
-				Configure(x);
-			});
 		}
 
 		public void Stop()
 		{
-			BusDriver.Instance.RemoveBus(BusName);
+			
 		}
 
 		protected static InMemorySagaRepository<TSaga> SetupSagaRepository<TSaga>() where TSaga : class, ISaga

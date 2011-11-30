@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using MassTransit.BusConfigurators;
 
 namespace Talifun.Commander.Command
 {
@@ -6,6 +7,7 @@ namespace Talifun.Commander.Command
 	public interface ICommandService
 	{
 		void Start();
+		void ConfigureCommandServiceBus(ServiceBusConfigurator serviceBusConfigurator);
 		void Stop();
 	}
 }
