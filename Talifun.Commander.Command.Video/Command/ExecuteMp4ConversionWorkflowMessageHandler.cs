@@ -9,12 +9,10 @@ using Talifun.Commander.Command.Video.Command.Response;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
 using Talifun.Commander.Command.Video.Command.Watermark;
 using Talifun.Commander.Command.Video.Configuration;
-using Talifun.Commander.Executor.CommandLine;
-using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video.Command
 {
-	public class ExecuteMp4ConversionWorkflowMessageHandler : Consumes<ExecuteMp4ConversionWorkflowMessage>.All
+	public class ExecuteMp4ConversionWorkflowMessageHandler : ExecuteVideoConversionWorkflowMessageHandlerBase, Consumes<ExecuteMp4ConversionWorkflowMessage>.All
 	{
 		public void Consume(ExecuteMp4ConversionWorkflowMessage message)
 		{
@@ -44,13 +42,13 @@ namespace Talifun.Commander.Command.Video.Command
 			var firstPassOutput = string.Empty;
 			var secondPassOutput = string.Empty;
 
-			var ffmpegHelper = new FfMpegCommandLineExecutor();
-			var result = ffmpegHelper.Execute(message.WorkingDirectoryPath, fFMpegCommandPath, firstPassCommandArguments, out firstPassOutput);
+			var result = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, fFMpegCommandPath, firstPassCommandArguments, out firstPassOutput);
+			
 			output += firstPassOutput;
 
 			if (result)
 			{
-				result = ffmpegHelper.Execute(message.WorkingDirectoryPath, fFMpegCommandPath, secondPassCommandArguments, out secondPassOutput);
+				result = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, fFMpegCommandPath, secondPassCommandArguments, out secondPassOutput);
 				output += Environment.NewLine + secondPassOutput;
 			}
 
@@ -70,8 +68,7 @@ namespace Talifun.Commander.Command.Video.Command
 				var qtFastStartCommandPath = message.AppSettings[VideoConversionConfiguration.Instance.QtFastStartPathSettingName];
 				var qtFastStartOutput = string.Empty;
 
-				var commandLineExecutor = new CommandLineExecutor();
-				result = commandLineExecutor.Execute(message.WorkingDirectoryPath, qtFastStartCommandPath, qtFastStartCommandArguments, out qtFastStartOutput);
+				result = ExecuteCommandLineExecutor(message, message.WorkingDirectoryPath, qtFastStartCommandPath, qtFastStartCommandArguments, out qtFastStartOutput);
 				output += Environment.NewLine + qtFastStartOutput;
 			}
 

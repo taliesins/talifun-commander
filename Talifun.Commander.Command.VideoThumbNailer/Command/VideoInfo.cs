@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.VideoThumbnailer.Command
@@ -26,12 +27,15 @@ namespace Talifun.Commander.Command.VideoThumbnailer.Command
 
         public static VideoInfo GetVideoInfo(string commandPath, FileInfo videoFilePath, out string output)
         {
+			var cancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = cancellationTokenSource.Token;
+
             var helper = new FfMpegCommandLineExecutor();
             var args = string.Format(@"-i ""{0}""", videoFilePath.FullName);
             
             var workingDirectory = videoFilePath.DirectoryName;
-   
-            if (!helper.Execute(workingDirectory, commandPath, args, out output))
+
+			if (!helper.Execute(cancellationToken, workingDirectory, commandPath, args, out output))
             {
                 return null;
             }

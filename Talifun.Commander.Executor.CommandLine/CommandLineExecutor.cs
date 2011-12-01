@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using NLog;
+using Talifun.Commander.Command;
 
 namespace Talifun.Commander.Executor.CommandLine
 {
@@ -15,7 +17,7 @@ namespace Talifun.Commander.Executor.CommandLine
         protected DataReceivedEventHandler DataReceivedEventHandlerOutput;
         protected DataReceivedEventHandler DataReceivedEventHandlerError;
 
-        public bool Execute(string workingDirectory, string commandPath, string commandArguments, out string output)
+        public bool Execute(CancellationToken cancellationToken, string workingDirectory, string commandPath, string commandArguments, out string output)
         {
             UnableToExecuteCommand = false;
             Output = new StringBuilder();
@@ -42,12 +44,17 @@ namespace Talifun.Commander.Executor.CommandLine
 
 				_logger.Info(string.Format(Properties.Resource.InfoMessageCommandLineStarted, commandPath, commandArguments));
 
-                processCommand.Start();
-                processCommand.BeginOutputReadLine();
-                processCommand.BeginErrorReadLine();
-                processCommand.WaitForExit();
+				if (!cancellationToken.IsCancellationRequested)
+				{
+					cancellationToken.Register(() => processCommand.Kill());
+					processCommand.Start();
+					processCommand.BeginOutputReadLine();
+					processCommand.BeginErrorReadLine();
+					processCommand.WaitForExit();
+				}
+				cancellationToken.ThrowIfCancellationRequested();
 
-				_logger.Info(string.Format(Properties.Resource.InfoMessageCommandLineCompleted, commandPath, commandArguments));
+            	_logger.Info(string.Format(Properties.Resource.InfoMessageCommandLineCompleted, commandPath, commandArguments));
             }
             finally
             {

@@ -11,7 +11,7 @@ using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.VideoThumbNailer.Command
 {
-	public class ExecuteVideoThumbnailerWorkflowMessageHandler : Consumes<ExecuteVideoThumbnailerWorkflowMessage>.All
+	public class ExecuteVideoThumbnailerWorkflowMessageHandler : ExecuteVideoThumbnailerWorkflowMessageHandlerBase, Consumes<ExecuteVideoThumbnailerWorkflowMessage>.All
 	{
 		const string AllFixedOptions = @"-f image2 -vframes 1";
 
@@ -72,10 +72,10 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 				                                     message.Settings.Width, message.Settings.Height, position, AllFixedOptions,
 				                                     outPutFilePath.FullName);
 				var commandOutput = string.Empty;
-
 				var ffmpegHelper = new FfMpegCommandLineExecutor();
-				thumbnailCreationSuccessful = ffmpegHelper.Execute(message.WorkingDirectoryPath, commandPath, commandArguments, out commandOutput);
-
+				
+				thumbnailCreationSuccessful = ExecuteFfMpegCommandLineExecutor(message, ffmpegHelper, message.WorkingDirectoryPath, commandPath, commandArguments, out commandOutput);
+				
 				output += videoInfoOutput + Environment.NewLine + commandOutput;
 			}
 

@@ -7,7 +7,7 @@ namespace Talifun.Commander.Command
 	public interface ICommandService
 	{
 		void Start();
-		void ConfigureCommandServiceBus(ServiceBusConfigurator serviceBusConfigurator);
+		void Configure(ServiceBusConfigurator serviceBusConfigurator);
 		void Stop();
 	}
 }

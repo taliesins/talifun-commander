@@ -72,6 +72,7 @@
     <Compile Include="CommandTester\AntiVirusConfigurationTesterSaga.cs" />
     <Compile Include="Command\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="Command\DeleteTempDirectoryMessageHandler.cs" />
+    <Compile Include="Command\ExecuteAntiVirusWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\ExecuteMcAfeeWorkflowMessageHandler.cs" />
     <Compile Include="Command\MoveProcessedFileIntoOutputDirectoryMessageHandler.cs" />
     <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />

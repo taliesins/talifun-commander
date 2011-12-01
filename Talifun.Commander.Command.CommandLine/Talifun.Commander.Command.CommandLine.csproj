@@ -79,6 +79,7 @@
     <Compile Include="Command\Events\CommandLineCompletedMessage.cs" />
     <Compile Include="Command\Events\CommandLineProgressMessage.cs" />
     <Compile Include="Command\Events\CommandLineStartedMessage.cs" />
+    <Compile Include="Command\ExecuteCommandLineWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\MoveProcessedFileIntoErrorDirectoryMessageHandler.cs" />
     <Compile Include="Command\MoveProcessedFileIntoOutputDirectoryMessageHandler.cs" />
     <Compile Include="Command\Arguments\CommandLineParameters.cs" />

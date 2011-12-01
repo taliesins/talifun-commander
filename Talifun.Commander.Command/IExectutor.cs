@@ -1,7 +1,9 @@
-﻿namespace Talifun.Commander.Executor
+﻿using System.Threading;
+
+namespace Talifun.Commander.Command
 {
     public interface IExectutor
     {
-        bool Execute(string workingDirectory, string commandPath, string commandArguments, out string output);
+        bool Execute(CancellationToken cancellationToken, string workingDirectory, string commandPath, string commandArguments, out string output);
     }
 }

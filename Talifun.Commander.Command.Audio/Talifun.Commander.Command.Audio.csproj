@@ -73,6 +73,7 @@
     <Compile Include="CommandTester\Request\AudioConversionConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\AudioConversionConfigurationTestResponseMessage.cs" />
     <Compile Include="Command\AudioConversionSaga.cs" />
+    <Compile Include="Command\ExecuteAudioConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\MoveProcessedFileIntoErrorDirectoryMessageHandler.cs" />
     <Compile Include="Command\AudioFormats\Ac3Settings.cs" />
     <Compile Include="Command\CreateTempDirectoryMessageHandler.cs" />

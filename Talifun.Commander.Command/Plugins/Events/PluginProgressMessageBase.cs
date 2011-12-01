@@ -1,5 +1,4 @@
 ﻿using System;
-using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
 
 namespace Talifun.Commander.Command.Plugins.Events
@@ -8,6 +7,6 @@ namespace Talifun.Commander.Command.Plugins.Events
 	public abstract class PluginProgressMessageBase : CorrelatedMessageBase<IPluginProgressMessage>, IPluginProgressMessage
 	{
 		public string InputFilePath { get; set; }
-		public FileMatchElement FileMatch { get; set; }
+		public string Output { get; set; }
 	}
 }

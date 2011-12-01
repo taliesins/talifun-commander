@@ -8,12 +8,10 @@ using Talifun.Commander.Command.Video.Command.Response;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
 using Talifun.Commander.Command.Video.Command.Watermark;
 using Talifun.Commander.Command.Video.Configuration;
-using Talifun.Commander.Executor.CommandLine;
-using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video.Command
 {
-	public class ExecuteFlvConversionWorkflowMessageHandler : Consumes<ExecuteFlvConversionWorkflowMessage>.All
+	public class ExecuteFlvConversionWorkflowMessageHandler : ExecuteVideoConversionWorkflowMessageHandlerBase, Consumes<ExecuteFlvConversionWorkflowMessage>.All
 	{
 		public void Consume(ExecuteFlvConversionWorkflowMessage message)
 		{
@@ -31,9 +29,8 @@ namespace Talifun.Commander.Command.Video.Command
 			var fFMpegCommandArguments = string.Format("-i \"{0}\" -y {1} {2} {3} \"{4}\"", inputFilePath.FullName, message.Settings.Video.GetOptionsForFirstPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), outPutFilePath.FullName);
 			
 			var encodeOutput = string.Empty;
-
-			var ffmpegHelper = new FfMpegCommandLineExecutor();
-			var result = ffmpegHelper.Execute(message.WorkingDirectoryPath, fFMpegCommandPath, fFMpegCommandArguments, out encodeOutput);
+			var result = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, fFMpegCommandPath, fFMpegCommandArguments, out encodeOutput);
+			
 			output = encodeOutput;
 
 			if (result)
@@ -42,8 +39,7 @@ namespace Talifun.Commander.Command.Video.Command
 				var flvTool2CommandPath = message.AppSettings[VideoConversionConfiguration.Instance.FlvTool2PathSettingName];
 				var flvTool2Output = string.Empty;
 
-				var commandLineExecutor = new CommandLineExecutor();
-				result = commandLineExecutor.Execute(message.WorkingDirectoryPath, flvTool2CommandPath, flvTool2CommandArguments, out flvTool2Output);
+				result = ExecuteCommandLineExecutor(message, message.WorkingDirectoryPath, flvTool2CommandPath, flvTool2CommandArguments, out flvTool2Output);
 				output += Environment.NewLine + flvTool2Output;
 			}
 

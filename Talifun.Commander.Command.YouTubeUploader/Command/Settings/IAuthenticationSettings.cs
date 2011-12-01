@@ -1,4 +1,4 @@
-namespace Talifun.Commander.Command.YouTubeUploader
+namespace Talifun.Commander.Command.YouTubeUploader.Command.Settings
 {
 	public interface IAuthenticationSettings
 	{

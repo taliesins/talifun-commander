@@ -73,6 +73,7 @@
     <Compile Include="CommandTester\VideoThumbnailerConfigurationTesterSaga.cs" />
     <Compile Include="CommandTester\Request\VideoThumbnailerConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\VideoThumbnailerConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\ExecuteVideoThumbnailerWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\VideoThumbnailerSaga.cs" />
     <Compile Include="Command\CreateTempDirectoryMessageHandler.cs" />
     <Compile Include="Command\DeleteTempDirectoryMessageHandler.cs" />

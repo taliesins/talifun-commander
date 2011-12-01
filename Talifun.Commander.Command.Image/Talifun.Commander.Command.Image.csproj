@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\ExecuteImageConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\ImageConversionSaga.cs" />
     <Compile Include="ImageConversionMessanger.cs" />
     <Compile Include="ImageConversionService.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Command\Request\CreateTempDirectoryMessage.cs" />
     <Compile Include="Command\Request\DeleteTempDirectoryMessage.cs" />
     <Compile Include="Command\Request\ExecuteImageConversionWorkflowMessage.cs" />
-    <Compile Include="Command\Request\IExecuteAudioConversionWorkflowMessage.cs" />
+    <Compile Include="Command\Request\IExecuteImageConversionWorkflowMessage.cs" />
     <Compile Include="Command\Request\MoveProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Command\Request\MoveProcessedFileIntoOutputDirectoryMessage.cs" />
     <Compile Include="Command\Response\ImageConversionResponseMessage.cs" />

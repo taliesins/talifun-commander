@@ -6,11 +6,10 @@ using Talifun.Commander.Command.AntiVirus.Command.Request;
 using Talifun.Commander.Command.AntiVirus.Command.Response;
 using Talifun.Commander.Command.AntiVirus.Configuration;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.AntiVirus.Command
 {
-	public class ExecuteMcAfeeWorkflowMessageHandler : Consumes<ExecuteMcAfeeWorkflowMessage>.All
+	public class ExecuteMcAfeeWorkflowMessageHandler : ExecuteAntiVirusWorkflowMessageHandlerBase, Consumes<ExecuteMcAfeeWorkflowMessage>.All
 	{
 		private const string AllFixedOptions = @"/Quiet /AllOle /Archive /Packers /Mime /Primary Clean /Secondary Delete /LowPriority";
 
@@ -29,9 +28,8 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 			var workingDirectory = message.WorkingDirectoryPath;
 			var commandArguments = @"/target """ + outPutFilePath.FullName + @""" " + AllFixedOptions;
 
-			var commandLineExecutor = new CommandLineExecutor();
 			string output;
-			var filePassed = commandLineExecutor.Execute(workingDirectory, commandPath, commandArguments, out output);
+			var filePassed = ExecuteCommandLineExecutor(message, workingDirectory, commandPath, commandArguments, out output);
 
 			if (filePassed)
 			{

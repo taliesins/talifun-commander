@@ -38,7 +38,7 @@ namespace Talifun.Commander.Command
 
 					foreach (var commandService in Container.GetExportedValues<ICommandService>())
 					{
-						commandService.ConfigureCommandServiceBus(x);
+						commandService.Configure(x);
 					}
 				});
 			});

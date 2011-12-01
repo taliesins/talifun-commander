@@ -6,11 +6,10 @@ using Talifun.Commander.Command.Audio.Command.Request;
 using Talifun.Commander.Command.Audio.Command.Response;
 using Talifun.Commander.Command.Audio.Configuration;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Audio.Command
 {
-	public class ExecuteAudioConversionWorkflowMessageHandler : Consumes<ExecuteAudioConversionWorkflowMessage>.All
+	public class ExecuteAudioConversionWorkflowMessageHandler : ExecuteAudioConversionWorkflowMessageHandlerBase, Consumes<ExecuteAudioConversionWorkflowMessage>.All
 	{
 		public void Consume(ExecuteAudioConversionWorkflowMessage message)
 		{
@@ -26,9 +25,9 @@ namespace Talifun.Commander.Command.Audio.Command
 			var commandPath = message.AppSettings[AudioConversionConfiguration.Instance.FFMpegPathSettingName];
 			var commandArguments = String.Format("-i \"{0}\" -y {1} \"{2}\"", inputFilePath.FullName, message.Settings.GetOptions(), outPutFilePath.FullName);
 
-			var ffmpegHelper = new FfMpegCommandLineExecutor();
 			string output;
-			var encodeSuccessful = ffmpegHelper.Execute(message.WorkingDirectoryPath, commandPath, commandArguments, out output);
+
+			var encodeSuccessful = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, commandPath, commandArguments, out output);
 
 			var executedMcAfeeWorkflowMessage = new ExecutedAudioConversionWorkflowMessage()
 			{

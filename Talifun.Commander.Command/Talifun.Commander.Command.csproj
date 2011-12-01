@@ -87,6 +87,7 @@
     <Compile Include="ConfigurationChecker\Response\TestedProjectConfigurationMessage.cs" />
     <Compile Include="ConfigurationChecker\TestProjectConfigurationMessageHandler.cs" />
     <Compile Include="Esb\BusDriver.cs" />
+    <Compile Include="Esb\CancellableTask.cs" />
     <Compile Include="Esb\SerialWorkflowStep.cs" />
     <Compile Include="Esb\ICommandMessenger.cs" />
     <Compile Include="Esb\CorrelatedMessageBase.cs" />

@@ -7,11 +7,10 @@ using Talifun.Commander.Command.Video.Command.Response;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
 using Talifun.Commander.Command.Video.Command.Watermark;
 using Talifun.Commander.Command.Video.Configuration;
-using Talifun.Commander.Executor.FFMpeg;
 
 namespace Talifun.Commander.Command.Video.Command
 {
-	public class ExecuteOnePassConversionWorkflowMessageHandler : Consumes<ExecuteOnePassConversionWorkflowMessage>.All
+	public class ExecuteOnePassConversionWorkflowMessageHandler : ExecuteVideoConversionWorkflowMessageHandlerBase, Consumes<ExecuteOnePassConversionWorkflowMessage>.All
 	{
 		public void Consume(ExecuteOnePassConversionWorkflowMessage message)
 		{
@@ -24,16 +23,12 @@ namespace Talifun.Commander.Command.Video.Command
 				outPutFilePath.Delete();
 			}
 
-			var output = string.Empty;
 			var fFMpegCommandPath = message.AppSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
 			var fFMpegCommandArguments = string.Format("-i \"{0}\" -y {1} {2} {3} \"{4}\"", inputFilePath.FullName, message.Settings.Video.GetOptionsForFirstPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), outPutFilePath.FullName);
+
+			var output = string.Empty;
+			var result = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, fFMpegCommandPath, fFMpegCommandArguments, out output);
 			
-			var encodeOutput = string.Empty;
-
-			var ffmpegHelper = new FfMpegCommandLineExecutor();
-			var result = ffmpegHelper.Execute(message.WorkingDirectoryPath, fFMpegCommandPath, fFMpegCommandArguments, out encodeOutput);
-			output = encodeOutput;
-
 			var executedOnePassWorkflowMessage = new ExecutedOnePassConversionWorkflowMessage()
 			{
 				CorrelationId = message.CorrelationId,

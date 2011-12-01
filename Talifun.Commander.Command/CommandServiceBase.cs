@@ -1,7 +1,6 @@
 ﻿using MassTransit;
 using MassTransit.BusConfigurators;
 using MassTransit.Saga;
-using Talifun.Commander.Command.Esb;
 
 namespace Talifun.Commander.Command
 {
@@ -19,25 +18,39 @@ namespace Talifun.Commander.Command
 			get { return CommanderService.CommandManagerBusName; }
 		}
 
-		public void ConfigureCommandServiceBus(ServiceBusConfigurator serviceBusConfigurator)
+		public void Start()
+		{
+			_commandSagaRepository = SetupSagaRepository<TCommandSaga>();
+			_commandTesterSagaRepository = SetupSagaRepository<TCommandTesterSaga>();
+			OnStart();
+		}
+
+		public void Configure(ServiceBusConfigurator serviceBusConfigurator)
 		{
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
 				subscriber.Saga(_commandSagaRepository).Permanent();
 				subscriber.Saga(_commandTesterSagaRepository).Permanent();
 			});
-			Configure(serviceBusConfigurator);
-		}
-
-		public abstract void Configure(ServiceBusConfigurator serviceBusConfigurator);
-
-		public void Start()
-		{
-			_commandSagaRepository = SetupSagaRepository<TCommandSaga>();
-			_commandTesterSagaRepository = SetupSagaRepository<TCommandTesterSaga>();
+			OnConfigure(serviceBusConfigurator);
 		}
 
 		public void Stop()
+		{
+			OnStop();
+		}
+
+		public virtual void OnStart()
+		{
+			
+		}
+
+		public virtual void OnConfigure(ServiceBusConfigurator serviceBusConfigurator)
+		{
+			
+		}
+
+		public virtual void OnStop()
 		{
 			
 		}

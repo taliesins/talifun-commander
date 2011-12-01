@@ -3,11 +3,10 @@ using MassTransit;
 using Talifun.Commander.Command.CommandLine.Command.Request;
 using Talifun.Commander.Command.CommandLine.Command.Response;
 using Talifun.Commander.Command.Esb;
-using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.CommandLine.Command
 {
-	public class ExecuteCommandLineWorkflowMessageHandler : Consumes<ExecuteCommandLineWorkflowMessage>.All
+	public class ExecuteCommandLineWorkflowMessageHandler : ExecuteCommandLineWorkflowMessageHandlerBase, Consumes<ExecuteCommandLineWorkflowMessage>.All
 	{
 		public void Consume(ExecuteCommandLineWorkflowMessage message)
 		{
@@ -21,10 +20,10 @@ namespace Talifun.Commander.Command.CommandLine.Command
 			var commandPath = message.Settings.CommandPath;
 			var commandArguments = message.Settings.CommandArguments.Replace("{%InputFilePath%}", inputFilePath.FullName).Replace("{%OutPutFilePath%}", outPutFilePath.FullName);
 
-			var commandLineExecutor = new CommandLineExecutor();
 			string output;
-			var encodeSuccessful = commandLineExecutor.Execute(message.WorkingDirectoryPath, commandPath, commandArguments, out output);
 
+			var encodeSuccessful = ExecuteCommandLineExecutor(message, message.WorkingDirectoryPath, commandPath, commandArguments, out output);
+			
 			var executedCommandLineflowMessage = new ExecutedCommandLineWorkflowMessage()
 			{
 				CorrelationId = message.CorrelationId,
