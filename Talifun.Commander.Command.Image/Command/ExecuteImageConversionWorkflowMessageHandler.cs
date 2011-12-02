@@ -5,7 +5,6 @@ using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Image.Command.Request;
 using Talifun.Commander.Command.Image.Command.Response;
 using Talifun.Commander.Command.Image.Configuration;
-using Talifun.Commander.Executor.CommandLine;
 
 namespace Talifun.Commander.Command.Image.Command
 {
@@ -59,7 +58,7 @@ namespace Talifun.Commander.Command.Image.Command
 				output += Environment.NewLine + compositeOutput;
 			}
 
-			var executedMcAfeeWorkflowMessage = new ExecutedImageConversionWorkflowMessage()
+			var executedImageConversionWorkflowMessage = new ExecutedImageConversionWorkflowMessage()
 			{
 				CorrelationId = message.CorrelationId,
 				EncodeSuccessful = result,
@@ -68,7 +67,7 @@ namespace Talifun.Commander.Command.Image.Command
 			};
 
 			var bus = BusDriver.Instance.GetBus(ImageConversionService.BusName);
-			bus.Publish(executedMcAfeeWorkflowMessage);
+			bus.Publish(executedImageConversionWorkflowMessage);
 		}
 	}
 }

@@ -43,6 +43,12 @@ namespace Talifun.Commander.Command.Image.Command
 			}
 		}
 
+		private string MetaDataArguments(ImageMetaData metaData)
+		{
+			var imageMagickCommandLineArgument = metaData.Where(x => metaData.AllowedMetaData.Contains(x.Key, StringComparer.OrdinalIgnoreCase) && !string.IsNullOrEmpty(x.Value)).Select(x => string.Format("-{0} \"{1}\"", x.Key.ToLower(), x.Value)).Aggregate(new StringBuilder(), (x, y) => x.Append(" " + y));
+			return imageMagickCommandLineArgument.ToString();
+		}
+
 		protected string WatermarkArguments(IImageResizeSettings settings, string outPutFilePath)
 		{
 			var watermarkArguments = string.Empty;
@@ -56,8 +62,9 @@ namespace Talifun.Commander.Command.Image.Command
 			                   	};
 
 				var commandArguments = watermarkOptions.Select(x => x.Key + " " + x.Value).Aggregate(new StringBuilder(), (x, y) => x.Append(" " + y)).ToString();
+				var metaDataArguments = MetaDataArguments(settings.MetaData);
 
-				watermarkArguments = string.Format("{0} {1} {2} {2}", commandArguments.ToString(), settings.WatermarkPath, outPutFilePath);
+				watermarkArguments = string.Format("{0} {1} {2} {3} {3}", commandArguments.ToString(), metaDataArguments, settings.WatermarkPath, outPutFilePath);
 			}
 
 			return watermarkArguments;
@@ -81,6 +88,12 @@ namespace Talifun.Commander.Command.Image.Command
 				quality = " -quality " + settings.Quality.Value;
 			}
 
+			var metaData = MetaDataArguments(settings.MetaData);
+			if (!string.IsNullOrEmpty(metaData))
+			{
+				metaData = " " + metaData;
+			}
+
 			var commandArguments = string.Empty;
 			switch (settings.ResizeMode)
 			{
@@ -89,74 +102,74 @@ namespace Talifun.Commander.Command.Image.Command
 						var area = settings.Width * settings.Height;
 						commandArguments =
 							String.Format(
-								"-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}@\"{4} -gravity {5} -extent \"{6}x{7}\"{8}",
+								"-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}@\"{4} -gravity {5} -extent \"{6}x{7}\"{8}{9}",
 								settings.Width * 2, settings.Height * 2, inputFilePath, area, backgroundColour,
-								Enum.GetName(typeof(Gravity), settings.Gravity), settings.Width, settings.Height, quality);
+								Enum.GetName(typeof(Gravity), settings.Gravity), settings.Width, settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.CutToFit:
 					{
 						commandArguments =
-							String.Format("-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}^\" -gravity {5} -extent \"{6}x{7}\"{8}",
+							String.Format("-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}^\" -gravity {5} -extent \"{6}x{7}\"{8}{9}",
 										  settings.Width * 2, settings.Height * 2, inputFilePath, settings.Width, settings.Height,
 										  Enum.GetName(typeof(Gravity), settings.Gravity), settings.Width,
-										  settings.Height, quality);
+										  settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.Zoom:
 					{
 						commandArguments =
 							String.Format(
-								"-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}>\" {5} -gravity {6} -extent \"{7}x{8}\"{9}",
+								"-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}>\" {5} -gravity {6} -extent \"{7}x{8}\"{9}{10}",
 								settings.Width * 2, settings.Height * 2, inputFilePath, settings.Width, settings.Height, backgroundColour,
-								Enum.GetName(typeof(Gravity), settings.Gravity), settings.Width, settings.Height, quality);
+								Enum.GetName(typeof(Gravity), settings.Gravity), settings.Width, settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.Stretch:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}!\"{5}",
-							settings.Width * 2, settings.Height * 2, inputFilePath, settings.Width, settings.Height, quality);
+						commandArguments = String.Format("-define jpeg:size=\"{0}x{1}\" \"{2}\" -thumbnail \"{3}x{4}!\"{5}{6}",
+							settings.Width * 2, settings.Height * 2, inputFilePath, settings.Width, settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitWidth:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"{0}\" \"{1}\" -thumbnail \"{2}\"{3}",
-							settings.Width * 2, inputFilePath, settings.Width, quality);
+						commandArguments = String.Format("-define jpeg:size=\"{0}\" \"{1}\" -thumbnail \"{2}\"{3}{4}",
+							settings.Width * 2, inputFilePath, settings.Width, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitMaximumWidth:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"{0}>\" \"{1}\" -thumbnail \"{2}>\"{3}",
-							settings.Width * 2, inputFilePath, settings.Width, quality);
+						commandArguments = String.Format("-define jpeg:size=\"{0}>\" \"{1}\" -thumbnail \"{2}>\"{3}{4}",
+							settings.Width * 2, inputFilePath, settings.Width, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitMinimumWidth:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"{0}\" \"{1}\" -thumbnail \"{2}^\"{3}",
-							settings.Width * 2, inputFilePath, settings.Width, quality);
+						commandArguments = String.Format("-define jpeg:size=\"{0}\" \"{1}\" -thumbnail \"{2}^\"{3}{4}",
+							settings.Width * 2, inputFilePath, settings.Width, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitHeight:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}\"{3}",
-							settings.Height * 2, inputFilePath, settings.Height, quality);
+						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}\"{3}{4}",
+							settings.Height * 2, inputFilePath, settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitMaximumHeight:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}>\"{3}",
-							settings.Height * 2, inputFilePath, settings.Height, quality);
+						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}>\"{3}{4}",
+							settings.Height * 2, inputFilePath, settings.Height, quality, metaData);
 						break;
 					}
 				case ResizeMode.FitMinimumHeight:
 					{
-						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}^\"{3}",
-							settings.Height * 2, inputFilePath, settings.Height, quality);
+						commandArguments = String.Format("-define jpeg:size=\"x{0}\" \"{1}\" -thumbnail \"x{2}^\"{3}{4}",
+							settings.Height * 2, inputFilePath, settings.Height, quality, metaData);
 						break;
 					}
 				default:
 					{
-						commandArguments = String.Format("\"{0}\"", inputFilePath);
+						commandArguments = String.Format("\"{0}\"{1}", inputFilePath, metaData);
 						break;
 					}
 			}

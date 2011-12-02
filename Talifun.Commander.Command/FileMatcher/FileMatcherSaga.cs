@@ -31,14 +31,24 @@ namespace Talifun.Commander.Command.FileMatcher
 						{
 							saga.InputFilePath = message.FilePath;
 							saga.Folder = message.Folder;
+							saga.FileMatchesToExecute = saga.GetFileMatchesToExecute();
+
+							if (saga.FileMatchesToExecute.Any())
+							{
+								var createTempDirectoryMessage = new CreateTempDirectoryMessage
+								{
+								    CorrelationId = saga.CorrelationId,
+								    InputFilePath = saga.InputFilePath,
+								    WorkingPath = saga.Folder.GetWorkingPathOrDefault()
+								};
+								saga.Bus.Publish(createTempDirectoryMessage);
+								saga.ChangeCurrentState(WaitingForCreateTempDirectory);
+							}
+							else
+							{
+								saga.ChangeCurrentState(Completed);
+							}
 						})
-						.Publish((saga, message) => new CreateTempDirectoryMessage
-						{
-							CorrelationId = saga.CorrelationId,
-							InputFilePath = saga.InputFilePath,
-							WorkingPath = saga.Folder.GetWorkingPathOrDefault()
-						})
-						.TransitionTo(WaitingForCreateTempDirectory)
 					);
 
 				During(
@@ -52,7 +62,7 @@ namespace Talifun.Commander.Command.FileMatcher
 						{
 							CorrelationId = saga.CorrelationId,
 							FilePath = saga.InputFilePath,
-							WorkingFilePath = saga.WorkingFilePath
+							WorkingDirectoryPath = new FileInfo(saga.WorkingFilePath).DirectoryName
 						})
 						.TransitionTo(WaitingForMoveFileToBeProcessedIntoTempDirectory)
 				);
@@ -60,10 +70,6 @@ namespace Talifun.Commander.Command.FileMatcher
 				During(
 					WaitingForMoveFileToBeProcessedIntoTempDirectory,
 					When(MovedFileToBeProcessedIntoTempDirectory)
-					    .Then((saga, message) =>
-					    {
-							saga.FileMatchesToExecute = saga.GetFileMatchesToExecute();      		
-					    })
 						.Publish((saga, message) => new ProcessFileMatchesMessage
 						{
 							CorrelationId = saga.CorrelationId,
@@ -168,11 +174,11 @@ namespace Talifun.Commander.Command.FileMatcher
 			var fileMatchesToExecute = new List<SerialWorkflowStep<FileMatchElement>>();
 			const RegexOptions regxOptions = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Singleline;
 
-			var workingFilePath = new FileInfo(WorkingFilePath);
+			var inputFilePath = new FileInfo(InputFilePath);
 			var order = 1;
 			foreach (var fileMatch in Folder.FileMatches)
 			{
-				if (string.IsNullOrEmpty(fileMatch.Expression) || Regex.IsMatch(workingFilePath.Name, fileMatch.Expression, regxOptions))
+				if (string.IsNullOrEmpty(fileMatch.Expression) || Regex.IsMatch(inputFilePath.Name, fileMatch.Expression, regxOptions))
 				{
 					var value = new SerialWorkflowStep<FileMatchElement>()
 					            	{

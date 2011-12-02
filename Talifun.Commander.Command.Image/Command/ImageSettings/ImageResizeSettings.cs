@@ -15,5 +15,6 @@
 		public string WatermarkPath { get; set; }
 		public int WatermarkDissolveLevels { get; set; }
 		public Gravity WatermarkGravity { get; set; }
+		public ImageMetaData MetaData { get; set; }
     }
 }

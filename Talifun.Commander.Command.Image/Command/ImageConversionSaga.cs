@@ -65,9 +65,29 @@ namespace Talifun.Commander.Command.Image.Command
 								Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
 							}
 						})
-						.Then((saga, message)=>
+						.Publish((saga, message)=> new RetrieveMetaDataMessage
 						{
-						    var commandMessage = saga.GetImageConversionWorkflowMessage();
+							CorrelationId = saga.CorrelationId,
+							InputFilePath = saga.InputFilePath
+						})
+						.TransitionTo(WaitingForRetrieveMetaData)
+				);
+
+				During(
+					WaitingForRetrieveMetaData,
+					When(RetrievedMetaData)
+						.Then((saga, message) =>
+						{
+							saga.MetaData = message.MetaData;
+
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Retrieved Meta Data ({0})", saga.CorrelationId);
+							}
+						})
+						.Then((saga, message) =>
+						{
+							var commandMessage = saga.GetImageConversionWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
 						.TransitionTo(WaitingForExecuteImageConversionWorkflow)
@@ -201,6 +221,7 @@ namespace Talifun.Commander.Command.Image.Command
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
+		public virtual ImageMetaData MetaData { get; set; }
 		public virtual string OutPut { get; set; }
 		public virtual string OutPutFilePath { get; set; }
 
@@ -212,6 +233,12 @@ namespace Talifun.Commander.Command.Image.Command
 		public static State WaitingForCreateTempDirectory { get; set; }
 		public static Event<CreatedTempDirectoryMessage> CreatedTempDirectory { get; set; }
 		//public static Event<Fault<CreateTempDirectoryMessage, Guid>> CreateTempDirectoryFailed { get; set; }
+		#endregion
+
+		#region Retrieve Meta Data
+		public static State WaitingForRetrieveMetaData { get; set; }
+		public static Event<RetrievedMetaDataMessage> RetrievedMetaData { get; set; }
+		//public static Event<Fault<RetrieveMetaDataMessage, Guid>> RetrieveMetaDataFailed { get; set; }
 		#endregion
 
 		#region Run command
@@ -245,6 +272,7 @@ namespace Talifun.Commander.Command.Image.Command
 				WatermarkPath = imageConversion.WatermarkPath,
 				WatermarkDissolveLevels = imageConversion.WatermarkDissolveLevels,
 				WatermarkGravity = imageConversion.WatermarkGravity,
+				MetaData = MetaData
 			};
 
 			if (imageConversion.Height != 0)

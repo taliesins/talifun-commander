@@ -11,22 +11,22 @@ namespace Talifun.Commander.Command.FileMatcher
 		public void Consume(MoveFileToBeProcessedIntoTempDirectoryMessage message)
 		{
 			var inputFilePath = new FileInfo(message.FilePath);
-			inputFilePath.WaitForFileToUnlock(10, 500);
-			inputFilePath.Refresh();
+			var filesToMove = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
 
-			var outputFilePath = new FileInfo(message.WorkingFilePath);
-			if (outputFilePath.Exists)
+			foreach (var fileNameToMove in filesToMove)
 			{
-				outputFilePath.Delete();
-			}
+				var fileToMove = new FileInfo(fileNameToMove);
 
-			inputFilePath.MoveTo(outputFilePath.FullName);
+				fileToMove.WaitForFileToUnlock(10, 500);
+				fileToMove.Refresh();
 
-			var supportFileNames = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
-			foreach (var supportFileName in supportFileNames)
-			{
-				var supportFile = new FileInfo(supportFileName);
-				supportFile.MoveTo(Path.Combine(outputFilePath.DirectoryName, supportFile.Name));
+				var outputFilePath = new FileInfo(Path.Combine(message.WorkingDirectoryPath, fileToMove.Name));
+				if (outputFilePath.Exists)
+				{
+					outputFilePath.Delete();
+				}
+
+				fileToMove.MoveTo(outputFilePath.FullName);
 			}
 
 			var movedFileToBeProcessedIntoTempDirectoryMessage = new MovedFileToBeProcessedIntoTempDirectoryMessage()

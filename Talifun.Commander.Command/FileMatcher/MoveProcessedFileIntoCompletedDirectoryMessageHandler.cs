@@ -13,28 +13,22 @@ namespace Talifun.Commander.Command.FileMatcher
 			var inputFilePath = new FileInfo(message.WorkingFilePath);
 			if (!string.IsNullOrEmpty(message.CompletedPath) && inputFilePath.Exists)
 			{
-				var outputFilePath = new FileInfo(Path.Combine(message.CompletedPath, inputFilePath.Name));
-				if (outputFilePath.Exists)
+				var filesToMove = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
+
+				foreach (var fileNameToMove in filesToMove)
 				{
-					outputFilePath.Delete();
-				}
+					var fileToMove = new FileInfo(fileNameToMove);
 
-				//Make sure that processing on file has stopped
-				inputFilePath.WaitForFileToUnlock(10, 500);
-				inputFilePath.Refresh();
+					fileToMove.WaitForFileToUnlock(10, 500);
+					fileToMove.Refresh();
 
-				inputFilePath.MoveTo(outputFilePath.FullName);
+					var outputFilePath = new FileInfo(Path.Combine(message.CompletedPath, fileToMove.Name));
+					if (outputFilePath.Exists)
+					{
+						outputFilePath.Delete();
+					}
 
-				var supportFileNames = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
-				foreach (var supportFileName in supportFileNames)
-				{
-					var supportFile = new FileInfo(supportFileName);
-
-					//Make sure that processing on file has stopped
-					supportFile.WaitForFileToUnlock(10, 500);
-					supportFile.Refresh();
-
-					supportFile.MoveTo(Path.Combine(outputFilePath.DirectoryName, supportFile.Name));
+					fileToMove.MoveTo(outputFilePath.FullName);
 				}
 			}
 

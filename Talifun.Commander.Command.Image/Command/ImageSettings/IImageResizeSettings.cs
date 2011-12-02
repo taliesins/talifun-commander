@@ -16,5 +16,7 @@ namespace Talifun.Commander.Command.Image.Command.ImageSettings
 		string WatermarkPath { get; set; }
 		int WatermarkDissolveLevels { get; set; }
 		Gravity WatermarkGravity { get; set; }
+
+		ImageMetaData MetaData { get; set; }
 	}
 }

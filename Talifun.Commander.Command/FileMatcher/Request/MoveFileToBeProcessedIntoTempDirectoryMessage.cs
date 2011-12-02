@@ -5,6 +5,6 @@ namespace Talifun.Commander.Command.FileMatcher.Request
 	public class MoveFileToBeProcessedIntoTempDirectoryMessage : CorrelatedMessageBase<MoveFileToBeProcessedIntoTempDirectoryMessage>
 	{
 		public string FilePath { get; set; }
-		public string WorkingFilePath { get; set; }
+		public string WorkingDirectoryPath { get; set; }
 	}
 }

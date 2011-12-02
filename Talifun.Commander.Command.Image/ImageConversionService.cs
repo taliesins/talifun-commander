@@ -23,6 +23,7 @@ namespace Talifun.Commander.Command.Image
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
 				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<RetrieveMetaDataMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteImageConversionWorkflowMessageHandler>().Permanent();
 				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>().Permanent();
 				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>().Permanent();
