@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.Image.Command
 	{
 		public void Consume(RetrieveMetaDataMessage message)
 		{
-			var metaDataFile = new FileInfo(message.InputFilePath + ".meta.json");
+			var metaDataFile = new FileInfo(message.InputFilePath + ".ImageConversion.json");
 			var metaData = metaDataFile.Exists ? GetMetaData(metaDataFile) : new ImageMetaData();
 
 			var retrievedMetaDataMessage = new RetrievedMetaDataMessage()

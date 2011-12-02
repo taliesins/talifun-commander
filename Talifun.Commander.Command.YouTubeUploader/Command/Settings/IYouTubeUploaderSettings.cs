@@ -5,5 +5,6 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command.Settings
 		IAuthenticationSettings Authentication { get; set; }
 		IVideoMetaData VideoMetaData { get; set; }
 		IUploadSettings Upload { get; set; }
+		YouTubeMetaData MetaData { get; set; }
 	}
 }

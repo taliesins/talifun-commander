@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.Audio.Command
 	{
 		public void Consume(RetrieveMetaDataMessage message)
 		{
-			var metaDataFile = new FileInfo(message.InputFilePath + ".meta.json");
+			var metaDataFile = new FileInfo(message.InputFilePath + ".AudioConversion.json");
 			var metaData = metaDataFile.Exists ? GetMetaData(metaDataFile) : new AudioMetaData();
 
 			var retrievedMetaDataMessage = new RetrievedMetaDataMessage()
@@ -30,8 +30,8 @@ namespace Talifun.Commander.Command.Audio.Command
 			using (var textReader = metaDataFile.OpenText())
 			{
 				var json = textReader.ReadToEnd().Trim();
-				var imageMetaData = JsonConvert.DeserializeObject<AudioMetaData>(json);
-				return imageMetaData;
+				var audioMetaData = JsonConvert.DeserializeObject<AudioMetaData>(json);
+				return audioMetaData;
 			}
 		}
 	}

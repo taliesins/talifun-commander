@@ -43,16 +43,36 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
+						.Publish((saga, message) => new RetrieveMetaDataMessage
+						{
+							CorrelationId = saga.CorrelationId,
+							InputFilePath = saga.InputFilePath
+						})
+						.TransitionTo(WaitingForRetrieveMetaData)
+					);
+
+				During(
+					WaitingForRetrieveMetaData,
+					When(RetrievedMetaData)
+						.Then((saga, message) =>
+						{
+							saga.MetaData = message.MetaData;
+
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Retrieved Meta Data ({0})", saga.CorrelationId);
+							}
+						})
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetYouTubeUploaderWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
-						.TransitionTo(WaitingForExecuteAudioConversionWorkflow)
-					);
+						.TransitionTo(WaitingForExecuteYouTubeUploaderWorkflow)
+				);
 
 				During(
-					WaitingForExecuteAudioConversionWorkflow,
+					WaitingForExecuteYouTubeUploaderWorkflow,
 					When(ExecutedYouTubeUploaderWorkflow).RetryLater()
 						.Then((saga, message) =>
 						{
@@ -119,20 +139,29 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 		public virtual YouTubeUploaderElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
+		public virtual YouTubeMetaData MetaData { get; set; }
 
 		#region Initialise
 		public static Event<YouTubeUploaderRequestMessage> YouTubeUploaderRequestEvent { get; set; }
 		#endregion
 
+		#region Retrieve Meta Data
+		public static State WaitingForRetrieveMetaData { get; set; }
+		public static Event<RetrievedMetaDataMessage> RetrievedMetaData { get; set; }
+		//public static Event<Fault<RetrieveMetaDataMessage, Guid>> RetrieveMetaDataFailed { get; set; }
+		#endregion
+
 		#region Run command
 
-		public static State WaitingForExecuteAudioConversionWorkflow { get; set; }
+		public static State WaitingForExecuteYouTubeUploaderWorkflow { get; set; }
 		public static Event<IExecutedYouTubeUploaderWorkflowMessage> ExecutedYouTubeUploaderWorkflow { get; set; }
 		//public static Event<Fault<IExecuteYouTubeUploaderWorkflowMessage, Guid>> ExecuteYouTubeUploaderWorkflowFailed { get; set; }
 
 		private IExecuteYouTubeUploaderWorkflowMessage GetYouTubeUploaderWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
+			commandSettings.MetaData = MetaData;
+
 			var commandMessage = GetCommandMessage(commandSettings);
 
 			commandMessage.CorrelationId = CorrelationId;

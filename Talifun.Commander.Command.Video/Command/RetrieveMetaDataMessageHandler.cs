@@ -12,7 +12,7 @@ namespace Talifun.Commander.Command.Video.Command
 	{
 		public void Consume(RetrieveMetaDataMessage message)
 		{
-			var metaDataFile = new FileInfo(message.InputFilePath + ".meta.json");
+			var metaDataFile = new FileInfo(message.InputFilePath + ".VideoConversion.json");
 			var metaData = metaDataFile.Exists ? GetMetaData(metaDataFile) : new ContainerMetaData();
 
 			var retrievedMetaDataMessage = new RetrievedMetaDataMessage()
@@ -30,8 +30,8 @@ namespace Talifun.Commander.Command.Video.Command
 			using (var textReader = metaDataFile.OpenText())
 			{
 				var json = textReader.ReadToEnd().Trim();
-				var imageMetaData = JsonConvert.DeserializeObject<ContainerMetaData>(json);
-				return imageMetaData;
+				var containerMetaData = JsonConvert.DeserializeObject<ContainerMetaData>(json);
+				return containerMetaData;
 			}
 		}
 	}
