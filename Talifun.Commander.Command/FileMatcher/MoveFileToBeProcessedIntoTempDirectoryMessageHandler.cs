@@ -22,6 +22,13 @@ namespace Talifun.Commander.Command.FileMatcher
 
 			inputFilePath.MoveTo(outputFilePath.FullName);
 
+			var supportFileNames = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
+			foreach (var supportFileName in supportFileNames)
+			{
+				var supportFile = new FileInfo(supportFileName);
+				supportFile.MoveTo(Path.Combine(outputFilePath.DirectoryName, supportFile.Name));
+			}
+
 			var movedFileToBeProcessedIntoTempDirectoryMessage = new MovedFileToBeProcessedIntoTempDirectoryMessage()
 			{
 				CorrelationId = message.CorrelationId

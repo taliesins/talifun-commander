@@ -24,6 +24,18 @@ namespace Talifun.Commander.Command.FileMatcher
 				inputFilePath.Refresh();
 
 				inputFilePath.MoveTo(outputFilePath.FullName);
+
+				var supportFileNames = Directory.GetFiles(inputFilePath.DirectoryName, inputFilePath.Name + ".*");
+				foreach (var supportFileName in supportFileNames)
+				{
+					var supportFile = new FileInfo(supportFileName);
+
+					//Make sure that processing on file has stopped
+					supportFile.WaitForFileToUnlock(10, 500);
+					supportFile.Refresh();
+
+					supportFile.MoveTo(Path.Combine(outputFilePath.DirectoryName, supportFile.Name));
+				}
 			}
 
 			var movedProcessedFileIntoCompletedDirectoryMessage = new MovedProcessedFileIntoCompletedDirectoryMessage()

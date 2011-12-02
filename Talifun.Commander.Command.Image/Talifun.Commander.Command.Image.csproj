@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Command\ExecuteImageConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\ImageConversionSaga.cs" />
+    <Compile Include="Command\ImageSettings\IImageMetaData.cs" />
+    <Compile Include="Command\ImageSettings\ImageMetaData.cs" />
     <Compile Include="ImageConversionMessanger.cs" />
     <Compile Include="ImageConversionService.cs" />
     <Compile Include="CommandTester\ImageConversionConfigurationTesterSaga.cs" />

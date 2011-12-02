@@ -75,6 +75,11 @@
     <Compile Include="CommandTester\VideoConversionConfigurationTesterSaga.cs" />
     <Compile Include="CommandTester\Request\VideoConversionConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\VideoConversionConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\Containers\AviContainerMetaData.cs" />
+    <Compile Include="Command\Containers\FlvContainerMetaData.cs" />
+    <Compile Include="Command\Containers\Mp4ContainerMetaData.cs" />
+    <Compile Include="Command\Containers\OggContainerMetaData.cs" />
+    <Compile Include="Command\Containers\WebmContainerMetaData.cs" />
     <Compile Include="Command\ExecuteVideoConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\VideoConversionSaga.cs" />
     <Compile Include="Command\AudioFormats\AacSettings.cs" />
@@ -115,6 +120,7 @@
     <Compile Include="Command\Response\VideoConversionResponseMessage.cs" />
     <Compile Include="Command\Response\MovedProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Command\Response\MovedProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Command\Containers\IContainerMetaData.cs" />
     <Compile Include="Configuration\VideoConversionElement.Validation.cs">
       <DependentUpon>VideoConversionElement.cs</DependentUpon>
     </Compile>

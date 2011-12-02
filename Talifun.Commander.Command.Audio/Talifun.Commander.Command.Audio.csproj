@@ -73,6 +73,11 @@
     <Compile Include="CommandTester\Request\AudioConversionConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\AudioConversionConfigurationTestResponseMessage.cs" />
     <Compile Include="Command\AudioConversionSaga.cs" />
+    <Compile Include="Command\AudioFormats\AacMetaData.cs" />
+    <Compile Include="Command\AudioFormats\Ac3MetaData.cs" />
+    <Compile Include="Command\AudioFormats\VorbisMetaData.cs" />
+    <Compile Include="Command\AudioFormats\IAudioMetaData.cs" />
+    <Compile Include="Command\AudioFormats\Mp3MetaData.cs" />
     <Compile Include="Command\ExecuteAudioConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\MoveProcessedFileIntoErrorDirectoryMessageHandler.cs" />
     <Compile Include="Command\AudioFormats\Ac3Settings.cs" />

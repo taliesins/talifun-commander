@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   <DirectoryRef Id="INSTALLLOCATION">
+    <Component Id="MassTransit.dll" Guid="7a2b5c3b-77e0-4ee9-bfc9-15f3ffcde75e">
+      <File Id="MassTransit.dll"
+            Source="$(var.SolutionDir)\References\MassTransit.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Magnum.dll" Guid="a0fdab84-240d-4fe6-924c-5718642076c6">
+      <File Id="Magnum.dll"
+            Source="$(var.SolutionDir)\References\Magnum.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Stact.dll" Guid="633e2d49-9466-4b4e-ba16-ad3107210717">
+      <File Id="Stact.dll"
+            Source="$(var.SolutionDir)\References\Stact.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Newtonsoft.Json.dll" Guid="eb4bcd3f-0cae-4012-800f-cf63ad0b00d7">
+      <File Id="Newtonsoft.Json.dll"
+            Source="$(var.SolutionDir)\References\Newtonsoft.Json.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="log4net.dll" Guid="1adc056e-c51d-42e8-a14f-12e942104dda">
+      <File Id="log4net.dll"
+            Source="$(var.SolutionDir)\References\log4net.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
     <Component Id="NLog.dll" Guid="fe91a0da-b22b-4c10-9bbd-791a1798d1d0">
       <File Id="NLog.dll"
             Source="$(var.SolutionDir)\References\NLog.dll"

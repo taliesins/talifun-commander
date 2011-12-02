@@ -31,5 +31,10 @@
     <ComponentRef Id="NLog.dll"/>
     <ComponentRef Id="FluentValidation.dll"/>
     <ComponentRef Id="WPFToolkit.Extended.dll"/>
+    <ComponentRef Id="MassTransit.dll"/>
+    <ComponentRef Id="Magnum.dll"/>
+    <ComponentRef Id="Stact.dll"/>
+    <ComponentRef Id="Newtonsoft.Json.dll"/>
+    <ComponentRef Id="log4net.dll"/>
   </ComponentGroup>
 </Include>
