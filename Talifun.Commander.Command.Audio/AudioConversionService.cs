@@ -24,6 +24,7 @@ namespace Talifun.Commander.Command.Audio
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
 				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<RetrieveMetaDataMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteAudioConversionWorkflowMessageHandler>().Permanent();
 				subscriber.Consumer<MoveProcessedFileIntoErrorDirectoryMessageHandler>().Permanent();
 				subscriber.Consumer<MoveProcessedFileIntoOutputDirectoryMessageHandler>().Permanent();

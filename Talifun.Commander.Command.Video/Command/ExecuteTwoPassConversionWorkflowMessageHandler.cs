@@ -3,6 +3,7 @@ using System.IO;
 using MassTransit;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Video.Command.AudioFormats;
+using Talifun.Commander.Command.Video.Command.Containers;
 using Talifun.Commander.Command.Video.Command.Request;
 using Talifun.Commander.Command.Video.Command.Response;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
@@ -34,7 +35,7 @@ namespace Talifun.Commander.Command.Video.Command
 			var output = string.Empty;
 
 			var firstPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 1 {2} {3} \"{4}\"", inputFilePath.FullName, logFilePath.FullName, message.Settings.Video.GetOptionsForFirstPass(), "-an", outPutFilePath.FullName);
-			var secondPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 2 {2} {3} {4} \"{5}\"", inputFilePath.FullName, logFilePath.FullName, message.Settings.Video.GetOptionsForSecondPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), outPutFilePath.FullName);
+			var secondPassCommandArguments = string.Format("-i \"{0}\" -y -passlogfile \"{1}\" -pass 2 {2} {3} {4} {5} \"{6}\"", inputFilePath.FullName, logFilePath.FullName, message.Settings.Video.GetOptionsForSecondPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), message.Settings.MetaDataArguments(), outPutFilePath.FullName);
 
 			var fFMpegCommandPath = message.AppSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
 			

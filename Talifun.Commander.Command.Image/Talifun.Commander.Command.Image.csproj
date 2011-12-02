@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\ImageSettings\IImageResizeSettingsExtensions.cs" />
     <Compile Include="Command\RetrieveMetaDataMessageHandler.cs" />
     <Compile Include="Command\ExecuteImageConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\ImageConversionSaga.cs" />

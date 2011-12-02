@@ -2,6 +2,7 @@
 using MassTransit;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.Video.Command.AudioFormats;
+using Talifun.Commander.Command.Video.Command.Containers;
 using Talifun.Commander.Command.Video.Command.Request;
 using Talifun.Commander.Command.Video.Command.Response;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
@@ -24,7 +25,7 @@ namespace Talifun.Commander.Command.Video.Command
 			}
 
 			var fFMpegCommandPath = message.AppSettings[VideoConversionConfiguration.Instance.FFMpegPathSettingName];
-			var fFMpegCommandArguments = string.Format("-i \"{0}\" -y {1} {2} {3} \"{4}\"", inputFilePath.FullName, message.Settings.Video.GetOptionsForFirstPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), outPutFilePath.FullName);
+			var fFMpegCommandArguments = string.Format("-i \"{0}\" -y {1} {2} {3} {4} \"{5}\"", inputFilePath.FullName, message.Settings.Video.GetOptionsForFirstPass(), message.Settings.Audio.GetOptions(), message.Settings.Watermark.GetOptions(), message.Settings.MetaDataArguments(), outPutFilePath.FullName);
 
 			var output = string.Empty;
 			var result = ExecuteFfMpegCommandLineExecutor(message, message.WorkingDirectoryPath, fFMpegCommandPath, fFMpegCommandArguments, out output);

@@ -24,6 +24,7 @@ namespace Talifun.Commander.Command.Video
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
 				subscriber.Consumer<CreateTempDirectoryMessageHandler>().Permanent();
+				subscriber.Consumer<RetrieveMetaDataMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteFlvConversionWorkflowMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteMp4ConversionWorkflowMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteOnePassConversionWorkflowMessageHandler>().Permanent();

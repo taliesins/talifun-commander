@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Talifun.Commander.Command.Image.Command.ImageSettings
 {
@@ -9,14 +8,6 @@ namespace Talifun.Commander.Command.Image.Command.ImageSettings
 		public ImageMetaData()
 			: base(StringComparer.OrdinalIgnoreCase)
 		{
-			AllowedMetaData = new List<string>
-			               	{
-			               		"Comment",
-								"Caption",
-			               	};
 		}
-
-		[JsonIgnore]
-		public IList<string> AllowedMetaData { get; private set; }
 	}
 }

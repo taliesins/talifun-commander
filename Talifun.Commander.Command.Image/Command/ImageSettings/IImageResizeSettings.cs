@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Talifun.Commander.Command.Image.Command.ImageSettings
 {
 	public interface IImageResizeSettings
@@ -16,7 +18,7 @@ namespace Talifun.Commander.Command.Image.Command.ImageSettings
 		string WatermarkPath { get; set; }
 		int WatermarkDissolveLevels { get; set; }
 		Gravity WatermarkGravity { get; set; }
-
+		List<string> AllowedMetaData { get; set; }
 		ImageMetaData MetaData { get; set; }
 	}
 }

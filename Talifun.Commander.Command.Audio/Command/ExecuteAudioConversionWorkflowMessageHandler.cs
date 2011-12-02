@@ -23,7 +23,7 @@ namespace Talifun.Commander.Command.Audio.Command
 			}
 
 			var commandPath = message.AppSettings[AudioConversionConfiguration.Instance.FFMpegPathSettingName];
-			var commandArguments = String.Format("-i \"{0}\" -y {1} \"{2}\"", inputFilePath.FullName, message.Settings.GetOptions(), outPutFilePath.FullName);
+			var commandArguments = String.Format("-i \"{0}\" -y {1} {2} \"{3}\"", inputFilePath.FullName, message.Settings.GetOptions(), message.Settings.MetaDataArguments(), outPutFilePath.FullName);
 
 			string output;
 

@@ -44,6 +44,26 @@ namespace Talifun.Commander.Command.Audio.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
+						.Publish((saga, message) => new RetrieveMetaDataMessage
+						{
+							CorrelationId = saga.CorrelationId,
+							InputFilePath = saga.InputFilePath
+						})
+						.TransitionTo(WaitingForRetrieveMetaData)
+					);
+
+				During(
+					WaitingForRetrieveMetaData,
+					When(RetrievedMetaData)
+						.Then((saga, message) =>
+						{
+							saga.MetaData = message.MetaData;
+
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Retrieved Meta Data ({0})", saga.CorrelationId);
+							}
+						})
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
@@ -52,7 +72,7 @@ namespace Talifun.Commander.Command.Audio.Command
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
 						.TransitionTo(WaitingForCreateTempDirectory)
-					);
+				);
 
 				During(
 					WaitingForCreateTempDirectory,
@@ -201,6 +221,7 @@ namespace Talifun.Commander.Command.Audio.Command
 		public virtual AudioConversionElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
+		public virtual AudioMetaData MetaData { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
 		public virtual string OutPut { get; set; }
 		public virtual string OutPutFilePath { get; set; }
@@ -215,6 +236,12 @@ namespace Talifun.Commander.Command.Audio.Command
 		//public static Event<Fault<CreateTempDirectoryMessage, Guid>> CreateTempDirectoryFailed { get; set; }
 		#endregion
 
+		#region Retrieve Meta Data
+		public static State WaitingForRetrieveMetaData { get; set; }
+		public static Event<RetrievedMetaDataMessage> RetrievedMetaData { get; set; }
+		//public static Event<Fault<RetrieveMetaDataMessage, Guid>> RetrieveMetaDataFailed { get; set; }
+		#endregion
+
 		#region Run command
 
 		public static State WaitingForExecuteAudioConversionWorkflow { get; set; }
@@ -224,6 +251,8 @@ namespace Talifun.Commander.Command.Audio.Command
 		private IExecuteAudioConversionWorkflowMessage GetAudioConversionWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
+			commandSettings.MetaData = MetaData;
+
 			var commandMessage = GetCommandMessage(commandSettings);
 
 			commandMessage.CorrelationId = CorrelationId;

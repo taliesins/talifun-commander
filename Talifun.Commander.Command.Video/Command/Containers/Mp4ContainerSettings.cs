@@ -1,4 +1,5 @@
-﻿using Talifun.Commander.Command.Video.Command.AudioFormats;
+﻿using System.Collections.Generic;
+using Talifun.Commander.Command.Video.Command.AudioFormats;
 using Talifun.Commander.Command.Video.Command.VideoFormats;
 using Talifun.Commander.Command.Video.Command.Watermark;
 
@@ -12,6 +13,26 @@ namespace Talifun.Commander.Command.Video.Command.Containers
 			Audio = audio;
 			Video = video;
 			Watermark = watermark;
+			AllowedMetaData = new List<string>
+			               	{
+			               		"Title",
+								"Artist",
+								"AlbumArtist",
+			               		"Album",
+			               		"Grouping",
+			               		"Composer",
+			               		"Year",
+								"Track",
+			               		"Comment",
+								"Genre",
+								"Copyright",
+								"Description",
+								"Synopsis",
+								"Show",
+								"EpisodeId",
+								"Network",
+								"Lyrics",
+			               	};
 		}
 
 		public string FileNameExtension { get; private set; }
@@ -20,5 +41,7 @@ namespace Talifun.Commander.Command.Video.Command.Containers
 		public IAudioSettings Audio { get; private set; }
 		public IVideoSettings Video { get; private set; }
 		public IWatermarkSettings Watermark { get; private set; }
+		public List<string> AllowedMetaData { get; set; }
+		public ContainerMetaData MetaData { get; set; }
 	}
 }

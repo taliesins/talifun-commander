@@ -1,4 +1,5 @@
-﻿using Talifun.Commander.Command.Audio.Configuration;
+﻿using System.Collections.Generic;
+using Talifun.Commander.Command.Audio.Configuration;
 
 namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 {
@@ -11,6 +12,17 @@ namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 			BitRate = audioConversion.BitRate;
 			Channels = audioConversion.Channel;
 			Frequency = audioConversion.Frequency;
+
+			AllowedMetaData = new List<string>()
+			               	{
+			               		"Title",
+			               		"Author", 
+			               		"Album", 
+			               		"Year", 
+			               		"Comment", 
+			               		"Track", 
+			               		"Genre",
+			               	};
 		}
 
 		public string CodecName { get; private set; }
@@ -19,5 +31,7 @@ namespace Talifun.Commander.Command.Audio.Command.AudioFormats
 		public int Frequency { get; private set; } //-ar {AudioFrequency}
 		public int Channels { get; private set; }//-ac {AudioChannels - 1, 2}
 		public string Options { get; private set; }
+		public List<string> AllowedMetaData { get; set; }
+		public AudioMetaData MetaData { get; set; }
 	}
 }

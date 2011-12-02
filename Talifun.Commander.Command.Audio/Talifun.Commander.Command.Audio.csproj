@@ -73,11 +73,7 @@
     <Compile Include="CommandTester\Request\AudioConversionConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\AudioConversionConfigurationTestResponseMessage.cs" />
     <Compile Include="Command\AudioConversionSaga.cs" />
-    <Compile Include="Command\AudioFormats\AacMetaData.cs" />
-    <Compile Include="Command\AudioFormats\Ac3MetaData.cs" />
-    <Compile Include="Command\AudioFormats\VorbisMetaData.cs" />
-    <Compile Include="Command\AudioFormats\IAudioMetaData.cs" />
-    <Compile Include="Command\AudioFormats\Mp3MetaData.cs" />
+    <Compile Include="Command\AudioFormats\AudioMetaData.cs" />
     <Compile Include="Command\ExecuteAudioConversionWorkflowMessageHandlerBase.cs" />
     <Compile Include="Command\MoveProcessedFileIntoErrorDirectoryMessageHandler.cs" />
     <Compile Include="Command\AudioFormats\Ac3Settings.cs" />
@@ -96,6 +92,7 @@
     <Compile Include="Command\Request\IExecuteAudioConversionWorkflowMessage.cs" />
     <Compile Include="Command\Request\MoveProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Command\Request\MoveProcessedFileIntoOutputDirectoryMessage.cs" />
+    <Compile Include="Command\Request\RetrieveMetaDataMessage.cs" />
     <Compile Include="Command\Response\AudioConversionResponseMessage.cs" />
     <Compile Include="Command\Response\MovedProcessedFileIntoErrorDirectoryMessage.cs" />
     <Compile Include="Command\Response\CreatedTempDirectoryMessage.cs" />
@@ -107,6 +104,8 @@
     <Compile Include="Command\AudioFormats\IAudioFormatsExtensions.cs" />
     <Compile Include="Command\AudioFormats\IAudioSettings.cs" />
     <Compile Include="Command\AudioFormats\VorbisSettings.cs" />
+    <Compile Include="Command\Response\RetrievedMetaDataMessage.cs" />
+    <Compile Include="Command\RetrieveMetaDataMessageHandler.cs" />
     <Compile Include="Configuration\AudioConversionElement.Validation.cs">
       <DependentUpon>AudioConversionElement.cs</DependentUpon>
     </Compile>

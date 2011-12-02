@@ -47,6 +47,26 @@ namespace Talifun.Commander.Command.Video.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
+						.Publish((saga, message) => new RetrieveMetaDataMessage
+						{
+							CorrelationId = saga.CorrelationId,
+							InputFilePath = saga.InputFilePath
+						})
+						.TransitionTo(WaitingForRetrieveMetaData)
+					);
+
+				During(
+					WaitingForRetrieveMetaData,
+					When(RetrievedMetaData)
+						.Then((saga, message) =>
+						{
+							saga.MetaData = message.MetaData;
+
+							if (Log.IsInfoEnabled)
+							{
+								Log.InfoFormat("Retrieved Meta Data ({0})", saga.CorrelationId);
+							}
+						})
 						.Publish((saga, message) => new CreateTempDirectoryMessage
 						{
 							CorrelationId = saga.CorrelationId,
@@ -55,7 +75,7 @@ namespace Talifun.Commander.Command.Video.Command
 							WorkingDirectoryPath = saga.Configuration.GetWorkingPathOrDefault()
 						})
 						.TransitionTo(WaitingForCreateTempDirectory)
-					);
+				);
 
 				During(
 					WaitingForCreateTempDirectory,
@@ -69,9 +89,9 @@ namespace Talifun.Commander.Command.Video.Command
 								Log.InfoFormat("Created Temp Directory ({0}) - {1}", saga.CorrelationId, saga.WorkingDirectoryPath);
 							}
 						})
-						.Then((saga, message)=>
+						.Then((saga, message) =>
 						{
-						    var commandMessage = saga.GetAudioConversionWorkflowMessage();
+							var commandMessage = saga.GetVideoConversionWorkflowMessage();
 							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
 						})
 						.TransitionTo(WaitingForExecuteVideoConversionWorkflow)
@@ -204,12 +224,19 @@ namespace Talifun.Commander.Command.Video.Command
 		public virtual VideoConversionElement Configuration { get; set; }
 		public virtual FileMatchElement FileMatch { get; set; }
 		public virtual string InputFilePath { get; set; }
+		public virtual ContainerMetaData MetaData { get; set; }
 		public virtual string WorkingDirectoryPath { get; set; }
 		public virtual string OutPut { get; set; }
 		public virtual string OutPutFilePath { get; set; }
 
 		#region Initialise
 		public static Event<VideoConversionRequestMessage> VideoConversionRequestEvent { get; set; }
+		#endregion
+
+		#region Retrieve Meta Data
+		public static State WaitingForRetrieveMetaData { get; set; }
+		public static Event<RetrievedMetaDataMessage> RetrievedMetaData { get; set; }
+		//public static Event<Fault<RetrieveMetaDataMessage, Guid>> RetrieveMetaDataFailed { get; set; }
 		#endregion
 
 		#region Create Temp Directory
@@ -224,9 +251,11 @@ namespace Talifun.Commander.Command.Video.Command
 		public static Event<IExecutedVideoConversionWorkflowMessage> ExecutedVideoConversionWorkflow { get; set; }
 		//public static Event<Fault<IExecuteVideoConversionWorkflowMessage, Guid>> ExecuteVideoConversionWorkflowFailed { get; set; }
 
-		private IExecuteVideoConversionWorkflowMessage GetAudioConversionWorkflowMessage()
+		private IExecuteVideoConversionWorkflowMessage GetVideoConversionWorkflowMessage()
 		{
 			var commandSettings = GetCommandSettings(Configuration);
+			commandSettings.MetaData = MetaData;
+
 			var commandMessage = GetCommandMessage(commandSettings);
 
 			commandMessage.CorrelationId = CorrelationId;
@@ -337,6 +366,8 @@ namespace Talifun.Commander.Command.Video.Command
 				default:
 					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
 			}
+
+			
 		}
 
 		private IExecuteVideoConversionWorkflowMessage GetCommandMessage(IContainerSettings containerSettings)
