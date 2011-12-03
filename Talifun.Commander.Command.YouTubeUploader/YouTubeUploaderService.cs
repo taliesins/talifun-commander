@@ -23,6 +23,7 @@ namespace Talifun.Commander.Command.YouTubeUploader
 		{
 			serviceBusConfigurator.Subscribe((subscriber) =>
 			{
+				subscriber.Consumer<RetrieveMetaDataMessageHandler>().Permanent();
 				subscriber.Consumer<ExecuteYouTubeUploaderWorkflowMessageHandler>().Permanent();
 			});
 		}

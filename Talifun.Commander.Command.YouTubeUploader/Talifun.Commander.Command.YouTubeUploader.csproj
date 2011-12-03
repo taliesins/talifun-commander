@@ -82,8 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\ExecuteYouTubeUploaderWorkflowMessageHandlerBase.cs" />
-    <Compile Include="Command\Settings\IVideoMetaData.cs" />
-    <Compile Include="Command\Settings\VideoMetaData.cs" />
+    <Compile Include="Command\Request\RetrieveMetaDataMessage.cs" />
+    <Compile Include="Command\Response\RetrievedMetaDataMessage.cs" />
+    <Compile Include="Command\RetrieveMetaDataMessageHandler.cs" />
+    <Compile Include="Command\Settings\YouTubeMetaData.cs" />
     <Compile Include="YouTubeUploaderMessanger.cs" />
     <Compile Include="YouTubeUploaderService.cs" />
     <Compile Include="CommandTester\Request\YouTubeUploaderConfigurationTestRequestMessage.cs" />

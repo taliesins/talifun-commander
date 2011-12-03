@@ -2,7 +2,7 @@
 
 namespace Talifun.Commander.Command.YouTubeUploader.Command.Settings
 {
-	public class YouTubeMetaData : IVideoMetaData
+	public class YouTubeMetaData
 	{
 		public string Title { get; set; }
 		public string Description { get; set; }

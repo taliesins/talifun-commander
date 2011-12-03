@@ -30,14 +30,14 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 
 			var video = new Video
 			{
-				Title = message.Settings.VideoMetaData.Title,
-				Description = message.Settings.VideoMetaData.Description,
-				Keywords = message.Settings.VideoMetaData.Keywords,
-				Private = message.Settings.VideoMetaData.Private,
+				Title = message.Settings.MetaData.Title,
+				Description = message.Settings.MetaData.Description,
+				Keywords = message.Settings.MetaData.Keywords,
+				Private = message.Settings.MetaData.Private,
 				MediaSource = new MediaFileSource(inputFilePath.FullName, contentType)
 			};
 
-			foreach (var category in message.Settings.VideoMetaData.Categories)
+			foreach (var category in message.Settings.MetaData.Categories)
 			{
 				video.Tags.Add(new MediaCategory(category));
 			}
