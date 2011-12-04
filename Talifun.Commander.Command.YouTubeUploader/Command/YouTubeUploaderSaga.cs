@@ -179,7 +179,9 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 				{
 					GooglePassword = youTubeUploader.GooglePassword,
 					GoogleUsername = youTubeUploader.GoogleUsername,
-					YouTubeUsername = youTubeUploader.YouTubeUsername
+					YouTubeUsername = youTubeUploader.YouTubeUsername,
+					ApplicationName = youTubeUploader.ApplicationName,
+					DeveloperKey = youTubeUploader.DeveloperKey
 				},
 				Upload = new UploadSettings()
 				{

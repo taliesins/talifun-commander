@@ -8,5 +8,6 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command.Response
 		Guid CorrelationId { get; set; }
 		Exception Error { get; set; }
 		bool Cancelled { get; set; }
+		string VideoId { get; set; }
 	}
 }

@@ -2,6 +2,7 @@
 using Google.GData.Client;
 using Google.GData.Client.ResumableUpload;
 using Google.GData.Extensions.MediaRss;
+using Google.GData.YouTube;
 using Google.YouTube;
 using MassTransit;
 using Talifun.Commander.Command.YouTubeUploader.Command.Request;
@@ -39,7 +40,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 
 			foreach (var category in message.Settings.MetaData.Categories)
 			{
-				video.Tags.Add(new MediaCategory(category));
+				video.Tags.Add(new MediaCategory(category, YouTubeNameTable.CategorySchema));
 			}
 
 			video.YouTubeEntry.Links.Add(link);

@@ -7,5 +7,6 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command.Response
 	{
 		public Exception Error { get; set; }
 		public bool Cancelled { get; set; }
+		public string VideoId { get; set; }
 	}
 }

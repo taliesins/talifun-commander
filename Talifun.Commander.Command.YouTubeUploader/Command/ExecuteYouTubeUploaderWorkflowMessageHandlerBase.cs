@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.GData.Client;
 using Google.GData.Client.ResumableUpload;
 using Google.GData.YouTube;
+using Google.YouTube;
 using MassTransit;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.YouTubeUploader.Command.Events;
@@ -67,11 +70,43 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 		{
 			var executeYouTubeUploaderWorkflowMessage = (IExecuteYouTubeUploaderWorkflowMessage)e.UserState;
 
+			if (e.Error != null)
+			{
+				var webException = (WebException) e.Error;
+				var response = webException.Response;
+				var responseBody = string.Empty;
+
+				if (response != null)
+				{
+					if (response.ContentLength > 0)
+					{
+						using (var stream = response.GetResponseStream())
+						{
+							using (var reader = new StreamReader(stream))
+							{
+								responseBody = reader.ReadToEnd().Trim();
+							}
+						}
+					}
+				}
+			}
+
+			var videoId = string.Empty;
+
+			if (!e.Cancelled && e.Error == null)
+			{
+				var youTubeRequestSettings = new YouTubeRequestSettings(executeYouTubeUploaderWorkflowMessage.Settings.Authentication.ApplicationName, executeYouTubeUploaderWorkflowMessage.Settings.Authentication.DeveloperKey);
+				var youTubeRequest = new YouTubeRequest(youTubeRequestSettings);
+				var video = youTubeRequest.ParseVideo(e.ResponseStream);
+				videoId = video.VideoId;
+			}
+
 			var executedYouTubeUploaderWorkflowMessage = new ExecutedYouTubeUploaderWorkflowMessage()
 			{
 				CorrelationId = executeYouTubeUploaderWorkflowMessage.CorrelationId,
 				Cancelled = e.Cancelled,
-				Error = e.Error
+				Error = e.Error,
+				VideoId = videoId
 			};
 
 			var bus = BusDriver.Instance.GetBus(YouTubeUploaderService.BusName);
