@@ -70,6 +70,7 @@
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Audio.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.CommandLine.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Image.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.PicasaUploader.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Video.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.VideoThumbNailer.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.YouTubeUploader.wxi ?>

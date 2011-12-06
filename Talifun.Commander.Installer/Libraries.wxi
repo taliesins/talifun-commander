@@ -71,13 +71,13 @@
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
-    <!--<Component Id="Google.GData.Photos.dll" Guid="e86f2f4a-8bdb-410e-a92a-db98da38066a">
+    <Component Id="Google.GData.Photos.dll" Guid="e86f2f4a-8bdb-410e-a92a-db98da38066a">
       <File Id="Google.GData.Photos.dll"
             Source="$(var.SolutionDir)\References\Google.GData.Photos.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
-    </Component>-->
+    </Component>
     <Component Id="Google.GData.YouTube.dll" Guid="4aeee50d-ae03-42f0-b078-b6bcdeec205a">
       <File Id="Google.GData.YouTube.dll"
             Source="$(var.SolutionDir)\References\Google.GData.YouTube.dll"
