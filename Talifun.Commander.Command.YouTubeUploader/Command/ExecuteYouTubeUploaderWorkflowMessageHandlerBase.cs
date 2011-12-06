@@ -72,19 +72,22 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 
 			if (e.Error != null)
 			{
-				var webException = (WebException) e.Error;
-				var response = webException.Response;
-				var responseBody = string.Empty;
-
-				if (response != null)
+				if (e.Error is WebException)
 				{
-					if (response.ContentLength > 0)
+					var webException = (WebException) e.Error;
+					var response = webException.Response;
+					var responseBody = string.Empty;
+
+					if (response != null)
 					{
-						using (var stream = response.GetResponseStream())
+						if (response.ContentLength > 0)
 						{
-							using (var reader = new StreamReader(stream))
+							using (var stream = response.GetResponseStream())
 							{
-								responseBody = reader.ReadToEnd().Trim();
+								using (var reader = new StreamReader(stream))
+								{
+									responseBody = reader.ReadToEnd().Trim();
+								}
 							}
 						}
 					}

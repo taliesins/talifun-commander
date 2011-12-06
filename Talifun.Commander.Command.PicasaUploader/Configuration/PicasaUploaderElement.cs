@@ -3,36 +3,36 @@ using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using Talifun.Commander.Command.Configuration;
 
-namespace Talifun.Commander.Command.YouTubeUploader.Configuration
+namespace Talifun.Commander.Command.PicasaUploader.Configuration
 {
 	/// <summary>
 	/// Represents a configuration element within a configuration file that configures options for custom string formatting providers.
 	/// </summary>
 	[JsonObject(MemberSerialization.OptIn)]
-	public sealed partial class YouTubeUploaderElement : CommandConfigurationBase
+	public sealed partial class PicasaUploaderElement : CommandConfigurationBase
 	{
 		private static readonly ConfigurationProperty googleUsername = new ConfigurationProperty("googleUsername", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty googlePassword = new ConfigurationProperty("googlePassword", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty youTubeUsername = new ConfigurationProperty("youTubeUsername", typeof(string), "default", ConfigurationPropertyOptions.None);
-		private static readonly ConfigurationProperty developerKey = new ConfigurationProperty("developerKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty picasaUsername = new ConfigurationProperty("picasaUsername", typeof(string), "default", ConfigurationPropertyOptions.None);
 		private static readonly ConfigurationProperty applicationName = new ConfigurationProperty("applicationName", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty albumId = new ConfigurationProperty("albumId", typeof(string), "default", ConfigurationPropertyOptions.None);
 
 		/// <summary>
-		/// Initializes the <see cref="YouTubeUploaderElement"/> class.
+		/// Initializes the <see cref="PicasaUploaderElement"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static YouTubeUploaderElement()
+		static PicasaUploaderElement()
         {
 			properties.Add(googleUsername);
 			properties.Add(googlePassword);
-			properties.Add(youTubeUsername);
-			properties.Add(developerKey);
+			properties.Add(picasaUsername);
 			properties.Add(applicationName);
+			properties.Add(albumId);
         }
 
-		public YouTubeUploaderElement()
+		public PicasaUploaderElement()
 		{
-			Setting = YouTubeUploaderConfiguration.Instance;	
+			Setting = PicasaUploaderConfiguration.Instance;	
 		}
 
 		/// <summary>
@@ -58,25 +58,14 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		}
 
 		/// <summary>
-		/// Gets or sets the YouTube Username to use when sending a request.
+		/// Gets or sets the Picasa Username to use when sending a request.
 		/// </summary>       
-		[ConfigurationProperty("youTubeUsername", DefaultValue = null)]
+		[ConfigurationProperty("picasaUsername", DefaultValue = null)]
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string YouTubeUsername
+		public string PicasaUsername
 		{
-			get { return ((string)base[youTubeUsername]); }
-			set { SetPropertyValue(value, youTubeUsername, "YouTubeUsername"); }
-		}
-
-		/// <summary>
-		/// Gets or sets the developer key to use when sending a request.
-		/// </summary>       
-		[ConfigurationProperty("developerKey", DefaultValue = null)]
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string DeveloperKey
-		{
-			get { return ((string)base[developerKey]); }
-			set { SetPropertyValue(value, developerKey, "DeveloperKey"); }
+			get { return ((string)base[picasaUsername]); }
+			set { SetPropertyValue(value, picasaUsername, "PicasaUsername"); }
 		}
 
 		/// <summary>
@@ -88,6 +77,17 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		{
 			get { return ((string)base[applicationName]); }
 			set { SetPropertyValue(value, applicationName, "ApplicationName"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the album to use when sending a request.
+		/// </summary>       
+		[ConfigurationProperty("albumId", DefaultValue = null)]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string AlbumId
+		{
+			get { return ((string)base[albumId]); }
+			set { SetPropertyValue(value, albumId, "AlbumId"); }
 		}
 	}
 }

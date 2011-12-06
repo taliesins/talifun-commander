@@ -20,13 +20,21 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 			var allowedCategories = GetAllowedCategories(allowedCategoriesFile);
 
 			var metaDataFile = new FileInfo(message.InputFilePath + ".YouTubeUploader.json");
-			var metaData = metaDataFile.Exists ? GetMetaData(metaDataFile) : new YouTubeMetaData(){Categories = new List<string>()};
+			var metaData = metaDataFile.Exists ? GetMetaData(metaDataFile) : new YouTubeMetaData();
 
-			var unknownCategories = metaData.Categories.Where(x => !allowedCategories.Contains(x));
-
-			if (unknownCategories.Any())
+			if (string.IsNullOrEmpty(metaData.Title))
 			{
-				throw new Exception("Unknown media cateogry");
+				throw new Exception("YouTube requires a title to be set");
+			}
+
+			if (string.IsNullOrEmpty(metaData.Category))
+			{
+				throw new Exception("YouTube requires a category to be set");
+			}
+
+			if (!allowedCategories.Contains(metaData.Category))
+			{
+				throw new Exception("Unknown YouTube category");
 			}
 
 			var retrievedMetaDataMessage = new RetrievedMetaDataMessage()

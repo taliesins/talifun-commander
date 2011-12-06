@@ -226,6 +226,10 @@
       <Project>{CFFF52F1-1870-4E7D-B951-800537243A97}</Project>
       <Name>Talifun.Commander.Command.Image</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj">
+      <Project>{0B7A33A7-D4DC-45DA-9C20-238BF9662779}</Project>
+      <Name>Talifun.Commander.Command.PicasaUploader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj">
       <Project>{261A8736-8B04-4584-B61E-7002D037100F}</Project>
       <Name>Talifun.Commander.Command.VideoThumbnailer</Name>
