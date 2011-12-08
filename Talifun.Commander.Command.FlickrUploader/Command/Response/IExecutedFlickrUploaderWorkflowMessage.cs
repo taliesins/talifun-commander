@@ -1,9 +1,9 @@
 ﻿using System;
 using Talifun.Commander.Command.Esb;
 
-namespace Talifun.Commander.Command.PicasaUploader.Command.Response
+namespace Talifun.Commander.Command.FlickrUploader.Command.Response
 {
-	public interface IExecutedPicasaUploaderWorkflowMessage : ICommandIdentifier
+	public interface IExecutedFlickrUploaderWorkflowMessage : ICommandIdentifier
 	{
 		Guid CorrelationId { get; set; }
 		Exception Error { get; set; }

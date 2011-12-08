@@ -53,22 +53,22 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 			var message = string.Format("Upload Progress: {0} ({1}/{2} - {3}%) {4} {5}", DateTime.Now, e.Position, e.CompleteSize,
 										e.ProgressPercentage, e.HttpVerb, e.Uri);
 
-			var executeYouTubeUploaderWorkflowMessage = (IExecutePicasaUploaderWorkflowMessage)e.UserState;
+			var executePicasaUploaderWorkflowMessage = (IExecutePicasaUploaderWorkflowMessage)e.UserState;
 
-			var youTubeUploaderProgressMessage = new PicasaUploaderProgressMessage
+			var picasaUploaderProgressMessage = new PicasaUploaderProgressMessage
 			{
-				CorrelationId = executeYouTubeUploaderWorkflowMessage.CorrelationId,
-				InputFilePath = executeYouTubeUploaderWorkflowMessage.InputFilePath,
+				CorrelationId = executePicasaUploaderWorkflowMessage.CorrelationId,
+				InputFilePath = executePicasaUploaderWorkflowMessage.InputFilePath,
 				Output = message
 			};
 
 			var bus = BusDriver.Instance.GetBus(PicasaUploaderService.BusName);
-			bus.Publish(youTubeUploaderProgressMessage);
+			bus.Publish(picasaUploaderProgressMessage);
 		}
 
 		protected void OnResumableUploaderAsyncOperationCompleted(object sender, AsyncOperationCompletedEventArgs e)
 		{
-			var executeYouTubeUploaderWorkflowMessage = (IExecutePicasaUploaderWorkflowMessage)e.UserState;
+			var executePicasaUploaderWorkflowMessage = (IExecutePicasaUploaderWorkflowMessage)e.UserState;
 
 			if (e.Error != null)
 			{
@@ -91,26 +91,15 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 				}
 			}
 
-			var videoId = string.Empty;
-
-			//if (!e.Cancelled && e.Error == null)
-			//{
-			//    var youTubeRequestSettings = new YouTubeRequestSettings(executeYouTubeUploaderWorkflowMessage.Settings.Authentication.ApplicationName, executeYouTubeUploaderWorkflowMessage.Settings.Authentication.DeveloperKey);
-			//    var youTubeRequest = new YouTubeRequest(youTubeRequestSettings);
-			//    var video = youTubeRequest.ParseVideo(e.ResponseStream);
-			//    videoId = video.VideoId;
-			//}
-
-			var executedYouTubeUploaderWorkflowMessage = new ExecutedPicasaUploaderWorkflowMessage()
+			var executedPicasaUploaderWorkflowMessage = new ExecutedPicasaUploaderWorkflowMessage()
 			{
-				CorrelationId = executeYouTubeUploaderWorkflowMessage.CorrelationId,
+				CorrelationId = executePicasaUploaderWorkflowMessage.CorrelationId,
 				Cancelled = e.Cancelled,
-				Error = e.Error,
-				VideoId = videoId
+				Error = e.Error
 			};
 
 			var bus = BusDriver.Instance.GetBus(PicasaUploaderService.BusName);
-			bus.Publish(executedYouTubeUploaderWorkflowMessage);
+			bus.Publish(executedPicasaUploaderWorkflowMessage);
 		}
 	}
 }

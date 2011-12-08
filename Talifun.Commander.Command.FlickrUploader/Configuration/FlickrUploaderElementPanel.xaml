@@ -1,0 +1,79 @@
+﻿<Configuration:ElementPanelBase x:Class="Talifun.Commander.Command.FlickrUploader.Configuration.FlickrUploaderElementPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
+                                xmlns:local="clr-namespace:Talifun.Commander.Command.FlickrUploader.Configuration"
+                                mc:Ignorable="d" 
+             d:DesignHeight="575" d:DesignWidth="300">
+    <Configuration:ElementPanelBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:StringToVisibilityConverter x:Key="stringToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Configuration:ElementPanelBase.Resources>
+    <Grid>
+        <Label Content="Flickr Uploader" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Stretch" Margin="12,46,12,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />                
+            </Grid.RowDefinitions>
+            <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Flickr Api Key:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiKeyTextBox" Text="{Binding Path=Element.FlickrApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Flickr Api Secret:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiSecretTextBox" Text="{Binding Path=Element.FlickrApiSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Flickr Frob:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrFrobTextBox" Text="{Binding Path=Element.FlickrFrob, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Flickr Auth Token:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrAuthTokenTextBox" Text="{Binding Path=Element.FlickrAuthToken, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Step 1:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Create" Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="createFlickerFrobButton"  Width="75" Click="CreateFlickerFrobButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrFrob, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Content="Step 2:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authorize" Grid.Row="6" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authorizeFlickerFrobButton"  Width="75" Click="AuthorizeFlickerFrobButton_Click" />
+            <Label Content="Opens browser to authenticate with Flickr" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center"/>
+
+            <Label Content="Step 3:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authenticate" Grid.Row="7" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authenticateFlickerFrobButton" Width="75" Click="AuthenticateFlickerFrobButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrAuthToken, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="Full Name:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="fullNameLabel" />
+
+            <Label Content="User Id:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="userIdLabel" />
+
+            <Label Content="Username:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="usernameLabel" />
+
+            <Label Content="Permissions:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="permissionsLabel" />
+        </Grid>
+    </Grid>
+</Configuration:ElementPanelBase>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0AB1E479-20C0-4E08-8261-10BC5744B041}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Talifun.Commander.Command.FlickrUploader</RootNamespace>
+    <AssemblyName>Talifun.Commander.Command.FlickrUploader</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FlickrNet, Version=3.2.4310.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\FlickrNet.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\References\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\References\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\References\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\References\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit">
+      <HintPath>..\References\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandTester\FlickrUploaderConfigurationTesterSaga.cs" />
+    <Compile Include="CommandTester\Request\FlickrUploaderConfigurationTestRequestMessage.cs" />
+    <Compile Include="CommandTester\Response\FlickrUploaderConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\Events\FlickrUploaderCompletedMessage.cs" />
+    <Compile Include="Command\Events\FlickrUploaderProgressMessage.cs" />
+    <Compile Include="Command\Events\FlickrUploaderStartedMessage.cs" />
+    <Compile Include="Command\ExecuteFlickrUploaderWorkflowMessageHandler.cs" />
+    <Compile Include="Command\ExecuteFlickrUploaderWorkflowMessageHandlerBase.cs" />
+    <Compile Include="Command\FlickrUploaderSaga.cs" />
+    <Compile Include="Command\Request\ExecuteFlickrUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Request\IExecuteFlickrUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Request\FlickrUploaderCancelMessage.cs" />
+    <Compile Include="Command\Request\FlickrUploaderRequestMessage.cs" />
+    <Compile Include="Command\Request\RetrieveMetaDataMessage.cs" />
+    <Compile Include="Command\Response\ExecutedFlickrUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Response\IExecutedFlickrUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Response\FlickrUploaderResponseMessage.cs" />
+    <Compile Include="Command\Response\RetrievedMetaDataMessage.cs" />
+    <Compile Include="Command\RetrieveMetaDataMessageHandler.cs" />
+    <Compile Include="Command\Settings\AuthenticationSettings.cs" />
+    <Compile Include="Command\Settings\IAuthenticationSettings.cs" />
+    <Compile Include="Command\Settings\IFlickrUploaderSettings.cs" />
+    <Compile Include="Command\Settings\FlickrMetaData.cs" />
+    <Compile Include="Command\Settings\FlickrUploaderSettings.cs" />
+    <Compile Include="Configuration\FlickrUploaderConfiguration.cs" />
+    <Compile Include="Configuration\FlickrUploaderElement.cs" />
+    <Compile Include="Configuration\FlickrUploaderElement.Validation.cs">
+      <DependentUpon>FlickrUploaderElement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FlickrUploaderElementCollection.cs" />
+    <Compile Include="Configuration\FlickrUploaderElementValidator.cs" />
+    <Compile Include="Configuration\FlickrUploaderElementCollectionPanelDataModel.cs" />
+    <Compile Include="Configuration\FlickrUploaderElementPanelDataModel.cs" />
+    <Compile Include="Configuration\FlickrUploaderElementCollectionPanel.xaml.cs">
+      <DependentUpon>FlickrUploaderElementCollectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\FlickrUploaderElementPanel.xaml.cs">
+      <DependentUpon>FlickrUploaderElementPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\StringToVisibilityConverter.cs" />
+    <Compile Include="FlickrUploaderMessanger.cs" />
+    <Compile Include="FlickrUploaderService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
+      <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
+      <Name>Talifun.Commander.Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
+      <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
+      <Name>Talifun.Commander.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\FlickrUploaderElement.png" />
+    <Content Include="Resource\FlickrUploaderElementCollection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Configuration\FlickrUploaderElementCollectionPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Configuration\FlickrUploaderElementPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

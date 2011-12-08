@@ -30,8 +30,8 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 			using (var textReader = metaDataFile.OpenText())
 			{
 				var json = textReader.ReadToEnd().Trim();
-				var youTubeMetaData = JsonConvert.DeserializeObject<PicasaMetaData>(json);
-				return youTubeMetaData;
+				var picasaMetaData = JsonConvert.DeserializeObject<PicasaMetaData>(json);
+				return picasaMetaData;
 			}
 		}
 	}

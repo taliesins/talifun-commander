@@ -19,7 +19,7 @@ namespace Talifun.Commander.Command
                 if (_container == null)
                 {
                     var aggregatecatalogue = new AggregateCatalog();
-                    aggregatecatalogue.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory));
+					aggregatecatalogue.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "Talifun.Commander.Command.*.dll"));
                     _container = new CompositionContainer(aggregatecatalogue);
                 }
 

@@ -7,6 +7,5 @@ namespace Talifun.Commander.Command.PicasaUploader.Command.Response
 	{
 		public Exception Error { get; set; }
 		public bool Cancelled { get; set; }
-		public string VideoId { get; set; }
 	}
 }

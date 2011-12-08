@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.PicasaUploader", "Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj", "{0B7A33A7-D4DC-45DA-9C20-238BF9662779}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.FlickrUploader", "Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj", "{0AB1E479-20C0-4E08-8261-10BC5744B041}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -345,6 +347,21 @@ Global
 		{0B7A33A7-D4DC-45DA-9C20-238BF9662779}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0B7A33A7-D4DC-45DA-9C20-238BF9662779}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0B7A33A7-D4DC-45DA-9C20-238BF9662779}.Release|x86.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.ASP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.ASP|Mixed Platforms.Build.0 = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.ASP|x86.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

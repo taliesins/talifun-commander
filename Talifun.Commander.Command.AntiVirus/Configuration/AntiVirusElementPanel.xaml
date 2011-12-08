@@ -13,9 +13,8 @@
                 <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <local:EnumToFriendlyNameConverter x:Key="enumItemsConverter"/>
-            <local:StringFormatDemoConverter x:Key="stringFormatConverter"/>
-            
-            <ObjectDataProvider x:Key="virusScannerType"
+
+          <ObjectDataProvider x:Key="virusScannerType"
                         MethodName="GetValues" 
                         ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
