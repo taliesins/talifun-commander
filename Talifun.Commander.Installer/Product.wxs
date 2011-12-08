@@ -69,6 +69,7 @@
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.AntiVirus.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Audio.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.CommandLine.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.FlickrUploader.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Image.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.PicasaUploader.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Video.wxi ?>

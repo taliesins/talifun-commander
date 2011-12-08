@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.FlickrUploader", "Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj", "{0AB1E479-20C0-4E08-8261-10BC5744B041}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.DropBoxUploader", "Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj", "{40FDA058-E01A-4A9E-8B4C-0A4310468149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -362,6 +364,21 @@ Global
 		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0AB1E479-20C0-4E08-8261-10BC5744B041}.Release|x86.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.ASP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.ASP|Mixed Platforms.Build.0 = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.ASP|x86.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
