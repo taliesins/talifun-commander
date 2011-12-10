@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration;assembly=Talifun.Commander.Command"
-                                xmlns:local="clr-namespace:Talifun.Commander.Command.FlickrUploader.Configuration"
-                                mc:Ignorable="d" 
+             xmlns:UI="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
+             mc:Ignorable="d" 
              d:DesignHeight="575" d:DesignWidth="300">
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Talifun.Commander.Command;component/Configuration/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:StringToVisibilityConverter x:Key="stringToVisibilityConverter"/>
+            <UI:StringToVisibilityConverter x:Key="stringToVisibilityConverter"/>
         </ResourceDictionary>
     </Configuration:ElementPanelBase.Resources>
     <Grid>

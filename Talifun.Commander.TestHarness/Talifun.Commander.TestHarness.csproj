@@ -222,6 +222,10 @@
       <Project>{3DF20FF4-076A-492C-8DF4-6C606DDE7419}</Project>
       <Name>Talifun.Commander.Command.CommandLine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj">
+      <Project>{40FDA058-E01A-4A9E-8B4C-0A4310468149}</Project>
+      <Name>Talifun.Commander.Command.DropBoxUploader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj">
       <Project>{0AB1E479-20C0-4E08-8261-10BC5744B041}</Project>
       <Name>Talifun.Commander.Command.FlickrUploader</Name>

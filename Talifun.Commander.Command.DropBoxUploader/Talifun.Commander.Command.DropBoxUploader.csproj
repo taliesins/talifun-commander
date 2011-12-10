@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0AB1E479-20C0-4E08-8261-10BC5744B041}</ProjectGuid>
+    <ProjectGuid>{40FDA058-E01A-4A9E-8B4C-0A4310468149}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Talifun.Commander.Command.FlickrUploader</RootNamespace>
-    <AssemblyName>Talifun.Commander.Command.FlickrUploader</AssemblyName>
+    <RootNamespace>Talifun.Commander.Command.DropBoxUploader</RootNamespace>
+    <AssemblyName>Talifun.Commander.Command.DropBoxUploader</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlickrNet, Version=3.2.4310.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\FlickrNet.dll</HintPath>
+    <Reference Include="AppLimit.CloudComputing.SharpBox">
+      <HintPath>..\References\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\References\FluentAssertions.dll</HintPath>
@@ -68,47 +67,43 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandTester\FlickrUploaderConfigurationTesterSaga.cs" />
-    <Compile Include="CommandTester\Request\FlickrUploaderConfigurationTestRequestMessage.cs" />
-    <Compile Include="CommandTester\Response\FlickrUploaderConfigurationTestResponseMessage.cs" />
-    <Compile Include="Command\Events\FlickrUploaderCompletedMessage.cs" />
-    <Compile Include="Command\Events\FlickrUploaderProgressMessage.cs" />
-    <Compile Include="Command\Events\FlickrUploaderStartedMessage.cs" />
-    <Compile Include="Command\ExecuteFlickrUploaderWorkflowMessageHandler.cs" />
-    <Compile Include="Command\ExecuteFlickrUploaderWorkflowMessageHandlerBase.cs" />
-    <Compile Include="Command\FlickrUploaderSaga.cs" />
-    <Compile Include="Command\Request\ExecuteFlickrUploaderWorkflowMessage.cs" />
-    <Compile Include="Command\Request\IExecuteFlickrUploaderWorkflowMessage.cs" />
-    <Compile Include="Command\Request\FlickrUploaderCancelMessage.cs" />
-    <Compile Include="Command\Request\FlickrUploaderRequestMessage.cs" />
-    <Compile Include="Command\Request\RetrieveMetaDataMessage.cs" />
-    <Compile Include="Command\Response\ExecutedFlickrUploaderWorkflowMessage.cs" />
-    <Compile Include="Command\Response\IExecutedFlickrUploaderWorkflowMessage.cs" />
-    <Compile Include="Command\Response\FlickrUploaderResponseMessage.cs" />
-    <Compile Include="Command\Response\RetrievedMetaDataMessage.cs" />
-    <Compile Include="Command\RetrieveMetaDataMessageHandler.cs" />
+    <Compile Include="CommandTester\DropBoxUploaderConfigurationTesterSaga.cs" />
+    <Compile Include="CommandTester\Request\DropBoxUploaderConfigurationTestRequestMessage.cs" />
+    <Compile Include="CommandTester\Response\DropBoxUploaderConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\Events\DropBoxUploaderCompletedMessage.cs" />
+    <Compile Include="Command\Events\DropBoxUploaderProgressMessage.cs" />
+    <Compile Include="Command\Events\DropBoxUploaderStartedMessage.cs" />
+    <Compile Include="Command\ExecuteDropBoxUploaderWorkflowMessageHandler.cs" />
+    <Compile Include="Command\ExecuteDropBoxUploaderWorkflowMessageHandlerBase.cs" />
+    <Compile Include="Command\DropBoxUploaderSaga.cs" />
+    <Compile Include="Command\Request\ExecuteDropBoxUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Request\DropBoxUploaderCancelMessage.cs" />
+    <Compile Include="Command\Request\DropBoxUploaderRequestMessage.cs" />
+    <Compile Include="Command\Request\IExecuteDropBoxUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Response\ExecutedDropBoxUploaderWorkflowMessage.cs" />
+    <Compile Include="Command\Response\DropBoxUploaderResponseMessage.cs" />
+    <Compile Include="Command\Response\IExecutedDropBoxUploaderWorkflowMessage.cs" />
     <Compile Include="Command\Settings\AuthenticationSettings.cs" />
+    <Compile Include="Command\Settings\DropBoxUploaderSettings.cs" />
     <Compile Include="Command\Settings\IAuthenticationSettings.cs" />
-    <Compile Include="Command\Settings\IFlickrUploaderSettings.cs" />
-    <Compile Include="Command\Settings\FlickrMetaData.cs" />
-    <Compile Include="Command\Settings\FlickrUploaderSettings.cs" />
-    <Compile Include="Configuration\FlickrUploaderConfiguration.cs" />
-    <Compile Include="Configuration\FlickrUploaderElement.cs" />
-    <Compile Include="Configuration\FlickrUploaderElement.Validation.cs">
-      <DependentUpon>FlickrUploaderElement.cs</DependentUpon>
+    <Compile Include="Command\Settings\IDropBoxUploaderSettings.cs" />
+    <Compile Include="Configuration\DropBoxUploaderConfiguration.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElement.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElement.Validation.cs">
+      <DependentUpon>DropBoxUploaderElement.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\FlickrUploaderElementCollection.cs" />
-    <Compile Include="Configuration\FlickrUploaderElementValidator.cs" />
-    <Compile Include="Configuration\FlickrUploaderElementCollectionPanelDataModel.cs" />
-    <Compile Include="Configuration\FlickrUploaderElementPanelDataModel.cs" />
-    <Compile Include="Configuration\FlickrUploaderElementCollectionPanel.xaml.cs">
-      <DependentUpon>FlickrUploaderElementCollectionPanel.xaml</DependentUpon>
+    <Compile Include="Configuration\DropBoxUploaderElementCollection.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElementCollectionPanelDataModel.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElementPanelDataModel.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElementValidator.cs" />
+    <Compile Include="Configuration\DropBoxUploaderElementCollectionPanel.xaml.cs">
+      <DependentUpon>DropBoxUploaderElementCollectionPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\FlickrUploaderElementPanel.xaml.cs">
-      <DependentUpon>FlickrUploaderElementPanel.xaml</DependentUpon>
+    <Compile Include="Configuration\DropBoxUploaderElementPanel.xaml.cs">
+      <DependentUpon>DropBoxUploaderElementPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FlickrUploaderMessanger.cs" />
-    <Compile Include="FlickrUploaderService.cs" />
+    <Compile Include="DropBoxUploaderMessanger.cs" />
+    <Compile Include="DropBoxUploaderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -127,8 +122,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resource\FlickrUploaderElement.png" />
-    <Content Include="Resource\FlickrUploaderElementCollection.png" />
+    <Content Include="Resource\DropBoxUploaderElement.png" />
+    <Content Include="Resource\DropBoxUploaderElementCollection.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.resx">
@@ -137,11 +132,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Configuration\FlickrUploaderElementCollectionPanel.xaml">
+    <Page Include="Configuration\DropBoxUploaderElementPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Configuration\FlickrUploaderElementPanel.xaml">
+    <Page Include="Configuration\DropBoxUploaderElementCollectionPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Data;
 
-namespace Talifun.Commander.Command.FlickrUploader.Configuration
+namespace Talifun.Commander.UI
 {
 	[ValueConversion(typeof(string), typeof(System.Windows.Visibility))]
 	public class StringToVisibilityConverter : IValueConverter 
