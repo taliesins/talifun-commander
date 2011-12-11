@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\YouTubeUploaderElement.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentValidation">
@@ -151,7 +152,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\YouTubeUploaderElement.ico" />
     <Content Include="Resources\YouTubeUploaderElementCollection.png" />
     <Content Include="Resources\YouTubeUploaderElement.png" />
   </ItemGroup>

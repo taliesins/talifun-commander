@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\PicasaUploaderElement.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
@@ -141,7 +142,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\PicasaUploaderElement.ico" />
     <Content Include="Resources\PicasaUploaderElement.png" />
     <Content Include="Resources\PicasaUploaderElementCollection.png" />
   </ItemGroup>

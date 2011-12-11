@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resource\DropBoxUploaderElement.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
@@ -125,7 +126,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\DropBoxUploaderElement.ico" />
     <Content Include="Resource\DropBoxUploaderElement.png" />
     <Content Include="Resource\DropBoxUploaderElementCollection.png" />
   </ItemGroup>
