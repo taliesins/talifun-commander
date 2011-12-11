@@ -3,5 +3,6 @@
 	public class DropBoxUploaderSettings : IDropBoxUploaderSettings
 	{
 		public IAuthenticationSettings Authentication { get; set; }
+		public string Folder { get; set; }
 	}
 }

@@ -17,6 +17,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		private static readonly ConfigurationProperty dropBoxRequestSecret = new ConfigurationProperty("dropBoxRequestSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxAuthenticationKey = new ConfigurationProperty("dropBoxAuthenticationKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxAuthenticationSecret = new ConfigurationProperty("dropBoxAuthenticationSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty dropBoxFolder = new ConfigurationProperty("dropBoxFolder", typeof(string), string.Empty, ConfigurationPropertyOptions.None);
 
 
 		/// <summary>
@@ -31,6 +32,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 			properties.Add(dropBoxRequestSecret);
 			properties.Add(dropBoxAuthenticationKey);
 			properties.Add(dropBoxAuthenticationSecret);
+			properties.Add(dropBoxFolder);
 		}
 
 		public DropBoxUploaderElement()
@@ -102,6 +104,17 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		{
 			get { return ((string)base[dropBoxAuthenticationSecret]); }
 			set { SetPropertyValue(value, dropBoxAuthenticationSecret, "DropBoxAuthenticationSecret"); }
+		}
+
+		/// <summary>
+		/// Gets or sets the Drop Box Folder to use when uploading a file.
+		/// </summary>       
+		[ConfigurationProperty("dropBoxFolder", DefaultValue = "")]
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string DropBoxFolder
+		{
+			get { return ((string)base[dropBoxFolder]); }
+			set { SetPropertyValue(value, dropBoxFolder, "DropBoxFolder"); }
 		}
 	}
 }

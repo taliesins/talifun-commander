@@ -77,7 +77,6 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 			bus.Publish(flickrUploaderProgressMessage);
 		}
 
-
 		protected void OnResumableUploaderAsyncOperationCompleted(object sender, AsyncOperationCompletedEventArgs e)
 		{
 			var executeFlickrUploaderWorkflowMessage = (IExecuteFlickrUploaderWorkflowMessage)e.UserState;
