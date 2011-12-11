@@ -43,6 +43,13 @@
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
+    <Component Id="log4net.NLogAppender.dll" Guid="8dcec06d-3535-4e6f-b9ee-dd73d61e98a5">
+      <File Id="log4net.NLogAppender.dll"
+            Source="$(var.SolutionDir)\References\log4net.NLogAppender.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>    
     <Component Id="FluentValidation.dll" Guid="23b5d20f-c1ae-4651-9d7c-0a602ff45c52">
       <File Id="FluentValidation.dll"
             Source="$(var.SolutionDir)\References\FluentValidation.dll"
@@ -88,6 +95,13 @@
     <Component Id="FlickrNet.dll" Guid="2e4f94ce-fca3-4ebb-9a40-35c09fdb12c6">
       <File Id="FlickrNet.dll"
             Source="$(var.SolutionDir)\References\FlickrNet.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="AppLimit.CloudComputing.SharpBox.dll" Guid="5982c3b6-1663-4dec-9e6b-1054525eec1c">
+      <File Id="AppLimit.CloudComputing.SharpBox.dll"
+            Source="$(var.SolutionDir)\References\AppLimit.CloudComputing.SharpBox.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>

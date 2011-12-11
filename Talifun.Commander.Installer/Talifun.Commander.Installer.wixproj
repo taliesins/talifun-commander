@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CommandLineTools.wxi" />
+    <Content Include="Talifun.Commander.Command.DropBoxUploader.wxi" />
     <Content Include="Talifun.Commander.Command.FlickrUploader.wxi" />
     <Content Include="Talifun.Commander.Command.PicasaUploader.wxi" />
     <Content Include="Libraries.wxi" />

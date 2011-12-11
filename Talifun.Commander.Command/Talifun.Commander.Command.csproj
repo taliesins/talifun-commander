@@ -318,6 +318,9 @@
     <Reference Include="log4net">
       <HintPath>..\References\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="log4net.NLogAppender">
+      <HintPath>..\References\log4net.NLogAppender.dll</HintPath>
+    </Reference>
     <Reference Include="Magnum">
       <HintPath>..\References\Magnum.dll</HintPath>
     </Reference>
@@ -350,11 +353,6 @@
     <Reference Include="WPFToolkit.Extended">
       <HintPath>..\References\WPFToolkit.Extended.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

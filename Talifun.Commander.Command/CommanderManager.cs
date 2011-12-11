@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using Magnum;
@@ -13,7 +12,7 @@ using Talifun.Commander.Command.ConfigurationChecker.Response;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FolderWatcher;
 using Talifun.Commander.FileWatcher;
-using log4net.Config;
+using log4net;
 
 namespace Talifun.Commander.Command
 {
@@ -29,8 +28,8 @@ namespace Talifun.Commander.Command
 		private bool _startOrStopSignalled = false;
 		
 		public CommanderManager(ExportProvider container, AppSettingsSection appSettings, CommanderSection commanderSettings, IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
-        {
-			XmlConfigurator.Configure(new FileInfo("log4net.config"));
+		{
+			NLogAppender.Initialize();
 
             _container = container;
 			_appSettings = appSettings;
