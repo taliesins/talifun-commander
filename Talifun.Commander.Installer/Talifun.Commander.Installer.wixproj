@@ -49,6 +49,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLLOCATION</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj">
+      <Name>Talifun.Commander.Command.DropBoxUploader</Name>
+      <Project>{40fda058-e01a-4a9e-8b4c-0a4310468149}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj">
       <Name>Talifun.Commander.Command.FlickrUploader</Name>
       <Project>{0ab1e479-20c0-4e08-8261-10bc5744b041}</Project>

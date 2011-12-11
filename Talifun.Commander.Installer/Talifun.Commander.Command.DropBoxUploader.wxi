@@ -17,7 +17,7 @@
   </ComponentGroup>
 
   <FeatureRef Id="PlugIns" IgnoreParent="yes">
-    <Feature Id="Talifun.Commander.Command.DropBoxUpload" Title="DropBox Uploader PlugIn" Description="Upload files to DropBox." Level="1">
+    <Feature Id="Talifun.Commander.Command.DropBoxUploa" Title="DropBox Uploader PlugIn" Description="Upload files to DropBox." Level="1">
       <ComponentGroupRef Id="Talifun.Commander.Command.DropBoxUploader.dll"/>
     </Feature>
   </FeatureRef>
