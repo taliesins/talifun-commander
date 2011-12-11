@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\YouTubeUploaderElement.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentValidation">
       <HintPath>..\References\FluentValidation.dll</HintPath>
@@ -148,6 +151,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\YouTubeUploaderElement.ico" />
     <Content Include="Resources\YouTubeUploaderElementCollection.png" />
     <Content Include="Resources\YouTubeUploaderElement.png" />
   </ItemGroup>

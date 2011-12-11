@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resource\DropBoxUploaderElement.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
       <HintPath>..\References\AppLimit.CloudComputing.SharpBox.dll</HintPath>
@@ -122,6 +125,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resource\DropBoxUploaderElement.ico" />
     <Content Include="Resource\DropBoxUploaderElement.png" />
     <Content Include="Resource\DropBoxUploaderElementCollection.png" />
   </ItemGroup>

@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\PicasaUploaderElement.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
       <HintPath>..\References\FluentAssertions.dll</HintPath>
@@ -138,6 +141,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Resources\PicasaUploaderElement.ico" />
     <Content Include="Resources\PicasaUploaderElement.png" />
     <Content Include="Resources\PicasaUploaderElementCollection.png" />
   </ItemGroup>
