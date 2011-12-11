@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Configuration="clr-namespace:Talifun.Commander.Command.Configuration"
         xmlns:complex="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI" 
-        Title="CommanderSectionWindow"  Width="821" Height="645">
+        Title="CommanderSectionWindow"  Width="821" Height="645" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <complex:ComplexGroupDataTemplateSelector x:Key="complex-group-data-template-selector"/>
         <complex:ComplexGroupConverter x:Key="complex-group-converter"/>

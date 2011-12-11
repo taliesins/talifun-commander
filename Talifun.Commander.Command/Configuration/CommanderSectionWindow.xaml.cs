@@ -361,9 +361,9 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FolderElementCollection GetFolderElementCollection(FolderElement folderElement)
 		{
-			var folderElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
+			var folderElementCollection = _commanderSettings.Projects
 				.Select(x => x.Folders)
-				.Where(x => x.Cast<FolderElement>().Where(y => y == folderElement).Any())
+				.Where(x => x.Where(y => y == folderElement).Any())
 				.FirstOrDefault();
 
 			return folderElementCollection;
@@ -371,10 +371,10 @@ namespace Talifun.Commander.Command.Configuration
 
 		private FileMatchElementCollection GetFileMatchElementCollection(FileMatchElement fileMatchElement)
 		{
-			var fileMatchElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
-				.SelectMany(x => x.Folders.Cast<FolderElement>())
+			var fileMatchElementCollection = _commanderSettings.Projects
+				.SelectMany(x => x.Folders)
 				.Select(x => x.FileMatches)
-				.Where(x => x.Cast<FileMatchElement>().Where(y => y == fileMatchElement).Any())
+				.Where(x => x.Where(y => y == fileMatchElement).Any())
 				.FirstOrDefault();
 
 			return fileMatchElementCollection;
@@ -382,7 +382,7 @@ namespace Talifun.Commander.Command.Configuration
 
 		private CurrentConfigurationElementCollection GetCurrentConfigurationElementCollection(NamedConfigurationElement namedConfigurationElement)
 		{
-			var currentConfigurationElementCollection = _commanderSettings.Projects.Cast<ProjectElement>()
+			var currentConfigurationElementCollection = _commanderSettings.Projects
 				.SelectMany(x => x.CommandPlugins)
 				.Where(x => x.Setting == namedConfigurationElement.Setting)
 				.Where(x => x.Cast<NamedConfigurationElement>()
@@ -424,8 +424,8 @@ namespace Talifun.Commander.Command.Configuration
 		/// <returns>True: if all the folders needed for FolderElements are created; otherwise false;</returns>
 		private bool AreAllFoldersCreatedForFolderElement()
 		{
-			var allFoldersCreatedForFolderElement = _commanderSettings.Projects.Cast<ProjectElement>()
-				.SelectMany(x => x.Folders.Cast<FolderElement>());
+			var allFoldersCreatedForFolderElement = _commanderSettings.Projects
+				.SelectMany(x => x.Folders);
 
 			if (!allFoldersCreatedForFolderElement.Any()) return true;
 
@@ -446,7 +446,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// <returns>True: if all the folders needed for plugins are created; otherwise false;</returns>
 		private bool AreAllFoldersCreatedForPlugins()
 		{
-			var allFoldersCreatedForPlugins = _commanderSettings.Projects.Cast<ProjectElement>()
+			var allFoldersCreatedForPlugins = _commanderSettings.Projects
 				.SelectMany(x => x.CommandPlugins)
 				.SelectMany(x => x.Cast<CommandConfigurationBase>());
 
@@ -480,8 +480,8 @@ namespace Talifun.Commander.Command.Configuration
 		/// </summary>
 		private void CreateAllFoldersForFolderElement()
 		{
-			var allFoldersCreatedForFolderElement = _commanderSettings.Projects.Cast<ProjectElement>()
-				.SelectMany(x => x.Folders.Cast<FolderElement>());
+			var allFoldersCreatedForFolderElement = _commanderSettings.Projects
+				.SelectMany(x => x.Folders);
 
 			foreach (var folderElement in allFoldersCreatedForFolderElement)
 			{
@@ -507,7 +507,7 @@ namespace Talifun.Commander.Command.Configuration
 		/// </summary>
 		private void CreateAllFoldersCreatedForPlugins()
 		{
-			var allFoldersCreatedForPlugins = _commanderSettings.Projects.Cast<ProjectElement>()
+			var allFoldersCreatedForPlugins = _commanderSettings.Projects
 				.SelectMany(x => x.CommandPlugins)
 				.SelectMany(x => x.Cast<CommandConfigurationBase>());
 
