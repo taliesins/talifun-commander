@@ -78,6 +78,15 @@ namespace Talifun.Commander.Command.YouTubeUploader.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to http://code.google.com/apis/youtube/dashboard/.
+        /// </summary>
+        public static string YouTubeApiSignUpUrl {
+            get {
+                return ResourceManager.GetString("YouTubeApiSignUpUrl", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap YouTubeUploaderElement {
             get {
                 object obj = ResourceManager.GetObject("YouTubeUploaderElement", resourceCulture);

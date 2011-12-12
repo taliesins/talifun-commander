@@ -123,6 +123,9 @@
   <data name="ValidatorMessageYouTubeUploaderElementNameMandatory" xml:space="preserve">
     <value>Must provide a name</value>
   </data>
+  <data name="YouTubeApiSignUpUrl" xml:space="preserve">
+    <value>http://code.google.com/apis/youtube/dashboard/</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="YouTubeUploaderElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\youtubeuploaderelement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

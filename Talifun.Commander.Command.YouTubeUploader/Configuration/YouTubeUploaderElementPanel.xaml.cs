@@ -1,4 +1,6 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using System.Windows;
+using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.YouTubeUploader.Properties;
 
 namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 {
@@ -24,6 +26,11 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 
 			DataModel = new YouTubeUploaderElementPanelDataModel(element);
 			this.DataContext = DataModel;
+		}
+
+		private void ApiSignUpYouTubeButton_Click(object sender, RoutedEventArgs e)
+		{
+			OpenLink(Resource.YouTubeApiSignUpUrl);
 		}
 	}
 }
