@@ -77,7 +77,7 @@
             </Expander>
 
             <Label Content="Folder:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxFolderTextBox" Text="{Binding Path=Element.DropBoxFolder, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="boxNetFolderTextBox" Text="{Binding Path=Element.BoxNetFolder, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>
