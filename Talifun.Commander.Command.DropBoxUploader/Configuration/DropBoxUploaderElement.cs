@@ -19,7 +19,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		private static readonly ConfigurationProperty dropBoxAuthenticationSecret = new ConfigurationProperty("dropBoxAuthenticationSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxFolder = new ConfigurationProperty("dropBoxFolder", typeof(string), string.Empty, ConfigurationPropertyOptions.None);
 
-
 		/// <summary>
 		/// Initializes the <see cref="DropBoxUploaderElement"/> class.
         /// </summary>

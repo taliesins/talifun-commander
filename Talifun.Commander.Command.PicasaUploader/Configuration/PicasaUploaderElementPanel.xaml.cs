@@ -1,4 +1,8 @@
-﻿using Talifun.Commander.Command.Configuration;
+﻿using System;
+using System.Windows;
+using Google.GData.Client;
+using Google.GData.Photos;
+using Talifun.Commander.Command.Configuration;
 
 namespace Talifun.Commander.Command.PicasaUploader.Configuration
 {
@@ -24,6 +28,26 @@ namespace Talifun.Commander.Command.PicasaUploader.Configuration
 
 			DataModel = new PicasaUploaderElementPanelDataModel(element);
 			this.DataContext = DataModel;
+		}
+
+		private void AuthenticatePicasaButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var query = new PhotoQuery(PicasaQuery.CreatePicasaUri(DataModel.Element.PicasaUsername));
+				query.NumberToRetrieve = 1;
+
+				var picasaService = new PicasaService(DataModel.Element.ApplicationName);
+				picasaService.setUserCredentials(DataModel.Element.GoogleUsername, DataModel.Element.GooglePassword);
+
+				var feed = picasaService.Query(query);
+
+				authenticatePicasaLabel.Content = "Authentication Successful";
+			}
+			catch (Exception exception)
+			{
+				authenticatePicasaLabel.Content = "Authentication Failure";
+			}
 		}
 	}
 }

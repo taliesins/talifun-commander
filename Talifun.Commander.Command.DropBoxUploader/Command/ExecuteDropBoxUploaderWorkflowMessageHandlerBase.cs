@@ -24,7 +24,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 
 		protected DropBoxToken CheckAuthenticationToken(IAuthenticationSettings authenticationSettings)
 		{
-			var config = GetDropBoxConfiguration();
 			var requestToken = new DropBoxBaseTokenInformation()
 			{
 				ConsumerKey = authenticationSettings.DropBoxApiKey,
@@ -49,7 +48,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 					CancellationTokenSource = cancellationTokenSource
 				});
 
-				var configuration = DropBoxConfiguration.GetStandardConfiguration();
+				var configuration = GetDropBoxConfiguration();
 				var storage = new CloudStorage();
 				storage.Open(configuration, authenticationToken);
 

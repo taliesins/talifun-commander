@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.DropBoxUploader", "Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj", "{40FDA058-E01A-4A9E-8B4C-0A4310468149}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.BoxNetUploader", "Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj", "{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ASP|Any CPU = ASP|Any CPU
@@ -379,6 +381,21 @@ Global
 		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{40FDA058-E01A-4A9E-8B4C-0A4310468149}.Release|x86.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.ASP|Any CPU.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.ASP|Any CPU.Build.0 = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.ASP|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.ASP|Mixed Platforms.Build.0 = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.ASP|x86.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

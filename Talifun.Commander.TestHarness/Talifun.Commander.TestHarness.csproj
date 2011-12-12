@@ -219,6 +219,10 @@
       <Project>{A2A1A16E-0821-4618-AAE4-02D2EC477101}</Project>
       <Name>Talifun.Commander.Command.Audio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj">
+      <Project>{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}</Project>
+      <Name>Talifun.Commander.Command.BoxNetUploader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
       <Project>{3DF20FF4-076A-492C-8DF4-6C606DDE7419}</Project>
       <Name>Talifun.Commander.Command.CommandLine</Name>

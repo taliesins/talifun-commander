@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Google.GData.YouTube;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.YouTubeUploader.Properties;
 
@@ -31,6 +33,24 @@ namespace Talifun.Commander.Command.YouTubeUploader.Configuration
 		private void ApiSignUpYouTubeButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenLink(Resource.YouTubeApiSignUpUrl);
+		}
+
+		private void AuthenticateYouTubeButton_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+
+				var youTubeService = new YouTubeService(DataModel.Element.ApplicationName, DataModel.Element.DeveloperKey);
+				youTubeService.setUserCredentials(DataModel.Element.GoogleUsername, DataModel.Element.GooglePassword);
+				var playListFeed = youTubeService.GetPlaylist(query);
+
+				authenticateYouTubeLabel.Content = "Authentication Successful";
+			}
+			catch (Exception exception)
+			{
+				authenticateYouTubeLabel.Content = "Authentication Failure";
+			}
 		}
 	}
 }
