@@ -4,6 +4,7 @@ using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.DropBoxUploader.Properties;
 
 namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 {
@@ -34,8 +35,13 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		private DropBoxConfiguration GetDropBoxConfiguration()
 		{
 			var config = DropBoxConfiguration.GetStandardConfiguration();
-			config.AuthorizationCallBack = "http://www.talifun.com/oauth/dropbox.htm";
+			config.AuthorizationCallBack = Resource.DropBoxOobAuthorizationUrl;
 			return config;
+		}
+
+		private void ApiSignUpDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
+		{
+			OpenLink(Resource.DropBoxApiSignUpUrl);
 		}
 
 		private void CreateDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)

@@ -60,6 +60,24 @@ namespace Talifun.Commander.Command.DropBoxUploader.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.dropbox.com/developers/apps.
+        /// </summary>
+        public static string DropBoxApiSignUpUrl {
+            get {
+                return ResourceManager.GetString("DropBoxApiSignUpUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.talifun.com/oauth/dropbox.htm.
+        /// </summary>
+        public static string DropBoxOobAuthorizationUrl {
+            get {
+                return ResourceManager.GetString("DropBoxOobAuthorizationUrl", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap DropBoxUploaderElement {
             get {
                 object obj = ResourceManager.GetObject("DropBoxUploaderElement", resourceCulture);

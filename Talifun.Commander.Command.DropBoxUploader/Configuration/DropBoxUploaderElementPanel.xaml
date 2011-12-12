@@ -39,58 +39,63 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />                
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="DropBox Api Key:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxApiKeyTextBox" Text="{Binding Path=Element.DropBoxApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Step 1:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Api Sign Up" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="apiSignupDropBoxRequestTokenButton"  Width="75" Click="ApiSignUpDropBoxRequestTokenButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.DropBoxApiSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="DropBox Api Secret:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxApiSecretTextBox" Text="{Binding Path=Element.DropBoxApiSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="DropBox Api Key:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxApiKeyTextBox" Text="{Binding Path=Element.DropBoxApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="DropBox Request Key:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxRequestKeyTextBox" Text="{Binding Path=Element.DropBoxRequestKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="DropBox Api Secret:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxApiSecretTextBox" Text="{Binding Path=Element.DropBoxApiSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="DropBox Request Secret:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxRequestSecretTextBox" Text="{Binding Path=Element.DropBoxRequestSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Step 2:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Create" Grid.Column="1" Grid.Row="4"  Height="23" HorizontalAlignment="Left" Margin="3" Name="createDropBoxRequestTokenButton"  Width="75" Click="CreateDropBoxRequestTokenButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.DropBoxRequestSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="DropBox Authentication Key:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxAuthenticationKeyTextBox" Text="{Binding Path=Element.DropBoxAuthenticationKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="DropBox Request Key:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxRequestKeyTextBox" Text="{Binding Path=Element.DropBoxRequestKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="DropBox Authentication Secret:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxAuthenticationSecretTextBox" Text="{Binding Path=Element.DropBoxAuthenticationSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="DropBox Request Secret:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxRequestSecretTextBox" Text="{Binding Path=Element.DropBoxRequestSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Step 1:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Create" Grid.Row="7" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="createDropBoxRequestTokenButton"  Width="75" Click="CreateDropBoxRequestTokenButton_Click" />
-            <Label Content="Done" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.DropBoxRequestSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Step 3:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authorize" Grid.Column="1" Grid.Row="7" Height="23" HorizontalAlignment="Left" Margin="3" Name="authorizeDropBoxRequestTokenButton"  Width="75" Click="AuthorizeDropBoxRequestTokenButton_Click" />
+            <Label Content="Opens browser to authenticate with Flickr" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center"/>
 
-            <Label Content="Step 2:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Authorize" Grid.Row="8" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authorizeDropBoxRequestTokenButton"  Width="75" Click="AuthorizeDropBoxRequestTokenButton_Click" />
-            <Label Content="Opens browser to authenticate with Flickr" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center"/>
+            <Label Content="Step 4:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authenticate" Grid.Column="1" Grid.Row="8" Height="23" HorizontalAlignment="Left" Margin="3" Name="authenticateDropBoxRequestTokenButton" Width="75" Click="AuthenticateDropBoxRequestTokenButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.DropBoxAuthenticationSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Step 3:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Authenticate" Grid.Row="9" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authenticateDropBoxRequestTokenButton" Width="75" Click="AuthenticateDropBoxRequestTokenButton_Click" />
-            <Label Content="Done" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.DropBoxAuthenticationSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="DropBox Authentication Key:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="9" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxAuthenticationKeyTextBox" Text="{Binding Path=Element.DropBoxAuthenticationKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Display Name:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="displayNameLabel" />
+            <Label Content="DropBox Authentication Secret:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="10" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="dropBoxAuthenticationSecretTextBox" Text="{Binding Path=Element.DropBoxAuthenticationSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="User Id:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="userIdLabel" />
+            <Label Content="Display Name:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="displayNameLabel" />
 
-            <Label Content="Country:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="countryLabel" />
+            <Label Content="User Id:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="userIdLabel" />
 
-            <Label Content="Quota Info :" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoLabel" />
+            <Label Content="Country:" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="countryLabel" />
 
-            <Label Content="Quota Info Normal:" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoNormalLabel" />
+            <Label Content="Quota Info :" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoLabel" />
 
-            <Label Content="Quota Info Shared:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoSharedLabel" />
+            <Label Content="Quota Info Normal:" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoNormalLabel" />
+
+            <Label Content="Quota Info Shared:" Grid.Column="0" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="16" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="quotaInfoSharedLabel" />
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>
