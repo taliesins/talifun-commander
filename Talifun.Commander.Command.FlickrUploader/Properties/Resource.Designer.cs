@@ -60,6 +60,15 @@ namespace Talifun.Commander.Command.FlickrUploader.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.flickr.com/services/api/keys/.
+        /// </summary>
+        public static string FlickrApiSignUpUrl {
+            get {
+                return ResourceManager.GetString("FlickrApiSignUpUrl", resourceCulture);
+            }
+        }
+        
         public static System.Drawing.Bitmap FlickrUploaderElement {
             get {
                 object obj = ResourceManager.GetObject("FlickrUploaderElement", resourceCulture);

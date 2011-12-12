@@ -3,6 +3,7 @@ using System.Net;
 using System.Windows;
 using FlickrNet;
 using Talifun.Commander.Command.Configuration;
+using Talifun.Commander.Command.FlickrUploader.Properties;
 
 namespace Talifun.Commander.Command.FlickrUploader.Configuration
 {
@@ -48,20 +49,25 @@ namespace Talifun.Commander.Command.FlickrUploader.Configuration
 			return WebProxy.GetDefaultProxy();
 		}
 
-		private void CreateFlickerFrobButton_Click(object sender, RoutedEventArgs e)
+		private void ApiSignUpFlickrButton_Click(object sender, RoutedEventArgs e)
+		{
+			OpenLink(Resource.FlickrApiSignUpUrl);
+		}
+
+		private void CreateFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
 			var flickrService = GetFlickrService(null);
 			DataModel.Element.FlickrFrob = flickrService.AuthGetFrob();
 		}
 
-		private void AuthorizeFlickerFrobButton_Click(object sender, RoutedEventArgs e)
+		private void AuthorizeFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
 			var flickrService = GetFlickrService(null);
 			var url = flickrService.AuthCalcUrl(DataModel.Element.FlickrFrob, FlickrNet.AuthLevel.Write);
 			OpenLink(url);
 		}
 
-		private void AuthenticateFlickerFrobButton_Click(object sender, RoutedEventArgs e)
+		private void AuthenticateFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
 			Auth authenticationToken = null;
 			if (string.IsNullOrEmpty(DataModel.Element.FlickrAuthToken))

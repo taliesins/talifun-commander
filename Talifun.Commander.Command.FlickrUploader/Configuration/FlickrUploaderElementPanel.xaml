@@ -34,46 +34,51 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />                
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Flickr Api Key:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiKeyTextBox" Text="{Binding Path=Element.FlickrApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Step 1:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Api Sign Up" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="apiSignUpFlickrButton"  Width="75" Click="ApiSignUpFlickrButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrApiSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Flickr Api Secret:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiSecretTextBox" Text="{Binding Path=Element.FlickrApiSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Flickr Api Key:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiKeyTextBox" Text="{Binding Path=Element.FlickrApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Flickr Frob:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrFrobTextBox" Text="{Binding Path=Element.FlickrFrob, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Flickr Api Secret:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="3" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrApiSecretTextBox" Text="{Binding Path=Element.FlickrApiSecret, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="Flickr Auth Token:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrAuthTokenTextBox" Text="{Binding Path=Element.FlickrAuthToken, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+            <Label Content="Step 2:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Create" Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Left" Margin="3" Name="createFlickrFrobButton"  Width="75" Click="CreateFlickrFrobButton_Click" />
+            <Label Content="Done" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrFrob, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Step 1:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Create" Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="createFlickerFrobButton"  Width="75" Click="CreateFlickerFrobButton_Click" />
-            <Label Content="Done" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrFrob, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <Label Content="Step 2:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Authorize" Grid.Row="6" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authorizeFlickerFrobButton"  Width="75" Click="AuthorizeFlickerFrobButton_Click" />
+            <Label Content="Flickr Frob:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrFrobTextBox" Text="{Binding Path=Element.FlickrFrob, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+
+            <Label Content="Step 3:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authorize" Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Left" Margin="3" Name="authorizeFlickrFrobButton"  Width="75" Click="AuthorizeFlickrFrobButton_Click" />
             <Label Content="Opens browser to authenticate with Flickr" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center"/>
 
-            <Label Content="Step 3:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Button Content="Authenticate" Grid.Row="7" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3" Name="authenticateFlickerFrobButton" Width="75" Click="AuthenticateFlickerFrobButton_Click" />
+            <Label Content="Step 4:" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Button Content="Authenticate" Grid.Column="1" Grid.Row="7" Height="23" HorizontalAlignment="Left" Margin="3" Name="authenticateFlickrFrobButton" Width="75" Click="AuthenticateFlickrFrobButton_Click" />
             <Label Content="Done" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.FlickrAuthToken, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Content="Full Name:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="fullNameLabel" />
+            <Label Content="Flickr Auth Token:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="8" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="flickrAuthTokenTextBox" Text="{Binding Path=Element.FlickrAuthToken, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Label Content="User Id:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="userIdLabel" />
+            <Label Content="Full Name:" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="fullNameLabel" />
 
-            <Label Content="Username:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="usernameLabel" />
+            <Label Content="User Id:" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="userIdLabel" />
 
-            <Label Content="Permissions:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="permissionsLabel" />
+            <Label Content="Username:" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="usernameLabel" />
+
+            <Label Content="Permissions:" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <Label Content="Click Authenticate" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Name="permissionsLabel" />
         </Grid>
     </Grid>
 </Configuration:ElementPanelBase>

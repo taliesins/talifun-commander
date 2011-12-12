@@ -39,7 +39,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 			return config;
 		}
 
-		private void ApiSignUpDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
+		private void ApiSignUpDropBoxTokenButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenLink(Resource.DropBoxApiSignUpUrl);
 		}
