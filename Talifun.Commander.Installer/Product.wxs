@@ -68,6 +68,7 @@
     <?include $(sys.CURRENTDIR)Talifun.Commander.Service.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.AntiVirus.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.Audio.wxi ?>
+    <?include $(sys.CURRENTDIR)Talifun.Commander.Command.BoxNetUploader.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.CommandLine.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.DropBoxUploader.wxi ?>
     <?include $(sys.CURRENTDIR)Talifun.Commander.Command.FlickrUploader.wxi ?>
