@@ -20,23 +20,16 @@ namespace Talifun.Commander.Command.FolderWatcher
 		public FolderWatcherService(IEnhancedFileSystemWatcherFactory enhancedFileSystemWatcherFactory)
 		{
 			_enhancedFileSystemWatcherFactory = enhancedFileSystemWatcherFactory;
-			SetupFolderWatchers();
 		}
 
 		public void Start()
 		{
-			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
-			{
-				enhancedFileSystemWatcher.Start();
-			}
+			StartFolderWatchers();
 		}
 
 		public void Stop()
 		{
-			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
-			{
-				enhancedFileSystemWatcher.Stop();
-			}
+			StopFolderWatchers();
 		}
 
 		private CommanderSection CommanderSettings
@@ -44,7 +37,7 @@ namespace Talifun.Commander.Command.FolderWatcher
 			get { return CurrentConfiguration.CommanderSettings; }
 		}
 
-		private void SetupFolderWatchers()
+		private void StartFolderWatchers()
 		{
 			var projects = CommanderSettings.Projects;
 			for (var j = 0; j < projects.Count; j++)
@@ -68,6 +61,26 @@ namespace Talifun.Commander.Command.FolderWatcher
 			{
 				enhancedFileSystemWatcher.FileFinishedChangingEvent += _fileFinishedChangingEvent;
 			}
+
+			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
+			{
+				enhancedFileSystemWatcher.Start();
+			}
+		}
+
+		private void StopFolderWatchers()
+		{
+			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
+			{
+				enhancedFileSystemWatcher.Stop();
+			}
+
+			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
+			{
+				enhancedFileSystemWatcher.FileFinishedChangingEvent -= _fileFinishedChangingEvent;
+			}
+
+			_enhancedFileSystemWatchers.Clear();
 		}
 
 		private void OnFileFinishedChangingEvent(object sender, FileFinishedChangingEventArgs e)
@@ -84,58 +97,58 @@ namespace Talifun.Commander.Command.FolderWatcher
 			BusDriver.Instance.GetBus(CommanderService.CommandManagerBusName).Publish(fileFinishedChangingMessage);
 		}
 
-        #region IDisposable Members
-        private int _alreadyDisposed = 0;
+		#region IDisposable Members
+		private int _alreadyDisposed = 0;
 
 		~FolderWatcherService()
-        {
-            Dispose(false);
-        }
+		{
+			Dispose(false);
+		}
 
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
+		void IDisposable.Dispose()
+		{
+			Dispose();
+		}
 
-    	private void Dispose()
-        {
-            if (_alreadyDisposed != 0) return;
-            // dispose of the managed and unmanaged resources
-            Dispose(true);
+		private void Dispose()
+		{
+			if (_alreadyDisposed != 0) return;
+			// dispose of the managed and unmanaged resources
+			Dispose(true);
 
-            // tell the GC that the Finalize process no longer needs
-            // to be run for this object.		
-            GC.SuppressFinalize(this);
-        }
+			// tell the GC that the Finalize process no longer needs
+			// to be run for this object.		
+			GC.SuppressFinalize(this);
+		}
 
-        private void Dispose(bool disposeManagedResources)
-        {
-            if (!disposeManagedResources) return;
-            var disposedAlready = Interlocked.Exchange(ref _alreadyDisposed, 1);
-            if (disposedAlready != 0)
-            {
-                return;
-            }
+		private void Dispose(bool disposeManagedResources)
+		{
+			if (!disposeManagedResources) return;
+			var disposedAlready = Interlocked.Exchange(ref _alreadyDisposed, 1);
+			if (disposedAlready != 0)
+			{
+				return;
+			}
 
-            // Dispose managed resources.
+			// Dispose managed resources.
 
-            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
-            {
-                enhancedFileSystemWatcher.FileFinishedChangingEvent -= _fileFinishedChangingEvent;
-            }
+			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
+			{
+				enhancedFileSystemWatcher.FileFinishedChangingEvent -= _fileFinishedChangingEvent;
+			}
 
-            foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
-            {
-                enhancedFileSystemWatcher.Dispose();
-            }
+			foreach (var enhancedFileSystemWatcher in _enhancedFileSystemWatchers)
+			{
+				enhancedFileSystemWatcher.Dispose();
+			}
 
-            _fileFinishedChangingEvent = null;
+			_fileFinishedChangingEvent = null;
 
-            // Dispose unmanaged resources.
+			// Dispose unmanaged resources.
 
-            // If it is available, make the call to the
-            // base class's Dispose(Boolean) method
-        }
-        #endregion
+			// If it is available, make the call to the
+			// base class's Dispose(Boolean) method
+		}
+		#endregion
 	}
 }
