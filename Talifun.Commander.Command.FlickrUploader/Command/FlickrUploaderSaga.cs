@@ -109,7 +109,7 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new FlickrUploaderResponseMessage
+						.RespondWith((saga, message) => new FlickrUploaderResponseMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							ResponderCorrelationId = saga.CorrelationId

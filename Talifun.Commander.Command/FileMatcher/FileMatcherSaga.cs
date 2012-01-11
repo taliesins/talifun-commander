@@ -15,12 +15,15 @@ using Talifun.Commander.Command.FileMatcher.Request;
 using Talifun.Commander.Command.FileMatcher.Response;
 using Talifun.Commander.Command.FolderWatcher.Messages;
 using Talifun.Commander.Command.Properties;
+using log4net;
 
 namespace Talifun.Commander.Command.FileMatcher
 {
 	[Serializable]
 	public class FileMatcherSaga : SagaStateMachine<FileMatcherSaga>, ISaga
 	{
+		private static readonly ILog Log = LogManager.GetLogger(typeof(FileMatcherSaga));
+
 		static FileMatcherSaga()
 		{
 			Define(() =>
@@ -35,6 +38,11 @@ namespace Talifun.Commander.Command.FileMatcher
 
 							if (saga.FileMatchesToExecute.Any())
 							{
+								if (Log.IsInfoEnabled)
+								{
+									Log.InfoFormat("File Matched Started ({0}) - {1} ", saga.CorrelationId, saga.InputFilePath);
+								}
+
 								var createTempDirectoryMessage = new CreateTempDirectoryMessage
 								{
 								    CorrelationId = saga.CorrelationId,
@@ -129,7 +137,14 @@ namespace Talifun.Commander.Command.FileMatcher
 				During(
 					WaitingForDeleteTempDirectory,
 					When(DeletedTempDirectory)
-						.Complete()
+					.Then((saga, message)=>
+					{
+						if (Log.IsInfoEnabled)
+						{
+							Log.InfoFormat("File Matched Finished ({0}) - {1} ", saga.CorrelationId, saga.InputFilePath);
+						}
+					})
+					.Complete()
 				);
 			});
 		}

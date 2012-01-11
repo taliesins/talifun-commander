@@ -194,12 +194,11 @@ namespace Talifun.Commander.Command.Video.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new VideoConversionResponseMessage
-						    {
-						      	CorrelationId = saga.RequestorCorrelationId,
-								ResponderCorrelationId = saga.CorrelationId
-						    }
-						)
+						.RespondWith((saga, message) => new VideoConversionResponseMessage
+						{
+						    CorrelationId = saga.RequestorCorrelationId,
+							ResponderCorrelationId = saga.CorrelationId
+						})
 						.Complete()
 				);
 			});

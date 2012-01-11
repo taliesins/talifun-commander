@@ -24,39 +24,40 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 			var task = Task.Factory.StartNew(() => { });
 			task.ContinueWith((t) =>
 			{
-				FlickrUploaderService.Uploaders.Add(message, new CancellableTask
-				{
-					Task = task,
-					CancellationTokenSource = cancellationTokenSource
-				});
-
-				var uploader = new Uploader(flickrAuthenticator);
-				uploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
-				uploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
 				if (!cancellationToken.IsCancellationRequested)
 				{
-					cancellationToken.Register(() => uploader.CancelAsync(message));
-					var inputFileStream = inputFilePath.OpenRead();
+					FlickrUploaderService.Uploaders.Add(message, new CancellableTask
+					{
+						Task = task,
+						CancellationTokenSource = cancellationTokenSource
+					});
 
-					uploader.UploadPictureAsync(inputFileStream, inputFilePath.Name,
-					                            message.Settings.MetaData.Title,
-					                            message.Settings.MetaData.Description,
-					                            message.Settings.MetaData.Keywords,
-					                            message.Settings.MetaData.IsPublic,
-					                            message.Settings.MetaData.IsFamily,
-					                            message.Settings.MetaData.IsFriend,
-					                            message.Settings.MetaData.ContentType,
-					                            message.Settings.MetaData.SafetyLevel,
-					                            message.Settings.MetaData.HiddenFromSearch,
-					                            message);
+					var uploader = new Uploader(flickrAuthenticator);
+					uploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
+					uploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
+
+					var asyncUploadSettings = new AsyncUploadSettings()
+												{
+													Message = message,
+													InputStream = inputFilePath.OpenRead()
+												};
+
+					cancellationToken.Register(() => uploader.CancelAsync(message));
+					uploader.UploadPictureAsync(asyncUploadSettings.InputStream, inputFilePath.Name,
+												message.Settings.MetaData.Title,
+												message.Settings.MetaData.Description,
+												message.Settings.MetaData.Keywords,
+												message.Settings.MetaData.IsPublic,
+												message.Settings.MetaData.IsFamily,
+												message.Settings.MetaData.IsFriend,
+												message.Settings.MetaData.ContentType,
+												message.Settings.MetaData.SafetyLevel,
+												message.Settings.MetaData.HiddenFromSearch,
+												asyncUploadSettings);
 				}
 				cancellationToken.ThrowIfCancellationRequested();
 			}
-				, cancellationToken)
-			.ContinueWith((t) =>
-			{
-				FlickrUploaderService.Uploaders.Remove(message);
-			});
+				, cancellationToken);
 		}
 
 		protected void OnResumableUploaderAsyncOperationProgress(object sender, AsyncOperationProgressEventArgs e)
@@ -64,7 +65,8 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 			var message = string.Format("Upload Progress: {0} ({1}/{2} - {3}%) {4} {5}", DateTime.Now, e.Position, e.CompleteSize,
 										e.ProgressPercentage, e.HttpVerb, e.Uri);
 
-			var executeFlickrUploaderWorkflowMessage = (IExecuteFlickrUploaderWorkflowMessage)e.UserState;
+			var asyncUploadSettings = (AsyncUploadSettings) e.UserState;
+			var executeFlickrUploaderWorkflowMessage = asyncUploadSettings.Message;
 
 			var flickrUploaderProgressMessage = new FlickrUploaderProgressMessage
 			{
@@ -79,7 +81,13 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 
 		protected void OnResumableUploaderAsyncOperationCompleted(object sender, AsyncOperationCompletedEventArgs e)
 		{
-			var executeFlickrUploaderWorkflowMessage = (IExecuteFlickrUploaderWorkflowMessage)e.UserState;
+			var asyncUploadSettings = (AsyncUploadSettings)e.UserState;
+			asyncUploadSettings.InputStream.Close();
+			asyncUploadSettings.InputStream = null;
+
+			var executeFlickrUploaderWorkflowMessage = asyncUploadSettings.Message;
+
+			FlickrUploaderService.Uploaders.Remove(executeFlickrUploaderWorkflowMessage);
 
 			if (e.Error != null)
 			{

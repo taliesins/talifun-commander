@@ -27,6 +27,8 @@ namespace Talifun.Commander.Command
 
 			BusDriver.Instance.AddBus(CommandManagerBusName, string.Format("loopback://localhost/{0}", CommandManagerBusName), x =>
 			{
+				
+
 				x.Subscribe((subscriber)=>{
 				    subscriber.Saga(_testConfigurationSagaRepository).Permanent();
 					subscriber.Saga(_fileMatcherSagaRepository).Permanent();
@@ -35,7 +37,7 @@ namespace Talifun.Commander.Command
 					subscriber.Consumer<MoveFileToBeProcessedIntoTempDirectoryMessageHandler>().Permanent();
 					subscriber.Consumer<MoveProcessedFileIntoCompletedDirectoryMessageHandler>().Permanent();
 					subscriber.Consumer<DeleteTempDirectoryMessageHandler>().Permanent();
-
+				    
 					foreach (var commandService in Container.GetExportedValues<ICommandService>())
 					{
 						commandService.Configure(x);

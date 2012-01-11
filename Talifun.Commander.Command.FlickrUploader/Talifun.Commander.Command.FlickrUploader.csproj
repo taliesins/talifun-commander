@@ -75,6 +75,7 @@
     <Compile Include="CommandTester\FlickrUploaderConfigurationTesterSaga.cs" />
     <Compile Include="CommandTester\Request\FlickrUploaderConfigurationTestRequestMessage.cs" />
     <Compile Include="CommandTester\Response\FlickrUploaderConfigurationTestResponseMessage.cs" />
+    <Compile Include="Command\AsyncUploadSettings.cs" />
     <Compile Include="Command\Events\FlickrUploaderCompletedMessage.cs" />
     <Compile Include="Command\Events\FlickrUploaderProgressMessage.cs" />
     <Compile Include="Command\Events\FlickrUploaderStartedMessage.cs" />

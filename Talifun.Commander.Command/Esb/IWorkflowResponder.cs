@@ -4,6 +4,6 @@ namespace Talifun.Commander.Command.Esb
 {
 	public interface IWorkflowResponder
 	{
-		Guid ResponderCorrelationId { get; }
+		Guid ResponderCorrelationId { get; set; }
 	}
 }

@@ -5,7 +5,6 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command.Response
 {
 	public interface IExecutedYouTubeUploaderWorkflowMessage : ICommandIdentifier
 	{
-		Guid CorrelationId { get; set; }
 		Exception Error { get; set; }
 		bool Cancelled { get; set; }
 		string VideoId { get; set; }

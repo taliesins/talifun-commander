@@ -24,28 +24,25 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 			var task = Task.Factory.StartNew(()=>{});
 			task.ContinueWith((t) =>
 				{
-					PicasaUploaderService.Uploaders.Add(message, new CancellableTask
-					{
-						Task = task,
-						CancellationTokenSource = cancellationTokenSource
-					});
-
-					var resumableUploader = new ResumableUploader(message.Settings.Upload.ChunkSize);
-
-					resumableUploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
-					resumableUploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
 					if (!cancellationToken.IsCancellationRequested)
 					{
+						PicasaUploaderService.Uploaders.Add(message, new CancellableTask
+						{
+							Task = task,
+							CancellationTokenSource = cancellationTokenSource
+						});
+
+						var resumableUploader = new ResumableUploader(message.Settings.Upload.ChunkSize);
+
+						resumableUploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
+						resumableUploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
+
 						cancellationToken.Register(() => resumableUploader.CancelAsync(message));
 						resumableUploader.InsertAsync(picasaAuthenticator, picasaEntry, message);
 					}
 					cancellationToken.ThrowIfCancellationRequested();
 				}
-				, cancellationToken)
-			.ContinueWith((t) =>
-			{
-				PicasaUploaderService.Uploaders.Remove(message);
-			});
+				, cancellationToken);
 		}
 
 		protected void OnResumableUploaderAsyncOperationProgress(object sender, AsyncOperationProgressEventArgs e)
@@ -69,6 +66,8 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 		protected void OnResumableUploaderAsyncOperationCompleted(object sender, AsyncOperationCompletedEventArgs e)
 		{
 			var executePicasaUploaderWorkflowMessage = (IExecutePicasaUploaderWorkflowMessage)e.UserState;
+
+			PicasaUploaderService.Uploaders.Remove(executePicasaUploaderWorkflowMessage);
 
 			if (e.Error != null)
 			{

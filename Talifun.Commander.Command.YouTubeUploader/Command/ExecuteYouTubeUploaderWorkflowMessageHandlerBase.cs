@@ -25,27 +25,24 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 			var task = Task.Factory.StartNew(()=>{});
 			task.ContinueWith((t) =>
 				{
-					YouTubeUploaderService.Uploaders.Add(message, new CancellableTask
-					{
-						Task = task,
-						CancellationTokenSource = cancellationTokenSource
-					});
-
-					var resumableUploader = new ResumableUploader(message.Settings.Upload.ChunkSize);
-					resumableUploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
-					resumableUploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
 					if (!cancellationToken.IsCancellationRequested)
 					{
+						YouTubeUploaderService.Uploaders.Add(message, new CancellableTask
+						{
+							Task = task,
+							CancellationTokenSource = cancellationTokenSource
+						});
+
+						var resumableUploader = new ResumableUploader(message.Settings.Upload.ChunkSize);
+						resumableUploader.AsyncOperationCompleted += OnResumableUploaderAsyncOperationCompleted;
+						resumableUploader.AsyncOperationProgress += OnResumableUploaderAsyncOperationProgress;
+
 						cancellationToken.Register(() => resumableUploader.CancelAsync(message));
 						resumableUploader.InsertAsync(youTubeAuthenticator, youTubeEntry, message);
 					}
 					cancellationToken.ThrowIfCancellationRequested();
 				}
-				, cancellationToken)
-			.ContinueWith((t) =>
-			{
-				YouTubeUploaderService.Uploaders.Remove(message);
-			});
+				, cancellationToken);
 		}
 
 		protected void OnResumableUploaderAsyncOperationProgress(object sender, AsyncOperationProgressEventArgs e)
@@ -69,6 +66,8 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 		protected void OnResumableUploaderAsyncOperationCompleted(object sender, AsyncOperationCompletedEventArgs e)
 		{
 			var executeYouTubeUploaderWorkflowMessage = (IExecuteYouTubeUploaderWorkflowMessage)e.UserState;
+
+			YouTubeUploaderService.Uploaders.Remove(executeYouTubeUploaderWorkflowMessage);
 
 			if (e.Error != null)
 			{

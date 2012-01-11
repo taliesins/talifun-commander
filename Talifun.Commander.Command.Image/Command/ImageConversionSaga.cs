@@ -105,7 +105,7 @@ namespace Talifun.Commander.Command.Image.Command
 							{
 								if (Log.IsInfoEnabled)
 								{
-									Log.InfoFormat("Processed audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+									Log.InfoFormat("Processed image conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 								}
 
 								var moveProcessedFileIntoOutputDirectoryMessage = new MoveProcessedFileIntoOutputDirectoryMessage()
@@ -121,7 +121,7 @@ namespace Talifun.Commander.Command.Image.Command
 							{
 								if (Log.IsInfoEnabled)
 								{
-									Log.WarnFormat("Error processing audio conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
+									Log.WarnFormat("Error processing image conversion workflow ({0}) - {1}", saga.CorrelationId, saga.OutPut);
 								}
 
 								var moveProcessedFileIntoErrorDirectoryMessage = new MoveProcessedFileIntoErrorDirectoryMessage()

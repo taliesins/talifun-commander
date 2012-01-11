@@ -34,7 +34,7 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 
 							if (Log.IsInfoEnabled)
 							{
-								Log.InfoFormat("Started ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+								Log.InfoFormat("Started ({0}/{1}) - {2} ", saga.RequestorCorrelationId, saga.CorrelationId, saga.FileMatch);
 							}
 						})
 						.Publish((saga, message) => new PicasaUploaderStartedMessage
@@ -100,7 +100,7 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 
 							if (Log.IsInfoEnabled)
 							{
-								Log.InfoFormat("Completed ({0}) - {1} ", saga.CorrelationId, saga.FileMatch);
+								Log.InfoFormat("Completed ({0}/{1}) - {2} ", saga.RequestorCorrelationId, saga.CorrelationId, saga.FileMatch);
 							}
 						})
 						.Publish((saga, message) => new PicasaUploaderCompletedMessage

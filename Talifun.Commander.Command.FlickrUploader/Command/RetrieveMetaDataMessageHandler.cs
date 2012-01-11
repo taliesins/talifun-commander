@@ -30,8 +30,8 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 			using (var textReader = metaDataFile.OpenText())
 			{
 				var json = textReader.ReadToEnd().Trim();
-				var picasaMetaData = JsonConvert.DeserializeObject<FlickrMetaData>(json);
-				return picasaMetaData;
+				var flickrMetaData = JsonConvert.DeserializeObject<FlickrMetaData>(json);
+				return flickrMetaData;
 			}
 		}
 	}

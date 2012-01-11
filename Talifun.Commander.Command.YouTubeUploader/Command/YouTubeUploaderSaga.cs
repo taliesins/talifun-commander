@@ -109,7 +109,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 							InputFilePath = saga.InputFilePath,
 							FileMatch = saga.FileMatch
 						})
-						.Publish((saga, message) => new YouTubeUploaderResponseMessage
+						.RespondWith((saga, message) => new YouTubeUploaderResponseMessage
 						{
 							CorrelationId = saga.RequestorCorrelationId,
 							ResponderCorrelationId = saga.CorrelationId
