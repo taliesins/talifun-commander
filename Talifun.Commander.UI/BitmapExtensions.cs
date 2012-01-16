@@ -16,7 +16,7 @@ namespace Talifun.Commander.UI
                 hBitmap,
                 IntPtr.Zero,
                 Int32Rect.Empty,
-                BitmapSizeOptions.FromWidthAndHeight(24, 24));
+                BitmapSizeOptions.FromWidthAndHeight(32, 32));
 
             DeleteObject(hBitmap);
 

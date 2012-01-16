@@ -68,14 +68,14 @@
                             <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
-                    <BitmapImage x:Key="FolderElementCollectionImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/FolderElementCollection.png" DecodePixelHeight="24" DecodePixelWidth="24"  />
+                    <BitmapImage x:Key="FolderElementCollectionImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/FolderElementCollection.png" DecodePixelHeight="32" DecodePixelWidth="32"  />
                     <HierarchicalDataTemplate x:Key="FolderElementCollection-Template" ItemsSource="{Binding Path=.}">
                         <StackPanel Orientation="Horizontal" >
                             <Image Source="{StaticResource FolderElementCollectionImageSource}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBlock Text="Folders to watch" VerticalAlignment="Center"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
-                    <BitmapImage x:Key="CommandPluginsImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/CommandPlugins.png" DecodePixelHeight="24" DecodePixelWidth="24"  />
+                    <BitmapImage x:Key="CommandPluginsImageSource" UriSource="pack://application:,,,/Talifun.Commander.Command;component/Resources/CommandPlugins.png" DecodePixelHeight="32" DecodePixelWidth="32"  />
                     <HierarchicalDataTemplate x:Key="CommandPlugins-Template" ItemsSource="{Binding Path=.}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource CommandPluginsImageSource}" VerticalAlignment="Center" Margin="0,0,4,0" />
