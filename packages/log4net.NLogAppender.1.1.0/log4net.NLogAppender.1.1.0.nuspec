@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>log4net.NLogAppender</id>
+    <version>1.1.0</version>
+    <authors>Steve Wagner (lanwin)</authors>
+    <owners>Steve Wagner (lanwin)</owners>
+    <projectUrl>https://github.com/lanwin/log4net.NLogAppender</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Its a bridge between NLog and log4net. It hands all log4net logging events over to NLog. 
+	  So you could use any lib which uses log4net without even using log4net yourself. 
+	  
+	  Simply call the following line and you are done:
+	  
+	  NLogAppender.Initialize();</description>
+    <summary>An NLog appender for log4net.</summary>
+    <tags>logging nlog log4net appender bride</tags>
+    <dependencies>
+      <dependency id="NLog" version="2.0.0" />
+      <dependency id="log4net" version="1.2.11" />
+    </dependencies>
+  </metadata>
+</package>

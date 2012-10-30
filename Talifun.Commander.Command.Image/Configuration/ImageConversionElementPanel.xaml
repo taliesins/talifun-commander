@@ -7,7 +7,8 @@
              mc:Ignorable="d" d:DesignHeight="575" d:DesignWidth="300" xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
              xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:Image="clr-namespace:Talifun.Commander.Command.Image">
+             xmlns:Image="clr-namespace:Talifun.Commander.Command.Image"
+                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -76,17 +77,17 @@
                     <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="gravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.Gravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Width:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Height:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Background Color:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:ColorPicker Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="backgroundColorColorPicker" VerticalAlignment="Top" SelectedColor="{Binding Path=Element.BackgroundColor, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:ColorPicker Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" Name="backgroundColorColorPicker" VerticalAlignment="Top" SelectedColor="{Binding Path=Element.BackgroundColor, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Quality:" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <Slider Grid.Column="1" Grid.Row="5" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="qualitySlider" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Right" Name="qualityUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Right" Name="qualityUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.Quality, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Resize Type:" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1" Grid.Row="6" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="resizeImageTypeComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource resizeImageType}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.ResizeImageType, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
@@ -109,7 +110,7 @@
 
                     <Label Content="Dissolve Levels:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <Slider Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3,3,70,3" Name="watermarkDissolveLevelsSlier" VerticalAlignment="Top" Minimum="0" Maximum="100" Value="{Binding Path=Element.WatermarkDissolveLevels, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" Name="watermarkDissolveLevelsUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.WatermarkDissolveLevels, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" Name="watermarkDissolveLevelsUpDown" Margin="3" VerticalAlignment="Top" Minimum="0" Maximum="100" Width="60" Value="{Binding Path=Element.WatermarkDissolveLevels, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Gravity:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />

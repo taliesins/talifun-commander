@@ -257,7 +257,7 @@ namespace Talifun.Commander.Command.FileMatcher
 			var commandConfigurationTester = GetCommandMessenger(fileMatch.ConversionType);
 			var pluginRequestMessage = commandConfigurationTester.CreateRequestMessage(fileMatchCorrelationId, CorrelationId, AppSettings.Settings.ToDictionary(), project, WorkingFilePath, fileMatch);
 
-			Bus.Publish(pluginRequestMessage.GetType(), pluginRequestMessage);
+            Bus.Publish(pluginRequestMessage, pluginRequestMessage.GetType());
 		}
 
 		private ICommandMessenger GetCommandMessenger(string conversionType)

@@ -83,8 +83,8 @@ namespace Talifun.Commander.Command.ConfigurationChecker
 
 						var commandConfigurationTester = GetCommandMessenger(fileMatch.ConversionType);
 						var testConfigurationRequestMessage = commandConfigurationTester.CreateTestConfigurationRequestMessage(CombGuid.Generate(), message.CorrelationId, message.AppSettings, message.Project);
-						
-						bus.PublishRequest(testConfigurationRequestMessage.GetType(), testConfigurationRequestMessage, x =>
+
+                        bus.PublishRequest(testConfigurationRequestMessage.GetType(), testConfigurationRequestMessage, x =>
 						{
 							x.Handle<IConfigurationTestResponseMessage>(response =>
 							{

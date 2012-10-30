@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Growl</id>
+    <version>0.6</version>
+    <title>Growl</title>
+    <authors>George Symes</authors>
+    <owners>George Symes</owners>
+    <iconUrl>http://www.liquidsilver.org/wp-content/uploads/2010/09/growl-logo.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Includes libraries for sending growl notifications from your applications (functionality as in the .NET SDK).
+Also includes a helper class to enable sending of simple notifications with just one line of code:
+
+GrowlHelper.simpleGrowl("Hello World", "This is my message");
+
+The helper only seems to work with WinForms apps at the moment, but the libraries still allow you to use growl from your websites too.
+I do not own Growl. I just put it into a NuGet package. All original code belongs to Christopher Forsythe and the Growl Team.</description>
+    <summary>Includes DLLs for sending growl notifications from your applications (as in the .NET SDK) Also includes a helper class to enable sending of simple notifications with just one line of code. I do not own Growl. I just put it into a NuGet package. All original code belongs to Christopher Forsythe and the Growl Team.</summary>
+    <copyright>Christopher Forsythe and the Growl Team</copyright>
+    <tags>growl notification tooltip toast gfw message alert</tags>
+  </metadata>
+</package>

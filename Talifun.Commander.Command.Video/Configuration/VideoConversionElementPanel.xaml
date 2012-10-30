@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:Talifun.Commander.UI;assembly=Talifun.Commander.UI"
              xmlns:Video="clr-namespace:Talifun.Commander.Command.Video" 
              xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-                                mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="300" >
+                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="300" >
     <Configuration:ElementPanelBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -248,10 +248,10 @@
                     <CheckBox Content="" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" Name="deinterlaceCheckBox" VerticalAlignment="Center" IsChecked="{Binding Path=Element.Deinterlace, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Width:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="widthIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Width, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Height:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="heightIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.Height, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Aspect Ratio:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
                     <ComboBox Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="aspectRatioComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource aspectRatio}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.AspectRatio, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
@@ -295,10 +295,10 @@
                     <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="watermarkGravityComboBox" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource gravity}}" Text="{Binding Path=., Mode=OneWay, Converter={StaticResource enumItemsConverter}}" SelectedValue="{Binding Path=Element.WatermarkGravity, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Width Padding:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityWidthPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkWidthPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityWidthPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkWidthPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Content="Height Padding:" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <extToolkit:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityHeightPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkHeightPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
+                    <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="3" Name="gravityHeightPaddingIntegerUpDown" VerticalAlignment="Top" Value="{Binding Path=Element.WatermarkHeightPadding, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </Expander>
 

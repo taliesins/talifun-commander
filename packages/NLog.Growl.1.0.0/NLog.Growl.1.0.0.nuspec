@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>NLog.Growl</id>
+    <version>1.0.0</version>
+    <authors>Ryan Farley</authors>
+    <owners>Ryan Farley</owners>
+    <projectUrl>http://github.com/RyanFarley/NLogGrowlNotify</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NLog GrowlNotify is a custom target for NLog version 2.0 allowing you to send logging messages to Growl for Windows</description>
+    <copyright>Copyright 2011</copyright>
+    <tags>logging notification nlog</tags>
+    <dependencies>
+      <dependency id="NLog" version="2.0" />
+      <dependency id="Growl" version="0.6" />
+    </dependencies>
+  </metadata>
+</package>

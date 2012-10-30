@@ -1,0 +1,101 @@
+h2. Installation
+
+* You need .net 4 full framework
+* Installer detects 64 bit version and uses 64 bit versions of ffmpeg and imagemagick
+* Installs as a windows service that watches folders, so the user that the service is installed as will need to have read/write rights to watched folders.
+
+h2. When to use Talifun Commander
+
+* Convert audio formats
+* Optomize audio for the web
+* Resize images
+* Convert image formats
+* Add watermarks to images
+* Optomize images for the web
+* Optomize videos for the web
+* Resize videos
+* Convert video formats
+* Add watermarks to videos
+* Create thumbnails
+* Create poster images for videos
+* Upload videos to YouTube
+* Upload files to dropbox
+* Upload files to box.net
+* Upload videos to Picasa
+* Upload images to Picasa
+* Upload images to Flickr
+* Run command line tool against files placed into a folder
+
+
+h2. Configuration
+
+* Configuration can be done directly in app.config file
+* Configuration is simplified through by GUI configuration tool
+* Default install is blank
+
+What configuration is composed of:
+
+* Root configuration is broken into projects
+** Might want to use it to convert media for multiple websites
+* Each project configuration consists
+* folders to watch
+** file matchers to run against file event which point to plugins to execute on a match
+* plugin to execute
+
+Demo example
+* Add a project
+* Add a folder to watch
+* Add a file match
+* Add plugin to run on file match (lets add a video converter example)
+* Create folder structure button
+* Restart windows service
+** Very fussy, so it will not start if configuratin is not 100% upfront. This prevents problems from happening at runtime which are much harder to deal with and could result in lost data.
+* Check service started
+* Check event log
+** Events are logged using NLog
+** All Log4Net calls in plugins and libraries are redirected to NLog
+** Comes with support to log to Growl
+
+Thinking behind configuration
+* Input folder
+** Naming convention for files saved to this folder
+*** Perhaps name the file the same as the primary key of the record the points to the media asset
+** Perhaps you have files being ftped to directory
+** Perhaps its a web app saving files to this folder for processing
+** Perhaps you are simply copying and pasting files into the folder
+* Temp/Processing folder
+** This location should be local to windows service as it might heavy use of drive
+* Output folder
+** This folder can be made a virtual directory on an IIS website to easily expose outputted files
+** There is probably no need to backup this folder if you keep a copy of the originals and you don't mind waiting for all the files to be processed again
+** You can make the output folder an input folder for another file matcher plugin. E.g. Add a watermark to the video and then upload to YouTube
+* Original folder
+** Can be stored on slow cheap NAS
+** Why keep a copy of the originals
+*** Perhaps you have to suddenly support a mobile version of a website and now you need media to be in a mobile friendly format
+*** Layout of site has changed and now you need your thumbnail images to be changed in size
+
+h2. Extending Talifun.Commander with your own plugins
+
+h3. What is a good candidate for plugin
+As Talifun.Commander is focused on file processing it would probably mean that the plugin would perform some kind of action based on a file event. E.g. Email excel document that is placed in watched folder
+
+Most of the plugins I have made so far, call command line tools or act as a simple wrapper for calling 3rd party libraries.
+
+There is a plugin for generic command line tools that can be used to cover most cases if you need to hook Talifun.Commander up with a command line tool. I would suggest making a plugin for command line tools when configuration of tool is complex.
+
+h3. What is a plugin composed of
+* Each plugin consists of these parts
+** Configuration settings
+** WPF GUI configuration panel
+** Icon for treeview
+** Configuration tester
+** Actual command that does plugin processing
+** WIX installation script for plugin (makes it easy to include your plugin with deploy of Talifun.Commander)
+* Plugin loaded in via MEF
+
+h3. Share your plugin 
+
+* I am happy to merge plugins into the github branch master
+** You are happy to make your plugin open source and free to use
+** Plugin must not contain 3rd party libraries that must be licensed or can not be distributed as part of talifun commander
