@@ -9,8 +9,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 		public void Consume(ExecuteDropBoxUploaderWorkflowMessage message)
 		{
 			var inputFilePath = new FileInfo(message.InputFilePath);
-			var authenticationToken = CheckAuthenticationToken(message.Settings.Authentication);
-			ExecuteUpload(message, authenticationToken, inputFilePath);
+			ExecuteUpload(message, inputFilePath);
 		}
 	}
 }

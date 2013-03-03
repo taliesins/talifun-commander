@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AppLimit.CloudComputing.SharpBox</id>
+    <version>1.2.0.542</version>
+    <title>AppLimit.CloudComputing.SharpBox</title>
+    <authors>Dirk Eisenberg,  Yury Averkiev,  Renald Dubus,  Jay Ongg</authors>
+    <owners>Dirk Eisenberg,  Yury Averkiev,  Renald Dubus,  Jay Ongg</owners>
+    <licenseUrl>http://sharpbox.codeplex.com/license</licenseUrl>
+    <projectUrl>http://sharpbox.codeplex.com/</projectUrl>
+    <iconUrl>http://download.codeplex.com/Download?ProjectName=sharpbox&amp;DownloadId=289133</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Almost all applications on your server, desktop, laptop or mobile device store data in the form of mass data, e.g. photos, binary files or documents and as meta data objects (key,value-pairs), e.g. blog entries, address records or geographical location information. Existing cloud services offer different interfaces for application integration to achieve nearly the same: to store mass and meta data in the cloud. SharpBox abstracts existing proprietary technologies under a clear, easy to use and reliable API available on the most important platforms in the industry (Windows, Linux, MAC, Windows Phone 7, Android and iOS). Do you want to write code for storing data in the cloud only once in your application? SharpBox is the right free open source solution for your project. Our goal is to disburden software projects from the demand to implement storage access twice to support a wide range of storage clouds. Are you a cloud storage service provider and do you want to offer your platform for a growing community of software developers and ISVs? SharpBox is the right free open source solution under the MIT license. Just contact us or start writing your own cloud storage service provider, based on our integration API for storage vendors.</description>
+    <summary>SharpBox is a cloud storage API to store everything everywhere in the cloud</summary>
+    <releaseNotes />
+    <copyright>Copyright 2010 - 2011</copyright>
+    <language />
+    <tags>Cloud Storage SaaS WebDAV DropBox Box.NET StoreGate REST API</tags>
+    <references>
+      <reference file="AppLimit.CloudComputing.SharpBox.dll" />
+      <reference file="AppLimit.CloudComputing.SharpBox.ExperimentalProvider.dll" />
+      <reference file="Newtonsoft.Json.Net20.dll" />
+      <reference file="AppLimit.CloudComputing.SharpBox.MockProvider.dll" />
+      <reference file="DropBoxTokenIssuer.exe" />
+      <reference file="Newtonsoft.Json.Net40.dll" />
+      <reference file="Newtonsoft.Json.Silverlight.dll" />
+    </references>
+  </metadata>
+</package>

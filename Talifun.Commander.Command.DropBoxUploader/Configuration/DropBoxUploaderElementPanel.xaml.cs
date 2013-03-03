@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using AppLimit.CloudComputing.SharpBox;
-using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.DropBoxUploader.Properties;
@@ -28,13 +28,14 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 			var element = e.Element as DropBoxUploaderElement;
 
 			DataModel = new DropBoxUploaderElementPanelDataModel(element);
-			this.DataContext = DataModel;
+			DataContext = DataModel;
 		}
 
 		private DropBoxConfiguration GetDropBoxConfiguration()
 		{
 			var config = DropBoxConfiguration.GetStandardConfiguration();
-			config.AuthorizationCallBack = Resource.DropBoxOobAuthorizationUrl;
+			config.AuthorizationCallBack = new Uri(Resource.DropBoxOobAuthorizationUrl);
+            config.APIVersion = DropBoxAPIVersion.V1;
 			return config;
 		}
 
@@ -47,39 +48,33 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		{
 			var config = GetDropBoxConfiguration();
 			var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret);
-			DataModel.Element.DropBoxRequestKey = requestToken.RealToken.TokenKey;
-			DataModel.Element.DropBoxRequestSecret = requestToken.RealToken.TokenSecret;
+			DataModel.Element.DropBoxRequestKey = requestToken.GetTokenKey();
+			DataModel.Element.DropBoxRequestSecret = requestToken.GetTokenSecret();
 		}
 
 		private void AuthorizeDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
 			var config = GetDropBoxConfiguration();
-			var requestToken = new DropBoxRequestToken(new OAuthToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret));
+		    var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret);                
 			var url = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
 			OpenLink(url);
 		}
 
 		private void AuthenticateDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
-			var config = GetDropBoxConfiguration();
-			
 			ICloudStorageAccessToken accessToken = null;	
 			if (!string.IsNullOrEmpty(DataModel.Element.DropBoxAuthenticationSecret))
 			{
-				var requestToken = new DropBoxBaseTokenInformation()
-				{
-					ConsumerKey = DataModel.Element.DropBoxApiKey,
-					ConsumerSecret = DataModel.Element.DropBoxApiSecret
-				};
-				var authenticationToken = new OAuthToken(DataModel.Element.DropBoxAuthenticationKey, DataModel.Element.DropBoxAuthenticationSecret);
-				accessToken = new DropBoxToken(authenticationToken, requestToken);
+                accessToken = DropBoxExtensions.GetDropBoxAccessToken(DataModel.Element.DropBoxAuthenticationKey, DataModel.Element.DropBoxAuthenticationSecret, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret);
 			}
 			else
 			{
-				var requestToken = new DropBoxRequestToken(new OAuthToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret));
+                var config = GetDropBoxConfiguration();
+                var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret);
 				accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret, requestToken);
-				DataModel.Element.DropBoxAuthenticationKey = ((DropBoxToken)accessToken).TokenKey;
-				DataModel.Element.DropBoxAuthenticationSecret = ((DropBoxToken)accessToken).TokenSecret;
+
+                DataModel.Element.DropBoxAuthenticationKey = accessToken.GetTokenKey();
+				DataModel.Element.DropBoxAuthenticationSecret = accessToken.GetTokenSecret();
 			}
 
 			var accountInformation = DropBoxStorageProviderTools.GetAccountInformation(accessToken);

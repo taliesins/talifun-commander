@@ -63,31 +63,23 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 			Thread.Sleep(50);
 			Thread.Yield();
 		}
-
 		[Given(@"a response message listener")]
 		public void GivenAResponseMessageListener()
 		{
-			_listener = x =>
-			{
-				x.Handle<ResponseMessage>(message =>
-				{
-					_responseMessageReceived = true;
-				});
-				x.SetTimeout(new TimeSpan(0,0,0,5));
-			};
+		    _responderBus.SubscribeHandler<ResponseMessage>(message =>
+		        {
+		            _responseMessageReceived = true;
+		        });
 		}
 
 		[Given(@"a response message interface listener")]
 		public void GivenAResponseMessageInterfaceListener()
 		{
-			_listener = x =>
-			{
-				x.Handle<IResponseMessage>(message =>
-				{
-					_responseMessageReceived = true;
-				});
-				x.SetTimeout(new TimeSpan(0, 0, 0, 5));
-			};
+            _responderBus.SubscribeHandler<IResponseMessage>(message =>
+            {
+                _responseMessageReceived = true;
+            });
+
 		}
 
 		[When(@"a request message is published")]

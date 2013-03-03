@@ -11,7 +11,7 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 			var inputFilePath = new FileInfo(message.InputFilePath);
 
 			CheckAuthenticationToken(message.Settings.Authentication);
-			var authenticator = new FlickrNet.Uploader.FlickrAuthenticator(message.Settings.Authentication.FlickrApiKey, message.Settings.Authentication.FlickrApiSecret, message.Settings.Authentication.FlickrAuthToken);
+			var authenticator = new FlickrNet.Flickr(message.Settings.Authentication.FlickrApiKey, message.Settings.Authentication.FlickrApiSecret, message.Settings.Authentication.FlickrAuthToken);
 
 			ExecuteUpload(message, authenticator, inputFilePath);
 		}

@@ -145,9 +145,9 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 
 		private IDropBoxUploaderSettings GetCommandSettings(DropBoxUploaderElement flickrUploader)
 		{
-			return new DropBoxUploaderSettings()
+			return new DropBoxUploaderSettings
 			{
-				Authentication = new AuthenticationSettings()
+				Authentication = new AuthenticationSettings
 				{
 					DropBoxApiKey = flickrUploader.DropBoxApiKey,
 					DropBoxApiSecret = flickrUploader.DropBoxApiSecret,
@@ -160,7 +160,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 			};
 		}
 
-		private IExecuteDropBoxUploaderWorkflowMessage GetCommandMessage(IDropBoxUploaderSettings flickrUploaderSettings)
+		private IExecuteDropBoxUploaderWorkflowMessage GetCommandMessage(IDropBoxUploaderSettings dropBoxUploaderSettings)
 		{
 			return new ExecuteDropBoxUploaderWorkflowMessage();
 		}

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Service", "Talifun.Commander.Service\Talifun.Commander.Service.csproj", "{F913C226-1133-4C06-A592-1C2F33B45F7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.FileWatcher", "Talifun.Commander.FileWatcher\Talifun.Commander.FileWatcher.csproj", "{1060395D-23C8-4B09-8D37-F1097A3BBFAF}"
