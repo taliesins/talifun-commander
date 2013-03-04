@@ -18,7 +18,8 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		private IServiceBus _requesterBus;
 		private IServiceBus _responderBus;
 
-		private Action<RequestConfigurator<RequestMessage>> _listener;
+		private Action<InlineRequestConfigurator<RequestMessage>> _publishRequestCallback;
+	    private Exception _exception;
 
 		private bool _responseMessageReceived;
 
@@ -32,7 +33,6 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 			_responderBus = BusDriver.Instance.AddBus(ResponderName, string.Format("loopback://localhost/{0}", ResponderName), x =>
 			{
 			});
-
 		}
 
 		[AfterScenario("ServiceBus")]
@@ -58,28 +58,32 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		public void GivenARequestMessageHandler()
 		{
 			_responderBus.SubscribeConsumer<RequestMessageHandler>();
-			Thread.Sleep(50);
-			Thread.Yield();
-			Thread.Sleep(50);
-			Thread.Yield();
 		}
+
 		[Given(@"a response message listener")]
 		public void GivenAResponseMessageListener()
 		{
-		    _responderBus.SubscribeHandler<ResponseMessage>(message =>
-		        {
-		            _responseMessageReceived = true;
-		        });
+            _publishRequestCallback = x =>
+            {
+                x.Handle<ResponseMessage>(message =>
+                {
+                    _responseMessageReceived = true;
+                });
+                x.SetTimeout(new TimeSpan(0, 0, 0, 5));
+            };
 		}
 
 		[Given(@"a response message interface listener")]
 		public void GivenAResponseMessageInterfaceListener()
 		{
-            _responderBus.SubscribeHandler<IResponseMessage>(message =>
+            _publishRequestCallback = x =>
             {
-                _responseMessageReceived = true;
-            });
-
+                x.Handle<IResponseMessage>(message =>
+                {
+                    _responseMessageReceived = true;
+                });
+                x.SetTimeout(new TimeSpan(0, 0, 0, 5));
+            };
 		}
 
 		[When(@"a request message is published")]
@@ -91,13 +95,25 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 				TheQuestion = "Question"
 			};
 
+            Thread.Sleep(50);
+            Thread.Yield();
+            Thread.Sleep(250);
+            Thread.Yield();
 
-			_requesterBus.PublishRequest(requestMessage, _listener);
+            try
+            {
+                _requesterBus.PublishRequest(requestMessage, _publishRequestCallback);
+            }
+            catch (Exception exception)
+            {
+                _exception = exception;
+            }
 		}
 
 		[Then(@"a response message should be received")]
 		public void ThenAResponseMessageShouldBeReceived()
 		{
+		    _exception.Should().NotBeNull();
 			_responseMessageReceived.Should().BeTrue();
 		}
 	}

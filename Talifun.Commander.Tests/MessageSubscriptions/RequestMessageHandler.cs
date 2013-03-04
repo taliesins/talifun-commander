@@ -9,7 +9,7 @@ namespace Talifun.Commander.Tests.MessageSubscriptions
 		{
 			var responderBus = BusDriver.Instance.GetBus(MessageSubscriptions.ResponderName);
 
-			var responseMessage = new ResponseMessage()
+			var responseMessage = new ResponseMessage
 			{
 				CorrelationId = message.CorrelationId,
 				TheAnswer = "Answer:" + message.TheQuestion,
