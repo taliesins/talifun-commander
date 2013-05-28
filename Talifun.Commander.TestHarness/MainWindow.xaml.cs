@@ -51,7 +51,7 @@ namespace Talifun.Commander.TestHarness
 
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
-			_logger.Info("Talifun Commander service stopping");
+			//_logger.Info("Talifun Commander service stopping");
             _commanderManager.Stop();
         	StopButton.IsEnabled = false;
         }

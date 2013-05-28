@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceProcess;
 using NLog;
 using Talifun.Commander.Command;
@@ -23,16 +24,22 @@ namespace Talifun.Commander.Service
 
 		protected override void OnStart(string[] args)
 		{
+            var stopWatch = new Stopwatch();
 			_logger.Info("Talifun Commander service starting");
+            stopWatch.Start();
 			_commanderManager.Start();
-			_logger.Info("Talifun Commander service started");
+            stopWatch.Stop();
+			_logger.Info("Talifun Commander service started (took " + stopWatch.ElapsedMilliseconds + " ms)");
 		}
 
 		protected override void OnStop()
 		{
+            var stopWatch = new Stopwatch();
 			_logger.Info("Talifun Commander service stopping");
+            stopWatch.Start();
 			_commanderManager.Stop();
-			_logger.Info("Talifun Commander service stopped");
+            stopWatch.Stop();
+            _logger.Info("Talifun Commander service stopped (took " + stopWatch.ElapsedMilliseconds + " ms)");
 		}
 
 		protected void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
