@@ -172,8 +172,8 @@
   <data name="VideoConversionType_Theora" xml:space="preserve">
     <value>Theora</value>
   </data>
-  <data name="VideoConversionType_Vpx" xml:space="preserve">
-    <value>VPX</value>
+  <data name="VideoConversionType_Vpx8" xml:space="preserve">
+    <value>VPX8</value>
   </data>
   <data name="VideoConversionType_Xvid" xml:space="preserve">
     <value>XVid</value>
@@ -207,5 +207,11 @@
   </data>
   <data name="ErrorMessageCommandWatermarkPathDoesNotExist" xml:space="preserve">
     <value>&lt;project name=\"{0}\"&gt;&lt;{1}&gt;&lt;{2} name=\"{3}\"&gt; watermarkPath does not exist - {4}</value>
+  </data>
+  <data name="VideoConversionType_Vpx9" xml:space="preserve">
+    <value>VPX9</value>
+  </data>
+  <data name="AudioConversionType_Opus" xml:space="preserve">
+    <value>Opus</value>
   </data>
 </root>

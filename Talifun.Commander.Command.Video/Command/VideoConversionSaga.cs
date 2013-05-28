@@ -277,6 +277,8 @@ namespace Talifun.Commander.Command.Video.Command
 					return new Ac3Settings(videoConversionSetting);
 				case AudioConversionType.Vorbis:
 					return new VorbisSettings(videoConversionSetting);
+                case AudioConversionType.Opus:
+                    return new OpusSettings(videoConversionSetting);
 				default:
 					throw new Exception(Resource.ErrorMessageUnknownAudioConversionType);
 			}
@@ -292,8 +294,10 @@ namespace Talifun.Commander.Command.Video.Command
 					return new H264Settings(videoConversionSetting);
 				case VideoConversionType.Theora:
 					return new TheoraSettings(videoConversionSetting);
-				case VideoConversionType.Vpx:
-					return new VpxSettings(videoConversionSetting);
+				case VideoConversionType.Vpx8:
+					return new Vpx8Settings(videoConversionSetting);
+                //case VideoConversionType.Vpx9:
+                //    return new Vpx9Settings(videoConversionSetting);
 				case VideoConversionType.Xvid:
 					return new XvidSettings(videoConversionSetting);
 				default:
@@ -334,9 +338,12 @@ namespace Talifun.Commander.Command.Video.Command
 					case VideoConversionType.Theora:
 						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
 						break;
-					case VideoConversionType.Vpx:
+					case VideoConversionType.Vpx8:
 						videoConversionSetting.AudioConversionType = AudioConversionType.Vorbis;
 						break;
+                    //case VideoConversionType.Vpx9:
+                    //    videoConversionSetting.AudioConversionType = AudioConversionType.Opus;
+                        break;
 					case VideoConversionType.Xvid:
 						videoConversionSetting.AudioConversionType = AudioConversionType.Ac3;
 						break;
@@ -358,15 +365,15 @@ namespace Talifun.Commander.Command.Video.Command
 					return new Mp4ContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.Theora:
 					return new OggContainerSettings(audioSettings, videoSettings, watermarkSettings);
-				case VideoConversionType.Vpx:
+				case VideoConversionType.Vpx8:
 					return new WebmContainerSettings(audioSettings, videoSettings, watermarkSettings);
+                //case VideoConversionType.Vpx9:
+                //    return new WebmContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				case VideoConversionType.Xvid:
 					return new AviContainerSettings(audioSettings, videoSettings, watermarkSettings);
 				default:
 					throw new Exception(Resource.ErrorMessageUnknownVideoConversionType);
 			}
-
-			
 		}
 
 		private IExecuteVideoConversionWorkflowMessage GetCommandMessage(IContainerSettings containerSettings)

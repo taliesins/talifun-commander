@@ -13,6 +13,8 @@ namespace Talifun.Commander.Command.Video
 		[LocalizableDescription("AudioConversionType_Aac", typeof(Properties.Resource))]
 		Aac,
 		[LocalizableDescription("AudioConversionType_Vorbis", typeof(Properties.Resource))]
-		Vorbis
+		Vorbis,
+        [LocalizableDescription("AudioConversionType_Opus", typeof(Properties.Resource))]
+        Opus,
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace Talifun.Commander.Command.Video.Command.VideoFormats
 {
-	public class VpxSettings : IVideoSettings
+	public class Vpx8Settings : IVideoSettings
 	{
 		const string AllFixedOptions = @"-threads 0";
 		const string FirstPhaseFixedOptions = AllFixedOptions;
 
-		public VpxSettings(VideoConversionElement videoConversion)
+		public Vpx8Settings(VideoConversionElement videoConversion)
 		{
 			CodecName = "libvpx";
 			var maxVideoBitRate = videoConversion.VideoBitRate;

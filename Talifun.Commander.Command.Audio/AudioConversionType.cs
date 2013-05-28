@@ -12,6 +12,8 @@ namespace Talifun.Commander.Command.Audio
 		Ac3,
 		[LocalizableDescription("AudioConversionType_Aac", typeof(Properties.Resource))]
 		Aac,
+        [LocalizableDescription("AudioConversionType_Opus", typeof(Properties.Resource))]
+		Opus,
 		[LocalizableDescription("AudioConversionType_Vorbis", typeof(Properties.Resource))]
 		Vorbis
     }

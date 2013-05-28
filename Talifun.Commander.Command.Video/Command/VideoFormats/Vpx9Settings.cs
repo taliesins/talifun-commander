@@ -2,14 +2,14 @@
 
 namespace Talifun.Commander.Command.Video.Command.VideoFormats
 {
-    public class FlvSettings : IVideoSettings
-    {
-        private const int MaximumKeyFrameInterval = 600;
-		const string AllFixedOptions = @"-async 4 -deinterlace -y -qcomp 0.7 -refs 7 -cmp chroma -coder 1 -me_range 16 -sc_threshold 40 -i_qfactor 0.71 -level 30 -qmin 10 -qmax 15 -qdiff 4";
+	public class Vpx9Settings : IVideoSettings
+	{
+		const string AllFixedOptions = @"-threads 0";
+		const string FirstPhaseFixedOptions = AllFixedOptions;
 
-		public FlvSettings(VideoConversionElement videoConversion)
+		public Vpx9Settings(VideoConversionElement videoConversion)
 		{
-			CodecName = "flv";
+            CodecName = "libvpx-vp9";
 			var maxVideoBitRate = videoConversion.VideoBitRate;
 			if (videoConversion.MaxVideoBitRate > 0)
 			{
@@ -25,21 +25,11 @@ namespace Talifun.Commander.Command.Video.Command.VideoFormats
 			{
 				keyframeInterval = videoConversion.MaxVideoBitRate;
 			}
-            if (keyframeInterval > MaximumKeyFrameInterval)
-            {
-                keyframeInterval = MaximumKeyFrameInterval;
-            }
-
 			var minKeyframeInterval = videoConversion.FrameRate;
 			if (videoConversion.MinKeyFrameInterval > 0)
 			{
 				minKeyframeInterval = videoConversion.MinKeyFrameInterval;
 			}
-
-            if (minKeyframeInterval > MaximumKeyFrameInterval)
-            {
-                minKeyframeInterval = MaximumKeyFrameInterval;
-            }
 
 			Deinterlace = videoConversion.Deinterlace;
 			Width = videoConversion.Width;
@@ -52,7 +42,7 @@ namespace Talifun.Commander.Command.Video.Command.VideoFormats
 			KeyframeInterval = keyframeInterval;
 			MinKeyframeInterval = minKeyframeInterval;
 
-			FirstPhaseOptions = AllFixedOptions;
+			FirstPhaseOptions = FirstPhaseFixedOptions;
 			SecondPhaseOptions = string.Empty;
 		}
 
@@ -67,9 +57,9 @@ namespace Talifun.Commander.Command.Video.Command.VideoFormats
 		public int MaxBitRate { get; set; } //-maxrate {MaxVideoBitRate}
 		public int BufferSize { get; set; } //-bufsize {BufferSize}
 		public int KeyframeInterval { get; set; }//-g {KeyFrameInterval}
-		public int MinKeyframeInterval { get; set; }//-keyint_min {KeyFrameInterval}
+		public int MinKeyframeInterval { get; set; }//-keyint_min {KeyframeInterval}
 
 		public string FirstPhaseOptions { get; set; }
 		public string SecondPhaseOptions { get; set; }
-    }
+	}
 }

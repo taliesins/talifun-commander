@@ -136,6 +136,9 @@
   <data name="AudioConversionType_NotSpecified" xml:space="preserve">
     <value>Not specified</value>
   </data>
+  <data name="AudioConversionType_Opus" xml:space="preserve">
+    <value>Opus</value>
+  </data>
   <data name="AudioConversionType_Vorbis" xml:space="preserve">
     <value>Vorbis</value>
   </data>
