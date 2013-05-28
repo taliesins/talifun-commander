@@ -32,21 +32,27 @@ namespace Talifun.Commander.Command.PicasaUploader.Configuration
 
 		private void AuthenticatePicasaButton_Click(object sender, RoutedEventArgs e)
 		{
+		    authenticatePicasaButton.IsEnabled = false;
+		    authenticatePicasaLabel.Content = "";
 			try
 			{
-				var query = new PhotoQuery(PicasaQuery.CreatePicasaUri(DataModel.Element.PicasaUsername));
-				query.NumberToRetrieve = 1;
+			    var query = new PhotoQuery(PicasaQuery.CreatePicasaUri(DataModel.Element.PicasaUsername));
+			    query.NumberToRetrieve = 1;
 
-				var picasaService = new PicasaService(DataModel.Element.ApplicationName);
-				picasaService.setUserCredentials(DataModel.Element.GoogleUsername, DataModel.Element.GooglePassword);
+			    var picasaService = new PicasaService(DataModel.Element.ApplicationName);
+			    picasaService.setUserCredentials(DataModel.Element.GoogleUsername, DataModel.Element.GooglePassword);
 
-				var feed = picasaService.Query(query);
+			    var feed = picasaService.Query(query);
 
-				authenticatePicasaLabel.Content = "Authentication Successful";
+			    authenticatePicasaLabel.Content = "Authentication Successful";
 			}
 			catch (Exception exception)
 			{
-				authenticatePicasaLabel.Content = "Authentication Failure";
+			    authenticatePicasaLabel.Content = "Authentication Failure";
+			}
+			finally
+			{
+                authenticatePicasaButton.IsEnabled = true;
 			}
 		}
 	}

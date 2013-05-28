@@ -46,44 +46,87 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 
 		private void CreateDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
-			var config = GetDropBoxConfiguration();
-			var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret);
-			DataModel.Element.DropBoxRequestKey = requestToken.GetTokenKey();
-			DataModel.Element.DropBoxRequestSecret = requestToken.GetTokenSecret();
+		    createDropBoxRequestTokenButton.IsEnabled = false;
+		    DataModel.Element.DropBoxRequestKey = "";
+		    DataModel.Element.DropBoxRequestSecret = "";
+		    try
+		    {
+		        var config = GetDropBoxConfiguration();
+		        var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, DataModel.Element.DropBoxApiKey,
+		                                                                              DataModel.Element.DropBoxApiSecret);
+		        DataModel.Element.DropBoxRequestKey = requestToken.GetTokenKey();
+		        DataModel.Element.DropBoxRequestSecret = requestToken.GetTokenSecret();
+		    }
+		    finally
+		    {
+                createDropBoxRequestTokenButton.IsEnabled = true;
+		    }
 		}
 
 		private void AuthorizeDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
-			var config = GetDropBoxConfiguration();
-		    var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret);                
-			var url = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
-			OpenLink(url);
+		    authorizeDropBoxRequestTokenButton.IsEnabled = false;
+		    try
+		    {
+		        var config = GetDropBoxConfiguration();
+		        var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey,
+		                                                                    DataModel.Element.DropBoxRequestSecret);
+		        var url = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
+		        OpenLink(url);
+		    }
+		    finally
+		    {
+                authorizeDropBoxRequestTokenButton.IsEnabled = true;
+		    }
 		}
 
 		private void AuthenticateDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
-			ICloudStorageAccessToken accessToken = null;	
-			if (!string.IsNullOrEmpty(DataModel.Element.DropBoxAuthenticationSecret))
-			{
-                accessToken = DropBoxExtensions.GetDropBoxAccessToken(DataModel.Element.DropBoxAuthenticationKey, DataModel.Element.DropBoxAuthenticationSecret, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret);
-			}
-			else
-			{
-                var config = GetDropBoxConfiguration();
-                var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey, DataModel.Element.DropBoxRequestSecret);
-				accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config, DataModel.Element.DropBoxApiKey, DataModel.Element.DropBoxApiSecret, requestToken);
+		    authenticateDropBoxRequestTokenButton.IsEnabled = false;
+            displayNameLabel.Content = "";
+            userIdLabel.Content = "";
+            countryLabel.Content = "";
+            quotaInfoLabel.Content = "";
+            quotaInfoNormalLabel.Content = "";
+            quotaInfoSharedLabel.Content = "";
+		    try
+		    {
+		        ICloudStorageAccessToken accessToken = null;
+		        if (!string.IsNullOrEmpty(DataModel.Element.DropBoxAuthenticationSecret))
+		        {
+		            accessToken = DropBoxExtensions.GetDropBoxAccessToken(DataModel.Element.DropBoxAuthenticationKey,
+		                                                                  DataModel.Element.DropBoxAuthenticationSecret,
+		                                                                  DataModel.Element.DropBoxApiKey,
+		                                                                  DataModel.Element.DropBoxApiSecret);
+		        }
+		        else
+		        {
+		            var config = GetDropBoxConfiguration();
+		            var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey,
+		                                                                        DataModel.Element.DropBoxRequestSecret);
+		            accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config,
+		                                                                                                 DataModel.Element
+		                                                                                                          .DropBoxApiKey,
+		                                                                                                 DataModel.Element
+		                                                                                                          .DropBoxApiSecret,
+		                                                                                                 requestToken);
 
-                DataModel.Element.DropBoxAuthenticationKey = accessToken.GetTokenKey();
-				DataModel.Element.DropBoxAuthenticationSecret = accessToken.GetTokenSecret();
-			}
+		            DataModel.Element.DropBoxAuthenticationKey = accessToken.GetTokenKey();
+		            DataModel.Element.DropBoxAuthenticationSecret = accessToken.GetTokenSecret();
+		        }
 
-			var accountInformation = DropBoxStorageProviderTools.GetAccountInformation(accessToken);
-			displayNameLabel.Content = accountInformation.DisplayName;
-			userIdLabel.Content = accountInformation.UserId;
-			countryLabel.Content = accountInformation.Country;
-			quotaInfoLabel.Content = accountInformation.QuotaInfo.QuotaBytes;
-			quotaInfoNormalLabel.Content = accountInformation.QuotaInfo.NormalBytes;
-			quotaInfoSharedLabel.Content = accountInformation.QuotaInfo.SharedBytes;
+		        var accountInformation = DropBoxStorageProviderTools.GetAccountInformation(accessToken);
+		        displayNameLabel.Content = accountInformation.DisplayName;
+		        userIdLabel.Content = accountInformation.UserId;
+		        countryLabel.Content = accountInformation.Country;
+		        quotaInfoLabel.Content = accountInformation.QuotaInfo.QuotaBytes;
+		        quotaInfoNormalLabel.Content = accountInformation.QuotaInfo.NormalBytes;
+		        quotaInfoSharedLabel.Content = accountInformation.QuotaInfo.SharedBytes;
+		    }
+		    finally
+		    {
+                authenticateDropBoxRequestTokenButton.IsEnabled = true;
+		    }
 		}
 	}
 }

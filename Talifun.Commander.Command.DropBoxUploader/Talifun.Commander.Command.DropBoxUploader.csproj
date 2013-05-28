@@ -48,6 +48,9 @@
     <Reference Include="AppLimit.CloudComputing.SharpBox.MockProvider">
       <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\AppLimit.CloudComputing.SharpBox.MockProvider.dll</HintPath>
     </Reference>
+    <Reference Include="BoxApi.V2">
+      <HintPath>..\packages\Box.v2.SDK.2.0\lib\net40\BoxApi.V2.dll</HintPath>
+    </Reference>
     <Reference Include="DropBoxTokenIssuer">
       <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\DropBoxTokenIssuer.exe</HintPath>
     </Reference>

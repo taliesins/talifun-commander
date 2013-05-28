@@ -61,12 +61,11 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
             {
                 _getRequestTokenKeyPropertyInfo = realToken
                     .GetType()
-                    .GetProperty("TokenKey", BindingFlags.Instance | BindingFlags.NonPublic);
+                    .GetProperty("TokenKey", BindingFlags.Instance | BindingFlags.Public);
             }
 
             var tokenKey = (string)_getRequestTokenKeyPropertyInfo.GetValue(realToken, null);
             return tokenKey;
-
         }
 
         private static PropertyInfo _getRequestTokenSecretPropertyInfo;
@@ -78,7 +77,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
             {
                 _getRequestTokenSecretPropertyInfo = realToken
                     .GetType()
-                    .GetProperty("TokenSecret", BindingFlags.Instance | BindingFlags.NonPublic);
+                    .GetProperty("TokenSecret", BindingFlags.Instance | BindingFlags.Public);
             }
 
             var tokenSecret = (string)_getRequestTokenSecretPropertyInfo.GetValue(realToken, null);
@@ -88,7 +87,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
         public static ICloudStorageAccessToken GetDropBoxAccessToken(string dropBoxRequestKey, string dropBoxRequestSecret, string appkey, string appsecret)
         {
             var oAuthToken = GetOAuthToken(dropBoxRequestKey, dropBoxRequestSecret);
-            var dropBoxBaseTokenInformation = new DropBoxBaseTokenInformation()
+            var dropBoxBaseTokenInformation = new DropBoxBaseTokenInformation
                 {
                     ConsumerKey = appkey,
                     ConsumerSecret = appsecret
@@ -96,7 +95,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 
             var requestToken = (DropBoxRequestToken)Assembly.CreateInstance("AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.DropBoxToken",
                 false,
-                BindingFlags.Default | BindingFlags.CreateInstance | BindingFlags.Instance | BindingFlags.NonPublic,
+                BindingFlags.Default | BindingFlags.CreateInstance | BindingFlags.Instance | BindingFlags.Public,
                 null,
                 new Object[] { oAuthToken, dropBoxBaseTokenInformation },
                 null,
@@ -112,7 +111,9 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
             {
                 _getAccessTokenKeyPropertyInfo = dropBoxAccessToken
                     .GetType()
-                    .GetProperty("TokenKey", BindingFlags.Instance | BindingFlags.NonPublic);
+                    .Assembly
+                    .GetType("AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token.OAuthToken")
+                    .GetProperty("TokenKey", BindingFlags.Instance | BindingFlags.Public);
             }
 
             var tokenKey = (string)_getAccessTokenKeyPropertyInfo.GetValue(dropBoxAccessToken, null);
@@ -126,7 +127,9 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
             {
                 _getAccessTokenSecretPropertyInfo = dropBoxAccessToken
                     .GetType()
-                    .GetProperty("TokenSecret", BindingFlags.Instance | BindingFlags.NonPublic);
+                    .Assembly
+                    .GetType("AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token.OAuthToken")
+                    .GetProperty("TokenSecret", BindingFlags.Instance | BindingFlags.Public);
             }
 
             var tokenSecret = (string)_getAccessTokenSecretPropertyInfo.GetValue(dropBoxAccessToken, null);

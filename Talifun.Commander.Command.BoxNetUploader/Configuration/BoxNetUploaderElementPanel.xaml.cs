@@ -56,19 +56,25 @@ namespace Talifun.Commander.Command.BoxNetUploader.Configuration
 
 		private void AuthenticateBoxNetButton_Click(object sender, RoutedEventArgs e)
 		{
+		    authenticateBoxNetButton.IsEnabled = false;
+		    authenticateBoxNetLabel.Content = "";
 			try
 			{
-				var config = GetBoxNetConfiguration();
-				var credentials = CheckAuthenticationToken(DataModel.Element.BoxNetUsername, DataModel.Element.BoxNetPassword);
-				var storage = new CloudStorage();
-				var accessToken = storage.Open(config, credentials);
-				var rootFolder = storage.GetRoot();
+			    var config = GetBoxNetConfiguration();
+			    var credentials = CheckAuthenticationToken(DataModel.Element.BoxNetUsername, DataModel.Element.BoxNetPassword);
+			    var storage = new CloudStorage();
+			    var accessToken = storage.Open(config, credentials);
+			    var rootFolder = storage.GetRoot();
 
-				authenticateBoxNetLabel.Content = "Authentication Successful";
+			    authenticateBoxNetLabel.Content = "Authentication Successful";
 			}
-			catch(Exception exception)
+			catch (Exception exception)
 			{
-				authenticateBoxNetLabel.Content = "Authentication Failure";
+			    authenticateBoxNetLabel.Content = "Authentication Failure";
+			}
+			finally
+			{
+                authenticateBoxNetButton.IsEnabled = true;
 			}
 		}
 	}
