@@ -1,5 +1,5 @@
 ﻿using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.FileWatcher;
+using Talifun.FileWatcher;
 
 namespace Talifun.Commander.Command
 {

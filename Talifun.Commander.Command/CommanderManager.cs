@@ -11,7 +11,7 @@ using Talifun.Commander.Command.ConfigurationChecker.Request;
 using Talifun.Commander.Command.ConfigurationChecker.Response;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FolderWatcher;
-using Talifun.Commander.FileWatcher;
+using Talifun.FileWatcher;
 using log4net;
 
 namespace Talifun.Commander.Command

@@ -310,10 +310,6 @@
     <Resource Include="Resources\CommandPlugins.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Talifun.Commander.FileWatcher\Talifun.Commander.FileWatcher.csproj">
-      <Project>{1060395D-23C8-4B09-8D37-F1097A3BBFAF}</Project>
-      <Name>Talifun.Commander.FileWatcher</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.UI\Talifun.Commander.UI.csproj">
       <Project>{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}</Project>
       <Name>Talifun.Commander.UI</Name>
@@ -342,13 +338,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Magnum.2.1.0\lib\NET40\Magnum.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit, Version=2.7.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.7.2\lib\net40\MassTransit.dll</HintPath>
+    <Reference Include="MassTransit">
+      <HintPath>..\packages\MassTransit.2.7.3\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.MSMQ, Version=2.7.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.7.2\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
+    <Reference Include="MassTransit.Transports.MSMQ">
+      <HintPath>..\packages\MassTransit.2.7.3\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -368,6 +362,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
+    <Reference Include="Talifun.FileWatcher">
+      <HintPath>..\packages\Talifun.FileWatcher.1.7.5.0\lib\net40\Talifun.FileWatcher.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>

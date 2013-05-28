@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Magnum;
-using MassTransit;
 using Talifun.Commander.Command.Configuration;
 using Talifun.Commander.Command.Esb;
 using Talifun.Commander.Command.FolderWatcher.Messages;
-using Talifun.Commander.FileWatcher;
+using Talifun.FileWatcher;
 
 namespace Talifun.Commander.Command.FolderWatcher
 {
@@ -85,7 +84,7 @@ namespace Talifun.Commander.Command.FolderWatcher
 
 		private void OnFileFinishedChangingEvent(object sender, FileFinishedChangingEventArgs e)
 		{
-			if (e.ChangeType == WatcherChangeTypes.Deleted || e.ChangeType == WatcherChangeTypes.Renamed) return;
+            if (e.ChangeType == FileEventType.Deleted || e.ChangeType == FileEventType.Renamed) return;
 
 			var fileFinishedChangingMessage = new FileFinishedChangingMessage
 			{
