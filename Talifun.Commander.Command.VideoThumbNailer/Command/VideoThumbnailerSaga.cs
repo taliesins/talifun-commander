@@ -68,7 +68,7 @@ namespace Talifun.Commander.Command.VideoThumbNailer.Command
 						.Then((saga, message)=>
 						{
 						    var commandMessage = saga.GetVideoThumbnailerWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteVideoThumbnailerWorkflow)
 				);

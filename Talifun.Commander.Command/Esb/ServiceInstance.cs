@@ -1,6 +1,7 @@
 ﻿using System;
 using MassTransit;
 using MassTransit.BusConfigurators;
+using Talifun.Commander.Command.Esb.Serialization;
 
 namespace Talifun.Commander.Command.Esb
 {
@@ -10,15 +11,14 @@ namespace Talifun.Commander.Command.Esb
 
 		public ServiceInstance(string name, string subscriptionServiceUri, Action<ServiceBusConfigurator> configurator)
 		{
-			DataBus = ServiceBusFactory.New(x =>
-			{
-				x.UseJsonSerializer();
-				x.UseSubscriptionService(subscriptionServiceUri);
-				x.ReceiveFrom(name);
-				x.UseControlBus();
-				
-				configurator(x);
-			});
+		    DataBus = ServiceBusFactory.New(x =>
+		        {
+		            x.SetDefaultSerializer<JsonMessageSerializer>();
+		            x.UseSubscriptionService(subscriptionServiceUri);
+		            x.ReceiveFrom(name);
+		            x.UseControlBus();
+		            configurator(x);
+		        });
 		}
 
 		public IServiceBus DataBus { get; private set; }

@@ -66,7 +66,7 @@ namespace Talifun.Commander.Command.YouTubeUploader.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetYouTubeUploaderWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteYouTubeUploaderWorkflow)
 				);

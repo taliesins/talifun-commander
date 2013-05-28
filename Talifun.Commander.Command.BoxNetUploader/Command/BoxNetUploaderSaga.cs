@@ -46,7 +46,7 @@ namespace Talifun.Commander.Command.BoxNetUploader.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetBoxNetUploaderWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteBoxNetUploaderWorkflow)
 					);

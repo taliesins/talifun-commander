@@ -66,7 +66,7 @@ namespace Talifun.Commander.Command.PicasaUploader.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetPicasaUploaderWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecutePicasaUploaderWorkflow)
 				);

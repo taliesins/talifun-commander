@@ -88,7 +88,7 @@ namespace Talifun.Commander.Command.Image.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetImageConversionWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteImageConversionWorkflow)
 				);

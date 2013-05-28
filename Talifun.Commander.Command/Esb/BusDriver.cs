@@ -6,10 +6,10 @@ using MassTransit.Configurators;
 using MassTransit.EndpointConfigurators;
 using MassTransit.Exceptions;
 using MassTransit.Saga;
-using MassTransit.Serialization;
 using MassTransit.Services.Subscriptions.Server;
 using MassTransit.Transports;
 using MassTransit.Transports.Loopback;
+using Talifun.Commander.Command.Esb.Serialization;
 
 namespace Talifun.Commander.Command.Esb
 {
@@ -17,10 +17,10 @@ namespace Talifun.Commander.Command.Esb
 	{
 		private BusDriver()
 		{
-			var defaultSettings = new EndpointFactoryDefaultSettings()
-			                      	{
-			                      		Serializer = new JsonMessageSerializer()
-			                      	};
+			var defaultSettings = new EndpointFactoryDefaultSettings
+			    {
+			        Serializer = new JsonMessageSerializer()
+			    };
 
 			_endpointFactoryConfigurator = new EndpointFactoryConfiguratorImpl(defaultSettings);
 			_endpointFactoryConfigurator.AddTransportFactory<LoopbackTransportFactory>();
@@ -80,7 +80,7 @@ namespace Talifun.Commander.Command.Esb
 		{
 			SubscriptionBus = ServiceBusFactory.New(x =>
 			{
-				x.UseJsonSerializer();
+                x.SetDefaultSerializer<JsonMessageSerializer>();
 				x.SetConcurrentConsumerLimit(1);
 				x.ReceiveFrom(SubscriptionServiceUri);
 			});

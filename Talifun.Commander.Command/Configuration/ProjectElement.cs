@@ -113,7 +113,7 @@ namespace Talifun.Commander.Command.Configuration
 			}
 			set
 			{
-				foreach (var commandPluginProperty in value)
+                foreach (var commandPluginProperty in value.Where(x => x.Value is ISettingConfiguration))
 				{
 					base[commandPluginProperty.Key] = commandPluginProperty.Value;
 				}

@@ -66,7 +66,7 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetFlickrUploaderWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteFlickrUploaderWorkflow)
 				);

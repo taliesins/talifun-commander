@@ -68,7 +68,7 @@ namespace Talifun.Commander.Command.CommandLine.Command
 						.Then((saga, message)=>
 						{
 							var commandMessage = saga.GetCommandLineWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteCommandLineWorkflow)
 				);

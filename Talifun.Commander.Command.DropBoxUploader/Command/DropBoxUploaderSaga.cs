@@ -46,7 +46,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetDropBoxUploaderWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteDropBoxUploaderWorkflow)
 					);

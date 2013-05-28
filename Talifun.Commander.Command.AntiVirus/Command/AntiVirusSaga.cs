@@ -68,7 +68,7 @@ namespace Talifun.Commander.Command.AntiVirus.Command
 						.Then((saga, message)=>
 						{
 						    var commandMessage = saga.GetAntiVirusWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteAntiVirusWorkflow)
 				);

@@ -34,21 +34,24 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+    <Reference Include="FluentAssertions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FluentAssertions.2.0.0.1\lib\net40\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.2.0.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Magnum">
       <HintPath>..\packages\Magnum.2.1.0\lib\NET40\Magnum.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit">
-      <HintPath>..\packages\MassTransit.2.7.1\lib\net40\MassTransit.dll</HintPath>
+    <Reference Include="MassTransit, Version=2.7.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MassTransit.2.7.2\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.MSMQ">
-      <HintPath>..\packages\MassTransit.2.7.1\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
+    <Reference Include="MassTransit.Transports.MSMQ, Version=2.7.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MassTransit.2.7.2\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,11 +101,52 @@
     <Compile Include="MessageSerialization\CommandCancelMessageTestDouble.cs" />
     <Compile Include="MessageSerialization\CommandRequestMessageTestDouble.cs" />
     <Compile Include="MessageSerialization\CommandConfigurationTestRequestMessageTestDouble.cs" />
+    <Compile Include="RuntimeTypeSpecification\RuntimeTypeSpecificationSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj">
       <Project>{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}</Project>
       <Name>Talifun.Commander.Command.AntiVirus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj">
+      <Project>{a2a1a16e-0821-4618-aae4-02d2ec477101}</Project>
+      <Name>Talifun.Commander.Command.Audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj">
+      <Project>{caacdc0e-3a2b-4e12-9d6f-092ea9e58c27}</Project>
+      <Name>Talifun.Commander.Command.BoxNetUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
+      <Project>{3df20ff4-076a-492c-8df4-6c606dde7419}</Project>
+      <Name>Talifun.Commander.Command.CommandLine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj">
+      <Project>{40fda058-e01a-4a9e-8b4c-0a4310468149}</Project>
+      <Name>Talifun.Commander.Command.DropBoxUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj">
+      <Project>{0ab1e479-20c0-4e08-8261-10bc5744b041}</Project>
+      <Name>Talifun.Commander.Command.FlickrUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj">
+      <Project>{cfff52f1-1870-4e7d-b951-800537243a97}</Project>
+      <Name>Talifun.Commander.Command.Image</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj">
+      <Project>{0b7a33a7-d4dc-45da-9c20-238bf9662779}</Project>
+      <Name>Talifun.Commander.Command.PicasaUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj">
+      <Project>{261a8736-8b04-4584-b61e-7002d037100f}</Project>
+      <Name>Talifun.Commander.Command.VideoThumbnailer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
+      <Project>{a0aacc6c-f046-4057-9caa-a313512c4e05}</Project>
+      <Name>Talifun.Commander.Command.Video</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj">
+      <Project>{66a0cfa1-08f1-43a9-beb8-defd4a43221f}</Project>
+      <Name>Talifun.Commander.Command.YouTubeUploader</Name>
     </ProjectReference>
     <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
       <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>

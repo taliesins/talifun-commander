@@ -92,7 +92,7 @@ namespace Talifun.Commander.Command.Video.Command
 						.Then((saga, message) =>
 						{
 							var commandMessage = saga.GetVideoConversionWorkflowMessage();
-							saga.Bus.Publish(commandMessage.GetType(), commandMessage);
+                            saga.Bus.Publish(commandMessage, commandMessage.GetType());
 						})
 						.TransitionTo(WaitingForExecuteVideoConversionWorkflow)
 				);
