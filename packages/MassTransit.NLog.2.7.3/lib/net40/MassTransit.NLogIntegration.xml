@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MassTransit.NLogIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:MassTransit.NLogIntegration.NLogConfiguratorExtensions">
+            <summary>
+            Extensions for configuring NLog with MassTransit
+            </summary>
+        </member>
+        <member name="M:MassTransit.NLogIntegration.NLogConfiguratorExtensions.UseNLog(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+            <summary>
+            Specify that you want to use the NLog logging framework with MassTransit.
+            </summary>
+            <param name="configurator">Optional service bus configurator</param>
+        </member>
+        <member name="M:MassTransit.NLogIntegration.NLogConfiguratorExtensions.UseNLog(MassTransit.BusConfigurators.ServiceBusConfigurator,NLog.LogFactory)">
+            <summary>
+            Specify that you want to use the NLog logging framework with MassTransit.
+            </summary>
+            <param name="configurator">Optional service bus configurator</param>
+            <param name="factory">Required log-producing factory from NLog</param>
+        </member>
+        <member name="T:MassTransit.NLogIntegration.Logging.NLogLog">
+            <summary>
+            A logger that wraps to NLog. See http://stackoverflow.com/questions/7412156/how-to-retain-callsite-information-when-wrapping-nlog
+            </summary>
+        </member>
+        <member name="M:MassTransit.NLogIntegration.Logging.NLogLog.#ctor(NLog.Logger,System.String)">
+            <summary>
+            Create a new NLog logger instance.
+            </summary>
+            <param name="name">Name of type to log as.</param>
+        </member>
+    </members>
+</doc>

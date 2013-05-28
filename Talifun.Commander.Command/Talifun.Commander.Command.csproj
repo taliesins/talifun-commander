@@ -341,6 +341,9 @@
     <Reference Include="MassTransit">
       <HintPath>..\packages\MassTransit.2.7.3\lib\net40\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit.NLogIntegration">
+      <HintPath>..\packages\MassTransit.NLog.2.7.3\lib\net40\MassTransit.NLogIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="MassTransit.Transports.MSMQ">
       <HintPath>..\packages\MassTransit.2.7.3\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
     </Reference>

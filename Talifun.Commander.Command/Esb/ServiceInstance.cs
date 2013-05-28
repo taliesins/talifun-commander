@@ -1,6 +1,7 @@
 ﻿using System;
 using MassTransit;
 using MassTransit.BusConfigurators;
+using MassTransit.NLogIntegration;
 using Talifun.Commander.Command.Esb.Serialization;
 
 namespace Talifun.Commander.Command.Esb
@@ -17,6 +18,7 @@ namespace Talifun.Commander.Command.Esb
 		            x.UseSubscriptionService(subscriptionServiceUri);
 		            x.ReceiveFrom(name);
 		            x.UseControlBus();
+                    x.UseNLog();
 		            configurator(x);
 		        });
 		}
