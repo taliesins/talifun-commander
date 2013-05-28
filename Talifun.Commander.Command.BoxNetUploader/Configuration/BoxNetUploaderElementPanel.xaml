@@ -31,28 +31,7 @@
             <Label Content="Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="nameTextBox" Text="{Binding Path=Element.Name, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
 
-            <Expander Header="Step 1 - Api" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />                        
-                    </Grid.RowDefinitions>            
-            
-                    <Label Content="" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <Button Content="Api Sign Up" Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Left" Margin="3" Name="apiSignupBoxNetTokenButton"  Width="75" Click="ApiSignUpBoxNetTokenButton_Click" />
-                    <Label Content="Done" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="78,3,3,3" VerticalAlignment="Center" Visibility="{Binding Path=Element.BoxNetApiSecret, Converter={StaticResource stringToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <Label Content="BoxNet Api Key:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Stretch" Margin="3" Name="boxNetApiKeyTextBox" Text="{Binding Path=Element.BoxNetApiKey, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
-                </Grid>
-            </Expander>
-
-            <Expander Header="Step 2 - Authentication" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
+            <Expander Header="Step 1 - Authentication" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" IsExpanded="True" Margin="0,3,0,3" Style="{StaticResource GroupBoxExpander}">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />

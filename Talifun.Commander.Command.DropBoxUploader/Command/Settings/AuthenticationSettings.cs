@@ -4,8 +4,6 @@
 	{
 		public string DropBoxApiKey { get; set; }
 		public string DropBoxApiSecret { get; set; }
-		public string DropBoxRequestKey { get; set; }
-		public string DropBoxRequestSecret { get; set; }
 		public string DropBoxAuthenticationKey { get; set; }
 		public string DropBoxAuthenticationSecret { get; set; }
 	}

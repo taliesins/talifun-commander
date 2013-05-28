@@ -47,15 +47,17 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		private void CreateDropBoxRequestTokenButton_Click(object sender, RoutedEventArgs e)
 		{
 		    createDropBoxRequestTokenButton.IsEnabled = false;
-		    DataModel.Element.DropBoxRequestKey = "";
-		    DataModel.Element.DropBoxRequestSecret = "";
+
+            dropBoxRequestKeyTextBox.Text = "";
+		    dropBoxRequestSecretTextBox.Text = "";
+
 		    try
 		    {
 		        var config = GetDropBoxConfiguration();
 		        var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, DataModel.Element.DropBoxApiKey,
 		                                                                              DataModel.Element.DropBoxApiSecret);
-		        DataModel.Element.DropBoxRequestKey = requestToken.GetTokenKey();
-		        DataModel.Element.DropBoxRequestSecret = requestToken.GetTokenSecret();
+                dropBoxRequestKeyTextBox.Text = requestToken.GetTokenKey();
+                dropBoxRequestSecretTextBox.Text = requestToken.GetTokenSecret();
 		    }
 		    finally
 		    {
@@ -69,8 +71,8 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		    try
 		    {
 		        var config = GetDropBoxConfiguration();
-		        var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey,
-		                                                                    DataModel.Element.DropBoxRequestSecret);
+                var requestToken = DropBoxExtensions.GetDropBoxRequestToken(dropBoxRequestKeyTextBox.Text,
+                                                                            dropBoxRequestSecretTextBox.Text);
 		        var url = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
 		        OpenLink(url);
 		    }
@@ -102,8 +104,8 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		        else
 		        {
 		            var config = GetDropBoxConfiguration();
-		            var requestToken = DropBoxExtensions.GetDropBoxRequestToken(DataModel.Element.DropBoxRequestKey,
-		                                                                        DataModel.Element.DropBoxRequestSecret);
+                    var requestToken = DropBoxExtensions.GetDropBoxRequestToken(dropBoxRequestKeyTextBox.Text,
+                                                                                dropBoxRequestSecretTextBox.Text);
 		            accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config,
 		                                                                                                 DataModel.Element
 		                                                                                                          .DropBoxApiKey,

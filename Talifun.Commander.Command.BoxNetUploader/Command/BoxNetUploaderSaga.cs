@@ -145,11 +145,10 @@ namespace Talifun.Commander.Command.BoxNetUploader.Command
 
 		private IBoxNetUploaderSettings GetCommandSettings(BoxNetUploaderElement flickrUploader)
 		{
-			return new BoxNetUploaderSettings()
+			return new BoxNetUploaderSettings
 			{
-				Authentication = new AuthenticationSettings()
+				Authentication = new AuthenticationSettings
 				{
-					BoxNetApiKey = flickrUploader.BoxNetApiKey,
 					BoxNetUsername = flickrUploader.BoxNetUsername,
 					BoxNetPassword = flickrUploader.BoxNetPassword
 				},
@@ -157,7 +156,7 @@ namespace Talifun.Commander.Command.BoxNetUploader.Command
 			};
 		}
 
-		private IExecuteBoxNetUploaderWorkflowMessage GetCommandMessage(IBoxNetUploaderSettings flickrUploaderSettings)
+        private IExecuteBoxNetUploaderWorkflowMessage GetCommandMessage(IBoxNetUploaderSettings boxNetUploaderSettings)
 		{
 			return new ExecuteBoxNetUploaderWorkflowMessage();
 		}

@@ -2,7 +2,6 @@
 {
 	public class AuthenticationSettings : IAuthenticationSettings
 	{
-		public string BoxNetApiKey { get; set; }
 		public string BoxNetUsername { get; set; }
 		public string BoxNetPassword { get; set; }
 	}

@@ -24,20 +24,7 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 
 	    private ICloudStorageAccessToken GetAccessToken(DropBoxConfiguration config, IAuthenticationSettings authenticationSettings)
         {
-            ICloudStorageAccessToken accessToken = null;
-            if (!string.IsNullOrEmpty(authenticationSettings.DropBoxAuthenticationSecret))
-            {
-                accessToken = DropBoxExtensions.GetDropBoxAccessToken(authenticationSettings.DropBoxAuthenticationKey, authenticationSettings.DropBoxAuthenticationSecret, authenticationSettings.DropBoxApiKey, authenticationSettings.DropBoxApiSecret);
-            }
-            else
-            {
-                var requestToken = DropBoxExtensions.GetDropBoxRequestToken(authenticationSettings.DropBoxRequestKey, authenticationSettings.DropBoxRequestSecret);
-                accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config, authenticationSettings.DropBoxApiKey, authenticationSettings.DropBoxApiSecret, requestToken);
-
-                authenticationSettings.DropBoxAuthenticationKey = accessToken.GetTokenKey();
-                authenticationSettings.DropBoxAuthenticationSecret = accessToken.GetTokenSecret();
-            }
-
+            var accessToken  = DropBoxExtensions.GetDropBoxAccessToken(authenticationSettings.DropBoxAuthenticationKey, authenticationSettings.DropBoxAuthenticationSecret, authenticationSettings.DropBoxApiKey, authenticationSettings.DropBoxApiSecret);
             return accessToken;
         }
 

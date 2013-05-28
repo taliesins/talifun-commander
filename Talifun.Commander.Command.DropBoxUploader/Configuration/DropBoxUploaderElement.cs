@@ -13,8 +13,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 	{
 		private static readonly ConfigurationProperty dropBoxApiKey = new ConfigurationProperty("dropBoxApiKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxApiSecret = new ConfigurationProperty("dropBoxApiSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty dropBoxRequestKey = new ConfigurationProperty("dropBoxRequestKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty dropBoxRequestSecret = new ConfigurationProperty("dropBoxRequestSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxAuthenticationKey = new ConfigurationProperty("dropBoxAuthenticationKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxAuthenticationSecret = new ConfigurationProperty("dropBoxAuthenticationSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty dropBoxFolder = new ConfigurationProperty("dropBoxFolder", typeof(string), string.Empty, ConfigurationPropertyOptions.None);
@@ -27,8 +25,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
         {
 			properties.Add(dropBoxApiKey);
 			properties.Add(dropBoxApiSecret);
-			properties.Add(dropBoxRequestKey);
-			properties.Add(dropBoxRequestSecret);
 			properties.Add(dropBoxAuthenticationKey);
 			properties.Add(dropBoxAuthenticationSecret);
 			properties.Add(dropBoxFolder);
@@ -59,28 +55,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Configuration
 		{
 			get { return ((string)base[dropBoxApiSecret]); }
 			set { SetPropertyValue(value, dropBoxApiSecret, "DropBoxApiSecret"); }
-		}
-
-		/// <summary>
-		/// Gets or sets the DropBox request key to use when requesting an authentication token.
-		/// </summary>       
-		[ConfigurationProperty("dropBoxRequestKey", DefaultValue = null)]
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string DropBoxRequestKey
-		{
-			get { return ((string)base[dropBoxRequestKey]); }
-			set { SetPropertyValue(value, dropBoxRequestKey, "DropBoxRequestKey"); }
-		}
-
-		/// <summary>
-		/// Gets or sets the Drop Box request secret to use when requesting an authentication token.
-		/// </summary>       
-		[ConfigurationProperty("dropBoxRequestSecret", DefaultValue = null)]
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string DropBoxRequestSecret
-		{
-			get { return ((string)base[dropBoxRequestSecret]); }
-			set { SetPropertyValue(value, dropBoxRequestSecret, "DropBoxRequestSecret"); }
 		}
 
 		/// <summary>

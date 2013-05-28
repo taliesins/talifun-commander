@@ -4,7 +4,6 @@ using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.BoxNet;
 using Talifun.Commander.Command.Configuration;
-using Talifun.Commander.Command.BoxNetUploader.Properties;
 
 namespace Talifun.Commander.Command.BoxNetUploader.Configuration
 {
@@ -47,11 +46,6 @@ namespace Talifun.Commander.Command.BoxNetUploader.Configuration
 			};
 
 			return credentials;
-		}
-
-		private void ApiSignUpBoxNetTokenButton_Click(object sender, RoutedEventArgs e)
-		{
-			OpenLink(Resource.BoxNetApiSignUpUrl);
 		}
 
 		private void AuthenticateBoxNetButton_Click(object sender, RoutedEventArgs e)

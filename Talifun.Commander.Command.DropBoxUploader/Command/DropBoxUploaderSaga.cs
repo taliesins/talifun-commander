@@ -151,8 +151,6 @@ namespace Talifun.Commander.Command.DropBoxUploader.Command
 				{
 					DropBoxApiKey = flickrUploader.DropBoxApiKey,
 					DropBoxApiSecret = flickrUploader.DropBoxApiSecret,
-					DropBoxRequestKey = flickrUploader.DropBoxRequestKey,
-					DropBoxRequestSecret = flickrUploader.DropBoxRequestSecret,
 					DropBoxAuthenticationKey = flickrUploader.DropBoxAuthenticationKey,
 					DropBoxAuthenticationSecret = flickrUploader.DropBoxAuthenticationSecret,
 				},
