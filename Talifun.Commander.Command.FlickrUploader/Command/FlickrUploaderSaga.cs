@@ -173,13 +173,12 @@ namespace Talifun.Commander.Command.FlickrUploader.Command
 
 		private IFlickrUploaderSettings GetCommandSettings(FlickrUploaderElement flickrUploader)
 		{
-			return new FlickrUploaderSettings()
+			return new FlickrUploaderSettings
 			{
-				Authentication = new AuthenticationSettings()
+				Authentication = new AuthenticationSettings
 				{
 					FlickrApiKey = flickrUploader.FlickrApiKey,
 					FlickrApiSecret = flickrUploader.FlickrApiSecret,
-					FlickrFrob = flickrUploader.FlickrFrob,
 					FlickrAuthToken = flickrUploader.FlickrAuthToken,
 				}
 			};

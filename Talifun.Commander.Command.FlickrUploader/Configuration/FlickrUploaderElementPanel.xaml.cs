@@ -56,52 +56,81 @@ namespace Talifun.Commander.Command.FlickrUploader.Configuration
 
 		private void CreateFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
-			var flickrService = GetFlickrService(null);
-			DataModel.Element.FlickrFrob = flickrService.AuthGetFrob();
+		    createFlickrFrobButton.IsEnabled = false;
+		    flickrFrobTextBox.Text = "";
+		    try
+		    {
+		        var flickrService = GetFlickrService(null);
+		        flickrFrobTextBox.Text = flickrService.AuthGetFrob();
+		    }
+		    finally
+		    {
+                createFlickrFrobButton.IsEnabled = true;
+		    }
 		}
 
 		private void AuthorizeFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
-			var flickrService = GetFlickrService(null);
-			var url = flickrService.AuthCalcUrl(DataModel.Element.FlickrFrob, FlickrNet.AuthLevel.Write);
-			OpenLink(url);
+		    authorizeFlickrFrobButton.IsEnabled = false;
+		    try
+		    {
+		        var flickrService = GetFlickrService(null);
+		        var url = flickrService.AuthCalcUrl(flickrFrobTextBox.Text, FlickrNet.AuthLevel.Write);
+		        OpenLink(url);
+		    }
+		    finally
+		    {
+		        authorizeFlickrFrobButton.IsEnabled = true;
+		    }
 		}
 
 		private void AuthenticateFlickrFrobButton_Click(object sender, RoutedEventArgs e)
 		{
-			Auth authenticationToken = null;
-			if (string.IsNullOrEmpty(DataModel.Element.FlickrAuthToken))
-			{
-				var flickrService = GetFlickrService(null);
-				authenticationToken = flickrService.AuthGetToken(DataModel.Element.FlickrFrob);
-				
-				DataModel.Element.FlickrAuthToken = authenticationToken.Token;
-			}
-			else
-			{
-				var flickrService = GetFlickrService(DataModel.Element.FlickrAuthToken);
-				authenticationToken = flickrService.AuthCheckToken(DataModel.Element.FlickrAuthToken);
-			}
+		    authenticateFlickrFrobButton.IsEnabled = false;
+            fullNameLabel.Content = "";
+            userIdLabel.Content = "";
+            usernameLabel.Content = "";
+		    permissionsLabel.Content = "";
+		    try
+		    {
+		        Auth authenticationToken = null;
+		        if (string.IsNullOrEmpty(DataModel.Element.FlickrAuthToken))
+		        {
+		            var flickrService = GetFlickrService(null);
+		            authenticationToken = flickrService.AuthGetToken(flickrFrobTextBox.Text);
 
-			fullNameLabel.Content = authenticationToken.User.FullName;
-			userIdLabel.Content = authenticationToken.User.UserId;
-			usernameLabel.Content = authenticationToken.User.UserName;
+		            DataModel.Element.FlickrAuthToken = authenticationToken.Token;
+		        }
+		        else
+		        {
+		            var flickrService = GetFlickrService(DataModel.Element.FlickrAuthToken);
+		            authenticationToken = flickrService.AuthCheckToken(DataModel.Element.FlickrAuthToken);
+		        }
 
-			switch (authenticationToken.Permissions)
-			{
-				case AuthLevel.None:
-					permissionsLabel.Content = "None";
-					break;
-				case AuthLevel.Read:
-					permissionsLabel.Content = "Read";
-					break;
-				case AuthLevel.Write:
-					permissionsLabel.Content = "Write";
-					break;
-				case AuthLevel.Delete:
-					permissionsLabel.Content = "Delete";
-					break;
-			}
+		        fullNameLabel.Content = authenticationToken.User.FullName;
+		        userIdLabel.Content = authenticationToken.User.UserId;
+		        usernameLabel.Content = authenticationToken.User.UserName;
+
+		        switch (authenticationToken.Permissions)
+		        {
+		            case AuthLevel.None:
+		                permissionsLabel.Content = "None";
+		                break;
+		            case AuthLevel.Read:
+		                permissionsLabel.Content = "Read";
+		                break;
+		            case AuthLevel.Write:
+		                permissionsLabel.Content = "Write";
+		                break;
+		            case AuthLevel.Delete:
+		                permissionsLabel.Content = "Delete";
+		                break;
+		        }
+		    }
+		    finally
+		    {
+                authenticateFlickrFrobButton.IsEnabled = true;
+		    }
 		}
 	}
 }

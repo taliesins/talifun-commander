@@ -4,7 +4,6 @@
 	{
 		public string FlickrApiKey { get; set; }
 		public string FlickrApiSecret { get; set; }
-		public string FlickrFrob { get; set; }
 		public string FlickrAuthToken { get; set; }
 	}
 }

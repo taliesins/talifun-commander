@@ -13,7 +13,6 @@ namespace Talifun.Commander.Command.FlickrUploader.Configuration
 	{
 		private static readonly ConfigurationProperty flickrApiKey = new ConfigurationProperty("flickrApiKey", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty flickrApiSecret = new ConfigurationProperty("flickrApiSecret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty flickrFrob = new ConfigurationProperty("flickrFrob", typeof(string), "", ConfigurationPropertyOptions.None);
 		private static readonly ConfigurationProperty flickrAuthToken = new ConfigurationProperty("flickrAuthToken", typeof(string), "", ConfigurationPropertyOptions.None);
 
 		/// <summary>
@@ -24,7 +23,6 @@ namespace Talifun.Commander.Command.FlickrUploader.Configuration
         {
 			properties.Add(flickrApiKey);
 			properties.Add(flickrApiSecret);
-			properties.Add(flickrFrob);
 			properties.Add(flickrAuthToken);
         }
 
@@ -53,17 +51,6 @@ namespace Talifun.Commander.Command.FlickrUploader.Configuration
 		{
 			get { return ((string)base[flickrApiSecret]); }
 			set { SetPropertyValue(value, flickrApiSecret, "FlickrApiSecret"); }
-		}
-
-		/// <summary>
-		/// Gets or sets the Flickr Frob to use when sending a request.
-		/// </summary>       
-		[ConfigurationProperty("flickrFrob", DefaultValue = null)]
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string FlickrFrob
-		{
-			get { return ((string)base[flickrFrob]); }
-			set { SetPropertyValue(value, flickrFrob, "FlickrFrob"); }
 		}
 
 		/// <summary>
