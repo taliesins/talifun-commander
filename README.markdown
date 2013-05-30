@@ -3,11 +3,11 @@ Talifun-Commander
 
 # KNOWN ISSUES
 
-webm container broken in 64 bit version of ffmpeg, so if you need to use it then download the 32 bit version of ffmpeg.
+30 second start up time. This is due to masstransit.
 
 # Status
 
-Currently undergoing a lot of changes. So treat this code as Alpha quality!
+Beta quality!
 
 # LICENSE
 Apache 2.0 - see LICENSE.txt
@@ -24,5 +24,6 @@ Apache 2.0 - see LICENSE.txt
 
 ## Build
 * Open the Talifun.Commander.sln solution
-* Change path in app.config to where Examples/Assets/Blog is located
+* Execute Examples/Blog/CreateFolders.bat file to create sample directory strucutre
+* Change path in app.config to where Examples/Blog is located
 * Run solution
