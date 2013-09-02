@@ -3,7 +3,7 @@
   <DirectoryRef Id="INSTALLLOCATION">
     <Component Id="MassTransit.dll" Guid="7a2b5c3b-77e0-4ee9-bfc9-15f3ffcde75e">
       <File Id="MassTransit.dll"
-            Source="$(var.SolutionDir)\packages\MassTransit.2.7.1\lib\net40\MassTransit.dll"
+            Source="$(var.SolutionDir)\packages\MassTransit.2.7.3\lib\net40\MassTransit.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
@@ -17,7 +17,7 @@
     </Component>
     <Component Id="Newtonsoft.Json.dll" Guid="eb4bcd3f-0cae-4012-800f-cf63ad0b00d7">
       <File Id="Newtonsoft.Json.dll"
-            Source="$(var.SolutionDir)\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll"
+            Source="$(var.SolutionDir)\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
@@ -31,7 +31,7 @@
     </Component>
     <Component Id="NLog.dll" Guid="fe91a0da-b22b-4c10-9bbd-791a1798d1d0">
       <File Id="NLog.dll"
-            Source="$(var.SolutionDir)\packages\NLog.2.0.0.2000\lib\net40\NLog.dll"
+            Source="$(var.SolutionDir)\packages\NLog.2.0.1.2\lib\net40\NLog.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
@@ -45,14 +45,14 @@
     </Component>    
     <Component Id="FluentValidation.dll" Guid="23b5d20f-c1ae-4651-9d7c-0a602ff45c52">
       <File Id="FluentValidation.dll"
-            Source="$(var.SolutionDir)\packages\FluentValidation.3.4.6.0\lib\Net40\FluentValidation.dll"
+            Source="$(var.SolutionDir)\packages\FluentValidation.4.0.0.0\lib\Net40\FluentValidation.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Xceed.Wpf.Toolkit.dll" Guid="f6fe35ff-a15a-4b06-be0f-c5b0ee16ded3">
       <File Id="Xceed.Wpf.Toolkit.dll"
-            Source="$(var.SolutionDir)\packages\Extended.Wpf.Toolkit.1.9.0\lib\net40\Xceed.Wpf.Toolkit.dll"
+            Source="$(var.SolutionDir)\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
@@ -87,14 +87,21 @@
     </Component>
     <Component Id="FlickrNet.dll" Guid="2e4f94ce-fca3-4ebb-9a40-35c09fdb12c6">
       <File Id="FlickrNet.dll"
-            Source="$(var.SolutionDir)\References\FlickrNet.dll"
+            Source="$(var.SolutionDir)\packages\FlickrNet.3.5.0\lib\net20\FlickrNet.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="AppLimit.CloudComputing.SharpBox.dll" Guid="5982c3b6-1663-4dec-9e6b-1054525eec1c">
       <File Id="AppLimit.CloudComputing.SharpBox.dll"
-            Source="$(var.SolutionDir)\References\AppLimit.CloudComputing.SharpBox.dll"
+            Source="$(var.SolutionDir)\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\AppLimit.CloudComputing.SharpBox.dll"
+            DiskId="1"
+            KeyPath="yes"
+            Checksum="yes"/>
+    </Component>
+    <Component Id="Talifun.FileWatcher.dll" Guid="8cda886a-48c2-4d14-9dd1-0135473ef633">
+      <File Id="Talifun.FileWatcher.dll"
+            Source="$(var.SolutionDir)\packages\Talifun.FileWatcher.1.7.5.0\lib\net40\Talifun.FileWatcher.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>

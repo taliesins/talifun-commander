@@ -28,7 +28,7 @@ namespace Talifun.Commander.Command
 				commandService.Start();
 			}
 
-			BusDriver.Instance.AddBus(CommandManagerBusName, string.Format("loopback://localhost/{0}", CommandManagerBusName), x =>
+			BusDriver.Instance.AddBus(CommandManagerBusName, string.Format("loopback://localhost/mt_{0}", CommandManagerBusName), x =>
 			{
 				x.Subscribe((subscriber)=>{
 				    subscriber.Saga(_testProjectsConfigurationSagaRepository).Permanent();
@@ -44,6 +44,8 @@ namespace Talifun.Commander.Command
 						commandService.Configure(x);
 					}
 				});
+
+			    var bob = "";
 			});
 
 			//Give the exchange some time to register correctly

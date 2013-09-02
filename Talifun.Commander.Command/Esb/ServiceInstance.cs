@@ -17,7 +17,7 @@ namespace Talifun.Commander.Command.Esb
 		            x.SetDefaultSerializer<JsonMessageSerializer>();
 		            x.UseSubscriptionService(subscriptionServiceUri);
 		            x.ReceiveFrom(name);
-		            x.UseControlBus();
+		            x.UseControlBus(busConfigurator => busConfigurator.ReceiveFrom(new Uri(name + "_Control")));
                     x.UseNLog();
 		            configurator(x);
 		        });

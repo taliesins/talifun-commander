@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Magnum.Extensions;
 using MassTransit;
 using MassTransit.BusConfigurators;
 using MassTransit.Configurators;
@@ -65,6 +66,8 @@ namespace Talifun.Commander.Command.Esb
 			{
 				x.SetEndpointCache(EndpointCache);
 				x.EnableAutoStart();
+                x.SetConcurrentConsumerLimit(4);
+                x.SetReceiveTimeout(50.Milliseconds());
 			});
 		}
 		#endregion

@@ -8,13 +8,6 @@
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
-    <Component Id="Talifun.Commander.FileWatcher.dll" Guid="9cd5384b-83d4-4707-bbd4-a03a7154540c">
-      <File Id="Talifun.Commander.FileWatcher.dll"
-            Source="$(var.Talifun.Commander.Command.TargetDir)\Talifun.Commander.FileWatcher.dll"
-            DiskId="1"
-            KeyPath="yes"
-            Checksum="yes"/>
-    </Component>
     <Component Id="Talifun.Commander.UI.dll" Guid="44ac07b0-6d9b-4573-9d9e-363e3be85e8a">
       <File Id="Talifun.Commander.UI.dll"
             Source="$(var.Talifun.Commander.Command.TargetDir)\Talifun.Commander.UI.dll"
@@ -26,7 +19,7 @@
 
   <ComponentGroup Id="Talifun.Commander.Command.dll">
     <ComponentRef Id="Talifun.Commander.Command.dll"/>
-    <ComponentRef Id="Talifun.Commander.FileWatcher.dll"/>
+    <ComponentRef Id="Talifun.FileWatcher.dll"/>
     <ComponentRef Id="Talifun.Commander.UI.dll"/>
     <ComponentRef Id="NLog.dll"/>
     <ComponentRef Id="log4net.dll"/>
