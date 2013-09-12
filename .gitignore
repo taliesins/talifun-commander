@@ -6,6 +6,7 @@
 *.suo
 *.csproj.user
 *.log
+*.user
 
 # Resharper
 *[Rr]e[Ss]harper.user
