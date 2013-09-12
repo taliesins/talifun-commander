@@ -12,7 +12,7 @@
 Include settings.ps1
 #Include xunit.ps1
 Include nunit.ps1
-Include nuget.ps1
+#Include nuget.ps1
 Include msbuild.ps1
 Include assemblyinfo.ps1
 #Include git.ps1
@@ -40,7 +40,7 @@ Task IntegrationTest -Depends Test {
   Invoke-TestRunner $test_dlls
 }
 
-Task Initialize -Depends Clean, Bootstrap-NuGetPackages {
+Task Initialize -Depends Clean {
   New-Item $release.dir -ItemType Directory | Out-Null
   New-Item $build.dir -ItemType Directory | Out-Null
 }
@@ -53,10 +53,9 @@ Task Clean {
 }
 
 Task Publish -Depends Package {
-  Publish-NuGetPackage
 }
 
-Task Package -Depends Create-NuGetPackage, Create-WixPackage  {
+Task Package -Depends Create-WixPackage  {
 }
 
 Task ? -Description "Helper to display task info" {

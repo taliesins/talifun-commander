@@ -10,6 +10,8 @@
 # Resharper
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
+bin/
+
 /Examples/Blog/Processing
 /Examples/Blog/Original
 /Examples/Blog/Output
