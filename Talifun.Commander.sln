@@ -1,47 +1,47 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Service", "Talifun.Commander.Service\Talifun.Commander.Service.csproj", "{F913C226-1133-4C06-A592-1C2F33B45F7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Service", "src\Talifun.Commander.Service\Talifun.Commander.Service.csproj", "{F913C226-1133-4C06-A592-1C2F33B45F7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.TestHarness", "Talifun.Commander.TestHarness\Talifun.Commander.TestHarness.csproj", "{1C336AE8-D47D-4D9B-AA32-586273FB56C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.TestHarness", "src\Talifun.Commander.TestHarness\Talifun.Commander.TestHarness.csproj", "{1C336AE8-D47D-4D9B-AA32-586273FB56C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command", "Talifun.Commander.Command\Talifun.Commander.Command.csproj", "{EF4D6637-806C-4EAB-B372-A73BEE185F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command", "src\Talifun.Commander.Command\Talifun.Commander.Command.csproj", "{EF4D6637-806C-4EAB-B372-A73BEE185F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.AntiVirus", "Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj", "{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.AntiVirus", "src\Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj", "{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Image", "Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj", "{CFFF52F1-1870-4E7D-B951-800537243A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Image", "src\Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj", "{CFFF52F1-1870-4E7D-B951-800537243A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Audio", "Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj", "{A2A1A16E-0821-4618-AAE4-02D2EC477101}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Audio", "src\Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj", "{A2A1A16E-0821-4618-AAE4-02D2EC477101}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Video", "Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj", "{A0AACC6C-F046-4057-9CAA-A313512C4E05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.Video", "src\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj", "{A0AACC6C-F046-4057-9CAA-A313512C4E05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.VideoThumbnailer", "Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj", "{261A8736-8B04-4584-B61E-7002D037100F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.VideoThumbnailer", "src\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj", "{261A8736-8B04-4584-B61E-7002D037100F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.CommandLine", "Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj", "{3DF20FF4-076A-492C-8DF4-6C606DDE7419}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.CommandLine", "src\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj", "{3DF20FF4-076A-492C-8DF4-6C606DDE7419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Executor.CommandLine", "Talifun.Commander.Executor.CommandLine\Talifun.Commander.Executor.CommandLine.csproj", "{05B649B2-2CF7-4775-A77A-1C4B547915AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Executor.CommandLine", "src\Talifun.Commander.Executor.CommandLine\Talifun.Commander.Executor.CommandLine.csproj", "{05B649B2-2CF7-4775-A77A-1C4B547915AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Executor.FFMpeg", "Talifun.Commander.Executor.FFMpeg\Talifun.Commander.Executor.FFMpeg.csproj", "{DBD72C26-152B-4ED1-8D11-683ABB21F864}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Executor.FFMpeg", "src\Talifun.Commander.Executor.FFMpeg\Talifun.Commander.Executor.FFMpeg.csproj", "{DBD72C26-152B-4ED1-8D11-683ABB21F864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.UI", "Talifun.Commander.UI\Talifun.Commander.UI.csproj", "{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.UI", "src\Talifun.Commander.UI\Talifun.Commander.UI.csproj", "{258B2334-1F51-4EFF-BCC3-DBA40223F6AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Configurator", "Talifun.Commander.Configurator\Talifun.Commander.Configurator.csproj", "{50755B8E-1139-4139-A680-55319954CD0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Configurator", "src\Talifun.Commander.Configurator\Talifun.Commander.Configurator.csproj", "{50755B8E-1139-4139-A680-55319954CD0F}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer", "Talifun.Commander.Installer\Talifun.Commander.Installer.wixproj", "{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Talifun.Commander.Installer", "src\Talifun.Commander.Installer\Talifun.Commander.Installer.wixproj", "{1B4B5ECA-F54B-4A05-A66D-1137AFCB010E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.YouTubeUploader", "Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj", "{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.YouTubeUploader", "src\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj", "{66A0CFA1-08F1-43A9-BEB8-DEFD4A43221F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Specification", "Talifun.Commander.Specification\Talifun.Commander.Specification.csproj", "{C27414CA-59C0-40D8-B0C5-46458F78B399}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Specification", "src\Talifun.Commander.Specification\Talifun.Commander.Specification.csproj", "{C27414CA-59C0-40D8-B0C5-46458F78B399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Tests", "Talifun.Commander.Tests\Talifun.Commander.Tests.csproj", "{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Tests", "src\Talifun.Commander.Tests\Talifun.Commander.Tests.csproj", "{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.PicasaUploader", "Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj", "{0B7A33A7-D4DC-45DA-9C20-238BF9662779}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.PicasaUploader", "src\Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj", "{0B7A33A7-D4DC-45DA-9C20-238BF9662779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.FlickrUploader", "Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj", "{0AB1E479-20C0-4E08-8261-10BC5744B041}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.FlickrUploader", "src\Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj", "{0AB1E479-20C0-4E08-8261-10BC5744B041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.DropBoxUploader", "Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj", "{40FDA058-E01A-4A9E-8B4C-0A4310468149}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.DropBoxUploader", "src\Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj", "{40FDA058-E01A-4A9E-8B4C-0A4310468149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.BoxNetUploader", "Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj", "{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talifun.Commander.Command.BoxNetUploader", "src\Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj", "{CAACDC0E-3A2B-4E12-9D6F-092EA9E58C27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

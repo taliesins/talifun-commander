@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99F13D77-02FD-46A2-B40B-6ADC0239C3D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Talifun.Commander.Tests</RootNamespace>
+    <AssemblyName>Talifun.Commander.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FluentAssertions.2.0.1\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\..\packages\Magnum.2.1.0\lib\NET40\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit">
+      <HintPath>..\..\packages\MassTransit.2.7.3\lib\net40\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.Transports.MSMQ">
+      <HintPath>..\..\packages\MassTransit.2.7.3\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MessageSerialization.feature.cs">
+      <DependentUpon>MessageSerialization.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="MessageSerialization\ElementCollectionTestDouble.cs" />
+    <Compile Include="MessageSerialization\ElementConfiguration.cs" />
+    <Compile Include="MessageSerialization\MessageRegistry.cs" />
+    <Compile Include="MessageSerialization\MessageSerialization.Steps.cs" />
+    <Compile Include="MessageSerialization\ElementTestDouble.cs" />
+    <Compile Include="MessageSubscriptions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageSubscriptions.feature</DependentUpon>
+    </Compile>
+    <Compile Include="MessageSubscriptions\IResponseMessage.cs" />
+    <Compile Include="MessageSubscriptions\MessageSubscriptions.Steps.cs" />
+    <Compile Include="MessageSubscriptions\RequestMessage.cs" />
+    <Compile Include="MessageSubscriptions\RequestMessageHandler.cs" />
+    <Compile Include="MessageSubscriptions\ResponseMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MessageSerialization\CommandCancelMessageTestDouble.cs" />
+    <Compile Include="MessageSerialization\CommandRequestMessageTestDouble.cs" />
+    <Compile Include="MessageSerialization\CommandConfigurationTestRequestMessageTestDouble.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Talifun.Commander.Command.AntiVirus\Talifun.Commander.Command.AntiVirus.csproj">
+      <Project>{2A6BF89F-B832-4CEA-A1B3-03F5AB287228}</Project>
+      <Name>Talifun.Commander.Command.AntiVirus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Audio\Talifun.Commander.Command.Audio.csproj">
+      <Project>{a2a1a16e-0821-4618-aae4-02d2ec477101}</Project>
+      <Name>Talifun.Commander.Command.Audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.BoxNetUploader\Talifun.Commander.Command.BoxNetUploader.csproj">
+      <Project>{caacdc0e-3a2b-4e12-9d6f-092ea9e58c27}</Project>
+      <Name>Talifun.Commander.Command.BoxNetUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.CommandLine\Talifun.Commander.Command.CommandLine.csproj">
+      <Project>{3df20ff4-076a-492c-8df4-6c606dde7419}</Project>
+      <Name>Talifun.Commander.Command.CommandLine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.DropBoxUploader\Talifun.Commander.Command.DropBoxUploader.csproj">
+      <Project>{40fda058-e01a-4a9e-8b4c-0a4310468149}</Project>
+      <Name>Talifun.Commander.Command.DropBoxUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.FlickrUploader\Talifun.Commander.Command.FlickrUploader.csproj">
+      <Project>{0ab1e479-20c0-4e08-8261-10bc5744b041}</Project>
+      <Name>Talifun.Commander.Command.FlickrUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Image\Talifun.Commander.Command.Image.csproj">
+      <Project>{cfff52f1-1870-4e7d-b951-800537243a97}</Project>
+      <Name>Talifun.Commander.Command.Image</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.PicasaUploader\Talifun.Commander.Command.PicasaUploader.csproj">
+      <Project>{0b7a33a7-d4dc-45da-9c20-238bf9662779}</Project>
+      <Name>Talifun.Commander.Command.PicasaUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.VideoThumbNailer\Talifun.Commander.Command.VideoThumbnailer.csproj">
+      <Project>{261a8736-8b04-4584-b61e-7002d037100f}</Project>
+      <Name>Talifun.Commander.Command.VideoThumbnailer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.Video\Talifun.Commander.Command.Video.csproj">
+      <Project>{a0aacc6c-f046-4057-9caa-a313512c4e05}</Project>
+      <Name>Talifun.Commander.Command.Video</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command.YouTubeUploader\Talifun.Commander.Command.YouTubeUploader.csproj">
+      <Project>{66a0cfa1-08f1-43a9-beb8-defd4a43221f}</Project>
+      <Name>Talifun.Commander.Command.YouTubeUploader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Talifun.Commander.Command\Talifun.Commander.Command.csproj">
+      <Project>{EF4D6637-806C-4EAB-B372-A73BEE185F5F}</Project>
+      <Name>Talifun.Commander.Command</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="MessageSerialization.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MessageSerialization.feature.cs</LastGenOutput>
+    </None>
+    <None Include="MessageSubscriptions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MessageSubscriptions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
