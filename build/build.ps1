@@ -17,7 +17,7 @@ Include msbuild.ps1
 Include assemblyinfo.ps1
 #Include git.ps1
 #Include ilmerge.ps1
-Include wix.ps1
+Include msi.ps1
 Include overrides.ps1
 
 properties {
@@ -55,7 +55,7 @@ Task Clean {
 Task Publish -Depends Package {
 }
 
-Task Package -Depends Create-WixPackage  {
+Task Package -Depends Get-MsiPackage   {
 }
 
 Task ? -Description "Helper to display task info" {

@@ -85,11 +85,6 @@
     <Compile Include="MessageSerialization\MessageRegistry.cs" />
     <Compile Include="MessageSerialization\MessageSerialization.Steps.cs" />
     <Compile Include="MessageSerialization\ElementTestDouble.cs" />
-    <Compile Include="MessageSubscriptions.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MessageSubscriptions.feature</DependentUpon>
-    </Compile>
     <Compile Include="MessageSubscriptions\IResponseMessage.cs" />
     <Compile Include="MessageSubscriptions\MessageSubscriptions.Steps.cs" />
     <Compile Include="MessageSubscriptions\RequestMessage.cs" />
@@ -155,10 +150,6 @@
     <None Include="MessageSerialization.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MessageSerialization.feature.cs</LastGenOutput>
-    </None>
-    <None Include="MessageSubscriptions.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>MessageSubscriptions.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
