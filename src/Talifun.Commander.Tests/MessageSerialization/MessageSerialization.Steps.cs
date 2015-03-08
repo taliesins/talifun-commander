@@ -55,7 +55,7 @@ namespace Talifun.Commander.Tests.MessageSerialization
 		[Then(@"the result should be a matching message")]
 		public void ThenTheResultShouldBeAMatchingMessage()
 		{
-			_deserializedMessage.ShouldHave().AllRuntimeProperties().EqualTo(_message);
+			_deserializedMessage.ShouldBeEquivalentTo(_message);
 		}
 	}
 }

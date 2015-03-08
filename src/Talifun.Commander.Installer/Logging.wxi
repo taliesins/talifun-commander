@@ -3,7 +3,7 @@
   <DirectoryRef Id="INSTALLLOCATION">
     <Component Id="NLog.Extended.dll" Guid="adccd52a-db5e-40fa-891f-7cfce8273478">
       <File Id="NLog.Extended.dll"
-            Source="$(var.SolutionDir)\packages\NLog.Extended.2.0.1.2\lib\net40-full\NLog.Extended.dll"
+            Source="$(var.SolutionDir)\packages\NLog.Extended.3.2.0.0\lib\net45-full\NLog.Extended.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>

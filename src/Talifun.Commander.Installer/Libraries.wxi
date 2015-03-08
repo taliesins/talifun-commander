@@ -3,35 +3,35 @@
   <DirectoryRef Id="INSTALLLOCATION">
     <Component Id="MassTransit.dll" Guid="7a2b5c3b-77e0-4ee9-bfc9-15f3ffcde75e">
       <File Id="MassTransit.dll"
-            Source="$(var.SolutionDir)\packages\MassTransit.2.7.3\lib\net40\MassTransit.dll"
+            Source="$(var.SolutionDir)\packages\MassTransit.2.9.9\lib\net40\MassTransit.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Magnum.dll" Guid="a0fdab84-240d-4fe6-924c-5718642076c6">
       <File Id="Magnum.dll"
-            Source="$(var.SolutionDir)\packages\Magnum.2.1.0\lib\NET40\Magnum.dll"
+            Source="$(var.SolutionDir)\packages\Magnum.2.1.3\lib\NET40\Magnum.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Newtonsoft.Json.dll" Guid="eb4bcd3f-0cae-4012-800f-cf63ad0b00d7">
       <File Id="Newtonsoft.Json.dll"
-            Source="$(var.SolutionDir)\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll"
+            Source="$(var.SolutionDir)\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="log4net.dll" Guid="1adc056e-c51d-42e8-a14f-12e942104dda">
       <File Id="log4net.dll"
-            Source="$(var.SolutionDir)\packages\log4net.2.0.0\lib\net40-full\log4net.dll"
+            Source="$(var.SolutionDir)\packages\log4net.2.0.3\lib\net40-full\log4net.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="NLog.dll" Guid="fe91a0da-b22b-4c10-9bbd-791a1798d1d0">
       <File Id="NLog.dll"
-            Source="$(var.SolutionDir)\packages\NLog.2.0.1.2\lib\net40\NLog.dll"
+            Source="$(var.SolutionDir)\packages\NLog.3.2.0.0\lib\net45\NLog.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
@@ -45,49 +45,49 @@
     </Component>    
     <Component Id="FluentValidation.dll" Guid="23b5d20f-c1ae-4651-9d7c-0a602ff45c52">
       <File Id="FluentValidation.dll"
-            Source="$(var.SolutionDir)\packages\FluentValidation.4.0.0.0\lib\Net40\FluentValidation.dll"
+            Source="$(var.SolutionDir)\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Xceed.Wpf.Toolkit.dll" Guid="f6fe35ff-a15a-4b06-be0f-c5b0ee16ded3">
       <File Id="Xceed.Wpf.Toolkit.dll"
-            Source="$(var.SolutionDir)\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll"
+            Source="$(var.SolutionDir)\packages\Extended.Wpf.Toolkit.2.4\lib\net40\Xceed.Wpf.Toolkit.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Google.GData.Client.dll" Guid="9e5c296b-1a32-400d-9bc0-e247d600a4bb">
       <File Id="Google.GData.Client.dll"
-            Source="$(var.SolutionDir)\packages\Google.GData.Client.2.1.0.0\lib\Google.GData.Client.dll"
+            Source="$(var.SolutionDir)\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Google.GData.Extensions.dll" Guid="b7fd16c3-d0df-45ce-91fe-f3e270dcbe5a">
       <File Id="Google.GData.Extensions.dll"
-            Source="$(var.SolutionDir)\packages\Google.GData.Extensions.2.1.0.0\lib\Google.GData.Extensions.dll"
+            Source="$(var.SolutionDir)\packages\Google.GData.Extensions.2.2.0.0\lib\Google.GData.Extensions.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Google.GData.Photos.dll" Guid="e86f2f4a-8bdb-410e-a92a-db98da38066a">
       <File Id="Google.GData.Photos.dll"
-            Source="$(var.SolutionDir)\packages\Google.GData.Photos.2.1.0.0\lib\Google.GData.Photos.dll"
+            Source="$(var.SolutionDir)\packages\Google.GData.Photos.2.2.0.0\lib\Google.GData.Photos.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="Google.GData.YouTube.dll" Guid="4aeee50d-ae03-42f0-b078-b6bcdeec205a">
       <File Id="Google.GData.YouTube.dll"
-            Source="$(var.SolutionDir)\packages\Google.GData.YouTube.2.1.0.0\lib\Google.GData.YouTube.dll"
+            Source="$(var.SolutionDir)\packages\Google.GData.YouTube.2.2.0.0\lib\Google.GData.YouTube.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
     </Component>
     <Component Id="FlickrNet.dll" Guid="2e4f94ce-fca3-4ebb-9a40-35c09fdb12c6">
       <File Id="FlickrNet.dll"
-            Source="$(var.SolutionDir)\packages\FlickrNet.3.5.0\lib\net20\FlickrNet.dll"
+            Source="$(var.SolutionDir)\packages\FlickrNet.3.15.0\lib\net20\FlickrNet.dll"
             DiskId="1"
             KeyPath="yes"
             Checksum="yes"/>
